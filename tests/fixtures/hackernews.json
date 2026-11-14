@@ -1,0 +1,482 @@
+{
+ "exhaustive": {
+  "nbHits": false,
+  "typo": false
+ },
+ "exhaustiveNbHits": false,
+ "exhaustiveTypo": false,
+ "hits": [
+  {
+   "_highlightResult": {
+    "author": {
+     "matchLevel": "none",
+     "matchedWords": [],
+     "value": "z3t1"
+    },
+    "title": {
+     "fullyHighlighted": false,
+     "matchLevel": "full",
+     "matchedWords": [
+      "binary",
+      "search",
+      "tree"
+     ],
+     "value": "“I was just asked to balance a <em>Binary</em> <em>Search</em> <em>Tree</em> by JFK's airport immigration”"
+    },
+    "url": {
+     "matchLevel": "none",
+     "matchedWords": [],
+     "value": "https://twitter.com/cyberomin/status/835888786462625792"
+    }
+   },
+   "_tags": [
+    "story",
+    "author_z3t1",
+    "story_13741746"
+   ],
+   "author": "z3t1",
+   "children": [
+    13741835,
+    13741848,
+    13741871,
+    13741879,
+    13741882,
+    13741901,
+    13741921,
+    13741945,
+    13741949,
+    13741969,
+    13741979,
+    13742158,
+    13742232,
+    13742299,
+    13742321,
+    13742390,
+    13742410,
+    13742425,
+    13742493,
+    13742540,
+    13742548,
+    13742565,
+    13742737,
+    13742747,
+    13742790,
+    13742878,
+    13742977,
+    13743016,
+    13743112,
+    13743152,
+    13743191,
+    13743266,
+    13743345,
+    13743425,
+    13743426,
+    13743467,
+    13743498,
+    13743509,
+    13743567,
+    13743627,
+    13743764,
+    13743820,
+    13743960,
+    13744133,
+    13744850,
+    13745534,
+    13745681,
+    13745828,
+    13748345,
+    13752299,
+    13756925,
+    13760094,
+    13764473,
+    13771381
+   ],
+   "created_at": "2017-02-27T03:53:32Z",
+   "created_at_i": 1488167612,
+   "num_comments": 314,
+   "objectID": "13741746",
+   "points": 660,
+   "story_id": 13741746,
+   "title": "“I was just asked to balance a Binary Search Tree by JFK's airport immigration”",
+   "updated_at": "2026-07-28T02:23:55Z",
+   "url": "https://twitter.com/cyberomin/status/835888786462625792"
+  },
+  {
+   "_highlightResult": {
+    "author": {
+     "matchLevel": "none",
+     "matchedWords": [],
+     "value": "greghn"
+    },
+    "title": {
+     "fullyHighlighted": false,
+     "matchLevel": "full",
+     "matchedWords": [
+      "binary",
+      "search",
+      "tree"
+     ],
+     "value": "B-<em>Trees</em> Require Fewer Comparisons Than Balanced <em>Binary</em> <em>Search</em> <em>Trees</em>"
+    },
+    "url": {
+     "fullyHighlighted": false,
+     "matchLevel": "partial",
+     "matchedWords": [
+      "tree"
+     ],
+     "value": "http://databasearchitects.blogspot.com/2024/06/b-<em>trees</em>-require-fewer-comparisons-than.html"
+    }
+   },
+   "_tags": [
+    "story",
+    "author_greghn",
+    "story_40768418"
+   ],
+   "author": "greghn",
+   "children": [
+    40772240,
+    40772599,
+    40773249,
+    40773575,
+    40774066,
+    40774105,
+    40776814,
+    40778581,
+    40779069
+   ],
+   "created_at": "2024-06-23T16:06:42Z",
+   "created_at_i": 1719158802,
+   "num_comments": 74,
+   "objectID": "40768418",
+   "points": 191,
+   "story_id": 40768418,
+   "title": "B-Trees Require Fewer Comparisons Than Balanced Binary Search Trees",
+   "updated_at": "2026-01-18T09:59:39Z",
+   "url": "http://databasearchitects.blogspot.com/2024/06/b-trees-require-fewer-comparisons-than.html"
+  },
+  {
+   "_highlightResult": {
+    "author": {
+     "matchLevel": "none",
+     "matchedWords": [],
+     "value": "rtheunissen"
+    },
+    "story_text": {
+     "fullyHighlighted": false,
+     "matchLevel": "full",
+     "matchedWords": [
+      "binary",
+      "search",
+      "tree"
+     ],
+     "value": "I started this project many years ago when I was coming up with ideas for immutable data structures for the PHP data structures extension [1]. I wanted to support access by position in a sorted set, which led to the idea of using <em>binary</em> <em>search</em> <em>trees</em> for both lists and sets. However, I did not expect the scope of this project to increase as much as it did.<p>The more I read about <em>binary</em> <em>search</em> <em>trees</em>, the more I thought about them, and so down the rabbit hole I went. \nWhen you read everything you can find about a topic for several years, eventually you develop a deep enough understanding to compose new ideas from different sources.<p>This project is the result of many rejected ideas and countless experiments. \nI tried my best to distill everything I consider important enough to keep, and will continue to develop other ideas as they come along.\nI had no intention to implement anything other than weight-balanced strategies to support positional access, but when I read about rank-balanced <em>trees</em> I knew I had to take on the challenge to implement them.<p>I've been in contact with various authors along the way, specifically Bob Tarjan and Salvador Roura, but have otherwise not received any feedback yet.\nImplementing all the algorithms was incredibly hard work, by far the hardest work I've ever done, so I hope that others may find value in their presentation.<p>There is still so much work that could be done, but there comes a time when working on something alone begins to yield diminishing returns. I hope to continue this project as an open-source collaborative effort, so please feel free to ask questions or suggest changes, however small.<p>[1] <a href=\"https://github.com/php-ds/ext-ds\">https://github.com/php-ds/ext-ds</a>"
+    },
+    "title": {
+     "fullyHighlighted": false,
+     "matchLevel": "full",
+     "matchedWords": [
+      "binary",
+      "search",
+      "tree"
+     ],
+     "value": "Exploring the design space of <em>binary</em> <em>search</em> <em>trees</em>"
+    },
+    "url": {
+     "matchLevel": "none",
+     "matchedWords": [],
+     "value": "https://rtheunissen.github.io/bst/"
+    }
+   },
+   "_tags": [
+    "story",
+    "author_rtheunissen",
+    "story_37130200"
+   ],
+   "author": "rtheunissen",
+   "children": [
+    37130607,
+    37131012,
+    37141193,
+    37142010,
+    37143044,
+    37143523,
+    37146226,
+    37153355,
+    37154887,
+    37159638
+   ],
+   "created_at": "2023-08-15T04:28:43Z",
+   "created_at_i": 1692073723,
+   "num_comments": 28,
+   "objectID": "37130200",
+   "points": 122,
+   "story_id": 37130200,
+   "story_text": "I started this project many years ago when I was coming up with ideas for immutable data structures for the PHP data structures extension [1]. I wanted to support access by position in a sorted set, which led to the idea of using binary search trees for both lists and sets. However, I did not expect the scope of this project to increase as much as it did.<p>The more I read about binary search trees, the more I thought about them, and so down the rabbit hole I went. \nWhen you read everything you can find about a topic for several years, eventually you develop a deep enough understanding to compose new ideas from different sources.<p>This project is the result of many rejected ideas and countless experiments. \nI tried my best to distill everything I consider important enough to keep, and will continue to develop other ideas as they come along.\nI had no intention to implement anything other than weight-balanced strategies to support positional access, but when I read about rank-balanced trees I knew I had to take on the challenge to implement them.<p>I&#x27;ve been in contact with various authors along the way, specifically Bob Tarjan and Salvador Roura, but have otherwise not received any feedback yet.\nImplementing all the algorithms was incredibly hard work, by far the hardest work I&#x27;ve ever done, so I hope that others may find value in their presentation.<p>There is still so much work that could be done, but there comes a time when working on something alone begins to yield diminishing returns. I hope to continue this project as an open-source collaborative effort, so please feel free to ask questions or suggest changes, however small.<p>[1] <a href=\"https:&#x2F;&#x2F;github.com&#x2F;php-ds&#x2F;ext-ds\">https:&#x2F;&#x2F;github.com&#x2F;php-ds&#x2F;ext-ds</a>",
+   "title": "Exploring the design space of binary search trees",
+   "updated_at": "2026-04-14T13:34:52Z",
+   "url": "https://rtheunissen.github.io/bst/"
+  },
+  {
+   "_highlightResult": {
+    "author": {
+     "matchLevel": "none",
+     "matchedWords": [],
+     "value": "defect"
+    },
+    "story_text": {
+     "matchLevel": "none",
+     "matchedWords": [],
+     "value": ""
+    },
+    "title": {
+     "fullyHighlighted": false,
+     "matchLevel": "full",
+     "matchedWords": [
+      "binary",
+      "search",
+      "tree"
+     ],
+     "value": "Data Structures in Clojure: <em>Binary</em> <em>Search</em> <em>Trees</em>"
+    },
+    "url": {
+     "fullyHighlighted": false,
+     "matchLevel": "partial",
+     "matchedWords": [
+      "tree"
+     ],
+     "value": "http://macromancy.com/2014/04/09/data-structures-clojure-<em>trees</em>.html"
+    }
+   },
+   "_tags": [
+    "story",
+    "author_defect",
+    "story_7566429"
+   ],
+   "author": "defect",
+   "children": [
+    7567486,
+    7567982
+   ],
+   "created_at": "2014-04-10T14:36:30Z",
+   "created_at_i": 1397140590,
+   "num_comments": 3,
+   "objectID": "7566429",
+   "points": 47,
+   "story_id": 7566429,
+   "story_text": "",
+   "title": "Data Structures in Clojure: Binary Search Trees",
+   "updated_at": "2023-09-06T22:39:10Z",
+   "url": "http://macromancy.com/2014/04/09/data-structures-clojure-trees.html"
+  },
+  {
+   "_highlightResult": {
+    "author": {
+     "matchLevel": "none",
+     "matchedWords": [],
+     "value": "wglb"
+    },
+    "title": {
+     "fullyHighlighted": false,
+     "matchLevel": "full",
+     "matchedWords": [
+      "binary",
+      "search",
+      "tree"
+     ],
+     "value": "Exploring the design space of <em>binary</em> <em>search</em> <em>trees</em>"
+    },
+    "url": {
+     "matchLevel": "none",
+     "matchedWords": [],
+     "value": "https://rtheunissen.github.io/bst/?"
+    }
+   },
+   "_tags": [
+    "story",
+    "author_wglb",
+    "story_37138464"
+   ],
+   "author": "wglb",
+   "children": [
+    37152928
+   ],
+   "created_at": "2023-08-15T19:47:59Z",
+   "created_at_i": 1692128879,
+   "num_comments": 1,
+   "objectID": "37138464",
+   "points": 47,
+   "story_id": 37138464,
+   "title": "Exploring the design space of binary search trees",
+   "updated_at": "2024-09-20T14:49:15Z",
+   "url": "https://rtheunissen.github.io/bst/?"
+  },
+  {
+   "_highlightResult": {
+    "author": {
+     "matchLevel": "none",
+     "matchedWords": [],
+     "value": "nkh"
+    },
+    "story_text": {
+     "matchLevel": "none",
+     "matchedWords": [],
+     "value": ""
+    },
+    "title": {
+     "fullyHighlighted": false,
+     "matchLevel": "full",
+     "matchedWords": [
+      "binary",
+      "search",
+      "tree"
+     ],
+     "value": "PG's <em>Binary</em> <em>Search</em> <em>Trees</em> in Clojure"
+    },
+    "url": {
+     "matchLevel": "none",
+     "matchedWords": [],
+     "value": "http://paste.lisp.org/display/55915"
+    }
+   },
+   "_tags": [
+    "story",
+    "author_nkh",
+    "story_1313184"
+   ],
+   "author": "nkh",
+   "children": [
+    1313238,
+    1313431,
+    1314836
+   ],
+   "created_at": "2010-05-02T20:55:57Z",
+   "created_at_i": 1272833757,
+   "num_comments": 5,
+   "objectID": "1313184",
+   "points": 38,
+   "story_id": 1313184,
+   "story_text": "",
+   "title": "PG's Binary Search Trees in Clojure",
+   "updated_at": "2023-09-06T19:27:22Z",
+   "url": "http://paste.lisp.org/display/55915"
+  },
+  {
+   "_highlightResult": {
+    "author": {
+     "matchLevel": "none",
+     "matchedWords": [],
+     "value": "ingve"
+    },
+    "title": {
+     "fullyHighlighted": false,
+     "matchLevel": "full",
+     "matchedWords": [
+      "binary",
+      "search",
+      "tree"
+     ],
+     "value": "<em>Binary</em> <em>Search</em> <em>Tree</em> with SIMD"
+    },
+    "url": {
+     "fullyHighlighted": false,
+     "matchLevel": "full",
+     "matchedWords": [
+      "binary",
+      "search",
+      "tree"
+     ],
+     "value": "https://clement-jean.github.io/simd_<em>binary</em>_<em>search</em>_<em>tree</em>/"
+    }
+   },
+   "_tags": [
+    "story",
+    "author_ingve",
+    "story_40948450"
+   ],
+   "author": "ingve",
+   "children": [
+    40990977,
+    40991097
+   ],
+   "created_at": "2024-07-12T19:06:04Z",
+   "created_at_i": 1720811164,
+   "num_comments": 2,
+   "objectID": "40948450",
+   "points": 36,
+   "story_id": 40948450,
+   "title": "Binary Search Tree with SIMD",
+   "updated_at": "2024-09-20T17:26:48Z",
+   "url": "https://clement-jean.github.io/simd_binary_search_tree/"
+  },
+  {
+   "_highlightResult": {
+    "author": {
+     "matchLevel": "none",
+     "matchedWords": [],
+     "value": "soundsop"
+    },
+    "title": {
+     "fullyHighlighted": false,
+     "matchLevel": "full",
+     "matchedWords": [
+      "binary",
+      "search",
+      "tree"
+     ],
+     "value": "B-<em>tree</em> vs. <em>Binary</em> <em>Search</em> <em>Tree</em>"
+    },
+    "url": {
+     "fullyHighlighted": false,
+     "matchLevel": "full",
+     "matchedWords": [
+      "binary",
+      "search",
+      "tree"
+     ],
+     "value": "http://attractivechaos.wordpress.com/2008/09/24/b-<em>tree</em>-vs-<em>binary</em>-<em>search</em>-<em>tree</em>/"
+    }
+   },
+   "_tags": [
+    "story",
+    "author_soundsop",
+    "story_314578"
+   ],
+   "author": "soundsop",
+   "children": [
+    314608,
+    314634,
+    314694,
+    314701
+   ],
+   "created_at": "2008-09-25T06:28:09Z",
+   "created_at_i": 1222324089,
+   "num_comments": 9,
+   "objectID": "314578",
+   "points": 17,
+   "story_id": 314578,
+   "title": "B-tree vs. Binary Search Tree",
+   "updated_at": "2024-09-19T16:27:40Z",
+   "url": "http://attractivechaos.wordpress.com/2008/09/24/b-tree-vs-binary-search-tree/"
+  }
+ ],
+ "hitsPerPage": 8,
+ "nbHits": 119,
+ "nbPages": 15,
+ "page": 0,
+ "params": "query=binary+search+tree&tags=story&hitsPerPage=8&advancedSyntax=true&analyticsTags=backend",
+ "processingTimeMS": 13,
+ "processingTimingsMS": {
+  "_request": {
+   "queue": 1,
+   "roundTrip": 20
+  },
+  "fetch": {
+   "query": 6,
+   "scanning": 5,
+   "total": 12
+  },
+  "total": 13
+ },
+ "query": "binary search tree",
+ "serverTimeMS": 15
+}

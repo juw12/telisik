@@ -1,0 +1,98 @@
+{
+ "responseHeader": {
+  "status": 0,
+  "QTime": 443,
+  "params": {
+   "query": "(((text:binary OR text:binary OR text__reviews:binary)(text:search OR text:search OR text__reviews:search)(text:tree OR text:tree OR text__reviews:tree)) OR (text:&quot;binary search tree&quot; OR text:&quot;binary search tree&quot; OR text__reviews:&quot;binary search tree&quot;)) AND mediatype:texts",
+   "qin": "(binary search tree) AND mediatype:(texts)",
+   "fields": "identifier,title,description,year,date,creator,downloads",
+   "wt": "json",
+   "rows": 6,
+   "start": 0
+  }
+ },
+ "response": {
+  "numFound": 21456,
+  "start": 0,
+  "docs": [
+   {
+    "creator": "Miles, Elizabeth, 1960-",
+    "date": "2006-01-01T00:00:00Z",
+    "description": [
+     "32 pages : 23 cm",
+     "One of a series of titles which looks at animals from different parts of the world and places each animal within the context of its local environment and the natural features of the continent to which it is native",
+     "Includes bibliographical references (pages 31) and index"
+    ],
+    "downloads": 31,
+    "identifier": "watchingtreefrog0000mile_g6u5",
+    "title": "Watching tree frogs in South America",
+    "year": 2006
+   },
+   {
+    "creator": "Morgan, Hawys, author",
+    "date": "2016-01-01T00:00:00Z",
+    "description": [
+     "16 pages : 22 cm",
+     "Includes index"
+    ],
+    "downloads": 43,
+    "identifier": "treetown0000morg",
+    "title": "Tree town",
+    "year": 2016
+   },
+   {
+    "creator": "Pears, Richard",
+    "date": "2008-01-01T00:00:00Z",
+    "description": [
+     "102 pages : 30 cm",
+     "Cover title",
+     "Includes bibliographical references and index"
+    ],
+    "downloads": 82,
+    "identifier": "citethemrightess0000pear_u5a2",
+    "title": "Cite them right : the essential referencing guide",
+    "year": 2008
+   },
+   {
+    "creator": "Clever Factory",
+    "date": "2001-01-01T00:00:00Z",
+    "description": [
+     "At head of title: My life-the flap",
+     "Publisher's no. 806008431071 is for another title",
+     "Cover title",
+     "On board pages",
+     "\"Cuddly Duck Productions.\""
+    ],
+    "downloads": 76,
+    "identifier": "mylifttheflapchr00clev",
+    "title": "My lift-the-flap Christmas tree",
+    "year": 2001
+   },
+   {
+    "creator": "Jones, Gin, author",
+    "date": "2017-01-01T00:00:00Z",
+    "description": [
+     "1 online resource (181 pages)",
+     "From USA Today bestselling authors Gin Jones and Elizabeth Ashby comes \"fresh\" new mystery... Labor Day weekend starts with a bang in Danger Cove when a dead body is found in the orchard of Maria Dolores' mentor and maybe-boyfriend, Merle! While it's clear the murder took place long ago, the police are still keeping Merle tied up, leaving Maria on her own to run the local farmers' market. She's prepared for the petty squabbles, disorganized vendors, and even a rowdy group of costumed pirates-it comes with the territory. But she isn't prepared for the fresh body found in an isolated corner of the market!Maria would like to leave the investigation to the local homicide detective, but he's stretched thin with two separate murders, and her nemesis-the farmer who lost out to her for the manager's job-is demanding quick answers or else. With a nearly endless array of suspects, since the victim had upset just about everyone at the market, Maria has her work cut out for her! Can she prevent another murder in the market... or will she end up the next victim? The Danger Cove books:Secret of the Painted Lady (a Danger Cove Renovation Mystery\\) Murder and Mai Tais (a Danger Cove Cocktail Mystery\\) Death by Scones (a Danger Cove Bakery Mystery\\) Four-Patch of Trouble (a Danger Cove Quilting Mystery\\) Deadly Dye and a Soy Chai (a Danger Cove Hair Salon Mystery\\) Killer Closet Case (a Danger Cove B&B Mystery\\) Tree of Life and Death (a Danger Cove Quilting Mystery\\) A Killing in the Market (a Danger Cove Farmers' Market short story in the \"Killer Beach Reads\" collection\\) Killer Colada (a Danger Cove Cocktail Mystery\\) Passion, Poison & Puppy Dogs (a Danger Cove Pet Sitter Mystery\\) A Novel Death (a Danger Cove Bookshop Mystery\\) Robbing Peter to Kill Paul (a Danger Cove Quilting Mystery\\) Sinister Snickerdoodles (a Danger Cove Bakery Mystery\\) Hurricanes and Heroes (a Danger Cove Cocktail Mystery\\) A Death in the Flower Garden (a Danger Cove Famers' Market Mystery\\) Divas, Diamonds & Death (a Danger Cove Pet Sitter Mystery\\) A Slaying in the Orchard (a Danger Cove Famers' Market Mystery\\) A Secret in the Pumpkin Patch (a Danger Cove Famers' Market Mystery\\) Deadly Dirty Martinis (a Danger Cove Cocktail Mystery\\) A Poison Manicure and Peach Liqueur (a Danger Cove Hair Salon Mystery\\) Not-So-Bright Hopes (a Danger Cove Quilting Mystery short story in the \"Pushing Up Daisies\" collection\\) Tequila Trouble (a Danger Cove Cocktail Mystery\\) Deadly Thanksgiving Sampler (a Danger Cove Quilting mystery\\) Killer Eyeshadow and a Cold Espresso (a Danger Cove Hair Salon Mystery\\) About Danger Cove:Danger Cove is a sleepy little town in the Pacific Northwest and home to renowned mystery novelist, Elizabeth Ashby. While Elizabeth swears the stories she writes are fiction, you can find the inspiration for her murderous tales all over Danger Cove...from the intriguing cast of local characters to the places to eat, play, and explore in Danger Cove. Don't let our name fool you-we're the friendliest (even if deadliest) town in the Pacific Northwest!. --Provided by publisher",
+     "Print version record"
+    ],
+    "downloads": 21,
+    "identifier": "slayinginorchard0000jone",
+    "title": "A slaying in the orchard : a Danger Cove farmers' market mystery",
+    "year": 2017
+   },
+   {
+    "creator": "Bender, William N",
+    "date": "2011-01-01T00:00:00Z",
+    "description": [
+     "x, 196 p. : 26 cm",
+     "Includes bibliographical references (p. 181-190) and index"
+    ],
+    "downloads": 19,
+    "identifier": "rtidifferentiate0000bend",
+    "title": "RTI & differentiated reading in the K-8 classroom",
+    "year": 2011
+   }
+  ]
+ }
+}

@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>How Sumber works: sources, ranking, privacy, limits</title>
+    <meta name="description" content="What Sumber searches, the exact ranking formula, how quotes are chosen, what the Before AI filter does, the operators, what is stored in your browser, and what it cannot do.">
+    <meta name="referrer" content="no-referrer">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#fbfbf8" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#111318" media="(prefers-color-scheme: dark)">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/theme.js"></script>
+  </head>
+  <body class="is-page">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="page-head">
+      <p class="site-name"><a href="./" aria-label="Sumber, back to search">Sumber<sup aria-hidden="true">1</sup></a></p>
+      <a class="tap" href="./">Back to search</a>
+    </header>
+
+    <main id="main" class="prose" tabindex="-1">
+      <h1>How Sumber works</h1>
+      <p class="lede">Sumber is a search page for questions where the source matters. It asks eight public libraries of human-written material at once, ranks what comes back with a formula you can read below, and prints nothing that a source did not write.</p>
+
+      <ul class="toc">
+        <li><a class="tap" href="#what">What it is for</a></li>
+        <li><a class="tap" href="#sources">The eight sources</a></li>
+        <li><a class="tap" href="#ranking">How results are ranked</a></li>
+        <li><a class="tap" href="#quotes">How quotes are chosen</a></li>
+        <li><a class="tap" href="#before-ai">The Before AI switch</a></li>
+        <li><a class="tap" href="#operators">Operators and shortcuts</a></li>
+        <li><a class="tap" href="#default">Make it your default search</a></li>
+        <li><a class="tap" href="#privacy">Privacy</a></li>
+        <li><a class="tap" href="#limits">What it cannot do</a></li>
+        <li><a class="tap" href="#money">Who pays for it</a></li>
+      </ul>
+
+      <h2 id="what">What it is for</h2>
+      <p>Two things have made looking something up harder. Ordinary web results are crowded with pages written to rank and to sell: a study of 7,392 product-review queries found that higher-ranked pages were on average more optimised, more monetised with affiliate links, and showed signs of lower text quality (<a href="https://doi.org/10.1007/978-3-031-56063-7_4">Bevendorff, Wiegmann, Potthast and Stein, ECIR 2024</a>). And answer engines write confident text whose sources often do not check out: the Tow Center tested eight of them on 1,600 queries about news articles and they gave a wrong answer to more than 60 percent (<a href="https://www.cjr.org/tow_center/ai-search-has-a-citation-problem.php">Columbia Journalism Review, March 2025</a>).</p>
+      <p>Sumber takes the opposite position on both. It only searches places that have no shop window to optimise for, and it never writes a sentence of its own. You get the source, the passage, the date, and the reason it is ranked where it is.</p>
+      <p>That makes it good for learning a topic, finding the paper, the accepted answer, the repository or the old discussion. It is the wrong tool for shopping, maps, local results and breaking news, and it says so on every results page.</p>
+
+      <h2 id="sources">The eight sources</h2>
+      <p>Each search goes from your browser straight to the public search interface of each source. None of them needs an account or a key.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th scope="col">Source</th><th scope="col">What it holds</th><th scope="col">Evidence Sumber reads</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Wikipedia</th><td>Encyclopedia articles, in the language you pick in Settings</td><td>None; a fixed value</td></tr>
+            <tr><th scope="row">Stack Exchange</th><td>Questions and answers; one site per search, chosen from the words in your query or with <code>se:</code></td><td>Votes, accepted answer</td></tr>
+            <tr><th scope="row">Hacker News</th><td>Technology discussions since 2007</td><td>Points, comments</td></tr>
+            <tr><th scope="row">GitHub</th><td>Public code repositories</td><td>Stars, archived flag</td></tr>
+            <tr><th scope="row">OpenAlex</th><td>Scholarly papers across all fields (Crossref is asked if OpenAlex fails)</td><td>Citations, open access</td></tr>
+            <tr><th scope="row">Europe PMC</th><td>Life-science and medical papers, including preprints</td><td>Citations, open access</td></tr>
+            <tr><th scope="row">Internet Archive</th><td>Scanned books and other texts</td><td>Downloads</td></tr>
+            <tr><th scope="row">Open Library</th><td>Book records</td><td>Number of editions</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The lenses choose who is asked. <strong>All</strong> asks everyone. <strong>Learn</strong> asks Wikipedia, Stack Exchange, Open Library, the Internet Archive and OpenAlex. <strong>Research</strong> asks OpenAlex, Europe PMC, Wikipedia, the Internet Archive and Open Library. <strong>Build</strong> asks Stack Exchange, GitHub, Hacker News and Wikipedia. <strong>Discuss</strong> asks Hacker News, Stack Exchange and GitHub.</p>
+
+      <h2 id="ranking">How results are ranked</h2>
+      <p>Every source returns its best six to eight items. Sumber pools them, removes duplicates, and gives each one a score. The whole formula is this:</p>
+      <p class="formula">base  = 0.50 &times; text + 0.20 &times; evidence + 0.30 &times; source position
+        + 0.08 if the title is exactly your query
+        + up to 0.10 for items under five years old, only when the query says "latest", "new", "recent" or names this year or last
+score = base &times; lens weight &times; 0.85 ^ (earlier results from the same source)</p>
+      <h3>Text, 0 to 1</h3>
+      <p>BM25 over the title (counted 2.5 times), the excerpt, and tags or authors (counted 0.5 times), after stemming and dropping stop words. It is divided by the best BM25 in the pool and multiplied by <code>0.5 + 0.5 &times; coverage</code>, where coverage is the share of your words that appear at all. If every word is in the title, 0.10 is added. With a quoted phrase, 0.15 is added when the phrase is found and the text score is multiplied by 0.6 when it is not. A result that contains none of your words is dropped.</p>
+      <h3>Evidence, 0 to 1</h3>
+      <p>Only numbers the source itself reports, on a logarithmic scale so that the hundredth vote matters less than the first.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th scope="col">Kind</th><th scope="col">Evidence value</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Encyclopedia</th><td>0.75, fixed</td></tr>
+            <tr><th scope="row">Q&amp;A</th><td>0.30 + 0.30 if an answer is accepted + 0.40 &times; votes (full at 500)</td></tr>
+            <tr><th scope="row">Discussion</th><td>0.20 + 0.50 &times; points (full at 2,000) + 0.30 &times; comments (full at 1,000)</td></tr>
+            <tr><th scope="row">Code</th><td>0.15 + 0.85 &times; stars (full at 100,000); multiplied by 0.8 if the repository is archived</td></tr>
+            <tr><th scope="row">Paper</th><td>0.25 + 0.60 &times; citations (full at 5,000) + 0.15 if open access</td></tr>
+            <tr><th scope="row">Book</th><td>0.30 + 0.70 &times; editions (full at 200)</td></tr>
+            <tr><th scope="row">Archive item</th><td>0.20 + 0.60 &times; downloads (full at 100,000)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Source position, 0 to 1</h3>
+      <p>The sources search their full text. Sumber only sees the title and a short excerpt, so the order a source chose carries real information. First place is 1, and it falls evenly to the last item returned.</p>
+      <h3>Lens weight and repeats</h3>
+      <p>The lens multiplies the score by a value between 0.7 and 1.2 per source; in <strong>All</strong> it runs from 1.1 for Wikipedia to 0.85 for the Internet Archive and Europe PMC. Each further result from the same source is multiplied by 0.85 again, so one source cannot fill the first screen.</p>
+      <p>Press <strong>Why ranked</strong> under any result to see these numbers for that result. Nothing else goes into the order: no payment, no click tracking, no profile of you. The code is one file, <a href="https://github.com/juw12/sumber/blob/main/js/rank.js">js/rank.js</a>.</p>
+
+      <h2 id="quotes">How quotes are chosen</h2>
+      <p>The block titled &ldquo;In the sources&rsquo; own words&rdquo; shows at most three sentences. Each is copied character for character from the excerpt of one of the top ten results. A sentence qualifies only if it is 40 to 320 characters long, is not a question, is not cut off, does not open with a word such as &ldquo;It&rdquo; or &ldquo;This&rdquo; that points back at an earlier sentence, and contains at least half of your query words. No sentence is shortened, joined to another, or reworded. If nothing qualifies, the block is not shown.</p>
+      <p>A quote is still only as right as its source. The number beside it jumps to the result it came from, so you can read the context before you rely on it.</p>
+
+      <h2 id="before-ai">The Before AI switch</h2>
+      <p>ChatGPT was released on 30 November 2022. With the switch on, Sumber asks each source only for items dated on or before that day and drops anything without a date. It is a date filter, not a detector: it cannot prove a text was written by a person, and it hides good work published since.</p>
+      <p>Wikipedia articles keep changing, so in this mode the title links to the Internet Archive&rsquo;s saved copy of the article from that date, the live page is offered as a second link, and Wikipedia text is left out of the quotes. You can set your own window with <code>before:</code> and <code>after:</code>.</p>
+
+      <h2 id="operators">Operators and shortcuts</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th scope="col">Type</th><th scope="col">Effect</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row"><code>"heat treatment"</code></th><td>Prefer results that contain the exact phrase</td></tr>
+            <tr><th scope="row"><code>-steel</code></th><td>Drop results that mention the word</td></tr>
+            <tr><th scope="row"><code>in:wiki</code></th><td>Ask one source only: <code>wiki</code>, <code>qa</code>, <code>hn</code>, <code>code</code>, <code>papers</code>, <code>med</code>, <code>archive</code>, <code>books</code>. Repeat it to ask several.</td></tr>
+            <tr><th scope="row"><code>se:physics</code></th><td>Pick the Stack Exchange site, for example <code>math</code>, <code>engineering</code>, <code>cooking</code>, <code>stackoverflow</code></td></tr>
+            <tr><th scope="row"><code>before:2020</code></th><td>Only items dated up to then. Accepts a year, <code>2020-06</code> or <code>2020-06-15</code>.</td></tr>
+            <tr><th scope="row"><code>after:2019-06</code></th><td>Only items dated from then on</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Bangs: hand the query to another engine</h3>
+      <p>Put one of these anywhere in the query and Sumber sends you there instead of searching.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th scope="col">Bang</th><th scope="col">Goes to</th><th scope="col">Bang</th><th scope="col">Goes to</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row"><code>!g</code></th><td>Google</td><th scope="row"><code>!maps</code></th><td>OpenStreetMap</td></tr>
+            <tr><th scope="row"><code>!ddg</code></th><td>DuckDuckGo</td><th scope="row"><code>!s</code></th><td>Google Scholar</td></tr>
+            <tr><th scope="row"><code>!b</code></th><td>Brave Search</td><th scope="row"><code>!w</code></th><td>Wikipedia</td></tr>
+            <tr><th scope="row"><code>!k</code></th><td>Kagi</td><th scope="row"><code>!gh</code></th><td>GitHub</td></tr>
+            <tr><th scope="row"><code>!m</code></th><td>Marginalia</td><th scope="row"><code>!so</code></th><td>Stack Overflow</td></tr>
+            <tr><th scope="row"><code>!r</code></th><td>Reddit</td><th scope="row"><code>!hn</code></th><td>Hacker News</td></tr>
+            <tr><th scope="row"><code>!yt</code></th><td>YouTube</td><th scope="row"><code>!a</code></th><td>Internet Archive</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Keyboard</h3>
+      <ul>
+        <li><kbd>/</kbd> puts the cursor in the search box</li>
+        <li><kbd>j</kbd> and <kbd>k</kbd> move to the next and previous result</li>
+        <li><kbd>Enter</kbd> opens the result that has focus</li>
+        <li><kbd>Esc</kbd> leaves the search box</li>
+      </ul>
+
+      <h2 id="default">Make it your default search</h2>
+      <p>The address to give your browser is:</p>
+      <p class="formula">https://juw12.github.io/sumber/#q=%s</p>
+      <ul>
+        <li><strong>Chrome, Edge, Brave:</strong> Settings, Search engine, Manage search engines and site search, Add. Name it Sumber, give it a shortcut such as <code>s</code>, paste the address, save, then choose &ldquo;Make default&rdquo; from its menu.</li>
+        <li><strong>Firefox:</strong> open Sumber, right-click the address bar and choose &ldquo;Add Sumber&rdquo;. Then pick it under Settings, Search, Default search engine.</li>
+        <li><strong>Safari:</strong> Safari does not accept custom engines. Add Sumber to the home screen or the Dock instead (Share, Add to Home Screen).</li>
+      </ul>
+      <p>The <code>#</code> matters. Everything after it stays inside your browser, so the server that delivers this page never receives your query. If your browser refuses an address with <code>#</code>, use <code>?q=%s</code>. Sumber moves it behind the <code>#</code> at once, but the host can see that first request.</p>
+      <p>Because bangs work, making Sumber the default does not cut you off from anything: <code>!g cheap flights</code> still lands on Google.</p>
+
+      <h2 id="privacy">Privacy</h2>
+      <ul>
+        <li><strong>No Sumber server exists.</strong> The page is a set of static files on GitHub Pages. GitHub can log that your address loaded the page, as any web host can. It does not receive your query.</li>
+        <li><strong>Your query goes to the sources you ask</strong>, from your own address, the same as if you had searched each of them yourself. They see the query and your IP address. Sumber sends no cookies and no referrer with it.</li>
+        <li><strong>Nothing else can be contacted.</strong> The page carries a content security policy that lets it talk to those source hosts and nowhere else. There are no analytics, fonts, ads or scripts from third parties.</li>
+        <li><strong>Stored in this browser only:</strong> your settings; your last eight searches, if you leave that on; the answers of the last 60 source requests for one hour, so going back is instant; and a note of when a source asked the page to slow down. &ldquo;Clear saved searches and cache&rdquo; in Settings deletes the searches and the cache, and your settings stay.</li>
+        <li><strong>Links you follow</strong> open the source&rsquo;s own site, and from then on its own privacy rules apply.</li>
+      </ul>
+
+      <h2 id="limits">What it cannot do</h2>
+      <ul>
+        <li><strong>It is not a crawl of the web.</strong> If the answer is on a company site, a news site, a forum outside these eight, or a shop, Sumber will not find it. Use a bang.</li>
+        <li><strong>It matches words, not meaning.</strong> There is no language model, so a search for &ldquo;car&rdquo; does not find &ldquo;automobile&rdquo; unless the source&rsquo;s own search does. Try the term the experts would use.</li>
+        <li><strong>It sees excerpts, not full pages.</strong> Ranking and quotes use the title and the few sentences each source returns.</li>
+        <li><strong>It is built for languages with spaces between words.</strong> Wikipedia can be set to other languages, but the word matching is weak for Chinese, Japanese and Thai.</li>
+        <li><strong>Sources set quotas per IP address.</strong> Stack Exchange allows about 300 requests a day and GitHub about 10 searches a minute without an account. On a shared office network they can run out. When that happens the source is marked in the list and the rest still answer.</li>
+        <li><strong>It depends on the sources staying open.</strong> If one changes or closes its interface, that source stops answering until the code is updated.</li>
+        <li><strong>Popularity is not truth.</strong> Votes, stars and citations show that people paid attention, not that something is correct.</li>
+      </ul>
+
+      <h2 id="money">Who pays for it</h2>
+      <p>Nobody has to. There is no server to rent and no search index to buy, so running Sumber costs nothing, and it is free with no account.</p>
+      <p>The code has room for two things, and both are empty unless they are filled in: a link where people can support the project, and one text line at the foot of the page that always begins with the word &ldquo;Sponsor&rdquo;. Neither can touch the results. The ranking code does not read them, and an automated test fails if it ever does.</p>
+      <p>Sumber is open source under the MIT licence: <a href="https://github.com/juw12/sumber">github.com/juw12/sumber</a>.</p>
+    </main>
+
+    <footer class="footer">
+      <ul class="footer-links">
+        <li><a class="tap" href="./">Search</a></li>
+        <li><a class="tap" href="https://github.com/juw12/sumber" rel="noopener noreferrer">Source code</a></li>
+      </ul>
+      <p class="fine">Free, no account, no ads. Results come from the sources named next to them.</p>
+    </footer>
+  </body>
+</html>

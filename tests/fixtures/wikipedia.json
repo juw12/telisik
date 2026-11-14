@@ -1,0 +1,225 @@
+{
+ "batchcomplete": "",
+ "continue": {
+  "sroffset": 8,
+  "gsroffset": 8,
+  "continue": "gsroffset||"
+ },
+ "query": {
+  "pages": {
+   "4266": {
+    "pageid": 4266,
+    "ns": 0,
+    "title": "Binary search",
+    "index": 2,
+    "extract": "In computer science, binary search, also known as half-interval search, logarithmic search, or binary chop, is a search algorithm that finds the position of a target value within a sorted array. Binary search compares the target value to the middle element of the array. If they are not equal, the half in which the target cannot lie is eliminated and the search continues on the remaining half, again taking the middle element to compare to the target value, and repeating this until the target value is found. If the search ends with the remaining half being empty, the target is not in the array.",
+    "contentmodel": "wikitext",
+    "pagelanguage": "en",
+    "pagelanguagehtmlcode": "en",
+    "pagelanguagedir": "ltr",
+    "touched": "2026-11-13T07:06:51Z",
+    "lastrevid": 1384973950,
+    "length": 82812,
+    "fullurl": "https://en.wikipedia.org/wiki/Binary_search",
+    "editurl": "https://en.wikipedia.org/w/index.php?title=Binary_search&action=edit",
+    "canonicalurl": "https://en.wikipedia.org/wiki/Binary_search",
+    "description": "Search algorithm used in sorted arrays",
+    "descriptionsource": "local"
+   },
+   "4320": {
+    "pageid": 4320,
+    "ns": 0,
+    "title": "Binary search tree",
+    "index": 1,
+    "extract": "In computer science, a binary search tree (BST), also called an ordered or sorted binary tree, is a rooted binary tree data structure with the key of each internal node being greater than all the keys in the respective node's left subtree and less than the ones in its right subtree. The time complexity of operations on the binary search tree is linear with respect to the height of the tree.\nBinary search trees allow binary search for fast lookup, addition, and removal of data items. Since the nodes in a BST are laid out so that each comparison skips about half of the remaining tree, the lookup performance is proportional to that of binary logarithm.",
+    "contentmodel": "wikitext",
+    "pagelanguage": "en",
+    "pagelanguagehtmlcode": "en",
+    "pagelanguagedir": "ltr",
+    "touched": "2026-11-13T07:06:51Z",
+    "lastrevid": 1380655902,
+    "length": 31109,
+    "fullurl": "https://en.wikipedia.org/wiki/Binary_search_tree",
+    "editurl": "https://en.wikipedia.org/w/index.php?title=Binary_search_tree&action=edit",
+    "canonicalurl": "https://en.wikipedia.org/wiki/Binary_search_tree",
+    "description": "Rooted binary tree data structure",
+    "descriptionsource": "local"
+   },
+   "4321": {
+    "pageid": 4321,
+    "ns": 0,
+    "title": "Binary tree",
+    "index": 4,
+    "extract": "In computer science, a binary tree is a tree data structure in which each node has at most two children, referred to as the left child and the right child. That is, it is a k-ary tree where k = 2. A recursive definition using set theory is that a binary tree is a triple (L, S, R), where L and R are binary trees or the empty set and S is a singleton (a single–element set) containing the root.\nFrom a graph theory perspective, binary trees as defined here are arborescences.",
+    "contentmodel": "wikitext",
+    "pagelanguage": "en",
+    "pagelanguagehtmlcode": "en",
+    "pagelanguagedir": "ltr",
+    "touched": "2026-11-13T07:06:51Z",
+    "lastrevid": 1378025742,
+    "length": 38488,
+    "fullurl": "https://en.wikipedia.org/wiki/Binary_tree",
+    "editurl": "https://en.wikipedia.org/w/index.php?title=Binary_tree&action=edit",
+    "canonicalurl": "https://en.wikipedia.org/wiki/Binary_tree",
+    "description": "Limited form of tree data structure",
+    "descriptionsource": "local"
+   },
+   "28382": {
+    "pageid": 28382,
+    "ns": 0,
+    "title": "Splay tree",
+    "index": 7,
+    "extract": "A splay tree is a binary search tree with the additional property that recently accessed elements are quick to access again. Like self-balancing binary search trees, a splay tree performs basic operations such as insertion, look-up and removal in O(log n) amortized time. For random access patterns drawn from a non-uniform random distribution, their amortized time can be faster than logarithmic, proportional to the entropy of the access pattern. For many patterns of non-random operations, also, splay trees can take better than logarithmic time, without requiring prior knowledge of the pattern.",
+    "contentmodel": "wikitext",
+    "pagelanguage": "en",
+    "pagelanguagehtmlcode": "en",
+    "pagelanguagedir": "ltr",
+    "touched": "2026-11-13T07:06:56Z",
+    "lastrevid": 1357662481,
+    "length": 33637,
+    "fullurl": "https://en.wikipedia.org/wiki/Splay_tree",
+    "editurl": "https://en.wikipedia.org/w/index.php?title=Splay_tree&action=edit",
+    "canonicalurl": "https://en.wikipedia.org/wiki/Splay_tree",
+    "description": "Self-adjusting binary search tree",
+    "descriptionsource": "local"
+   },
+   "378310": {
+    "pageid": 378310,
+    "ns": 0,
+    "title": "Self-balancing binary search tree",
+    "index": 3,
+    "extract": "In computer science, a self-balancing binary search tree (BST) is any node-based binary search tree that automatically keeps its height (maximal number of levels below the root) small in the face of arbitrary item insertions and deletions.\nThese operations when designed for a self-balancing binary search tree, contain precautionary measures against boundlessly increasing tree height, so that these abstract data structures receive the attribute \"self-balancing\".\nFor height-balanced binary trees, the height is defined to be logarithmic O(log⁡n) in the number n of items. This is the case for many binary search trees, such as AVL trees and red–black trees.",
+    "contentmodel": "wikitext",
+    "pagelanguage": "en",
+    "pagelanguagehtmlcode": "en",
+    "pagelanguagedir": "ltr",
+    "touched": "2026-11-13T07:07:50Z",
+    "lastrevid": 1371949161,
+    "length": 8418,
+    "fullurl": "https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree",
+    "editurl": "https://en.wikipedia.org/w/index.php?title=Self-balancing_binary_search_tree&action=edit",
+    "canonicalurl": "https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree",
+    "description": "Any node-based binary search tree that automatically keeps its height the same",
+    "descriptionsource": "local"
+   },
+   "597584": {
+    "pageid": 597584,
+    "ns": 0,
+    "title": "Tree traversal",
+    "index": 6,
+    "extract": "In computer science, tree traversal (also known as tree search and walking the tree) is a form of graph traversal and refers to the process of visiting (e.g. retrieving, updating, or deleting) each node in a tree data structure exactly once. Such traversals are classified by the order in which the nodes are visited. The following algorithms are described for a binary tree, but they may be generalized to other trees as well.",
+    "contentmodel": "wikitext",
+    "pagelanguage": "en",
+    "pagelanguagehtmlcode": "en",
+    "pagelanguagedir": "ltr",
+    "touched": "2026-11-13T07:08:13Z",
+    "lastrevid": 1379688139,
+    "length": 26971,
+    "fullurl": "https://en.wikipedia.org/wiki/Tree_traversal",
+    "editurl": "https://en.wikipedia.org/w/index.php?title=Tree_traversal&action=edit",
+    "canonicalurl": "https://en.wikipedia.org/wiki/Tree_traversal",
+    "description": "Class of algorithms",
+    "descriptionsource": "local"
+   },
+   "844292": {
+    "pageid": 844292,
+    "ns": 0,
+    "title": "Search tree",
+    "index": 8,
+    "extract": "In computer science, a search tree is a tree data structure used for locating specific keys from within a set. In order for a tree to function as a search tree, the key for each node must be greater than any keys in subtrees on the left, and less than any keys in subtrees on the right.\nThe advantage of search trees is their efficient search time given the tree is reasonably balanced, which is to say the leaves at either end are of comparable depths. Various search-tree data structures exist, several of which also allow efficient insertion and deletion of elements, that operations then have to maintain tree balance.",
+    "contentmodel": "wikitext",
+    "pagelanguage": "en",
+    "pagelanguagehtmlcode": "en",
+    "pagelanguagedir": "ltr",
+    "touched": "2026-11-13T07:08:32Z",
+    "lastrevid": 1379481358,
+    "length": 5522,
+    "fullurl": "https://en.wikipedia.org/wiki/Search_tree",
+    "editurl": "https://en.wikipedia.org/w/index.php?title=Search_tree&action=edit",
+    "canonicalurl": "https://en.wikipedia.org/wiki/Search_tree",
+    "description": "Data structure in tree form sorted for fast lookup",
+    "descriptionsource": "local"
+   },
+   "42382810": {
+    "pageid": 42382810,
+    "ns": 0,
+    "title": "Optimal binary search tree",
+    "index": 5,
+    "extract": "In computer science,  an optimal binary search tree, or optimal BST, sometimes called a weight-balanced binary tree, is a binary search tree which provides the smallest possible search time (or expected search time) for a given sequence of accesses (or access probabilities). Optimal BSTs are generally divided into two types: static and dynamic.\nIn the static optimality problem, the tree cannot be modified after it has been constructed. In this case, there exists some particular layout of the nodes of the tree which provides the smallest expected search time for the given access probabilities.",
+    "contentmodel": "wikitext",
+    "pagelanguage": "en",
+    "pagelanguagehtmlcode": "en",
+    "pagelanguagedir": "ltr",
+    "touched": "2026-11-13T07:28:54Z",
+    "lastrevid": 1385102375,
+    "length": 19515,
+    "fullurl": "https://en.wikipedia.org/wiki/Optimal_binary_search_tree",
+    "editurl": "https://en.wikipedia.org/w/index.php?title=Optimal_binary_search_tree&action=edit",
+    "canonicalurl": "https://en.wikipedia.org/wiki/Optimal_binary_search_tree",
+    "description": "Computer science concept",
+    "descriptionsource": "local"
+   }
+  },
+  "searchinfo": {
+   "totalhits": 1283
+  },
+  "search": [
+   {
+    "ns": 0,
+    "title": "Binary search tree",
+    "pageid": 4320,
+    "snippet": "In computer science, a <span class=\"searchmatch\">binary</span> <span class=\"searchmatch\">search</span> <span class=\"searchmatch\">tree</span> (BST), also called an ordered or sorted <span class=\"searchmatch\">binary</span> <span class=\"searchmatch\">tree</span>, is a rooted <span class=\"searchmatch\">binary</span> <span class=\"searchmatch\">tree</span> data structure with the key of",
+    "timestamp": "2026-10-17T02:31:31Z"
+   },
+   {
+    "ns": 0,
+    "title": "Binary search",
+    "pageid": 4266,
+    "snippet": "In computer science, <span class=\"searchmatch\">binary</span> <span class=\"searchmatch\">search</span>, also known as half-interval <span class=\"searchmatch\">search</span>, logarithmic <span class=\"searchmatch\">search</span>, or <span class=\"searchmatch\">binary</span> chop, is a <span class=\"searchmatch\">search</span> algorithm that finds the position",
+    "timestamp": "2026-11-11T03:58:41Z"
+   },
+   {
+    "ns": 0,
+    "title": "Self-balancing binary search tree",
+    "pageid": 378310,
+    "snippet": "In computer science, a self-balancing <span class=\"searchmatch\">binary</span> <span class=\"searchmatch\">search</span> <span class=\"searchmatch\">tree</span> (BST) is any node-based <span class=\"searchmatch\">binary</span> <span class=\"searchmatch\">search</span> <span class=\"searchmatch\">tree</span> that automatically keeps its height (maximal number",
+    "timestamp": "2026-08-29T14:50:39Z"
+   },
+   {
+    "ns": 0,
+    "title": "Binary tree",
+    "pageid": 4321,
+    "snippet": "In computer science, a <span class=\"searchmatch\">binary</span> <span class=\"searchmatch\">tree</span> is a <span class=\"searchmatch\">tree</span> data structure in which each node has at most two children, referred to as the left child and the right child",
+    "timestamp": "2026-10-02T14:29:37Z"
+   },
+   {
+    "ns": 0,
+    "title": "Optimal binary search tree",
+    "pageid": 42382810,
+    "snippet": "science, an optimal <span class=\"searchmatch\">binary</span> <span class=\"searchmatch\">search</span> <span class=\"searchmatch\">tree</span>, or optimal BST, sometimes called a weight-balanced <span class=\"searchmatch\">binary</span> <span class=\"searchmatch\">tree</span>, is a <span class=\"searchmatch\">binary</span> <span class=\"searchmatch\">search</span> <span class=\"searchmatch\">tree</span> which provides the smallest",
+    "timestamp": "2026-11-11T21:58:58Z"
+   },
+   {
+    "ns": 0,
+    "title": "Tree traversal",
+    "pageid": 597584,
+    "snippet": "In computer science, <span class=\"searchmatch\">tree</span> traversal (also known as <span class=\"searchmatch\">tree</span> <span class=\"searchmatch\">search</span> and walking the <span class=\"searchmatch\">tree</span>) is a form of graph traversal and refers to the process of visiting",
+    "timestamp": "2026-10-11T09:52:35Z"
+   },
+   {
+    "ns": 0,
+    "title": "Splay tree",
+    "pageid": 28382,
+    "snippet": "splay <span class=\"searchmatch\">tree</span> is a <span class=\"searchmatch\">binary</span> <span class=\"searchmatch\">search</span> <span class=\"searchmatch\">tree</span> with the additional property that recently accessed elements are quick to access again. Like self-balancing <span class=\"searchmatch\">binary</span> search",
+    "timestamp": "2026-06-03T22:44:28Z"
+   },
+   {
+    "ns": 0,
+    "title": "Search tree",
+    "pageid": 844292,
+    "snippet": "application stores the entire key–value pair at that particular location. A <span class=\"searchmatch\">Binary</span> <span class=\"searchmatch\">Search</span> <span class=\"searchmatch\">Tree</span> is a node-based data structure where each node contains a key and",
+    "timestamp": "2026-10-10T06:40:09Z"
+   }
+  ]
+ }
+}

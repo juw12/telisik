@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sumber: search the sources</title>
+    <meta name="description" content="A search page that asks Wikipedia, Stack Exchange, Hacker News, GitHub, OpenAlex, Europe PMC, the Internet Archive and Open Library straight from your browser. No generated text, no ads, no account, and the ranking is shown for every result.">
+    <meta name="referrer" content="no-referrer">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#fbfbf8" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#111318" media="(prefers-color-scheme: dark)">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://*.wikipedia.org https://api.stackexchange.com https://hn.algolia.com https://api.github.com https://api.openalex.org https://api.crossref.org https://www.ebi.ac.uk https://archive.org https://openlibrary.org; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="search" type="application/opensearchdescription+xml" title="Sumber" href="opensearch.xml">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/theme.js"></script>
+    <script type="module" src="js/app.js"></script>
+  </head>
+  <body class="is-home">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="masthead" id="masthead">
+        <h1 class="wordmark"><a href="./" id="home-link" aria-label="Sumber, home">Sumber<sup aria-hidden="true">1</sup></a></h1>
+        <p class="tagline">Search the sources. Nothing generated, nothing sponsored.</p>
+        <form id="search-form" class="search" role="search" action="./" method="get">
+          <label for="q" class="visually-hidden">Search the sources</label>
+          <input id="q" name="q" type="search" inputmode="search" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="300" placeholder="Encyclopedia, papers, answers, code">
+          <button type="submit" class="search-button" aria-label="Search">
+            <span class="label-wide" aria-hidden="true">Search</span>
+            <span class="label-narrow" aria-hidden="true">Go</span>
+          </button>
+        </form>
+    </header>
+
+    <div class="controls" id="controls">
+        <div class="lenses" role="group" aria-label="Which sources to ask">
+          <button type="button" class="lens" data-lens="all" aria-pressed="true" title="Every source">All</button>
+          <button type="button" class="lens" data-lens="learn" aria-pressed="false" title="Encyclopedia, answers, books">Learn</button>
+          <button type="button" class="lens" data-lens="research" aria-pressed="false" title="Papers and archives">Research</button>
+          <button type="button" class="lens" data-lens="build" aria-pressed="false" title="Answers, code, discussion">Build</button>
+          <button type="button" class="lens" data-lens="discuss" aria-pressed="false" title="What people argued about">Discuss</button>
+        </div>
+        <button type="button" class="switch" id="before-ai" aria-pressed="false" title="Only show items dated on or before 30 November 2022, the day ChatGPT was released">
+          <span class="switch-box" aria-hidden="true"></span>Before AI <span class="switch-hint">up to Nov 2022</span>
+        </button>
+    </div>
+
+    <main id="main" tabindex="-1">
+      <section id="home-view" class="home" aria-label="About this search">
+        <div class="examples">
+          <h2 class="minor-heading">Try one</h2>
+          <ul class="example-list">
+            <li><a class="tap" href="#q=how+does+bm25+ranking+work">how does bm25 ranking work</a></li>
+            <li><a class="tap" href="#q=sleep+and+memory+consolidation&amp;lens=research">sleep and memory consolidation</a></li>
+            <li><a class="tap" href="#q=why+is+the+sky+blue">why is the sky blue</a></li>
+            <li><a class="tap" href="#q=bolt+preload+torque+relationship">bolt preload torque relationship</a></li>
+            <li><a class="tap" href="#q=binary+search+tree&amp;before_ai=1">binary search tree, before AI</a></li>
+          </ul>
+        </div>
+
+        <div class="recent" id="recent" hidden>
+          <div class="recent-head">
+            <h2 class="minor-heading">Your recent searches</h2>
+            <button type="button" class="text-button" id="clear-history">Clear</button>
+          </div>
+          <ul class="example-list" id="recent-list"></ul>
+          <p class="fine">Kept only in this browser. Turn it off in Settings.</p>
+        </div>
+
+        <ol class="footnotes">
+          <li id="fn-name"><em>Sumber</em> is Indonesian for &ldquo;source&rdquo;.</li>
+          <li>Your browser asks eight public sources directly: Wikipedia, Stack Exchange, Hacker News, GitHub, OpenAlex, Europe PMC, the Internet Archive and Open Library. There is no Sumber server, account or tracker in between.</li>
+          <li>Every title, excerpt and quote on the results page is copied from a source and linked to it. Sumber adds only the labels and the ranking arithmetic. Nothing is written by a language model, and <a href="about.html#ranking">the ranking</a> is shown for each result.</li>
+          <li>It is not a crawl of the whole web. For shops, maps or today&rsquo;s news, add <code>!g</code>, <code>!ddg</code> or <code>!maps</code> and the query is handed to that engine. <a href="about.html#limits">What it cannot do</a>.</li>
+        </ol>
+      </section>
+
+      <section id="results-view" class="results-view" hidden>
+        <aside class="ledger" id="ledger" aria-labelledby="ledger-title">
+          <h2 id="ledger-title" class="minor-heading">Sources asked</h2>
+          <button type="button" id="ledger-toggle" class="ledger-toggle" aria-expanded="false" aria-controls="ledger-list">
+            <span id="ledger-count"></span>
+            <span id="ledger-toggle-word" class="ledger-toggle-word" aria-hidden="true">Show</span>
+          </button>
+          <ul id="ledger-list" class="ledger-list"></ul>
+          <ul id="ledger-notes" class="ledger-notes" hidden></ul>
+        </aside>
+
+        <div class="column">
+          <p id="summary" class="summary" role="status" aria-live="polite"></p>
+          <p id="notice" class="notice" hidden></p>
+          <button type="button" id="update-button" class="update-button" hidden></button>
+
+          <section id="passages" class="passages" aria-labelledby="passages-title" hidden>
+            <h2 id="passages-title" class="minor-heading">In the sources&rsquo; own words</h2>
+            <ol id="passage-list" class="passage-list"></ol>
+            <p class="fine">Sentences copied character for character from the excerpts below. Each red number is the result it comes from. Nothing is rewritten or merged.</p>
+          </section>
+
+          <section aria-labelledby="results-title">
+            <h2 id="results-title" class="visually-hidden">Results</h2>
+            <ol id="results" class="results"></ol>
+            <button type="button" id="more-button" class="more-button" hidden></button>
+          </section>
+
+          <div id="empty" class="empty" hidden></div>
+
+          <nav id="elsewhere" class="elsewhere" aria-labelledby="elsewhere-title" hidden>
+            <h2 id="elsewhere-title" class="minor-heading">Not here?</h2>
+            <p class="fine">Sumber only knows its eight sources. Take the same query somewhere else:</p>
+            <ul id="elsewhere-list" class="elsewhere-list"></ul>
+          </nav>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p id="sponsor" class="sponsor" hidden></p>
+      <ul class="footer-links">
+        <li><a class="tap" href="about.html">How it works</a></li>
+        <li><a class="tap" href="about.html#default">Make it your default search</a></li>
+        <li><a class="tap" href="about.html#operators">Operators and shortcuts</a></li>
+        <li><button type="button" class="text-button" id="open-settings">Settings</button></li>
+        <li><a class="tap" href="https://github.com/juw12/sumber" rel="noopener noreferrer">Source code</a></li>
+        <li id="support" hidden></li>
+      </ul>
+      <p class="fine">Free, no account, no ads. Results come from the sources named next to them.</p>
+    </footer>
+
+    <dialog id="settings" class="settings" aria-labelledby="settings-title">
+      <form method="dialog" class="settings-form">
+        <h2 id="settings-title">Settings</h2>
+        <p class="fine">Saved in this browser only.</p>
+        <label class="field" for="set-theme">
+          <span>Theme</span>
+          <select id="set-theme">
+            <option value="auto">Match my device</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </label>
+        <label class="field" for="set-wiki">
+          <span>Wikipedia language</span>
+          <select id="set-wiki"></select>
+        </label>
+        <label class="check" for="set-history">
+          <input type="checkbox" id="set-history">
+          <span>Keep my recent searches on the home page</span>
+        </label>
+        <label class="check" for="set-newtab">
+          <input type="checkbox" id="set-newtab">
+          <span>Open results in a new tab</span>
+        </label>
+        <div class="settings-actions">
+          <button type="button" class="plain-button" id="clear-data">Clear saved searches and cache</button>
+          <button type="submit" class="search-button" id="close-settings">Done</button>
+        </div>
+        <p class="fine" id="settings-status" role="status" aria-live="polite"></p>
+      </form>
+    </dialog>
+
+    <noscript>
+      <p class="noscript">Sumber runs entirely in your browser, so it needs JavaScript. Nothing is sent anywhere except your query to the public sources listed above.</p>
+    </noscript>
+  </body>
+</html>

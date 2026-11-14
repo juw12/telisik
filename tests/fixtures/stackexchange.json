@@ -1,0 +1,173 @@
+{
+ "items": [
+  {
+   "tags": [
+    "data-structures",
+    "tree",
+    "binary-tree",
+    "binary-search-tree"
+   ],
+   "question_score": 366,
+   "is_accepted": false,
+   "has_accepted_answer": true,
+   "answer_count": 15,
+   "is_answered": true,
+   "question_id": 6380231,
+   "item_type": "question",
+   "score": 366,
+   "last_activity_date": 1723780774,
+   "creation_date": 1308271358,
+   "body": "Can anyone please explain the difference between binary tree and binary search tree with an example?\n",
+   "excerpt": "Can anyone please explain the difference between <span class=\"highlight\">binary</span> <span class=\"highlight\">tree</span> and <span class=\"highlight\">binary</span> <span class=\"highlight\">search</span> <span class=\"highlight\">tree</span> with an example? &hellip; ",
+   "title": "Difference between binary tree and binary search tree"
+  },
+  {
+   "tags": [
+    "algorithm",
+    "language-agnostic",
+    "data-structures",
+    "binary-tree",
+    "skip-lists"
+   ],
+   "question_score": 279,
+   "is_accepted": false,
+   "has_accepted_answer": true,
+   "answer_count": 7,
+   "is_answered": true,
+   "question_id": 256511,
+   "item_type": "question",
+   "score": 279,
+   "last_activity_date": 1739556836,
+   "creation_date": 1225600795,
+   "body": "I recently came across the data structure known as a skip list. It seems to have very similar behavior to a binary search tree. \n\nWhy would you ever want to use a skip list over a binary search tree? \n",
+   "excerpt": "It seems to have very similar behavior to a <span class=\"highlight\">binary</span> <span class=\"highlight\">search</span> <span class=\"highlight\">tree</span>. \n\nWhy would you ever want to use a skip list over a <span class=\"highlight\">binary</span> <span class=\"highlight\">search</span> <span class=\"highlight\">tree</span>? &hellip; ",
+   "title": "Skip List vs. Binary Search Tree"
+  },
+  {
+   "tags": [
+    "data-structures",
+    "computer-science",
+    "binary-tree"
+   ],
+   "question_score": 222,
+   "is_accepted": false,
+   "has_accepted_answer": false,
+   "answer_count": 13,
+   "is_answered": true,
+   "question_id": 300935,
+   "item_type": "question",
+   "score": 222,
+   "last_activity_date": 1716959513,
+   "creation_date": 1227066321,
+   "body": "I&#39;m trying to find the definition of a binary search tree and I keep finding different definitions everywhere. \n\nSome say that for any given subtree the left child key is less than or equal to the root.\n\nSome say that for any given subtree the right child key is greater than or equal to the root.\n\nAnd my old college data structures book says &quot;every element has a key and no two elements have the same key.&quot;\n\nIs there a universal definition of a bst? Particularly in regards to what to do with trees with multiple instances of the same key.\n\nEDIT: Maybe I was unclear, the definitions I&#39;m seeing are\n\n1) left &lt;= root &lt; right\n\n2) left &lt; root &lt;= right\n\n3) left &lt; root &lt; right, such that no duplicate keys exist.\n",
+   "excerpt": "I&#39;m trying to find the definition of a <span class=\"highlight\">binary</span> <span class=\"highlight\">search</span> <span class=\"highlight\">tree</span> and I keep finding different definitions everywhere. &hellip; ",
+   "title": "Are duplicate keys allowed in the definition of binary search trees?"
+  },
+  {
+   "tags": [
+    "c#",
+    ".net",
+    "binary-tree"
+   ],
+   "question_score": 84,
+   "is_accepted": false,
+   "has_accepted_answer": true,
+   "answer_count": 6,
+   "is_answered": true,
+   "question_id": 3262947,
+   "item_type": "question",
+   "score": 84,
+   "last_activity_date": 1653733904,
+   "creation_date": 1279267059,
+   "body": "Is there a built-in binary search tree in .NET 4.0, or do I need to build this abstract data type from scratch?\nEdit\nThis is about the binary search tree specifically, and not abstract data type &quot;trees&quot; in general.\n",
+   "excerpt": "Is there a built-in <span class=\"highlight\">binary</span> <span class=\"highlight\">search</span> <span class=\"highlight\">tree</span> in .NET 4.0, or do I need to build this abstract data type from scratch? &hellip; Edit\nThis is about the <span class=\"highlight\">binary</span> <span class=\"highlight\">search</span> <span class=\"highlight\">tree</span> specifically, and not abstract data type &quot;trees&quot; in general. &hellip; ",
+   "title": "Is there a built-in Binary Search Tree in .NET 4.0?"
+  },
+  {
+   "tags": [
+    "data-structures",
+    "tree",
+    "binary-tree",
+    "binary-search-tree"
+   ],
+   "question_score": 366,
+   "is_accepted": true,
+   "answer_id": 6380314,
+   "is_answered": false,
+   "question_id": 6380231,
+   "item_type": "answer",
+   "score": 623,
+   "last_activity_date": 1457735456,
+   "creation_date": 1308272157,
+   "body": "Binary tree: Tree where each node has up to two leaves\n\n\n\n\n\nBinary search tree: Used for searching. A binary tree where the left child contains only nodes with values less than the parent node, and where the right child only contains nodes with values greater than or equal to the parent.\n\n\n",
+   "excerpt": "<span class=\"highlight\">Binary</span> <span class=\"highlight\">tree</span>: <span class=\"highlight\">Tree</span> where each node has up to two leaves\n\n  1\n / \\\n2   3\n\n\n\n\n<span class=\"highlight\">Binary</span> <span class=\"highlight\">search</span> <span class=\"highlight\">tree</span>: Used for searching. &hellip; A <span class=\"highlight\">binary</span> <span class=\"highlight\">tree</span> where the left child contains only nodes with values less than the parent node, and where the right child only contains nodes with values greater than or equal to the parent.\n\n  2\n / \\\n1 &hellip; ",
+   "title": "Difference between binary tree and binary search tree"
+  },
+  {
+   "tags": [
+    "algorithm",
+    "data-structures",
+    "binary-search-tree"
+   ],
+   "question_score": 69,
+   "is_accepted": false,
+   "has_accepted_answer": false,
+   "answer_count": 33,
+   "is_answered": true,
+   "question_id": 499995,
+   "item_type": "question",
+   "score": 69,
+   "last_activity_date": 1700534657,
+   "creation_date": 1233452498,
+   "body": "I read on here of an exercise in interviews known as validating a binary search tree.\n\nHow exactly does this work? What would one be looking for in validating a binary search tree? I have written a basic search tree, but never heard of this concept.\n",
+   "excerpt": "I read on here of an exercise in interviews known as validating a <span class=\"highlight\">binary</span> <span class=\"highlight\">search</span> <span class=\"highlight\">tree</span>.\n\nHow exactly does this work? What would one be looking for in validating a <span class=\"highlight\">binary</span> <span class=\"highlight\">search</span> <span class=\"highlight\">tree</span>? &hellip; I have written a basic <span class=\"highlight\">search</span> <span class=\"highlight\">tree</span>, but never heard of this concept. &hellip; ",
+   "title": "How do you validate a binary search tree?"
+  },
+  {
+   "tags": [
+    "arrays",
+    "algorithm",
+    "data-structures",
+    "binary-tree",
+    "time-complexity"
+   ],
+   "question_score": 37,
+   "is_accepted": false,
+   "has_accepted_answer": true,
+   "answer_count": 4,
+   "is_answered": true,
+   "question_id": 5968937,
+   "item_type": "question",
+   "score": 37,
+   "last_activity_date": 1607378171,
+   "creation_date": 1305138893,
+   "body": "What is the benefit of a binary search tree over a sorted array with binary search?  Just with mathematical analysis I do not see a difference, so I assume there must be a difference in the low-level implementation overhead.  Analysis of average case run time is shown below.\n\nSorted array with binary search\nsearch: O(log(n))\ninsertion: O(log(n)) (we run binary search to find where to insert the element)\ndeletion: O(log(n)) (we run binary search to find the element to delete)\n\nBinary search tree\nsearch: O(log(n))\ninsertion: O(log(n))\ndeletion: O(log(n))\n\nBinary search trees have a worst case of O(n) for operations listed above (if tree is not balanced), so this seems like it would actually be worse than sorted array with binary search.  \n\nAlso, I am not assuming that we have to sort the array beforehand (which would cost O(nlog(n)), we would insert elements one by one into the array, just as we would do for the binary tree.  The only benefit of BST I can see is that it supports other types of traversals like inorder, preorder, postorder.  \n",
+   "excerpt": "What is the benefit of a <span class=\"highlight\">binary</span> <span class=\"highlight\">search</span> <span class=\"highlight\">tree</span> over a sorted array with <span class=\"highlight\">binary</span> <span class=\"highlight\">search</span>? &hellip; )\n\n<span class=\"highlight\">Binary</span> <span class=\"highlight\">search</span> <span class=\"highlight\">tree</span>\n<span class=\"highlight\">search</span>: O(log(n))\ninsertion: O(log(n))\ndeletion: O(log(n))\n\n<span class=\"highlight\">Binary</span> <span class=\"highlight\">search</span> trees have a worst case of O(n) for operations listed above (if <span class=\"highlight\">tree</span> is not balanced), so this seems like &hellip; ",
+   "title": "Binary search vs binary search tree"
+  },
+  {
+   "tags": [
+    "algorithm",
+    "data-structures",
+    "binary-search-tree",
+    "binary-search"
+   ],
+   "question_score": 45,
+   "is_accepted": false,
+   "has_accepted_answer": true,
+   "answer_count": 5,
+   "is_answered": true,
+   "question_id": 21586085,
+   "item_type": "question",
+   "score": 45,
+   "last_activity_date": 1776351062,
+   "creation_date": 1391626662,
+   "body": "What is the difference between binary search and binary search tree?\n\nAre they the same? Reading the internet it seems the second is only for trees (up to 2 children nodes) and binary search doesn&#39;t follow this rule. I didn&#39;t quite get it.\n",
+   "excerpt": "What is the difference between <span class=\"highlight\">binary</span> <span class=\"highlight\">search</span> and <span class=\"highlight\">binary</span> <span class=\"highlight\">search</span> <span class=\"highlight\">tree</span>?\n\nAre they the same? &hellip; Reading the internet it seems the second is only for trees (up to 2 children nodes) and <span class=\"highlight\">binary</span> <span class=\"highlight\">search</span> doesn&#39;t follow this rule. I didn&#39;t quite get it. &hellip; ",
+   "title": "Difference between binary search and binary search tree?"
+  }
+ ],
+ "has_more": true,
+ "quota_max": 300,
+ "quota_remaining": 229
+}

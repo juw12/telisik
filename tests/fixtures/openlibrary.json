@@ -1,0 +1,181 @@
+{
+ "numFound": 100,
+ "start": 0,
+ "numFoundExact": true,
+ "num_found": 100,
+ "documentation_url": "https://openlibrary.org/dev/docs/api/search",
+ "q": "binary search tree",
+ "offset": null,
+ "docs": [
+  {
+   "author_name": [
+    "Somya Seth",
+    "Divyanshi Sahu",
+    "Prashasti Dixit",
+    "Sanskar Gupta"
+   ],
+   "ebook_access": "no_ebook",
+   "edition_count": 1,
+   "first_publish_year": 2021,
+   "key": "/works/OL35877676W",
+   "title": "Chapters on Binary Search Tree and Microprocessor-Microcontroller"
+  },
+  {
+   "author_name": [
+    "Kari-Jouko Räihä"
+   ],
+   "ebook_access": "no_ebook",
+   "edition_count": 1,
+   "first_publish_year": 1977,
+   "key": "/works/OL46250895W",
+   "title": "An O(log n) insertion algorithm for one-sided height-balanced binary search trees"
+  },
+  {
+   "author_name": [
+    "Roger Doss"
+   ],
+   "ebook_access": "no_ebook",
+   "edition_count": 1,
+   "first_publish_year": 2013,
+   "key": "/works/OL36620792W",
+   "title": "On Some Hash Functions"
+  },
+  {
+   "author_name": [
+    "Abhijit Kumar Roy",
+    "Biplab Pal"
+   ],
+   "ebook_access": "no_ebook",
+   "edition_count": 1,
+   "first_publish_year": 2022,
+   "key": "/works/OL28933001W",
+   "title": "50 Uncommon Quiz Problems in AP/GT Computer Science for High Schools Vol-02 : (Stacks and Queues, Linked Lists and Binary Search Trees, Data Structures Graphs, Recursion in JavaScript)"
+  },
+  {
+   "author_name": [
+    "Donald Knuth"
+   ],
+   "ebook_access": "printdisabled",
+   "edition_count": 65,
+   "first_publish_year": 1922,
+   "key": "/works/OL257263W",
+   "title": "The art of computer programming",
+   "subject": [
+    "Computer programming",
+    "Computer algorithms",
+    "Electronic digital computers",
+    "Programming",
+    "Qa76.6 .k64 1997",
+    "005.1",
+    "Long Now Manual for Civilization",
+    "Algorithms",
+    "Programming (Mathematics)",
+    "Algorithmes",
+    "Ordinateurs",
+    "Programmation",
+    "Computers",
+    "Компьютеры",
+    "Программирование",
+    "Computer programming. Algorithms",
+    "Combinatorial analysis",
+    "Programmeren (computers)",
+    "Software",
+    "Programmation (Informatique)",
+    "Programacao De Computadores",
+    "Computadores E Sistemas Analogicos E Digitais",
+    "Analise De Sistemas E Programacao",
+    "Calculo Numerico",
+    "Long now manual for civilization"
+   ]
+  },
+  {
+   "author_name": [
+    "Thomas H. Cormen",
+    "Charles E. Leiserson",
+    "Ronald L. Rivest",
+    "Clifford Stein"
+   ],
+   "ebook_access": "printdisabled",
+   "edition_count": 18,
+   "first_publish_year": 1990,
+   "key": "/works/OL4781294W",
+   "title": "Introduction to Algorithms",
+   "subject": [
+    "Algorithms",
+    "Computer algorithms",
+    "Computer programming",
+    "open_syllabus_project",
+    "Programming",
+    "Algorithmes",
+    "Programmation (Informatique)",
+    "54.10 theoretical informatics",
+    "Algorithmus",
+    "Informatik",
+    "Theoretische Informatik",
+    "Algorithmentheorie",
+    "COMPUTER PROGRAMS",
+    "PROGRAMMING LANGUAGES",
+    "FILE MAINTENANCE (COMPUTERS)",
+    "SOFTWARE TOOLS",
+    "Long Now Manual for Civilization",
+    "COMPUTERS",
+    "Open Source",
+    "Software Development & Engineering",
+    "Tools",
+    "General",
+    "Algorithmische Programmierung",
+    "Algoritmen",
+    "Datenstruktur",
+    "Datoralgoritmer",
+    "Datastrukturer",
+    "Компьютеры//Алгоритмы и структуры данных",
+    "Компьютеры",
+    "Алгоритмы и структуры данных",
+    "Algorithms and Data Structures",
+    "Qa76.6 .c662 2009",
+    "005.1",
+    "54.10",
+    "Qa76.6 .i5858 2001",
+    "Electronic digital computers, programming"
+   ]
+  },
+  {
+   "author_name": [
+    "Seymour Lipschutz"
+   ],
+   "ebook_access": "borrowable",
+   "edition_count": 2,
+   "first_publish_year": 1986,
+   "key": "/works/OL1832424W",
+   "title": "Schaum's outline of theory and problems of data structures",
+   "subject": [
+    "Data structures (Computer science)",
+    "Structures de données (Informatique)",
+    "Datenstruktur",
+    "Einführung"
+   ]
+  },
+  {
+   "author_name": [
+    "Ellis Horowitz"
+   ],
+   "ebook_access": "borrowable",
+   "edition_count": 4,
+   "first_publish_year": 1993,
+   "key": "/works/OL2676164W",
+   "title": "Fundamentals of data structures in C",
+   "subject": [
+    "C (Computer program language)",
+    "C [plus plus] (computer program language)",
+    "C++ (Computer program language)",
+    "C[plus plus] (Computer program language)",
+    "Data structures (Computer science)",
+    "C",
+    "Structures de donnees (informatique)",
+    "C (langage de programmation)",
+    "Datenstruktur",
+    "C plus plus (computer program language)"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,386 @@
+{
+ "status": "ok",
+ "message-type": "work-list",
+ "message-version": "1.0.0",
+ "message": {
+  "facets": {},
+  "total-results": 738959,
+  "items": [
+   {
+    "abstract": "<title>Abstract</title><p>We present algorithms for a new self-adjusting binary search tree, which we call ashuffle tree. The tree is easy to implement and does not require parent pointers orbalancing information to be stored in tree nodes. A maximum of one rotation isapplied randomly during each traversal, which keeps the cost of balancingactivity low.</p>",
+    "DOI": "10.21203/rs.3.rs-3136752/v1",
+    "type": "posted-content",
+    "is-referenced-by-count": 0,
+    "title": [
+     "Shuffle Tree: A Randomized Self-Adjusting Binary Search Tree"
+    ],
+    "author": [
+     {
+      "given": "Mayur",
+      "family": "Patel",
+      "sequence": "first",
+      "affiliation": [],
+      "role": [
+       {
+        "role": "author",
+        "vocabulary": "crossref"
+       }
+      ]
+     }
+    ],
+    "issued": {
+     "date-parts": [
+      [
+       2023,
+       7,
+       11
+      ]
+     ]
+    },
+    "URL": "https://doi.org/10.21203/rs.3.rs-3136752/v1"
+   },
+   {
+    "abstract": "<p>This research proposes a set of novel algorithms for structural reliability estimation based on muti-dimensional binary search tree and breadth-first search, namely the reliability accuracy supervised searching algorithm, the limit-state surface resolution supervised searching algorithm and the reliability index precision supervised fast searching algorithm. The proposed algorithms have the following strengths: 1, all the proposed algorithms have satisfactory computational efficiency by reducing redundant samplings; 2, their computational costs are stable and computable; 3, performance functions of high non-linearity can be will handled; 4, the reliability accuracy supervised searching algorithm can adapt its computational cost according to a prescribed accuracy; 5, the limit-state surface resolution supervised searching algorithm is able to probe sharp changes on limit-state surfaces; 6, the reliability index precision supervised fast searching algorithm computes the reliability index with sufficient precision in a fast way.</p>",
+    "DOI": "10.31224/osf.io/3xkm8",
+    "type": "posted-content",
+    "is-referenced-by-count": 0,
+    "title": [
+     "Breadth-First Search Multi-Dimensional Binary Search Tree based Algorithms for Structural"
+    ],
+    "author": [
+     {
+      "ORCID": "https://orcid.org/0000-0002-6859-8104",
+      "authenticated-orcid": true,
+      "given": "Zhifeng",
+      "family": "Xu",
+      "sequence": "first",
+      "affiliation": [],
+      "role": [
+       {
+        "role": "author",
+        "vocabulary": "crossref"
+       }
+      ]
+     }
+    ],
+    "issued": {
+     "date-parts": [
+      [
+       2022,
+       1,
+       10
+      ]
+     ]
+    },
+    "URL": "https://doi.org/10.31224/osf.io/3xkm8"
+   },
+   {
+    "abstract": "<jats:p>Concurrent binary search trees are widely used in multi-threaded systems, but combining non-blocking progress with efficient balancing remains dif- ficult. Many existing lock-free BSTs avoid balancing, while balanced trees often rely on locks. This creates a gap for designs that support both lock- free updates and structural balance.\nThis thesis presents the Relaxed Balanced Lock-Free Binary Search Tree (RBLFBST), a new algorithm that integrates lock-free operations with re- laxed balancing. The design separates structural maintenance from the main operations. Insert and delete operations remain simple, while a ded- icated maintenance thread performs physical removal of nodes and rebal- ancing. All updates are coordinated using descriptors and single-word CAS operations, allowing the algorithm to remain lock-free without re- quiring complex multi-word primitives.\nA correctness proof is developed to establish linearizability and lock- freedom of the algorithm. The main challenge is that search operations execute concurrently with structural changes. The proof therefore rea- sons about traversals that remain valid over their execution interval, rather than requiring a single consistent snapshot. This allows operations to be shown correct even when the structure is being modified concurrently.\nAn experimental evaluation compares RBLFBST with several existing concurrent BSTs under different workloads and key ranges. The results show that the algorithm scales well with increasing thread count and per- forms competitively, particularly in workloads where balancing is impor- tant.\nOverall, this work shows that lock-free balanced binary search trees are feasible in practice. It also highlights the importance of reasoning about traversals under concurrency when proving correctness of such structures.</jats:p>",
+    "DOI": "10.26686/p3tn-cj1a",
+    "type": "dissertation",
+    "is-referenced-by-count": 0,
+    "title": [
+     "A Verified Relaxed Balanced Non-Blocking Binary Search Tree"
+    ],
+    "author": [
+     {
+      "given": "Manish Kumar",
+      "family": "Singh",
+      "sequence": "first",
+      "affiliation": [
+       {
+        "id": [
+         {
+          "id": "https://ror.org/0040r6f76",
+          "id-type": "ROR",
+          "asserted-by": "publisher"
+         },
+         {
+          "id": "https://www.isni.org/0000000122923111",
+          "id-type": "ISNI",
+          "asserted-by": "publisher"
+         }
+        ]
+       }
+      ],
+      "role": [
+       {
+        "vocabulary": "crossref",
+        "role": "author"
+       }
+      ]
+     }
+    ],
+    "issued": {
+     "date-parts": [
+      [
+       null
+      ]
+     ]
+    },
+    "URL": "https://doi.org/10.26686/p3tn-cj1a"
+   },
+   {
+    "DOI": "10.3724/sp.j.1087.2012.02736",
+    "title": [
+     "Lock-free implementation of concurrent binary search tree"
+    ],
+    "author": [
+     {
+      "given": "Shao-dong",
+      "family": "LIU",
+      "sequence": "first",
+      "affiliation": [],
+      "role": [
+       {
+        "role": "author",
+        "vocabulary": "crossref"
+       }
+      ]
+     },
+     {
+      "given": "Yong-kang",
+      "family": "XING",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+       {
+        "role": "author",
+        "vocabulary": "crossref"
+       }
+      ]
+     },
+     {
+      "given": "Heng",
+      "family": "LIU",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+       {
+        "role": "author",
+        "vocabulary": "crossref"
+       }
+      ]
+     }
+    ],
+    "issued": {
+     "date-parts": [
+      [
+       2013,
+       5,
+       22
+      ]
+     ]
+    },
+    "is-referenced-by-count": 0,
+    "container-title": [
+     "Journal of Computer Applications"
+    ],
+    "URL": "https://doi.org/10.3724/sp.j.1087.2012.02736",
+    "type": "journal-article"
+   },
+   {
+    "DOI": "10.1109/iccic.2012.6510247",
+    "title": [
+     "Kakkot Tree — A Binary Search Tree with caching"
+    ],
+    "author": [
+     {
+      "given": "Rajesh",
+      "family": "Ramachandran",
+      "sequence": "first",
+      "affiliation": [
+       {
+        "name": "Department of MCA, Sree Narayana Gurukulam College of Engineering, Kadayirippu post, Ernakulam"
+       }
+      ],
+      "role": [
+       {
+        "role": "author",
+        "vocabulary": "crossref"
+       }
+      ]
+     }
+    ],
+    "issued": {
+     "date-parts": [
+      [
+       2012,
+       12
+      ]
+     ]
+    },
+    "is-referenced-by-count": 2,
+    "container-title": [
+     "2012 IEEE International Conference on Computational Intelligence and Computing Research"
+    ],
+    "URL": "https://doi.org/10.1109/iccic.2012.6510247",
+    "type": "proceedings-article"
+   },
+   {
+    "abstract": "<jats:p>We present a new relaxed balanced concurrent binary search\ntree in which all operations are non-blocking. We utilise\nthe notion of separating balancing operation and update\noperations in a concurrent environment and design a nonblocking balancing operation in addition to the regular insert,\nsearch, and relaxed delete operations. Our design uses a single-word CAS supported by most modern CPUs.</jats:p>",
+    "DOI": "10.26686/wgtn.13211435.v1",
+    "type": "posted-content",
+    "is-referenced-by-count": 0,
+    "title": [
+     "A Relaxed Balanced Non-Blocking Binary Search Tree"
+    ],
+    "author": [
+     {
+      "given": "Manish",
+      "family": "Singh",
+      "sequence": "first",
+      "affiliation": [],
+      "role": [
+       {
+        "role": "author",
+        "vocabulary": "crossref"
+       }
+      ]
+     },
+     {
+      "given": "lindsay",
+      "family": "Groves",
+      "sequence": "first",
+      "affiliation": [],
+      "role": [
+       {
+        "role": "author",
+        "vocabulary": "crossref"
+       }
+      ]
+     },
+     {
+      "given": "Alex",
+      "family": "Potanin",
+      "sequence": "first",
+      "affiliation": [],
+      "role": [
+       {
+        "role": "author",
+        "vocabulary": "crossref"
+       }
+      ]
+     }
+    ],
+    "issued": {
+     "date-parts": [
+      [
+       2020,
+       11,
+       10
+      ]
+     ]
+    },
+    "URL": "https://doi.org/10.26686/wgtn.13211435.v1"
+   },
+   {
+    "DOI": "10.1145/275295.275354",
+    "title": [
+     "An optimal search tree"
+    ],
+    "author": [
+     {
+      "given": "Joseph F.",
+      "family": "Malerba",
+      "sequence": "first",
+      "affiliation": [],
+      "role": [
+       {
+        "role": "author",
+        "vocabulary": "crossref"
+       }
+      ]
+     },
+     {
+      "given": "Narayan",
+      "family": "Murthy",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+       {
+        "role": "author",
+        "vocabulary": "crossref"
+       }
+      ]
+     }
+    ],
+    "issued": {
+     "date-parts": [
+      [
+       1998
+      ]
+     ]
+    },
+    "is-referenced-by-count": 1,
+    "container-title": [
+     "Proceedings of the 36th annual Southeast regional conference on   - ACM-SE 36"
+    ],
+    "URL": "https://doi.org/10.1145/275295.275354",
+    "type": "proceedings-article"
+   },
+   {
+    "abstract": "<jats:p>We present a new relaxed balanced concurrent binary search\ntree in which all operations are non-blocking. We utilise\nthe notion of separating balancing operation and update\noperations in a concurrent environment and design a nonblocking balancing operation in addition to the regular insert,\nsearch, and relaxed delete operations. Our design uses a single-word CAS supported by most modern CPUs.</jats:p>",
+    "DOI": "10.26686/wgtn.13211435",
+    "type": "posted-content",
+    "is-referenced-by-count": 0,
+    "title": [
+     "A Relaxed Balanced Non-Blocking Binary Search Tree"
+    ],
+    "author": [
+     {
+      "given": "Manish",
+      "family": "Singh",
+      "sequence": "first",
+      "affiliation": [],
+      "role": [
+       {
+        "role": "author",
+        "vocabulary": "crossref"
+       }
+      ]
+     },
+     {
+      "given": "lindsay",
+      "family": "Groves",
+      "sequence": "first",
+      "affiliation": [],
+      "role": [
+       {
+        "role": "author",
+        "vocabulary": "crossref"
+       }
+      ]
+     },
+     {
+      "given": "Alex",
+      "family": "Potanin",
+      "sequence": "first",
+      "affiliation": [],
+      "role": [
+       {
+        "role": "author",
+        "vocabulary": "crossref"
+       }
+      ]
+     }
+    ],
+    "issued": {
+     "date-parts": [
+      [
+       2020,
+       11,
+       10
+      ]
+     ]
+    },
+    "URL": "https://doi.org/10.26686/wgtn.13211435"
+   }
+  ],
+  "items-per-page": 8,
+  "query": {
+   "start-index": 0,
+   "search-terms": "binary search tree"
+  }
+ }
+}

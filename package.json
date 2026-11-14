@@ -1,0 +1,12 @@
+{
+  "name": "sumber",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Search the sources. Nothing generated, nothing sponsored.",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test tests/",
+    "fixtures": "node tools/capture-fixtures.mjs --save"
+  }
+}

@@ -1,0 +1,669 @@
+{
+ "version": "6.9",
+ "hitCount": 43363,
+ "nextCursorMark": "AoIIQHyXnSg1NTk0NzE4Ng==",
+ "nextPageUrl": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=%28binary+search+tree%29&cursorMark=AoIIQHyXnSg1NTk0NzE4Ng%3D%3D&resultType=core&pageSize=6&format=json",
+ "request": {
+  "queryString": "(binary search tree)",
+  "resultType": "core",
+  "cursorMark": "*",
+  "pageSize": 6,
+  "sort": "",
+  "synonym": false
+ },
+ "resultList": {
+  "result": [
+   {
+    "id": "PPR689697",
+    "source": "PPR",
+    "doi": "10.21203/rs.3.rs-3136752/v1",
+    "title": "Shuffle Tree: A Randomized Self-Adjusting Binary Search Tree",
+    "authorString": "Patel M.",
+    "authorList": {
+     "author": [
+      {
+       "fullName": "Patel M",
+       "lastName": "Patel",
+       "firstName": "Mayur",
+       "initials": "M"
+      }
+     ]
+    },
+    "pubYear": "2023",
+    "abstractText": "<title>Abstract</title><p>We present algorithms for a new self-adjusting binary search tree, which we call ashuffle tree. The tree is easy to implement and does not require parent pointers orbalancing information to be stored in tree nodes. A maximum of one rotation isapplied randomly during each traversal, which keeps the cost of balancingactivity low.</p>",
+    "pubTypeList": {
+     "pubType": [
+      "Preprint"
+     ]
+    },
+    "bookOrReportDetails": {
+     "publisher": "Research Square",
+     "yearOfPublication": 2023
+    },
+    "fullTextUrlList": {
+     "fullTextUrl": [
+      {
+       "availability": "Open access",
+       "availabilityCode": "OA",
+       "documentStyle": "pdf",
+       "site": "Unpaywall",
+       "url": "https://www.researchsquare.com/article/rs-3136752/latest.pdf"
+      },
+      {
+       "availability": "Free",
+       "availabilityCode": "F",
+       "documentStyle": "doi",
+       "site": "DOI",
+       "url": "https://doi.org/10.21203/rs.3.rs-3136752/v1"
+      }
+     ]
+    },
+    "isOpenAccess": "N",
+    "inEPMC": "N",
+    "inPMC": "N",
+    "citedByCount": 0,
+    "hasReferences": "Y",
+    "hasTextMinedTerms": "N",
+    "hasDbCrossReferences": "N",
+    "hasPDF": "N",
+    "hasBook": "N",
+    "hasSuppl": "N",
+    "hasLabsLinks": "N",
+    "hasData": "N",
+    "license": "cc by",
+    "authMan": "N",
+    "epmcAuthMan": "N",
+    "nihAuthMan": "N",
+    "hasTMAccessionNumbers": "N",
+    "dateOfCreation": "2023-07-13",
+    "firstPublicationDate": "2023-07-11",
+    "firstIndexDate": "2023-07-13",
+    "versionList": {
+     "version": [
+      {
+       "id": "PPR689697",
+       "source": "PPR",
+       "versionNumber": 1,
+       "firstPublishDate": "2023-07-11",
+       "pubTypeList": {
+        "pubType": [
+         "preprint"
+        ]
+       },
+       "hasEvaluations": "N"
+      }
+     ]
+    },
+    "versionNumber": 1,
+    "hasEvaluations": "N"
+   },
+   {
+    "id": "PPR756075",
+    "source": "PPR",
+    "doi": "10.14293/s2199-1006.1.sor-.pp8oyvu.v1",
+    "title": "An Improved Lock-Free Binary Search Tree",
+    "authorString": "Whitlock N, Luis J, Shannon S, Alano M, 4520 C.",
+    "authorList": {
+     "author": [
+      {
+       "fullName": "Whitlock N",
+       "lastName": "Whitlock",
+       "firstName": "Nicholas",
+       "initials": "N"
+      },
+      {
+       "fullName": "Luis J",
+       "lastName": "Luis",
+       "firstName": "Jose",
+       "initials": "J"
+      },
+      {
+       "fullName": "Shannon S",
+       "lastName": "Shannon",
+       "firstName": "Sam",
+       "initials": "S"
+      },
+      {
+       "fullName": "Alano M",
+       "lastName": "Alano",
+       "firstName": "Mark",
+       "initials": "M"
+      },
+      {
+       "fullName": "4520 C",
+       "lastName": "4520",
+       "firstName": "COP",
+       "initials": "C"
+      }
+     ]
+    },
+    "pubYear": "2019",
+    "abstractText": "We investigated the binary search tree data structure proposed in the publication, Efﬁcient Lock-Free Binary Search Trees by Bapi Chatterjee, Nhan Nguyen and Philipas Tsigas. We will explore its correctness, progression factor, and the linearizability of its operations and report our ﬁndings. With a lock-free algorithm, software engineers will be able to use a thread-safe binary search tree that is capable of the many different operations that are normally available on a binary search tree. This includes the basic, primitive operations of Add(), Contains(), and Remove(), without the performance loss of using a binary search tree that uses object locking. An implementation of a binary search tree that uses locks to promote thread-safety takes a performance loss due to the threads waiting when another thread holds the lock and causing contention. The approach outlined in the aforementioned paper claims to have several key fundamental improvements over existing lock-free binary search tree algorithms. This implementation of the binary search tree eliminates contention in Contains() operations where, if a node was modiﬁed while a Contains() operation took place, the program would restart any current operation from the root of the tree. This happens because the thread can no longer reliably conﬁde in the traversal of the tree and must restart its search. This is taxing to the performance of a binary search tree and an inefﬁcient design can underperform a sequential implementation. Among other improvements, the authors of this paper claim that their algorithm is linearizable and has improved disjoint-access parallelism compared to similar existing algorithms.",
+    "pubTypeList": {
+     "pubType": [
+      "Preprint"
+     ]
+    },
+    "bookOrReportDetails": {
+     "publisher": "ScienceOpen Preprints",
+     "yearOfPublication": 2019
+    },
+    "fullTextUrlList": {
+     "fullTextUrl": [
+      {
+       "availability": "Open access",
+       "availabilityCode": "OA",
+       "documentStyle": "pdf",
+       "site": "Unpaywall",
+       "url": "https://www.scienceopen.com/document_file/a3e80e3f-e24e-4c5a-ae9d-408c94e1c730/ScienceOpenPreprint/documentation.pdf"
+      },
+      {
+       "availability": "Free",
+       "availabilityCode": "F",
+       "documentStyle": "doi",
+       "site": "DOI",
+       "url": "https://doi.org/10.14293/s2199-1006.1.sor-.pp8oyvu.v1"
+      }
+     ]
+    },
+    "isOpenAccess": "N",
+    "inEPMC": "N",
+    "inPMC": "N",
+    "citedByCount": 0,
+    "hasReferences": "N",
+    "hasTextMinedTerms": "N",
+    "hasDbCrossReferences": "N",
+    "hasPDF": "N",
+    "hasBook": "N",
+    "hasSuppl": "N",
+    "hasLabsLinks": "N",
+    "hasData": "N",
+    "license": "cc by",
+    "authMan": "N",
+    "epmcAuthMan": "N",
+    "nihAuthMan": "N",
+    "hasTMAccessionNumbers": "N",
+    "dateOfCreation": "2023-11-09",
+    "firstPublicationDate": "2019-05-30",
+    "firstIndexDate": "2023-11-09",
+    "versionList": {
+     "version": [
+      {
+       "id": "PPR756075",
+       "source": "PPR",
+       "versionNumber": 1,
+       "firstPublishDate": "2019-05-30",
+       "pubTypeList": {
+        "pubType": [
+         "preprint"
+        ]
+       },
+       "hasEvaluations": "N"
+      }
+     ]
+    },
+    "versionNumber": 1,
+    "hasEvaluations": "N"
+   },
+   {
+    "id": "PPR60317",
+    "source": "PPR",
+    "doi": "10.20944/preprints201810.0595.v1",
+    "title": "On Converting the Furthest-Pair-Based Binary Search Tree to a Decision Tree: Experimental Results on Big Data Classification",
+    "authorString": "Hassanat ABA.",
+    "authorList": {
+     "author": [
+      {
+       "fullName": "Hassanat ABA",
+       "lastName": "Hassanat",
+       "firstName": "Ahmad",
+       "initials": "ABA",
+       "authorId": {
+        "type": "ORCID",
+        "value": "0000-0002-9991-304X"
+       }
+      }
+     ]
+    },
+    "authorIdList": {
+     "authorId": [
+      {
+       "type": "ORCID",
+       "value": "0000-0002-9991-304X"
+      }
+     ]
+    },
+    "pubYear": "2018",
+    "abstractText": "Big Data classification has recently received a great deal of attention due to the main properties of Big Data, which are volume, variety, and velocity. The furthest-pair-based binary search tree (FPBST) shows a great potential for Big Data classification. This work attempts to improve the performance the FPBST in terms of computation time, space consumed and accuracy. The major enhancement of the FPBST includes converting the resultant BST to a decision tree, in order to remove the need for the slow K-nearest neighbors (KNN), and to obtain a smaller tree, which is useful for memory usage, speeding both training and testing phases and increasing the classification accuracy. The proposed decision trees are based on calculating the probabilities of each class at each node using various methods; these probabilities are then used by the testing phase to classify an unseen example. The experimental results on some (small, intermediate and big) machine learning datasets show the efficiency of the proposed methods, in terms of space, speed and accuracy compared to the FPBST, which shows great potential for further enhancements of the proposed methods to be used in practice.",
+    "pubTypeList": {
+     "pubType": [
+      "Preprint"
+     ]
+    },
+    "bookOrReportDetails": {
+     "publisher": "Preprints.org",
+     "yearOfPublication": 2018
+    },
+    "fullTextUrlList": {
+     "fullTextUrl": [
+      {
+       "availability": "Open access",
+       "availabilityCode": "OA",
+       "documentStyle": "pdf",
+       "site": "Unpaywall",
+       "url": "https://www.preprints.org/manuscript/201810.0595/v1/download"
+      },
+      {
+       "availability": "Free",
+       "availabilityCode": "F",
+       "documentStyle": "doi",
+       "site": "DOI",
+       "url": "https://doi.org/10.20944/preprints201810.0595.v1"
+      }
+     ]
+    },
+    "isOpenAccess": "N",
+    "inEPMC": "N",
+    "inPMC": "N",
+    "citedByCount": 0,
+    "hasReferences": "N",
+    "hasTextMinedTerms": "Y",
+    "hasDbCrossReferences": "N",
+    "hasPDF": "N",
+    "hasBook": "N",
+    "hasSuppl": "N",
+    "hasLabsLinks": "N",
+    "hasData": "N",
+    "license": "cc by",
+    "authMan": "N",
+    "epmcAuthMan": "N",
+    "nihAuthMan": "N",
+    "hasTMAccessionNumbers": "N",
+    "dateOfCreation": "2018-10-30",
+    "firstPublicationDate": "2018-10-25",
+    "firstIndexDate": "2018-10-30",
+    "versionList": {
+     "version": [
+      {
+       "id": "PPR60317",
+       "source": "PPR",
+       "versionNumber": 1,
+       "firstPublishDate": "2018-10-25",
+       "pubTypeList": {
+        "pubType": [
+         "preprint"
+        ]
+       },
+       "hasEvaluations": "N"
+      }
+     ]
+    },
+    "versionNumber": 1,
+    "hasEvaluations": "N"
+   },
+   {
+    "id": "42930250",
+    "source": "MED",
+    "pmid": "42930250",
+    "pmcid": "PMC13702486",
+    "fullTextIdList": {
+     "fullTextId": [
+      "PMC13702486"
+     ]
+    },
+    "doi": "10.3390/biomimetics11100698",
+    "title": "Optimizing Tree Selection for Sustainable Logging in Amazonian Areas with Species Restrictions Using Bio-Inspired Algorithms.",
+    "authorString": "Grajeda S, Tupia M, Cueva R.",
+    "authorList": {
+     "author": [
+      {
+       "fullName": "Grajeda S",
+       "lastName": "Grajeda",
+       "firstName": "Sebastian",
+       "initials": "S",
+       "authorId": {
+        "type": "ORCID",
+        "value": "0009-0008-6691-029X"
+       },
+       "authorAffiliationDetailsList": {
+        "authorAffiliation": [
+         {
+          "affiliation": "Department of Engineering, Pontificia Universidad Católica del Perú, Av. Universitaria 1801, San Miguel, Lima 15086, Peru."
+         }
+        ]
+       }
+      },
+      {
+       "fullName": "Tupia M",
+       "lastName": "Tupia",
+       "firstName": "Manuel",
+       "initials": "M",
+       "authorId": {
+        "type": "ORCID",
+        "value": "0000-0001-5260-2829"
+       },
+       "authorAffiliationDetailsList": {
+        "authorAffiliation": [
+         {
+          "affiliation": "Department of Engineering, Pontificia Universidad Católica del Perú, Av. Universitaria 1801, San Miguel, Lima 15086, Peru."
+         }
+        ]
+       }
+      },
+      {
+       "fullName": "Cueva R",
+       "lastName": "Cueva",
+       "firstName": "Rony",
+       "initials": "R",
+       "authorAffiliationDetailsList": {
+        "authorAffiliation": [
+         {
+          "affiliation": "Department of Engineering, Pontificia Universidad Católica del Perú, Av. Universitaria 1801, San Miguel, Lima 15086, Peru."
+         }
+        ]
+       }
+      }
+     ]
+    },
+    "authorIdList": {
+     "authorId": [
+      {
+       "type": "ORCID",
+       "value": "0000-0001-5260-2829"
+      },
+      {
+       "type": "ORCID",
+       "value": "0009-0008-6691-029X"
+      }
+     ]
+    },
+    "dataLinksTagsList": {
+     "dataLinkstag": [
+      "supporting_data"
+     ]
+    },
+    "journalInfo": {
+     "issue": "10",
+     "volume": "11",
+     "journalIssueId": 4299012,
+     "dateOfPublication": "2026 Oct",
+     "monthOfPublication": 10,
+     "yearOfPublication": 2026,
+     "journal": {
+      "medlineAbbreviation": "Biomimetics (Basel)",
+      "title": "Biomimetics (Basel, Switzerland)",
+      "essn": "2313-7673",
+      "issn": "2313-7673",
+      "nlmid": "101719189",
+      "isoabbreviation": "Biomimetics (Basel)"
+     },
+     "printPublicationDate": "2026-10-01"
+    },
+    "pubYear": "2026",
+    "pageInfo": "698",
+    "abstractText": "Forest management planning in the Peruvian Amazon must reconcile economic return, ecological sustainability, spatial coherence, and strict regulatory compliance within a single harvest decision. Biomimetic optimization-search that transposes natural mechanisms such as honeybee foraging, biological evolution, and physical annealing into computation-offers a promising route to such constrained combinatorial problems. This study proposes a set-theoretic discrete adaptation of the Artificial Bee Colony algorithm (Set-ABC), a swarm-intelligence metaheuristic inspired by the division of labor among employed, onlooker, and scout bees, for parcel-based tree selection; food sources are represented as sets of parcel identifiers and neighborhood search is driven by set-algebraic operators rather than continuous or binary encodings. The task is formalized as a regulated NP-hard combinatorial optimization with hard constraints anchored in Law No. 29763 and Supreme Decree No. 018-2015-MINAGRI, plus a penalized species-retention constraint, under an objective maximizing net economic return in monetary units (PEN). Set-ABC is benchmarked against three further nature-inspired paradigms-a Binary ABC (BABC), a Binary Genetic Algorithm (GA), and Simulated Annealing (SA)-on a semi-synthetic instance of approximately 90 parcels and 12 commercial species from a real operational inventory. After Grid Search calibration, the methods were evaluated over 20 paired runs. A Friedman test with Bonferroni-corrected Wilcoxon post hoc comparisons revealed significant differences across all pairs: GA attained the highest mean net return (1,059,364 PEN) and Set-ABC the lowest (983,873 PEN) but the second-most stable variance, establishing this biomimetic set-based formulation as a viable, stable contender for regulated parcel-based forest optimization.",
+    "affiliation": "Department of Engineering, Pontificia Universidad Católica del Perú, Av. Universitaria 1801, San Miguel, Lima 15086, Peru.",
+    "publicationStatus": "epublish",
+    "language": "eng",
+    "pubModel": "Electronic",
+    "pubTypeList": {
+     "pubType": [
+      "research-article",
+      "Journal Article"
+     ]
+    },
+    "keywordList": {
+     "keyword": [
+      "genetic algorithm",
+      "Combinatorial Optimization",
+      "Artificial Bee Colony",
+      "Sustainable Forest Management",
+      "Amazonian Tree Selection"
+     ]
+    },
+    "fullTextUrlList": {
+     "fullTextUrl": [
+      {
+       "availability": "Subscription required",
+       "availabilityCode": "S",
+       "documentStyle": "doi",
+       "site": "DOI",
+       "url": "https://doi.org/10.3390/biomimetics11100698"
+      },
+      {
+       "availability": "Open access",
+       "availabilityCode": "OA",
+       "documentStyle": "html",
+       "site": "Europe_PMC",
+       "url": "https://europepmc.org/articles/PMC13702486"
+      },
+      {
+       "availability": "Open access",
+       "availabilityCode": "OA",
+       "documentStyle": "pdf",
+       "site": "Europe_PMC",
+       "url": "https://europepmc.org/articles/PMC13702486?pdf=render"
+      }
+     ]
+    },
+    "isOpenAccess": "Y",
+    "inEPMC": "Y",
+    "inPMC": "Y",
+    "citedByCount": 0,
+    "hasReferences": "Y",
+    "hasTextMinedTerms": "Y",
+    "hasDbCrossReferences": "N",
+    "hasPDF": "Y",
+    "hasBook": "N",
+    "hasSuppl": "N",
+    "hasLabsLinks": "N",
+    "hasData": "Y",
+    "license": "cc by",
+    "authMan": "N",
+    "epmcAuthMan": "N",
+    "nihAuthMan": "N",
+    "hasTMAccessionNumbers": "Y",
+    "tmAccessionTypeList": {
+     "accessionType": [
+      "doi"
+     ]
+    },
+    "dateOfCompletion": "2026-10-26",
+    "dateOfCreation": "2026-10-26",
+    "dateOfRevision": "2026-10-28",
+    "electronicPublicationDate": "2026-10-01",
+    "firstPublicationDate": "2026-10-01",
+    "firstIndexDate": "2026-10-27",
+    "fullTextReceivedDate": "2026-10-27",
+    "hasEvaluations": "N"
+   },
+   {
+    "id": "PMC13735027",
+    "source": "PMC",
+    "pmcid": "PMC13735027",
+    "fullTextIdList": {
+     "fullTextId": [
+      "PMC13735027"
+     ]
+    },
+    "title": "Basis statistics for phylogenetic tree shape: tree balance formulas beyond expectations",
+    "journalInfo": {
+     "journalIssueId": 4282221,
+     "dateOfPublication": "2026 Oct",
+     "monthOfPublication": 10,
+     "yearOfPublication": 2026,
+     "journal": {
+      "medlineAbbreviation": "ArXiv",
+      "title": "ArXiv",
+      "essn": "2331-8422",
+      "issn": "2331-8422",
+      "nlmid": "101759493",
+      "isoabbreviation": "ArXiv"
+     },
+     "printPublicationDate": "2026-10-01"
+    },
+    "pubYear": "2026",
+    "language": "eng",
+    "pubModel": "Undetermined",
+    "pubTypeList": {
+     "pubType": [
+      "research-article",
+      "Journal Article"
+     ]
+    },
+    "fullTextUrlList": {
+     "fullTextUrl": [
+      {
+       "availability": "Free",
+       "availabilityCode": "F",
+       "documentStyle": "html",
+       "site": "PubMedCentral",
+       "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13735027/?tool=EBI"
+      },
+      {
+       "availability": "Free",
+       "availabilityCode": "F",
+       "documentStyle": "pdf",
+       "site": "PubMedCentral",
+       "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13735027/pdf/?tool=EBI"
+      },
+      {
+       "availability": "Free",
+       "availabilityCode": "F",
+       "documentStyle": "html",
+       "site": "Europe_PMC",
+       "url": "https://europepmc.org/articles/PMC13735027"
+      },
+      {
+       "availability": "Free",
+       "availabilityCode": "F",
+       "documentStyle": "pdf",
+       "site": "Europe_PMC",
+       "url": "https://europepmc.org/articles/PMC13735027?pdf=render"
+      }
+     ]
+    },
+    "isOpenAccess": "Y",
+    "inEPMC": "Y",
+    "inPMC": "Y",
+    "citedByCount": 0,
+    "hasReferences": "N",
+    "hasTextMinedTerms": "N",
+    "hasDbCrossReferences": "N",
+    "hasPDF": "Y",
+    "hasBook": "N",
+    "hasSuppl": "N",
+    "hasLabsLinks": "N",
+    "hasData": "N",
+    "license": "cc by",
+    "authMan": "N",
+    "epmcAuthMan": "N",
+    "nihAuthMan": "N",
+    "hasTMAccessionNumbers": "N",
+    "dateOfCreation": "2026-11-07",
+    "dateOfRevision": "2026-11-07",
+    "electronicPublicationDate": "2026-10-29",
+    "firstPublicationDate": "2026-10-29",
+    "firstIndexDate": "2026-11-07",
+    "fullTextReceivedDate": "2026-11-07",
+    "hasEvaluations": "N"
+   },
+   {
+    "id": "PPR1277593",
+    "source": "PPR",
+    "doi": "10.64898/2026.07.03.736306",
+    "title": "Lossless compression of k-mer matrices enabling random row access",
+    "authorString": "Regnier A, Lemane T, Bellenous S, Chikhi R, Peterlongo P.",
+    "authorList": {
+     "author": [
+      {
+       "fullName": "Regnier A",
+       "lastName": "Regnier",
+       "firstName": "Alix",
+       "initials": "A",
+       "authorId": {
+        "type": "ORCID",
+        "value": "0009-0004-1721-2373"
+       }
+      },
+      {
+       "fullName": "Lemane T",
+       "lastName": "Lemane",
+       "firstName": "Téo",
+       "initials": "T"
+      },
+      {
+       "fullName": "Bellenous S",
+       "lastName": "Bellenous",
+       "firstName": "Sébastien",
+       "initials": "S"
+      },
+      {
+       "fullName": "Chikhi R",
+       "lastName": "Chikhi",
+       "firstName": "Rayan",
+       "initials": "R"
+      },
+      {
+       "fullName": "Peterlongo P",
+       "lastName": "Peterlongo",
+       "firstName": "Pierre",
+       "initials": "P"
+      }
+     ]
+    },
+    "authorIdList": {
+     "authorId": [
+      {
+       "type": "ORCID",
+       "value": "0009-0004-1721-2373"
+      }
+     ]
+    },
+    "pubYear": "2026",
+    "abstractText": "Genomic search engines such as  Logan-Search index petabytes of sequencing data as large binary matrices, called  k -mer matrices, where each row encodes the presence of a  k -mer across thousands to millions of genomic samples.  Logan-Search contains a petabyte of binary matrices, and storing them is expensive, yet compression must not prevent fast random access to any matrix row at query time.  We present  kmcomp , a lossless compression method for  k -mer matrices that satisfies these competing requirements. Block compression partitions the matrix into fixed-size row blocks, each compressed independently; block start positions are stored in an  Elias-Fano encoded array, enabling  O (1) random access to any block. To improve compressibility without introducing additional decompression steps, we introduce the  π -compression: a column reordering that groups similar samples together by solving the Traveling Salesman Problem via a nearest-neighbor heuristic. We accelerate this heuristic with a novel variant of the vantage-point tree, the  masked vp-tree , which dynamically prunes nearest-neighbor search space.  On three (meta)genomic datasets,  kmcomp achieves compression ratios of 1.3 to 5.4;  π -compression further improves these to 1.5 to 51.3. Applied to the  Logan-Search petabyte-scale index, compression reduces storage by approximately half, and  π -compression adds a further 13% gain. Query overhead remains modest: queries of hundreds of nucleotides incur an absolute latency increase of  ≈ 100 ms, and highly compressed indexes can match uncompressed query times thanks to reduced disk reads.",
+    "pubTypeList": {
+     "pubType": [
+      "Preprint"
+     ]
+    },
+    "bookOrReportDetails": {
+     "publisher": "bioRxiv",
+     "yearOfPublication": 2026
+    },
+    "fullTextUrlList": {
+     "fullTextUrl": [
+      {
+       "availability": "Free",
+       "availabilityCode": "F",
+       "documentStyle": "doi",
+       "site": "DOI",
+       "url": "https://doi.org/10.64898/2026.07.03.736306"
+      }
+     ]
+    },
+    "isOpenAccess": "N",
+    "inEPMC": "N",
+    "inPMC": "N",
+    "citedByCount": 0,
+    "hasReferences": "Y",
+    "hasTextMinedTerms": "Y",
+    "hasDbCrossReferences": "N",
+    "hasPDF": "N",
+    "hasBook": "N",
+    "hasSuppl": "N",
+    "hasLabsLinks": "N",
+    "hasData": "N",
+    "license": "cc by-nc",
+    "authMan": "N",
+    "epmcAuthMan": "N",
+    "nihAuthMan": "N",
+    "hasTMAccessionNumbers": "N",
+    "dateOfCreation": "2026-07-12",
+    "firstPublicationDate": "2026-07-08",
+    "firstIndexDate": "2026-07-12",
+    "hasEvaluations": "N"
+   }
+  ]
+ }
+}
