@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
+import { fixtureNameOf } from "../tools/fixture-names.mjs";
 
 export const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -8,20 +9,8 @@ export function fixture(name) {
   return JSON.parse(readFileSync(path.join(root, "tests", "fixtures", `${name}.json`), "utf8"));
 }
 
-const HOSTS = {
-  "api.stackexchange.com": "stackexchange",
-  "hn.algolia.com": "hackernews",
-  "api.github.com": "github",
-  "api.openalex.org": "openalex",
-  "api.crossref.org": "crossref",
-  "www.ebi.ac.uk": "europepmc",
-  "archive.org": "archive",
-  "openlibrary.org": "openlibrary",
-};
-
 export function sourceOfUrl(url) {
-  const host = new URL(url).hostname;
-  return HOSTS[host] ?? (host.endsWith(".wikipedia.org") ? "wikipedia" : null);
+  return fixtureNameOf(url);
 }
 
 /** fetch() stand-in that answers from the captured fixtures; `overrides` maps a source to a handler. */

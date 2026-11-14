@@ -5,7 +5,7 @@
 // still opens with no connection. Requests are made for the bare path, so a "?q=" address typed by
 // an older bookmark never leaves the browser a second time.
 
-const CACHE = "sumber-shell-v1";
+const CACHE = "sumber-shell-v2";
 const NETWORK_WAIT_MS = 3000;
 const SHELL = [
   "./",

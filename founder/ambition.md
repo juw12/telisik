@@ -10,7 +10,7 @@ source matters more than the summary, and be honest enough that they can set it 
 
 | What people run into today | What Sumber does instead |
 |---|---|
-| Result pages crowded with pages written to rank and to sell | Asks only eight libraries that have no shop window to optimise for |
+| Result pages crowded with pages written to rank and to sell | Asks public libraries and records that have no shop window to optimise for, plus one small non-profit web index |
 | Answer engines that write confident text with citations that do not check out | Writes nothing. Every sentence is copied from a source and linked to it |
 | No way to see why a result is first | Prints the arithmetic behind every position |
 | Hard to tell human writing from machine writing | One switch limits results to items dated up to 30 November 2022 |
@@ -26,11 +26,20 @@ Evidence for the first two rows:
   https://www.cjr.org/tow_center/ai-search-has-a-citation-problem.php. Eight AI search tools, 1,600
   queries about news articles, more than 60 percent of the answers wrong.
 
-Two more figures came up while researching and were only seen through secondary summaries. The
-primary reports were not opened in this run, so treat them as unverified and do not quote them in
-public copy: an EBU and BBC study from October 2025 (45 percent of AI news answers with at least one
-significant issue, 31 percent with sourcing problems) and a Pew analysis from July 2025 (8 percent of
-visits with an AI summary led to a link click, against 15 percent without).
+- European Broadcasting Union and BBC, "News Integrity in AI Assistants", October 2025,
+  https://www.bbc.co.uk/mediacentre/2025/new-ebu-research-ai-assistants-news-content/ (report:
+  https://www.ebu.ch/Report/MIS-BBC/NI_AI_2025.pdf). Journalists at 22 public broadcasters in 18
+  countries and 14 languages judged more than 3,000 answers from four assistants: 45 percent had at
+  least one significant issue and 31 percent had serious sourcing problems.
+- Pew Research Center, 22 July 2025,
+  https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/.
+  68,879 Google searches by 900 US adults in March 2025: people clicked a normal result on 8 percent
+  of visits that showed an AI summary and on 15 percent of visits that did not, and clicked a link
+  inside the summary on 1 percent.
+
+The last two were read on the publishers' own pages on 14 November 2026 and the figures above were
+found there word for word. They say why the niche exists. They do not say Sumber is better than
+anything.
 
 ## Who it is for
 

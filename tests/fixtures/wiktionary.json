@@ -1,0 +1,245 @@
+{
+ "en": [
+  {
+   "partOfSpeech": "Noun",
+   "language": "English",
+   "definitions": [
+    {
+     "definition": ""
+    },
+    {
+     "definition": "A <a rel=\"mw:WikiLink\" href=\"/wiki/perennial\" title=\"perennial\">perennial</a> <a rel=\"mw:WikiLink\" href=\"/wiki/woody\" title=\"woody\">woody</a> <a rel=\"mw:WikiLink\" href=\"/wiki/plant\" title=\"plant\">plant</a> taller and larger than a <a rel=\"mw:WikiLink\" href=\"/wiki/shrub\" title=\"shrub\">shrub</a> with a wooden trunk and, at some distance from the ground, having leaves and branches.",
+     "parsedExamples": [
+      {
+       "example": "Hyperion is the tallest living <b>tree</b> in the world."
+      },
+      {
+       "example": "Birds have a nest in a <b>tree</b> in the garden."
+      }
+     ],
+     "examples": [
+      "Hyperion is the tallest living <b>tree</b> in the world.",
+      "Birds have a nest in a <b>tree</b> in the garden."
+     ]
+    },
+    {
+     "definition": "Any other <a rel=\"mw:WikiLink\" href=\"/wiki/plant\" title=\"plant\">plant</a> (such as a large shrub or herb) that is <a rel=\"mw:WikiLink\" href=\"/wiki/reminiscent\" title=\"reminiscent\">reminiscent</a> of the above in form and size.",
+     "parsedExamples": [
+      {
+       "example": "The banana <b>tree</b> is a tall perennial herb<span typeof=\"mw:Entity\">:</span> its trunk is not woody."
+      }
+     ],
+     "examples": [
+      "The banana <b>tree</b> is a tall perennial herb<span typeof=\"mw:Entity\">:</span> its trunk is not woody."
+     ]
+    },
+    {
+     "definition": "An object made from a tree trunk and having multiple <a rel=\"mw:WikiLink\" href=\"/wiki/hook\" title=\"hook\">hooks</a> or storage <a rel=\"mw:WikiLink\" href=\"/wiki/platform\" title=\"platform\">platforms</a>.",
+     "parsedExamples": [
+      {
+       "example": "He had the choice of buying a scratching post or a cat <b>tree</b>."
+      }
+     ],
+     "examples": [
+      "He had the choice of buying a scratching post or a cat <b>tree</b>."
+     ]
+    },
+    {
+     "definition": "A device used to hold or stretch a shoe open.",
+     "parsedExamples": [
+      {
+       "example": "He put a shoe <b>tree</b> in each of his shoes."
+      }
+     ],
+     "examples": [
+      "He put a shoe <b>tree</b> in each of his shoes."
+     ]
+    },
+    {
+     "definition": "The structural <a rel=\"mw:WikiLink\" href=\"/wiki/frame\" title=\"frame\">frame</a> of a <a rel=\"mw:WikiLink\" href=\"/wiki/saddle\" title=\"saddle\">saddle</a>."
+    },
+    {
+     "definition": "<span class=\"usage-label-sense\" about=\"#mwt114\" typeof=\"mw:Transclusion\"></span> A connected <a rel=\"mw:WikiLink\" href=\"/wiki/graph\" title=\"graph\">graph</a> with no cycles or, if the graph is finite, equivalently a connected graph with <i>n</i> vertices and <i>n</i>−1 edges."
+    },
+    {
+     "definition": "<span class=\"usage-label-sense\" about=\"#mwt115\" typeof=\"mw:Transclusion\"></span> A <a rel=\"mw:WikiLink\" href=\"/wiki/recursive\" title=\"recursive\">recursive</a> <a rel=\"mw:WikiLink\" href=\"/wiki/data_structure\" title=\"data structure\">data structure</a> in which each <a rel=\"mw:WikiLink\" href=\"/wiki/node\" title=\"node\">node</a> has zero or more nodes as children, but does not share children with other nodes."
+    },
+    {
+     "definition": "<span class=\"usage-label-sense\" about=\"#mwt116\" typeof=\"mw:Transclusion\"></span> A <a rel=\"mw:WikiLink\" href=\"/wiki/display\" title=\"display\">display</a> or listing of <a rel=\"mw:WikiLink\" href=\"/wiki/entry\" title=\"entry\">entries</a> or <a rel=\"mw:WikiLink\" href=\"/wiki/element\" title=\"element\">elements</a> such that there are <a rel=\"mw:WikiLink\" href=\"/wiki/primary\" title=\"primary\">primary</a> and <a rel=\"mw:WikiLink\" href=\"/wiki/secondary\" title=\"secondary\">secondary</a> entries shown, usually linked by drawn lines or by indenting to the right.",
+     "parsedExamples": [
+      {
+       "example": "We’ll show it as a <b>tree</b> list."
+      }
+     ],
+     "examples": [
+      "We’ll show it as a <b>tree</b> list."
+     ]
+    },
+    {
+     "definition": "Any <a rel=\"mw:WikiLink\" href=\"/wiki/structure\" title=\"structure\">structure</a> or <a rel=\"mw:WikiLink\" href=\"/wiki/construct\" title=\"construct\">construct</a> having <a rel=\"mw:WikiLink\" href=\"/wiki/branch\" title=\"branch\">branches</a> representing <a rel=\"mw:WikiLink\" href=\"/wiki/divergence\" title=\"divergence\">divergence</a> or possible <a rel=\"mw:WikiLink\" href=\"/wiki/choice\" title=\"choice\">choices</a>.",
+     "parsedExamples": [
+      {
+       "example": "<a rel=\"mw:WikiLink\" href=\"/wiki/family_tree#English\" title=\"family tree\">family <b>tree</b></a><span typeof=\"mw:Entity\">;</span> <a rel=\"mw:WikiLink\" href=\"/wiki/skill_tree#English\" title=\"skill tree\">skill <b>tree</b></a>"
+      }
+     ],
+     "examples": [
+      "<a rel=\"mw:WikiLink\" href=\"/wiki/family_tree#English\" title=\"family tree\">family <b>tree</b></a><span typeof=\"mw:Entity\">;</span> <a rel=\"mw:WikiLink\" href=\"/wiki/skill_tree#English\" title=\"skill tree\">skill <b>tree</b></a>"
+     ]
+    },
+    {
+     "definition": ""
+    },
+    {
+     "definition": "The <a rel=\"mw:WikiLink\" href=\"/wiki/structure\" title=\"structure\">structure</a> or <a rel=\"mw:WikiLink\" href=\"/wiki/wooden\" title=\"wooden\">wooden</a> <a rel=\"mw:WikiLink\" href=\"/wiki/frame\" title=\"frame\">frame</a> used in the construction of a <a rel=\"mw:WikiLink\" href=\"/wiki/saddle\" title=\"saddle\">saddle</a> used in horse riding."
+    },
+    {
+     "definition": "<span class=\"usage-label-sense\" about=\"#mwt120\" typeof=\"mw:Transclusion\"></span> <a rel=\"mw:WikiLink\" href=\"/wiki/marijuana\" title=\"marijuana\">Marijuana</a>."
+    },
+    {
+     "definition": "<span class=\"usage-label-sense\" about=\"#mwt124\" typeof=\"mw:Transclusion\"></span> A <a rel=\"mw:WikiLink\" href=\"/wiki/cross\" title=\"cross\">cross</a> or <a rel=\"mw:WikiLink\" href=\"/wiki/gallows\" title=\"gallows\">gallows</a>.",
+     "parsedExamples": [
+      {
+       "example": "<a rel=\"mw:WikiLink\" href=\"/wiki/Tyburn_tree#English\" title=\"Tyburn tree\">Tyburn <b>tree</b></a>"
+      }
+     ],
+     "examples": [
+      "<a rel=\"mw:WikiLink\" href=\"/wiki/Tyburn_tree#English\" title=\"Tyburn tree\">Tyburn <b>tree</b></a>"
+     ]
+    },
+    {
+     "definition": "<span class=\"usage-label-sense\" about=\"#mwt133\" typeof=\"mw:Transclusion\"></span> A mass of <a rel=\"mw:WikiLink\" href=\"/wiki/crystal\" title=\"crystal\">crystals</a>, <a rel=\"mw:WikiLink\" href=\"/wiki/aggregate\" title=\"aggregate\">aggregated</a> in <a rel=\"mw:WikiLink\" href=\"/wiki/arborescent\" title=\"arborescent\">arborescent</a> forms, obtained by <a rel=\"mw:WikiLink\" href=\"/wiki/precipitation\" title=\"precipitation\">precipitation</a> of a <a rel=\"mw:WikiLink\" href=\"/wiki/metal\" title=\"metal\">metal</a> from <a rel=\"mw:WikiLink\" href=\"/wiki/solution\" title=\"solution\">solution</a>."
+    },
+    {
+     "definition": "<span class=\"usage-label-sense\" about=\"#mwt134\" typeof=\"mw:Transclusion\"></span> The fifth <a rel=\"mw:WikiLink\" href=\"/wiki/Lenormand\" title=\"Lenormand\">Lenormand</a> card."
+    },
+    {
+     "definition": "<span class=\"usage-label-sense\" about=\"#mwt135\" typeof=\"mw:Transclusion\"></span> <span class=\"form-of-definition use-with-mention\" about=\"#mwt136\" typeof=\"mw:Transclusion\">Alternative <a rel=\"mw:WikiLink\" href=\"/wiki/Appendix:Glossary#letter_case\" title=\"Appendix:Glossary\">letter-case</a> form of <span class=\"form-of-definition-link\"><i class=\"Latn mention\" lang=\"en\"><a rel=\"mw:WikiLink\" href=\"/wiki/TREE#English\" title=\"TREE\">TREE</a></i></span></span>."
+    }
+   ]
+  },
+  {
+   "partOfSpeech": "Verb",
+   "language": "English",
+   "definitions": [
+    {
+     "definition": "<span class=\"usage-label-sense\" about=\"#mwt263\" typeof=\"mw:Transclusion\"></span> To chase (an animal or person) up a tree.",
+     "parsedExamples": [
+      {
+       "example": "The dog <b>treed</b> the cat."
+      }
+     ],
+     "examples": [
+      "The dog <b>treed</b> the cat."
+     ]
+    },
+    {
+     "definition": "<span class=\"usage-label-sense\" about=\"#mwt267\" typeof=\"mw:Transclusion\"></span> To place in a tree.",
+     "parsedExamples": [
+      {
+       "example": "Black bears can <b>tree</b> their cubs for protection, but grizzly bears cannot."
+      }
+     ],
+     "examples": [
+      "Black bears can <b>tree</b> their cubs for protection, but grizzly bears cannot."
+     ]
+    },
+    {
+     "definition": "<span class=\"usage-label-sense\" about=\"#mwt269\" typeof=\"mw:Transclusion\"></span> To place upon a <a rel=\"mw:WikiLink\" href=\"/wiki/shoe_tree\" title=\"shoe tree\">shoe tree</a>; to fit with a shoe tree; to stretch upon a shoe tree.",
+     "parsedExamples": [
+      {
+       "example": "to <b>tree</b> a boot"
+      }
+     ],
+     "examples": [
+      "to <b>tree</b> a boot"
+     ]
+    },
+    {
+     "definition": "<span class=\"usage-label-sense\" about=\"#mwt272\" typeof=\"mw:Transclusion\"></span> To take refuge in a tree."
+    }
+   ]
+  },
+  {
+   "partOfSpeech": "Numeral",
+   "language": "English",
+   "definitions": [
+    {
+     "definition": "<span class=\"usage-label-sense\" about=\"#mwt289\" typeof=\"mw:Transclusion\"></span> <span class=\"form-of-definition use-with-mention\" about=\"#mwt290\" typeof=\"mw:Transclusion\"><a rel=\"mw:WikiLink\" href=\"/wiki/pronunciation_spelling\" title=\"pronunciation spelling\">Pronunciation spelling</a> of <span class=\"form-of-definition-link\"><i class=\"Latn mention\" lang=\"en\"><a rel=\"mw:WikiLink\" href=\"/wiki/three#English\" title=\"three\">three</a></i></span></span><link rel=\"mw:PageProp/Category\" href=\"./Category:English_pronunciation_spellings#TREE\" about=\"#mwt290\">"
+    }
+   ]
+  }
+ ],
+ "af": [
+  {
+   "partOfSpeech": "Noun",
+   "language": "Afrikaans",
+   "definitions": [
+    {
+     "definition": "<span class=\"Latn\" lang=\"en\" about=\"#mwt299\" typeof=\"mw:Transclusion\"><a rel=\"mw:WikiLink\" href=\"/wiki/step#English\" title=\"step\">step</a></span> <span class=\"mention-gloss-paren\" about=\"#mwt300\" typeof=\"mw:Transclusion\">(</span><span class=\"mention-gloss\" about=\"#mwt300\">single act of placing the foot when walking</span><span class=\"mention-gloss-paren\" about=\"#mwt300\">)</span>"
+    },
+    {
+     "definition": "<a rel=\"mw:WikiLink\" href=\"/wiki/yard\" title=\"yard\">yard</a> <span class=\"mention-gloss-paren\" about=\"#mwt301\" typeof=\"mw:Transclusion\">(</span><span class=\"mention-gloss\" about=\"#mwt301\">unit of length</span><span class=\"mention-gloss-paren\" about=\"#mwt301\">)</span>"
+    }
+   ]
+  }
+ ],
+ "nl": [
+  {
+   "partOfSpeech": "Noun",
+   "language": "Dutch",
+   "definitions": [
+    {
+     "definition": "<a rel=\"mw:WikiLink\" href=\"/wiki/step\" title=\"step\">step</a> , <a rel=\"mw:WikiLink\" href=\"/wiki/stair\" title=\"stair\">stair</a>"
+    },
+    {
+     "definition": "<span class=\"usage-label-sense\" about=\"#mwt313\" typeof=\"mw:Transclusion\"></span> <a rel=\"mw:WikiLink\" href=\"/wiki/step\" title=\"step\">step</a> <span class=\"mention-gloss-paren\" about=\"#mwt314\" typeof=\"mw:Transclusion\">(</span><span class=\"mention-gloss\" about=\"#mwt314\">distance of one step when walking</span><span class=\"mention-gloss-paren\" about=\"#mwt314\">)</span>"
+    },
+    {
+     "definition": "<span class=\"usage-label-sense\" about=\"#mwt315\" typeof=\"mw:Transclusion\"></span> a unit of length of about 2 to 3 <a rel=\"mw:WikiLink\" href=\"/wiki/feet\" title=\"feet\">feet</a>, roughly equivalent to a <a rel=\"mw:WikiLink\" href=\"/wiki/yard\" title=\"yard\">yard</a>"
+    }
+   ]
+  }
+ ],
+ "gv": [
+  {
+   "partOfSpeech": "Numeral",
+   "language": "Manx",
+   "definitions": [
+    {
+     "definition": "<span class=\"mw-empty-elt\" about=\"#mwt326\" typeof=\"mw:Transclusion\"><link rel=\"mw:PageProp/Category\" href=\"./Category:Manx_cardinal_numbers#TREE\"></span> <a rel=\"mw:WikiLink\" href=\"/wiki/three\" title=\"three\">three</a>"
+    }
+   ]
+  }
+ ],
+ "other": [
+  {
+   "partOfSpeech": "Noun",
+   "language": "Middle English",
+   "definitions": [
+    {
+     "definition": "<span class=\"form-of-definition use-with-mention\" about=\"#mwt330\" typeof=\"mw:Transclusion\">alternative form of <span class=\"form-of-definition-link\"><i class=\"Latn mention\" lang=\"enm\"><a rel=\"mw:WikiLink\" href=\"/wiki/tre#Middle_English\" title=\"tre\">tre</a></i></span></span>"
+    }
+   ]
+  },
+  {
+   "partOfSpeech": "Pronoun",
+   "language": "Old Irish",
+   "definitions": [
+    {
+     "definition": "<span class=\"form-of-definition use-with-mention\" about=\"#mwt336\" typeof=\"mw:Transclusion\"><a rel=\"mw:WikiLink\" href=\"/wiki/Appendix:Glossary#third_person\" title=\"Appendix:Glossary\">third-person</a> <a rel=\"mw:WikiLink\" href=\"/wiki/Appendix:Glossary#singular_number\" title=\"Appendix:Glossary\">singular</a> <a rel=\"mw:WikiLink\" href=\"/wiki/Appendix:Glossary#gender\" title=\"Appendix:Glossary\">feminine</a> <a rel=\"mw:WikiLink\" href=\"/wiki/Appendix:Glossary#accusative_case\" title=\"Appendix:Glossary\">accusative</a> of <span class=\"form-of-definition-link\"><i class=\"Latn mention\" lang=\"sga\"><a rel=\"mw:WikiLink\" href=\"/wiki/tri#Old_Irish\" title=\"tri\">tri</a></i></span></span>: <a rel=\"mw:WikiLink\" href=\"/wiki/through\" title=\"through\">through</a> <a rel=\"mw:WikiLink\" href=\"/wiki/her\" title=\"her\">her</a>/<a rel=\"mw:WikiLink\" href=\"/wiki/it\" title=\"it\">it</a> <span class=\"gender\" about=\"#mwt337\" typeof=\"mw:Transclusion\"><abbr title=\"singular number\">sg</abbr></span>"
+    }
+   ]
+  }
+ ],
+ "frr": [
+  {
+   "partOfSpeech": "Numeral",
+   "language": "North Frisian",
+   "definitions": [
+    {
+     "definition": "<span class=\"usage-label-sense\" about=\"#mwt333\" typeof=\"mw:Transclusion\"></span> <a rel=\"mw:WikiLink\" href=\"/wiki/three\" title=\"three\">three</a>"
+    }
+   ]
+  }
+ ]
+}

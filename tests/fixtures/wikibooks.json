@@ -1,0 +1,56 @@
+{
+ "batchcomplete": "",
+ "continue": {
+  "sroffset": 6,
+  "continue": "-||"
+ },
+ "query": {
+  "searchinfo": {
+   "totalhits": 908
+  },
+  "search": [
+   {
+    "ns": 0,
+    "title": "Data Structures/Trees",
+    "pageid": 20095,
+    "snippet": "<span class=\"searchmatch\">Data</span> <span class=\"searchmatch\">Structures</span> Introduction - Asymptotic Notation - Arrays - List <span class=\"searchmatch\">Structures</span> &amp; Iterators Stacks &amp; Queues - <span class=\"searchmatch\">Trees</span> - Min &amp; Max Heaps - Graphs Hash Tables",
+    "timestamp": "2022-06-07T02:52:04Z"
+   },
+   {
+    "ns": 0,
+    "title": "Data Structures",
+    "pageid": 10282,
+    "snippet": "is about the creation and analysis of efficient <span class=\"searchmatch\">data</span> <span class=\"searchmatch\">structures</span>. It covers: the primitive node <span class=\"searchmatch\">structure</span>; asymptotic notation for mathematically discussing",
+    "timestamp": "2026-08-16T13:36:04Z"
+   },
+   {
+    "ns": 0,
+    "title": "A-level Computing/AQA/Paper 1/Fundamentals of data structures/Trees",
+    "pageid": 367798,
+    "snippet": "<span class=\"searchmatch\">Trees</span> - A <span class=\"searchmatch\">tree</span> is a connected undirected graph with no cycles. Connected means that every node is connected to at least one other node. Undirected means",
+    "timestamp": "2019-12-08T21:32:58Z"
+   },
+   {
+    "ns": 0,
+    "title": "Advanced Data Structures and Algorithms",
+    "pageid": 19755,
+    "snippet": "and Octrees and R-<span class=\"searchmatch\">trees</span> (chapter) Trie <span class=\"searchmatch\">data</span> <span class=\"searchmatch\">structure</span> B-<span class=\"searchmatch\">trees</span> (chapter) (didn&#039;t we already cover this in <span class=\"searchmatch\">Data</span> <span class=\"searchmatch\">Structures</span>/<span class=\"searchmatch\">Trees</span>#B <span class=\"searchmatch\">Trees</span> and Algorithm",
+    "timestamp": "2024-07-20T14:33:46Z"
+   },
+   {
+    "ns": 0,
+    "title": "Data Structures/Trees/Hashing Memory Checking Example",
+    "pageid": 223735,
+    "snippet": "unloadRatio) { <span class=\"searchmatch\">data</span>.home = new File(baseDir, name); if (!<span class=\"searchmatch\">data</span>.home.exists()) <span class=\"searchmatch\">data</span>.home.mkdir(); this.<span class=\"searchmatch\">data</span>.maxBlocks = maxBlocks; this.<span class=\"searchmatch\">data</span>.unloadRatio =",
+    "timestamp": "2020-04-16T06:46:05Z"
+   },
+   {
+    "ns": 0,
+    "title": "Data Structures/All Chapters",
+    "pageid": 20101,
+    "snippet": "contents from Wikipedia. <span class=\"searchmatch\">Data</span> <span class=\"searchmatch\">Structures</span> Introduction - Asymptotic Notation - Arrays - List <span class=\"searchmatch\">Structures</span> &amp; Iterators Stacks &amp; Queues - <span class=\"searchmatch\">Trees</span> - Min &amp; Max Heaps",
+    "timestamp": "2025-11-09T18:51:26Z"
+   }
+  ]
+ }
+}

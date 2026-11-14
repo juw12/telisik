@@ -1,0 +1,251 @@
+{
+ "results": [
+  {
+   "title": "Apply online for a UK passport",
+   "description": "You can apply for, update, renew or replace a passport online.",
+   "link": "/apply-renew-passport",
+   "public_timestamp": "2017-12-01T13:13:43Z",
+   "format": "transaction",
+   "organisations": [
+    {
+     "organisation_type": "sub_organisation",
+     "organisation_state": "live",
+     "superseding_organisations": [],
+     "acronym": "HM Passport Office",
+     "content_id": "3a96a1e0-21e3-4aae-8e84-f90860ed3dbf",
+     "link": "/government/organisations/hm-passport-office",
+     "parent_organisations": [
+      "home-office"
+     ],
+     "superseded_organisations": [
+      "identity-and-passport-service"
+     ],
+     "analytics_identifier": "EA66",
+     "title": "HM Passport Office",
+     "organisation_crest": "ho",
+     "organisation_brand": "home-office",
+     "child_organisations": [],
+     "logo_formatted_title": "HM Passport<br/>Office",
+     "slug": "hm-passport-office",
+     "public_timestamp": "2024-07-17T16:06:02Z"
+    }
+   ],
+   "index": "govuk",
+   "es_score": 2.7537265,
+   "_id": "/apply-renew-passport",
+   "elasticsearch_type": "edition",
+   "document_type": "edition"
+  },
+  {
+   "title": "Renew or replace your adult passport",
+   "description": "How to apply, how long it takes, how much it costs, track your application, unexpired visas, replacing a damaged passport.",
+   "link": "/renew-adult-passport",
+   "public_timestamp": "2015-01-12T00:01:07Z",
+   "format": "guide",
+   "organisations": [
+    {
+     "organisation_type": "sub_organisation",
+     "organisation_state": "live",
+     "superseding_organisations": [],
+     "acronym": "HM Passport Office",
+     "content_id": "3a96a1e0-21e3-4aae-8e84-f90860ed3dbf",
+     "link": "/government/organisations/hm-passport-office",
+     "parent_organisations": [
+      "home-office"
+     ],
+     "superseded_organisations": [
+      "identity-and-passport-service"
+     ],
+     "analytics_identifier": "EA66",
+     "title": "HM Passport Office",
+     "organisation_crest": "ho",
+     "organisation_brand": "home-office",
+     "child_organisations": [],
+     "logo_formatted_title": "HM Passport<br/>Office",
+     "slug": "hm-passport-office",
+     "public_timestamp": "2024-07-17T16:06:02Z"
+    }
+   ],
+   "index": "govuk",
+   "es_score": 0.93754077,
+   "_id": "/renew-adult-passport",
+   "elasticsearch_type": "edition",
+   "document_type": "edition"
+  },
+  {
+   "title": "Register to vote",
+   "description": "Register to vote to take part in elections in the UK. Includes how to get on the electoral register and how to update your address on the register.",
+   "link": "/register-to-vote",
+   "public_timestamp": "2024-11-04T17:14:23Z",
+   "format": "transaction",
+   "organisations": [
+    {
+     "organisation_type": "ministerial_department",
+     "organisation_state": "live",
+     "superseding_organisations": [],
+     "acronym": "MHCLG",
+     "content_id": "1390d07f-12b3-4f55-9dd5-fec5fd9e3649",
+     "link": "/government/organisations/ministry-of-housing-communities-local-government",
+     "parent_organisations": [],
+     "superseded_organisations": [
+      "department-for-levelling-up-housing-and-communities",
+      "office-for-place"
+     ],
+     "analytics_identifier": "D1419",
+     "title": "Ministry of Housing, Communities and Local Government",
+     "organisation_crest": "single-identity",
+     "organisation_brand": "ministry-of-housing-communities-local-government",
+     "child_organisations": [
+      "land-registry",
+      "planning-inspectorate",
+      "queen-elizabeth-ii-conference-centre",
+      "ebbsfleet-development-corporation",
+      "homes-england",
+      "housing-ombudsman",
+      "leasehold-advisory-service",
+      "regulator-of-social-housing",
+      "valuation-tribunal-service-for-england-valuation-tribunal-service",
+      "boundary-commission-for-england",
+      "boundary-commission-for-wales",
+      "valuation-tribunal-for-england",
+      "architects-registration-board",
+      "local-government-ombudsman",
+      "uk-holocaust-memorial-foundation",
+      "office-for-place",
+      "office-for-local-government",
+      "windrush-commemoration-committee",
+      "land-registration-rule-committee",
+      "building-control-independent-panel",
+      "cambridge-growth-company",
+      "building-safety-regulator",
+      "local-audit-office",
+      "office-for-equality-and-opportunity",
+      "women-and-equalities-unit",
+      "race-equality-unit",
+      "disability-unit",
+      "social-mobility-commission",
+      "greater-cambridge-development-corporation"
+     ],
+     "logo_formatted_title": "Ministry of Housing,<br/>Communities &amp; <br/>Local Government",
+     "slug": "ministry-of-housing-communities-local-government",
+     "public_timestamp": "2026-05-21T14:34:38Z"
+    }
+   ],
+   "index": "govuk",
+   "es_score": 0.5955367,
+   "_id": "/register-to-vote",
+   "elasticsearch_type": "edition",
+   "document_type": "edition"
+  },
+  {
+   "title": "Change the address on your driving licence",
+   "description": "Change the address on your full or provisional driving licence for free - do it online or by post.",
+   "link": "/change-address-driving-licence",
+   "public_timestamp": "2017-11-30T12:34:16Z",
+   "format": "guide",
+   "organisations": [
+    {
+     "organisation_type": "executive_agency",
+     "organisation_state": "live",
+     "superseding_organisations": [],
+     "acronym": "DVLA",
+     "content_id": "70580624-93b5-4aed-823b-76042486c769",
+     "link": "/government/organisations/driver-and-vehicle-licensing-agency",
+     "parent_organisations": [
+      "department-for-transport"
+     ],
+     "superseded_organisations": [],
+     "analytics_identifier": "EA74",
+     "title": "Driver and Vehicle Licensing Agency",
+     "organisation_crest": "single-identity",
+     "organisation_brand": "department-for-transport",
+     "child_organisations": [],
+     "logo_formatted_title": "Driver &amp; Vehicle<br/>Licensing<br/>Agency",
+     "slug": "driver-and-vehicle-licensing-agency",
+     "public_timestamp": "2026-08-21T16:07:37Z"
+    }
+   ],
+   "index": "govuk",
+   "es_score": 0.5877028,
+   "_id": "/change-address-driving-licence",
+   "elasticsearch_type": "edition",
+   "document_type": "edition"
+  },
+  {
+   "title": "Overseas British passport applications",
+   "description": "Renew, replace or apply for an adult or child British passport if you’re living abroad or working overseas - forms, prices, how long it takes",
+   "link": "/overseas-passports",
+   "public_timestamp": "2020-02-24T14:30:10Z",
+   "format": "transaction",
+   "organisations": [
+    {
+     "organisation_type": "sub_organisation",
+     "organisation_state": "live",
+     "superseding_organisations": [],
+     "acronym": "HM Passport Office",
+     "content_id": "3a96a1e0-21e3-4aae-8e84-f90860ed3dbf",
+     "link": "/government/organisations/hm-passport-office",
+     "parent_organisations": [
+      "home-office"
+     ],
+     "superseded_organisations": [
+      "identity-and-passport-service"
+     ],
+     "analytics_identifier": "EA66",
+     "title": "HM Passport Office",
+     "organisation_crest": "ho",
+     "organisation_brand": "home-office",
+     "child_organisations": [],
+     "logo_formatted_title": "HM Passport<br/>Office",
+     "slug": "hm-passport-office",
+     "public_timestamp": "2024-07-17T16:06:02Z"
+    }
+   ],
+   "index": "govuk",
+   "es_score": 0.585748,
+   "_id": "/overseas-passports",
+   "elasticsearch_type": "edition",
+   "document_type": "edition"
+  },
+  {
+   "title": "Renew your driving licence",
+   "description": "Apply online to renew your 10-year driving licence, full or provisional - cost, payment methods, documents and information you need",
+   "link": "/renew-driving-licence",
+   "public_timestamp": "2025-01-01T00:01:01Z",
+   "format": "answer",
+   "organisations": [
+    {
+     "organisation_type": "executive_agency",
+     "organisation_state": "live",
+     "superseding_organisations": [],
+     "acronym": "DVLA",
+     "content_id": "70580624-93b5-4aed-823b-76042486c769",
+     "link": "/government/organisations/driver-and-vehicle-licensing-agency",
+     "parent_organisations": [
+      "department-for-transport"
+     ],
+     "superseded_organisations": [],
+     "analytics_identifier": "EA74",
+     "title": "Driver and Vehicle Licensing Agency",
+     "organisation_crest": "single-identity",
+     "organisation_brand": "department-for-transport",
+     "child_organisations": [],
+     "logo_formatted_title": "Driver &amp; Vehicle<br/>Licensing<br/>Agency",
+     "slug": "driver-and-vehicle-licensing-agency",
+     "public_timestamp": "2026-08-21T16:07:37Z"
+    }
+   ],
+   "index": "govuk",
+   "es_score": 0.51996315,
+   "_id": "/renew-driving-licence",
+   "elasticsearch_type": "edition",
+   "document_type": "edition"
+  }
+ ],
+ "total": 30828,
+ "start": 0,
+ "aggregates": {},
+ "suggested_queries": [],
+ "suggested_autocomplete": [],
+ "es_cluster": "A"
+}

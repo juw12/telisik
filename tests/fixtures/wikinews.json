@@ -1,0 +1,58 @@
+{
+ "batchcomplete": "",
+ "continue": {
+  "sroffset": 6,
+  "continue": "-||"
+ },
+ "query": {
+  "searchinfo": {
+   "totalhits": 426,
+   "suggestion": "earthquake near",
+   "suggestionsnippet": "earthquake <em>near</em>"
+  },
+  "search": [
+   {
+    "ns": 0,
+    "title": "Major magnitude 6.3 earthquake strikes central Italy",
+    "pageid": 124387,
+    "snippet": "(Population Information) — USGS, April 6, 2009 Powerful <span class=\"searchmatch\">earthquake</span> strikes Italy — BBC <span class=\"searchmatch\">News</span> Online, April 6, 2009 Magnitude 6.3 - Central Italy — USGS",
+    "timestamp": "2026-04-19T00:06:51Z"
+   },
+   {
+    "ns": 0,
+    "title": "Chilean earthquakes in the O'Higgins Region: photoessay",
+    "pageid": 178884,
+    "snippet": "Monday, May 3, 2010   The recent string of <span class=\"searchmatch\">earthquakes</span> in Chile caused widespread damage to buildings. Wikinews reporter Diego Grez is on-scene and in",
+    "timestamp": "2024-12-18T10:40:56Z"
+   },
+   {
+    "ns": 0,
+    "title": "7.0 magnitude earthquake strikes off Haitian coast",
+    "pageid": 147579,
+    "snippet": "Tuesday, January 12, 2010   2010 Haiti <span class=\"searchmatch\">earthquake</span> Other stories about the <span class=\"searchmatch\">earthquake</span> Haitian cholera victims threaten United Nations with lawsuit Haiti",
+    "timestamp": "2024-12-18T03:01:22Z"
+   },
+   {
+    "ns": 0,
+    "title": "Earthquake kills thousands in Indonesia",
+    "pageid": 41936,
+    "snippet": "Saturday, May 27, 2006   An <span class=\"searchmatch\">earthquake</span> measuring magnitude 6.3 struck Indonesia&#039;s Yogyakarta and Central Java early on Saturday morning, killing at least",
+    "timestamp": "2019-09-20T23:11:26Z"
+   },
+   {
+    "ns": 0,
+    "title": "8.8 magnitude earthquake hits Chile; tsunami warnings issued throughout Pacific rim",
+    "pageid": 159026,
+    "snippet": "toll in Chile <span class=\"searchmatch\">earthquake</span> rises to 122 — RTÉ <span class=\"searchmatch\">News</span>, February 27, 2010 Alison Chung. Tsunami Warnings After Deadly Chile Quake — Sky <span class=\"searchmatch\">News</span>, February 27, 2010",
+    "timestamp": "2024-12-18T03:02:20Z"
+   },
+   {
+    "ns": 0,
+    "title": "Large earthquake shakes Greece",
+    "pageid": 107688,
+    "snippet": "8, 2008   According to the United States Geological Survey (USGS), an <span class=\"searchmatch\">earthquake</span> with a magnitude of 6.1 has struck Greece. The epicenter was recorded",
+    "timestamp": "2024-12-18T13:39:27Z"
+   }
+  ]
+ }
+}

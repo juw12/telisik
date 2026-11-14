@@ -642,12 +642,35 @@ button.ledger-item:hover .ledger-name {
   color: var(--warn);
 }
 
+.ledger-saved {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
 .ledger-toggle {
   display: none;
 }
 
-/* Phones: one line that says how many sources answered; it opens into the full index. */
+/* Phones: one line that says how many sources answered; it opens into the full index.
+   The lenses and the Before AI switch share rows so six lenses do not cost a third line. */
 @media (max-width: 699px) {
+  .controls {
+    column-gap: 0;
+  }
+
+  .lenses {
+    display: contents;
+  }
+
+  .lens {
+    padding: 0 0.5rem;
+  }
+
+  .switch {
+    padding-left: 0.5rem;
+  }
+
   .ledger {
     display: flex;
     flex-wrap: wrap;
@@ -721,6 +744,10 @@ button.ledger-item:hover .ledger-name {
   border-left: 3px solid var(--accent);
   background: var(--surface);
   font-size: 0.9375rem;
+}
+
+.suggestion {
+  font-weight: 600;
 }
 
 .update-button {

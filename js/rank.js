@@ -5,13 +5,11 @@ import { fold, formatCount, splitSentences, terms as toTerms, tokenize, stem } f
 import { lensWeight } from "./sources.js";
 
 // The sources search their full text; this page only sees titles and excerpts. So the position a
-// source gave a document counts for almost as much as the words we can check ourselves.
-export const WEIGHTS = { text: 0.5, evidence: 0.2, upstream: 0.3 };
-const TITLE_BOOST = 2.5;
-const EXTRA_BOOST = 0.5;
-const K1 = 1.2;
-const B = 0.6;
-const DIVERSITY = 0.85;
+// source gave a document counts for more than the words we can check ourselves. These numbers
+// were chosen on half of tests/eval/queries.json and kept because the other half improved too.
+export const WEIGHTS = { text: 0.3, evidence: 0.2, upstream: 0.5 };
+/** The other numbers of the formula. tools/eval.mjs measures them against known-item queries. */
+export const TUNING = { titleBoost: 1.5, extraBoost: 0.5, k1: 1.2, b: 0.4, diversity: 0.85 };
 
 /** Wording that usually marks an explanation or a definition; used only to choose between sentences. */
 const INTENT_CUES = {
@@ -54,10 +52,30 @@ export function evidenceScore(doc) {
       return 0.3 + 0.7 * logNorm(signals.editions, 200);
     case "archive":
       return 0.2 + 0.6 * logNorm(signals.downloads, 100000);
+    case "dictionary":
+    case "official":
+      return 0.7;
+    case "sourcetext":
+      return 0.6;
+    case "textbook":
+    case "travel":
+      return 0.55;
+    case "quote":
+    case "news":
+      return 0.5;
+    case "record":
+      return 0.2 + 0.6 * logNorm(signals.downloads, 50000) + (signals.openAccess ? 0.15 : 0);
+    case "trial":
+      return 0.45 + (signals.status === "completed" ? 0.15 : 0) + 0.2 * logNorm(signals.enrollment, 10000);
+    case "bookpage":
+      return 0.3 + 0.5 * logNorm(signals.downloads, 100000);
     default:
+      // A plain web page: the index reports nothing about it, so it gets no credit beyond its words.
       return 0.3;
   }
 }
+
+const LIVING_KINDS = new Set(["encyclopedia", "textbook", "sourcetext", "quote", "travel", "news"]);
 
 /** Short facts shown as badges next to a result; all of them come straight from the source's API. */
 export function evidenceNotes(doc) {
@@ -79,6 +97,9 @@ export function evidenceNotes(doc) {
     }
     if (signals.archived) {
       notes.push("archived repo");
+    }
+    if (signals.via) {
+      notes.push(`via ${signals.via}`);
     }
   }
   if (doc.kind === "paper" || doc.kind === "medical") {
@@ -102,8 +123,39 @@ export function evidenceNotes(doc) {
   if (doc.kind === "archive") {
     notes.push(`${formatCount(signals.downloads)} downloads`);
   }
-  if (doc.kind === "encyclopedia" && signals.lastEdited) {
+  if (LIVING_KINDS.has(doc.kind) && signals.lastEdited) {
     notes.push(`last edited ${signals.lastEdited}`);
+  }
+  if (doc.kind === "record") {
+    notes.push(`${formatCount(signals.downloads)} downloads`);
+    if (signals.openAccess) {
+      notes.push("open access");
+    }
+  }
+  if (doc.kind === "official") {
+    if (signals.jurisdiction) {
+      notes.push(signals.jurisdiction);
+    }
+    if (signals.documentType) {
+      notes.push(String(signals.documentType).toLowerCase());
+    }
+  }
+  if (doc.kind === "trial") {
+    if (signals.status) {
+      notes.push(signals.status);
+    }
+    if (signals.phase) {
+      notes.push(signals.phase.trim());
+    }
+    if (signals.enrollment) {
+      notes.push(`${formatCount(signals.enrollment)} participants`);
+    }
+  }
+  if (doc.kind === "bookpage" && signals.downloads) {
+    notes.push(`${formatCount(signals.downloads)} downloads`);
+  }
+  if (doc.kind === "web") {
+    notes.push("no evidence reported");
   }
   return notes;
 }
@@ -112,7 +164,8 @@ function normaliseUrl(url) {
   return String(url ?? "")
     .toLowerCase()
     .replace(/^https?:\/\/(www\.)?/, "")
-    .replace(/[?#].*$/, "")
+    // Only the fragment goes: the query string is often the page's identity ("item?id=123").
+    .replace(/#.*$/, "")
     .replace(/\/+$/, "");
 }
 
@@ -162,10 +215,16 @@ function passesDates(doc, opts) {
 
 /**
  * Rank a pool of documents from several sources.
- * opts: { lens, before, after, sourceLabels, now }
+ * opts: { lens, before, after, sourceLabels, now, weights, tuning }
+ * weights and tuning replace WEIGHTS and TUNING for one call; only the evaluation tool passes them.
  * Returns documents with { score, why } added, best first.
  */
 export function rank(docs, parsed, opts = {}) {
+  const weights = { ...WEIGHTS, ...opts.weights };
+  const { titleBoost: TITLE_BOOST, extraBoost: EXTRA_BOOST, k1: K1, b: B, diversity: DIVERSITY } = {
+    ...TUNING,
+    ...opts.tuning,
+  };
   const queryTerms = parsed.terms;
   const queryWords = tokenize(parsed.text);
   const excluded = new Set(parsed.excluded.map((word) => stem(word)));
@@ -281,7 +340,7 @@ export function rank(docs, parsed, opts = {}) {
     }
     const exactTitle = titleIsQuery ? 0.08 : 0;
     const base =
-      WEIGHTS.text * text + WEIGHTS.evidence * evidence + WEIGHTS.upstream * upstream + recency + exactTitle;
+      weights.text * text + weights.evidence * evidence + weights.upstream * upstream + recency + exactTitle;
     scored.push({
       ...doc,
       score: base * lens,

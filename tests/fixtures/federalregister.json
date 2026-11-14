@@ -1,0 +1,185 @@
+{
+ "description": "Documents matching 'drone regulation'",
+ "count": 405,
+ "total_pages": 50,
+ "next_page_url": "https://www.federalregister.gov/api/v1/documents?conditions%5Bterm%5D=drone+regulation&format=json&order=relevance&page=2&per_page=6",
+ "results": [
+  {
+   "title": "Unleashing American Drone Dominance",
+   "type": "Notice",
+   "abstract": "In this document, the Federal Communications Commission (FCC or Commission) seeks comment on additional means by which the Commission can continue to fulfill its public interest mandate and achieve American drone dominance. The Commission's Wireless Telecommunications Bureau and Office of Engineering and Technology seek input on an array of reforms the Commission might take to unleash American drone dominance, including: alleviating unnecessary regulatory burdens; ensuring that American drone manufacturers and users have sufficient spectrum for drone testing and operations; facilitating and encouraging American firms' investment in drone capabilities, infrastructure development, and innovative and advanced capabilities; ensuring regulatory clarity and technical access for United States- based manufacturers and trusted suppliers; coordinating more effectively with other federal agencies; streamlining the Commission's experimental licensing rules; and establishing additional dedicated drone innovation zones or testbeds in partnership with other entities.",
+   "document_number": "2026-07381",
+   "html_url": "https://www.federalregister.gov/documents/2026/04/16/2026-07381/unleashing-american-drone-dominance",
+   "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-04-16/pdf/2026-07381.pdf",
+   "public_inspection_pdf_url": "https://public-inspection.federalregister.gov/2026-07381.pdf?1776257115",
+   "publication_date": "2026-04-16",
+   "agencies": [
+    {
+     "raw_name": "FEDERAL COMMUNICATIONS COMMISSION",
+     "name": "Federal Communications Commission",
+     "id": 161,
+     "url": "https://www.federalregister.gov/agencies/federal-communications-commission",
+     "json_url": "https://www.federalregister.gov/api/v1/agencies/161",
+     "parent_id": null,
+     "slug": "federal-communications-commission"
+    }
+   ],
+   "excerpts": "unleash American <span class=\"match\">drone</span> dominance, including: \n • Alleviating unnecessary regulatory burdens that frustrate <span class=\"match\">drone</span> deployment, including Commission rules or policies—such as siting or device certification—that may create friction for the growth of a competitive, secure, and innovative domestic <span class=\"match\">drone</span> ecosystem. \n • Ensuring that American <span class=\"match\">drone</span> manufacturers and users have access to sufficient spectrum for <span class=\"match\">drone</span> testing and operations, including services to the public. \n • Facilitating and encouraging American firms' investment in <span class=\"match\">drone</span> capabilities, developing"
+  },
+  {
+   "title": "Streamlining Export Controls for Drone Exports",
+   "type": "Rule",
+   "abstract": "The Bureau of Industry and Security (BIS) is easing export controls on certain Unmanned Aerial Vehicles (UAVs or drones) and related parts, components, accessories, attachments, technology, and software under the Export Administration Regulations (EAR). Specifically, this rule: eliminates wind gust tolerance as a parameter for determining UAV controls under the EAR; increases the threshold for national security controls on certain UAVs from an endurance of 30 minutes to an endurance of 3 hours; makes conforming changes to remove national security controls on software and technology associated with UAVs with an endurance less than 3 hours; maintains military end-use and end-user controls on those lower endurance drones and associated software and technology; clarifies Commerce Control List (CCL) controls for certain UAVs specially designed for military use; and removes national security controls on certain specially designed parts, components, accessories, and attachments for such UAVs as they do not provide any significant military or intelligence capabilities.",
+   "document_number": "2026-16628",
+   "html_url": "https://www.federalregister.gov/documents/2026/08/14/2026-16628/streamlining-export-controls-for-drone-exports",
+   "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-08-14/pdf/2026-16628.pdf",
+   "public_inspection_pdf_url": "https://public-inspection.federalregister.gov/2026-16628.pdf?1786625117",
+   "publication_date": "2026-08-14",
+   "agencies": [
+    {
+     "raw_name": "DEPARTMENT OF COMMERCE",
+     "name": "Commerce Department",
+     "id": 54,
+     "url": "https://www.federalregister.gov/agencies/commerce-department",
+     "json_url": "https://www.federalregister.gov/api/v1/agencies/54",
+     "parent_id": null,
+     "slug": "commerce-department"
+    },
+    {
+     "raw_name": "Bureau of Industry and Security",
+     "name": "Industry and Security Bureau",
+     "id": 241,
+     "url": "https://www.federalregister.gov/agencies/industry-and-security-bureau",
+     "json_url": "https://www.federalregister.gov/api/v1/agencies/241",
+     "parent_id": 54,
+     "slug": "industry-and-security-bureau"
+    }
+   ],
+   "excerpts": "issued Executive Order (E.O.) 14307, “Unleashing American <span class=\"match\">Drone</span> Dominance” (90 FR 24727). Sec. 8(a) of E.O. 14307 directed the Secretary of Commerce, in coordination with the Secretaries of Energy, State, and War, to review the EAR and, as appropriate and consistent with applicable law, revise the <span class=\"match\">regulations</span> to enable the expedited export of U.S.-manufactured UAVs to foreign partners. On January 21, 2026, BIS published an interim final rule (IFR), “Streamlining Export Controls for <span class=\"match\">Drone</span> Exports” (91 FR 2467) (January IFR), implementing preliminary"
+  },
+  {
+   "title": "60-Day Notice of Proposed Information Collection: Information Collection Request (ICR) for the Drone Infrastructure Inspection Grant (DIIG) Program",
+   "type": "Notice",
+   "abstract": "In accordance with the Paperwork Reduction Act of 1995, and its implementing regulations, the Office of the Assistant Secretary for Research and Technology (OST-R) invites the general public and all other interested entities to comment on a new information collection request associated with a new Federal Assistance program entitled \"2026 Drone Infrastructure Inspection Grant (DIIG) Program.\" This program was established under the FAA Reauthorization Act of 2024 to support government entities in deploying and enhancing highly automated drone systems for critical infrastructure safety inspections. OST-R is seeking a new OMB Control Number for this data collection effort.",
+   "document_number": "2026-17776",
+   "html_url": "https://www.federalregister.gov/documents/2026/09/01/2026-17776/60-day-notice-of-proposed-information-collection-information-collection-request-icr-for-the-drone",
+   "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-09-01/pdf/2026-17776.pdf",
+   "public_inspection_pdf_url": "https://public-inspection.federalregister.gov/2026-17776.pdf?1788180309",
+   "publication_date": "2026-09-01",
+   "agencies": [
+    {
+     "raw_name": "DEPARTMENT OF TRANSPORTATION",
+     "name": "Transportation Department",
+     "id": 492,
+     "url": "https://www.federalregister.gov/agencies/transportation-department",
+     "json_url": "https://www.federalregister.gov/api/v1/agencies/492",
+     "parent_id": null,
+     "slug": "transportation-department"
+    },
+    {
+     "raw_name": "Bureau of Transportation Statistics",
+     "name": "Transportation Statistics Bureau",
+     "id": 495,
+     "url": "https://www.federalregister.gov/agencies/transportation-statistics-bureau",
+     "json_url": "https://www.federalregister.gov/api/v1/agencies/495",
+     "parent_id": 492,
+     "slug": "transportation-statistics-bureau"
+    }
+   ],
+   "excerpts": "Reduction Act of 1995, and its implementing <span class=\"match\">regulations</span>, the Office of the Assistant Secretary for Research and Technology (OST-R) invites the general public and all other interested entities to comment on a new information collection request associated with a new Federal Assistance program entitled “2026 <span class=\"match\">Drone</span> Infrastructure Inspection Grant (DIIG) Program.” This program was established under the FAA Reauthorization Act of 2024 to support government entities in deploying and enhancing highly automated <span class=\"match\">drone</span> systems for critical infrastructure safety"
+  },
+  {
+   "title": "Safety Zone; Aerial Drone Displays, Upper Bay, New York, NY",
+   "type": "Rule",
+   "abstract": "The Coast Guard is establishing a temporary safety zone for navigable waters of the Upper New York Bay, in the vicinity of Ellis Island and Liberty Island. The safety zone is needed to protect personnel, vessels, and the marine environment from potential hazards associated with aerial drone displays. Entry of vessels or persons into this zone is prohibited unless specifically authorized by the Captain of the Port, Sector New York or their designated representative.",
+   "document_number": "2026-13136",
+   "html_url": "https://www.federalregister.gov/documents/2026/06/30/2026-13136/safety-zone-aerial-drone-displays-upper-bay-new-york-ny",
+   "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-06-30/pdf/2026-13136.pdf",
+   "public_inspection_pdf_url": "https://public-inspection.federalregister.gov/2026-13136.pdf?1782737112",
+   "publication_date": "2026-06-30",
+   "agencies": [
+    {
+     "raw_name": "DEPARTMENT OF HOMELAND SECURITY",
+     "name": "Homeland Security Department",
+     "id": 227,
+     "url": "https://www.federalregister.gov/agencies/homeland-security-department",
+     "json_url": "https://www.federalregister.gov/api/v1/agencies/227",
+     "parent_id": null,
+     "slug": "homeland-security-department"
+    },
+    {
+     "raw_name": "Coast Guard",
+     "name": "Coast Guard",
+     "id": 53,
+     "url": "https://www.federalregister.gov/agencies/coast-guard",
+     "json_url": "https://www.federalregister.gov/api/v1/agencies/53",
+     "parent_id": 227,
+     "slug": "coast-guard"
+    }
+   ],
+   "excerpts": "requests for safety zones over water from the sponsors of <span class=\"match\">drone</span> shows. In response to these requests, the Coast Guard proposed safety zone <span class=\"match\">regulations</span> in 2024 and noted that risks associated with <span class=\"match\">drone</span> shows include, but are not limited to, the hazard created by <span class=\"match\">drones</span> potentially falling from the sky and the hazard of collisions between <span class=\"match\">drones</span> and sailboat masts, or commercial vessel pilothouses. On August 23, 2024, the Coast Guard published final <span class=\"match\">regulations</span> titled Safety Zones; Aerial <span class=\"match\">Drone</span> Displays, Hudson and East Rivers, New York, NY, (89 FR"
+  },
+  {
+   "title": "Streamlining Export Controls for Drone Exports",
+   "type": "Rule",
+   "abstract": "The Bureau of Industry and Security (BIS) is easing export controls on certain civil Unmanned Aerial Vehicles (UAVs) and related technologies, which currently need a license to be exported to most countries. In particular, this interim final rule (IFR): a) allows less sensitive UAVs--namely, commercial UAVs with a maximum endurance of less than one hour, for which there is broad foreign availability--to be exported to most Wassenaar Arrangement Participating States (Country Group A:1) without a license; and b) allows more capable non-military UAVs--namely, certain long-range cargo delivery and agricultural spraying drones--to be exported to certain U.S. partners and allies (Country Group A:5) under License Exception Strategic Trade Authorization (STA). Exports pursuant to License Exception STA are subject to notification and reporting requirements to ensure the security of the exports. BIS is making these changes pursuant to Executive Order (E.O.) 14307, \"Unleashing American Drone Dominance.\"",
+   "document_number": "2026-01059",
+   "html_url": "https://www.federalregister.gov/documents/2026/01/21/2026-01059/streamlining-export-controls-for-drone-exports",
+   "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2026-01-21/pdf/2026-01059.pdf",
+   "public_inspection_pdf_url": "https://public-inspection.federalregister.gov/2026-01059.pdf?1768916715",
+   "publication_date": "2026-01-21",
+   "agencies": [
+    {
+     "raw_name": "DEPARTMENT OF COMMERCE",
+     "name": "Commerce Department",
+     "id": 54,
+     "url": "https://www.federalregister.gov/agencies/commerce-department",
+     "json_url": "https://www.federalregister.gov/api/v1/agencies/54",
+     "parent_id": null,
+     "slug": "commerce-department"
+    },
+    {
+     "raw_name": "Bureau of Industry and Security",
+     "name": "Industry and Security Bureau",
+     "id": 241,
+     "url": "https://www.federalregister.gov/agencies/industry-and-security-bureau",
+     "json_url": "https://www.federalregister.gov/api/v1/agencies/241",
+     "parent_id": 54,
+     "slug": "industry-and-security-bureau"
+    }
+   ],
+   "excerpts": "“Unleashing American <span class=\"match\">Drone</span> Dominance” (90 FR 24727). E.O. 14307 tasked the Secretary of Commerce to review and, as appropriate and consistent with applicable law, amend the Export Administration <span class=\"match\">Regulations</span> (EAR) “to enable the expedited export of U.S.-manufactured civil UAVs to foreign partners, provided such end users and recipient countries are not identified as foreign adversaries and the export does not pose a risk of diversion to programs of concern, or are otherwise restricted under applicable statutes or <span class=\"match\">regulations</span>.” See Sec. 8(a) of E"
+  },
+  {
+   "title": "Notice of Availability, Notice of Public Comment Period, and Request for Comment on the Draft Programmatic Environmental Assessment for Drone Package Delivery Operations in the United States",
+   "type": "Notice",
+   "abstract": "The Federal Aviation Administration (FAA) announces the availability of and requests comments on the draft Programmatic Environmental Assessment (PEA) related to unmanned aircraft systems (UAS) (drone) package delivery operations in the United States.",
+   "document_number": "2025-22372",
+   "html_url": "https://www.federalregister.gov/documents/2025/12/09/2025-22372/notice-of-availability-notice-of-public-comment-period-and-request-for-comment-on-the-draft",
+   "pdf_url": "https://www.govinfo.gov/content/pkg/FR-2025-12-09/pdf/2025-22372.pdf",
+   "public_inspection_pdf_url": "https://public-inspection.federalregister.gov/2025-22372.pdf?1765201533",
+   "publication_date": "2025-12-09",
+   "agencies": [
+    {
+     "raw_name": "DEPARTMENT OF TRANSPORTATION",
+     "name": "Transportation Department",
+     "id": 492,
+     "url": "https://www.federalregister.gov/agencies/transportation-department",
+     "json_url": "https://www.federalregister.gov/api/v1/agencies/492",
+     "parent_id": null,
+     "slug": "transportation-department"
+    },
+    {
+     "raw_name": "Federal Aviation Administration",
+     "name": "Federal Aviation Administration",
+     "id": 159,
+     "url": "https://www.federalregister.gov/agencies/federal-aviation-administration",
+     "json_url": "https://www.federalregister.gov/api/v1/agencies/159",
+     "parent_id": 492,
+     "slug": "federal-aviation-administration"
+    }
+   ],
+   "excerpts": "draft PEA evaluates the reasonably foreseeable environmental impacts of UAS (<span class=\"match\">drone</span>) package delivery operations in the United States. The proposed action analyzed in the PEA is for <span class=\"match\">drone</span> operators conducting commercial <span class=\"match\">drone</span> package deliveries under 14 Code of Federal <span class=\"match\">Regulations</span> (CFR) Part 135. \n \n The draft PEA is submitted for public comment pursuant to the National Environmental Policy Act (NEPA) (42 United States Code [U.S.C.] 4321 \n et seq. \n ); USDOT Order 5610.1D, DOT's Procedures for Considering Environmental Impacts; FAA Order 1050.1G, FAA"
+  }
+ ]
+}

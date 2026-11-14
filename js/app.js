@@ -5,7 +5,7 @@
 import { BANGS, bangUrl, parseQuery } from "./query.js";
 import { KIND_LABELS, LENSES, SE_SITES, SOURCE_BY_ID, describeDate } from "./sources.js";
 import { WEIGHTS } from "./rank.js";
-import { createCache, search } from "./engine.js";
+import { ageWords, createCache, search } from "./engine.js";
 import { formatCitation, snapshotUrl } from "./cite.js";
 import { highlight, truncate } from "./text.js";
 import { CONFIG, safeHttpsUrl } from "./config.js";
@@ -16,6 +16,9 @@ const HISTORY_MAX = 8;
 const PAGE_SIZE = 20;
 const FIRST_PAINT_MS = 1200;
 const ELSEWHERE = ["g", "ddg", "b", "m", "r", "yt", "s", "maps"];
+const REPORT_URL = "https://github.com/juw12/sumber/issues/new";
+/** A quota is mentioned in the ledger only once less than this share of it is left. */
+const QUOTA_LOW_SHARE = 0.2;
 const WIKI_LANGUAGES = [
   ["en", "English"],
   ["id", "Bahasa Indonesia"],
@@ -347,6 +350,7 @@ function startSearch({ push = true } = {}) {
     signal: view.controller.signal,
     cache,
     storage: storage.raw(),
+    keys: { stackexchange: String(CONFIG.keys?.stackexchange ?? "").trim() },
   };
   const onUpdate = (snapshot) => receive(snapshot, runId);
   search(parsed, options, onUpdate)
@@ -447,6 +451,9 @@ function renderLedger(snapshot) {
     const stateWord = status.state === "ok" ? String(status.count) : STATE_WORDS[status.state] ?? status.state;
     const stateClass = `ledger-state state-${status.state}`;
     const content = [el("span", { class: "ledger-name", text: label }), el("span", { class: stateClass, text: stateWord })];
+    if (status.stale) {
+      content.push(el("span", { class: "ledger-saved", text: "saved copy" }));
+    }
     let item;
     if (status.state === "ok" && status.count > 0) {
       item = el(
@@ -469,6 +476,10 @@ function renderLedger(snapshot) {
       labels.push(label);
       notesByMessage.set(status.note, labels);
     }
+    const quotaNote = quotaWords(status.quota);
+    if (quotaNote) {
+      notesByMessage.set(quotaNote, [label]);
+    }
   }
   for (const [message, labels] of notesByMessage) {
     const everySource = labels.length === snapshot.planned.length && labels.length > 2;
@@ -479,7 +490,16 @@ function renderLedger(snapshot) {
   byId("ledger-count").textContent = ledgerCount(snapshot);
 }
 
-/** One-line state of the ledger for the phone toggle: "Asking 8" or "7 of 8 answered". */
+/** "12 of 300 free requests left today", said only when the free quota of a source is nearly used up. */
+function quotaWords(quota) {
+  if (!quota || !(quota.max > 0) || quota.remaining > quota.max * QUOTA_LOW_SHARE) {
+    return "";
+  }
+  const period = { day: "today", hour: "this hour", minute: "this minute" }[quota.per] ?? "for now";
+  return `${quota.remaining} of ${quota.max} free requests left ${period}; answers are kept in this browser to save them.`;
+}
+
+/** One-line state of the ledger for the phone toggle: "Asking 10" or "9 of 10 answered". */
 function ledgerCount(snapshot) {
   const states = snapshot.planned.map((id) => snapshot.status[id].state);
   if (states.includes("loading")) {
@@ -512,14 +532,20 @@ function renderSummary(snapshot) {
   const count = snapshot.results.length;
   const parts = [`${count} ${count === 1 ? "result" : "results"} from ${answered} of ${total} ${total === 1 ? "source" : "sources"}`];
   const allCached = snapshot.planned.every((id) => snapshot.status[id].cached);
+  const staleAges = snapshot.planned.map((id) => snapshot.status[id]).filter((status) => status.stale);
   if (allCached && total > 0) {
-    parts.push("kept in this browser from the last hour");
+    parts.push("answered from the copy kept in this browser");
   } else if (view.elapsedMs !== null) {
     parts.push(`${(view.elapsedMs / 1000).toFixed(1)} s`);
   }
   let text = `${parts.join(", ")}.`;
   if (failed > 0) {
     text += ` ${failed} did not answer.`;
+  }
+  if (staleAges.length > 0) {
+    const oldest = Math.max(...staleAges.map((status) => status.ageMs ?? 0));
+    const which = staleAges.length === 1 ? "1 source is" : `${staleAges.length} sources are`;
+    text += ` ${which} shown from a saved copy, up to ${ageWords(oldest)} old.`;
   }
   if (!navigator.onLine) {
     text += " You appear to be offline.";
@@ -548,6 +574,20 @@ function renderNotice(snapshot) {
   }
   if (parsed.excluded.length) {
     sentences.push(`Leaving out results that mention ${parsed.excluded.join(", ")}.`);
+  }
+  if (snapshot.suggestion) {
+    const params = new URLSearchParams({ q: snapshot.suggestion });
+    if (view.lens !== "all") {
+      params.set("lens", view.lens);
+    }
+    if (view.beforeAI) {
+      params.set("before_ai", "1");
+    }
+    target.append(
+      "Did you mean ",
+      el("a", { class: "suggestion", href: `#${params}`, text: snapshot.suggestion }),
+      "? Wikipedia suggests this spelling. ",
+    );
   }
   if (sentences.length) {
     target.append(sentences.join(" "));
@@ -694,9 +734,7 @@ function resultItem(doc, number, snapshot) {
     }
     item.append(badgeList);
   }
-  if (number === 1) {
-    item.append(el("p", { class: "why-line", text: whyLine(doc, snapshot) }));
-  }
+  item.append(el("p", { class: "why-line", text: whyLine(doc, number, snapshot) }));
 
   const actions = el("div", { class: "actions" });
   const openPanel = view.open.get(doc.id);
@@ -742,7 +780,7 @@ function resultItem(doc, number, snapshot) {
   return item;
 }
 
-function whyLine(doc, snapshot) {
+function whyLine(doc, number, snapshot) {
   const why = doc.why;
   const label = sourceLabel(doc.source, snapshot.status[doc.source]);
   const totalTerms = why.matched.length + why.missing.length;
@@ -755,7 +793,8 @@ function whyLine(doc, snapshot) {
     reasons.push(`${why.matched.length} of ${totalTerms} query words were found in it`);
   }
   reasons.push(`${label} itself listed it ${ordinal(why.upstreamPosition)}`);
-  return `First because ${reasons.join(" and ")}.`;
+  const lead = number === 1 ? "First" : ordinal(number);
+  return `${lead} because ${reasons.join(" and ")}.`;
 }
 
 function whyRow(label, detail, sum) {
@@ -846,7 +885,7 @@ function renderEmpty(snapshot) {
       el("p", {
         text: navigator.onLine
           ? "This network may be blocking them, or they are slow right now. Nothing is wrong with your query."
-          : "You appear to be offline. Searches you ran in the last hour still open from this browser's cache.",
+          : "You appear to be offline. Searches you ran before still open from the copy kept in this browser.",
       }),
       el("button", { type: "button", class: "plain-button", "data-action": "retry", text: "Try again" }),
     );
@@ -880,7 +919,41 @@ function renderElsewhere(snapshot) {
     const url = bangUrl(key, snapshot.parsed.text);
     list.append(el("li", {}, el("a", { ...linkProps(url, "tap"), text: bang.name }), el("code", { text: `!${key}` })));
   }
+  byId("report-link").href = reportUrl(snapshot);
   byId("elsewhere").hidden = !snapshot.done && snapshot.results.length === 0;
+}
+
+/**
+ * A prefilled public issue. Nothing is sent unless the person follows the link and presses
+ * submit on GitHub themselves, and the page says the query becomes public there.
+ */
+function reportUrl(snapshot) {
+  const ledger = snapshot.planned
+    .map((id) => {
+      const status = snapshot.status[id];
+      const word = status.state === "ok" ? `${status.count} shown` : STATE_WORDS[status.state] ?? status.state;
+      return `- ${sourceLabel(id, status)}: ${word}${status.stale ? " (saved copy)" : ""}`;
+    })
+    .join("\n");
+  const top = snapshot.results
+    .slice(0, 3)
+    .map((doc, index) => `${index + 1}. ${truncate(doc.title, 90)} (${sourceLabel(doc.source, snapshot.status[doc.source])})`)
+    .join("\n");
+  const body = [
+    `Query: ${view.query}`,
+    `Lens: ${LENSES[view.lens]?.label ?? "All"}${view.beforeAI ? ", Before AI on" : ""}`,
+    "",
+    "What I expected to find:",
+    "",
+    "",
+    "Sources asked:",
+    ledger,
+    "",
+    "Top results:",
+    top || "(none)",
+  ].join("\n");
+  const params = new URLSearchParams({ title: `Search report: ${truncate(view.query, 80)}`, body });
+  return `${REPORT_URL}?${params}`;
 }
 
 // ---------------------------------------------------------------------------------- settings

@@ -1,0 +1,395 @@
+{
+ "about": "Known-item queries for tools/eval.mjs. Each has one page a person typing it wants. The targets were written by an AI model before any result was seen; they are not human relevance judgements. A document is a hit when its address contains one of `url` (lower case, without protocol) or its title matches `title` (case-insensitive regex).",
+ "queries": [
+  {
+   "q": "photosynthesis",
+   "url": [
+    "en.wikipedia.org/wiki/photosynthesis"
+   ]
+  },
+  {
+   "q": "krebs cycle",
+   "url": [
+    "en.wikipedia.org/wiki/citric_acid_cycle"
+   ]
+  },
+  {
+   "q": "theory of plate tectonics",
+   "url": [
+    "en.wikipedia.org/wiki/plate_tectonics"
+   ]
+  },
+  {
+   "q": "byzantine generals problem",
+   "url": [
+    "en.wikipedia.org/wiki/byzantine_fault"
+   ]
+  },
+  {
+   "q": "who invented the transistor",
+   "url": [
+    "en.wikipedia.org/wiki/transistor",
+    "en.wikipedia.org/wiki/history_of_the_transistor"
+   ]
+  },
+  {
+   "q": "french revolution causes",
+   "url": [
+    "en.wikipedia.org/wiki/french_revolution",
+    "en.wikipedia.org/wiki/causes_of_the_french_revolution"
+   ]
+  },
+  {
+   "q": "heisenberg uncertainty principle",
+   "url": [
+    "en.wikipedia.org/wiki/uncertainty_principle"
+   ]
+  },
+  {
+   "q": "treaty of westphalia",
+   "url": [
+    "en.wikipedia.org/wiki/peace_of_westphalia"
+   ]
+  },
+  {
+   "q": "borobudur temple",
+   "url": [
+    "en.wikipedia.org/wiki/borobudur"
+   ]
+  },
+  {
+   "q": "dijkstra shortest path algorithm",
+   "title": "^Dijkstra's algorithm$"
+  },
+  {
+   "q": "crispr gene editing",
+   "url": [
+    "en.wikipedia.org/wiki/crispr_gene_editing",
+    "en.wikipedia.org/wiki/crispr"
+   ]
+  },
+  {
+   "q": "black death plague europe",
+   "url": [
+    "en.wikipedia.org/wiki/black_death"
+   ]
+  },
+  {
+   "q": "apollo 11 moon landing",
+   "url": [
+    "en.wikipedia.org/wiki/apollo_11"
+   ]
+  },
+  {
+   "q": "monty hall problem",
+   "url": [
+    "en.wikipedia.org/wiki/monty_hall_problem"
+   ]
+  },
+  {
+   "q": "great barrier reef",
+   "url": [
+    "en.wikipedia.org/wiki/great_barrier_reef"
+   ]
+  },
+  {
+   "q": "worse is better",
+   "url": [
+    "en.wikipedia.org/wiki/worse_is_better"
+   ]
+  },
+  {
+   "q": "why is processing a sorted array faster than an unsorted array",
+   "url": [
+    "stackoverflow.com/q/11227809"
+   ],
+   "title": "^Why is processing a sorted array faster"
+  },
+  {
+   "q": "undo the most recent local commits in git",
+   "url": [
+    "stackoverflow.com/q/927358"
+   ],
+   "title": "^How do I undo the most recent local commits in Git"
+  },
+  {
+   "q": "git difference between pull and fetch",
+   "url": [
+    "stackoverflow.com/q/292357"
+   ],
+   "title": "difference between ['\"`]?git pull['\"`]? and ['\"`]?git fetch"
+  },
+  {
+   "q": "what does the yield keyword do in python",
+   "url": [
+    "stackoverflow.com/q/231767"
+   ],
+   "title": "^What does the [\"'`]?yield[\"'`]? keyword do"
+  },
+  {
+   "q": "how do javascript closures work",
+   "url": [
+    "stackoverflow.com/q/111102"
+   ],
+   "title": "^How do JavaScript closures work"
+  },
+  {
+   "q": "how to exit vim",
+   "url": [
+    "stackoverflow.com/q/11828270"
+   ],
+   "title": "^How do I exit Vim"
+  },
+  {
+   "q": "python if __name__ == __main__ what does it do",
+   "url": [
+    "stackoverflow.com/q/419163"
+   ],
+   "title": "^What does if __name__ == .__main__.:? do"
+  },
+  {
+   "q": "remove a property from a javascript object",
+   "url": [
+    "stackoverflow.com/q/208105"
+   ],
+   "title": "^How do I remove a property from a JavaScript object"
+  },
+  {
+   "q": "regex match open tags except xhtml self-contained tags",
+   "url": [
+    "stackoverflow.com/q/1732348"
+   ],
+   "title": "^RegEx match open tags except XHTML self-contained tags"
+  },
+  {
+   "q": "what is a nullpointerexception and how do i fix it",
+   "url": [
+    "stackoverflow.com/q/218384"
+   ],
+   "title": "^What is a NullPointerException, and how do I fix it"
+  },
+  {
+   "q": "rename a local git branch",
+   "url": [
+    "stackoverflow.com/q/6591213"
+   ],
+   "title": "^How (do|can) I rename a local Git branch"
+  },
+  {
+   "q": "what and where are the stack and heap",
+   "url": [
+    "stackoverflow.com/q/79923"
+   ],
+   "title": "^What and where are the stack and heap"
+  },
+  {
+   "q": "tensorflow machine learning framework",
+   "url": [
+    "github.com/tensorflow/tensorflow"
+   ]
+  },
+  {
+   "q": "react javascript library for user interfaces",
+   "url": [
+    "github.com/facebook/react"
+   ]
+  },
+  {
+   "q": "linux kernel source tree",
+   "url": [
+    "github.com/torvalds/linux"
+   ]
+  },
+  {
+   "q": "vue progressive javascript framework",
+   "url": [
+    "github.com/vuejs/core",
+    "github.com/vuejs/vue"
+   ]
+  },
+  {
+   "q": "ripgrep recursively search directories regex",
+   "url": [
+    "github.com/burntsushi/ripgrep"
+   ]
+  },
+  {
+   "q": "youtube-dl download videos",
+   "url": [
+    "github.com/ytdl-org/youtube-dl",
+    "github.com/yt-dlp/yt-dlp"
+   ]
+  },
+  {
+   "q": "pandas data analysis python library",
+   "url": [
+    "github.com/pandas-dev/pandas"
+   ]
+  },
+  {
+   "q": "rust programming language compiler",
+   "url": [
+    "github.com/rust-lang/rust"
+   ]
+  },
+  {
+   "q": "fzf command line fuzzy finder",
+   "url": [
+    "github.com/junegunn/fzf"
+   ]
+  },
+  {
+   "q": "godot game engine",
+   "url": [
+    "github.com/godotengine/godot"
+   ]
+  },
+  {
+   "q": "attention is all you need",
+   "title": "^Attention is all you need"
+  },
+  {
+   "q": "deep residual learning for image recognition",
+   "title": "^Deep Residual Learning for Image Recognition"
+  },
+  {
+   "q": "adam method for stochastic optimization",
+   "title": "^Adam: A Method for Stochastic Optimization"
+  },
+  {
+   "q": "bert pre-training of deep bidirectional transformers",
+   "title": "^BERT: Pre-training of Deep Bidirectional Transformers"
+  },
+  {
+   "q": "imagenet classification with deep convolutional neural networks",
+   "title": "^ImageNet classification with deep convolutional neural networks"
+  },
+  {
+   "q": "molecular structure of nucleic acids watson crick",
+   "title": "Molecular Structure of Nucleic Acids"
+  },
+  {
+   "q": "generative adversarial nets goodfellow",
+   "title": "^Generative Adversarial Net"
+  },
+  {
+   "q": "bitcoin peer-to-peer electronic cash system",
+   "title": "^Bitcoin: A Peer-to-Peer Electronic Cash System"
+  },
+  {
+   "q": "mapreduce simplified data processing on large clusters",
+   "title": "^MapReduce: simplified data processing on large clusters"
+  },
+  {
+   "q": "highly accurate protein structure prediction with alphafold",
+   "title": "^Highly accurate protein structure prediction with AlphaFold"
+  },
+  {
+   "q": "anatomy of a large-scale hypertextual web search engine",
+   "title": "anatomy of a large-scale hypertextual web search engine"
+  },
+  {
+   "q": "a mathematical theory of communication shannon",
+   "title": "^A Mathematical Theory of Communication"
+  },
+  {
+   "q": "safety and efficacy of the bnt162b2 mrna covid-19 vaccine",
+   "title": "^Safety and Efficacy of the BNT162b2 mRNA Covid-19 Vaccine"
+  },
+  {
+   "q": "hallmarks of cancer the next generation",
+   "title": "^Hallmarks of cancer: the next generation"
+  },
+  {
+   "q": "dexamethasone in hospitalized patients with covid-19",
+   "title": "^Dexamethasone in Hospitalized Patients with Covid-19"
+  },
+  {
+   "q": "sars-cov-2 cell entry depends on ace2 and tmprss2",
+   "title": "^SARS-CoV-2 Cell Entry Depends on ACE2 and TMPRSS2"
+  },
+  {
+   "q": "once-weekly semaglutide in adults with overweight or obesity",
+   "title": "^Once-Weekly Semaglutide in Adults with Overweight or Obesity"
+  },
+  {
+   "q": "pride and prejudice jane austen",
+   "title": "^Pride and Prejudice"
+  },
+  {
+   "q": "origin of species darwin",
+   "title": "origin of species"
+  },
+  {
+   "q": "structure and interpretation of computer programs",
+   "title": "^Structure and Interpretation of Computer Programs"
+  },
+  {
+   "q": "the art of computer programming knuth",
+   "title": "^The Art of Computer Programming"
+  },
+  {
+   "q": "moby dick melville",
+   "title": "^Moby[- ]Dick"
+  },
+  {
+   "q": "wealth of nations adam smith",
+   "title": "wealth of nations"
+  },
+  {
+   "q": "sapiens a brief history of humankind",
+   "title": "^Sapiens"
+  },
+  {
+   "q": "design patterns elements of reusable object-oriented software",
+   "title": "^Design Patterns"
+  },
+  {
+   "q": "my yc app dropbox throw away your usb drive",
+   "title": "Dropbox.*Throw away your USB drive"
+  },
+  {
+   "q": "duck and cover civil defense film",
+   "title": "^Duck and Cover"
+  },
+  {
+   "q": "define serendipity",
+   "title": "^serendipity$"
+  },
+  {
+   "q": "magna carta",
+   "url": [
+    "en.wikipedia.org/wiki/magna_carta"
+   ]
+  },
+  {
+   "q": "kyoto travel guide",
+   "url": [
+    "en.wikivoyage.org/wiki/kyoto",
+    "en.wikipedia.org/wiki/kyoto"
+   ]
+  },
+  {
+   "q": "organic chemistry textbook",
+   "url": [
+    "en.wikibooks.org/wiki/organic_chemistry"
+   ]
+  },
+  {
+   "q": "universal credit eligibility",
+   "url": [
+    "gov.uk/universal-credit"
+   ]
+  },
+  {
+   "q": "renew uk passport",
+   "url": [
+    "gov.uk/renew-adult-passport"
+   ]
+  },
+  {
+   "q": "gettysburg address full text",
+   "title": "^Gettysburg Address"
+  }
+ ]
+}

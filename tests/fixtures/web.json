@@ -1,0 +1,3355 @@
+[
+ {
+  "url": "https://en.wikipedia.org/wiki/Binary_search_tree",
+  "title": [
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   }
+  ],
+  "extract": [
+   {
+    "value": "In computer science, a ",
+    "is_bold": false
+   },
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   },
+   {
+    "value": " (BST), also called an ordered or sorted ",
+    "is_bold": false
+   },
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   },
+   {
+    "value": ", is a rooted ",
+    "is_bold": false
+   },
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   },
+   {
+    "value": " data structure with the key of",
+    "is_bold": false
+   }
+  ],
+  "source": "wikipedia"
+ },
+ {
+  "url": "https://github.com/glv2/bst",
+  "title": [
+   {
+    "value": "GitHub - glv2/bst: ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Tree",
+    "is_bold": true
+   },
+   {
+    "value": " · GitHub",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " You signed in with another tab or window. Reload to refresh your session.You signed out in another tab or window. Reload to refresh your session.You swit…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://www.youtube.com/watch?v=RC5VdTvAdVI",
+  "title": [
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Tree",
+    "is_bold": true
+   },
+   {
+    "value": " Explained in 5 Minutes",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": "A ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Tree",
+    "is_bold": true
+   },
+   {
+    "value": " (BST) is one of the fundamental data structures in computer science, enabling efficient ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": ", insertion, and deletion ...",
+    "is_bold": false
+   }
+  ],
+  "source": "eusp"
+ },
+ {
+  "url": "http://pages.cs.wisc.edu/~alaqeeli/",
+  "title": [
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Tree",
+    "is_bold": true
+   }
+  ],
+  "extract": [
+   {
+    "value": "A ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Tree",
+    "is_bold": true
+   },
+   {
+    "value": " (BST) is a data structure where each node has at most two children. Values smaller than the node go left, and values larger go right.",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://pastebin.com/2BzgYwjC",
+  "title": [
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Tree",
+    "is_bold": true
+   },
+   {
+    "value": " - Pastebin.com",
+    "is_bold": false
+   }
+  ],
+  "extract": [],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://stackoverflow.com/a/8624832",
+  "title": [
+   {
+    "value": "c++ delete in ",
+    "is_bold": false
+   },
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   },
+   {
+    "value": " - Stack Overflow",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " I have no problem with deletion methods. The left and right pointers are NULL when a new leaf added but when I use this function I see there is no deleti…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://slides.com/bgando/bst",
+  "title": [
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " Trees",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": "A presentation created with Slides.",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://www.interviewcake.com/random-question",
+  "title": [
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Tree",
+    "is_bold": true
+   },
+   {
+    "value": " Checker (Practice Interview Question) | Inter…",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " Notice that when you check the blue node against its parent, it seems correct. However, it's greater than the root, so it should be in the root's right s…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree",
+  "title": [
+   {
+    "value": "Self-balancing ",
+    "is_bold": false
+   },
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   }
+  ],
+  "extract": [
+   {
+    "value": "In computer science, a self-balancing ",
+    "is_bold": false
+   },
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   },
+   {
+    "value": " (BST) is any node-based ",
+    "is_bold": false
+   },
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   },
+   {
+    "value": " that automatically keeps its height (maximal number",
+    "is_bold": false
+   }
+  ],
+  "source": "wikipedia"
+ },
+ {
+  "url": "https://en.wikipedia.org/wiki/Optimal_binary_search_tree",
+  "title": [
+   {
+    "value": "Optimal ",
+    "is_bold": false
+   },
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   }
+  ],
+  "extract": [
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   },
+   {
+    "value": " (Optimal BST), sometimes called a weight-balanced ",
+    "is_bold": false
+   },
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   },
+   {
+    "value": ", is a ",
+    "is_bold": false
+   },
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   },
+   {
+    "value": " which provides the smallest possible ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   }
+  ],
+  "source": "wikipedia"
+ },
+ {
+  "url": "https://github.com/mhb8898/bst",
+  "title": [
+   {
+    "value": "GitHub - mhb8898/bst: ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Tree",
+    "is_bold": true
+   },
+   {
+    "value": " Data Structure in Python",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": "You signed in with another tab or window. Reload to refresh your session. You signed out in another tab or window. Reload to refresh your session. You swi…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://en.wikipedia.org/wiki/Binary_search_tree",
+  "title": [
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   },
+   {
+    "value": " - Wikipedia",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": "Fig. 1: A ",
+    "is_bold": false
+   },
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   },
+   {
+    "value": " of size 9 and depth 3, with 8 at the root. In computer science , a ",
+    "is_bold": false
+   },
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   },
+   {
+    "value": " ( BST ), also called an ordered or sort…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://github.com/huski/bst",
+  "title": [
+   {
+    "value": "GitHub - huski/bst: ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Tree",
+    "is_bold": true
+   }
+  ],
+  "extract": [
+   {
+    "value": " Saved searches Use saved searches to filter your results more quickly You signed in with another tab or window. Reload to refresh your session.You signed…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://en.wikipedia.org/wiki/Binary_search",
+  "title": [
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   }
+  ],
+  "extract": [
+   {
+    "value": "In computer science, ",
+    "is_bold": false
+   },
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": ", also known as half-interval ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": ", logarithmic ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": ", or ",
+    "is_bold": false
+   },
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " chop, is a ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " algorithm that finds the position",
+    "is_bold": false
+   }
+  ],
+  "source": "wikipedia"
+ },
+ {
+  "url": "http://pages.cs.wisc.edu/~blixt/",
+  "title": [
+   {
+    "value": "Red-Black ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " Trees",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " Red-Black ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " Trees Overview Red-Black BSTs are a type of self-balancing ",
+    "is_bold": false
+   },
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   },
+   {
+    "value": ". Each node stores an extra bit representing \"color\"…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://github.com/mhi20/BST",
+  "title": [
+   {
+    "value": "GitHub - mhi20/BST: ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   },
+   {
+    "value": " in Ruby language",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " Saved searches Use saved searches to filter your results more quickly You signed in with another tab or window. Reload to refresh your session.You signed…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://en.wikipedia.org/wiki/Binary_tree",
+  "title": [
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   }
+  ],
+  "extract": [
+   {
+    "value": "In computer science, a ",
+    "is_bold": false
+   },
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   },
+   {
+    "value": " is a ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   },
+   {
+    "value": " data structure in which each node has at most two children, referred to as the left child and the right child",
+    "is_bold": false
+   }
+  ],
+  "source": "wikipedia"
+ },
+ {
+  "url": "http://antirez.com/news/102",
+  "title": [
+   {
+    "value": "The ",
+    "is_bold": false
+   },
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " of distributed programming - <antirez>",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " Yesterday night I was re-reading Redlock analysis Martin Kleppmann wrote (http://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html). At …",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://pages.cs.wisc.edu/~aal-hinai/",
+  "title": [
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " Trees (BST)",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " Trees What is a BST? A ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Tree",
+    "is_bold": true
+   },
+   {
+    "value": " (BST) is a ",
+    "is_bold": false
+   },
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   },
+   {
+    "value": " where each node’s left subtree\nhas keys smaller than the node, and the rig…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://github.com/goncah/bst",
+  "title": [
+   {
+    "value": "GitHub - goncah/bst: MT ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Tree",
+    "is_bold": true
+   },
+   {
+    "value": " Implementation explor…",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " Saved searches Use saved searches to filter your results more quickly You signed in with another tab or window. Reload to refresh your session.You signed…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://eprint.iacr.org/2021/1049",
+  "title": [
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " in Secure Computation",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " Paper 2021/1049 ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " in Secure Computation Abstract ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " is one of the most popular algorithms in computer science. Realizing it in the…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://arxiv.org/abs/0712.2665",
+  "title": [
+   {
+    "value": "[0712.2665] ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " trees for generalized measurement",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " Title:",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " trees for generalized measurement Abstract: Generalized quantum measurements (POVMs or POMs) are important for optimally extracting i…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://github.com/mamroax/BST",
+  "title": [
+   {
+    "value": "GitHub - mamroax/BST: ",
+    "is_bold": false
+   },
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   },
+   {
+    "value": " check",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " Saved searches Use saved searches to filter your results more quickly You signed in with another tab or window. Reload to refresh your session.You signed…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://www.nist.gov/dads/HTML/searchtree.html",
+  "title": [
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   }
+  ],
+  "extract": [
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   },
+   {
+    "value": " Definition:\nA ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   },
+   {
+    "value": " where every subtree of a node has keys less than any other subtree of the node to its right. The keys in a node are concep…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://www.interviewcake.com/concept/binary-search",
+  "title": [
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " Algorithm | Interview Cake",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " Algorithm A brute force ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " would walk through the whole list, taking time in the worst case. Let's say we have a sorted list of numbers…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://github.com/codecakes/BST",
+  "title": [
+   {
+    "value": "GitHub - codecakes/BST: ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Tree",
+    "is_bold": true
+   },
+   {
+    "value": " and AVL ",
+    "is_bold": false
+   },
+   {
+    "value": "Tree",
+    "is_bold": true
+   },
+   {
+    "value": " using oo…",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " Saved searches Use saved searches to filter your results more quickly You signed in with another tab or window. Reload to refresh your session.You signed…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://github.com/scttdavs/bst",
+  "title": [
+   {
+    "value": "GitHub - scttdavs/bst: ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Tree",
+    "is_bold": true
+   },
+   {
+    "value": " (in Javascript)",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " Saved searches Use saved searches to filter your results more quickly You signed in with another tab or window. Reload to refresh your session.You signed…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://stackoverflow.com/q/1712017",
+  "title": [
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Tree",
+    "is_bold": true
+   },
+   {
+    "value": " Array Imp. C++ - Stack Overflow",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " A few things are wrong with this. Let me start by saying that the first incoming data will be the root. All other data will be compared against it. When …",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://pages.cs.wisc.edu/~vcai/",
+  "title": [
+   {
+    "value": "CS400 ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " Trees",
+    "is_bold": false
+   }
+  ],
+  "extract": [],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://stackoverflow.com/q/27826331",
+  "title": [
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Tree",
+    "is_bold": true
+   },
+   {
+    "value": " in C++ - Stack Overflow",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " 3 Answers\n3 The parameter head in insertNode shadows the member variable named head. However, while that's a really bad practice, the other answer is the…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://lesswrong.com/w/binary_search",
+  "title": [
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " - LessWrong",
+    "is_bold": false
+   }
+  ],
+  "extract": [],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://stackoverflow.com/q/8190938",
+  "title": [
+   {
+    "value": "c++ - ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Tree",
+    "is_bold": true
+   },
+   {
+    "value": " Crashes - Stack Overflow",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " What I am doing here is, I convert the user input to integers using atoi and then add them to map. Then I get the size of the map and use that to fill an…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://stackoverflow.com/a/49663291",
+  "title": [
+   {
+    "value": "c++ - ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Tree",
+    "is_bold": true
+   },
+   {
+    "value": " unchangeable header file - Stack Overfl…",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " \"they just don't work and I don't know why\" is a far cry from a proper problem description. How don't they work? What did you expect? What did you observ…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://pastebin.com/dbTCf8xY",
+  "title": [
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   },
+   {
+    "value": " in C++ - Pastebin.com",
+    "is_bold": false
+   }
+  ],
+  "extract": [],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://stackoverflow.com/a/1655545",
+  "title": [
+   {
+    "value": "java ",
+    "is_bold": false
+   },
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   },
+   {
+    "value": " - Stack Overflow",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " I have a question about how would I remove a child from a node (root)? Since I can't call remove, if I make the child null, will the children of that chi…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://stackoverflow.com/q/7137848",
+  "title": [
+   {
+    "value": "c++ - ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Tree",
+    "is_bold": true
+   },
+   {
+    "value": " error - Stack Overflow",
+    "is_bold": false
+   }
+  ],
+  "extract": [],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://stackoverflow.com/q/27519473",
+  "title": [
+   {
+    "value": "c++ - ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Tree",
+    "is_bold": true
+   },
+   {
+    "value": " In Basic Array Format - Stack Overflow",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": "I am trying to read in a bunch of integers into an array, then use a function that takes that array as an input element by element and creates a ",
+    "is_bold": false
+   },
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " se…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://jsfiddle.net/i_e_b/0ahfeguy/",
+  "title": [
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " - JSFiddle - Code Playground",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " Your recent fiddles Recently created fiddles, including ones created while logged out JSFiddle changelog A log of all the changes made to JSFiddle – big …",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://arxiv.org/abs/1603.08151",
+  "title": [
+   {
+    "value": "[1603.08151] ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " trees and rectangulations",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " Title:",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " trees and rectangulations Abstract:We revisit the classical problem of searching in a ",
+    "is_bold": false
+   },
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   },
+   {
+    "value": " (BST) using rotations, and p…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://github.com/dange0/dict",
+  "title": [
+   {
+    "value": "GitHub - dange0/dict: Ternary ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Tree",
+    "is_bold": true
+   },
+   {
+    "value": " + Bloom filter",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " Saved searches Use saved searches to filter your results more quickly You signed in with another tab or window. Reload to refresh your session.You signed…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://arxiv.org/abs/1810.02270",
+  "title": [
+   {
+    "value": "[1810.02270] Compound ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Tree",
+    "is_bold": true
+   },
+   {
+    "value": " and Algorithms",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": "Abstract: The ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Tree",
+    "is_bold": true
+   },
+   {
+    "value": " (BST) is average in computer science which supports a compact data structure in memory and oneself even conducts a row of…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://stackoverflow.com/a/29018745",
+  "title": [
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " in Javascript - Stack Overflow",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " 29 Answers\n29 It's useful to write a ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " function in such a way that it returns a negative value indicating the insertion point for the new element if…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://arxiv.org/abs/2608.04410",
+  "title": [
+   {
+    "value": "[2608.04410] The Greedy ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Tree",
+    "is_bold": true
+   },
+   {
+    "value": " is Non-trivially Comp…",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " Title:The Greedy ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Tree",
+    "is_bold": true
+   },
+   {
+    "value": " is Non-trivially Competitive Abstract:We prove that the $\\textsf{Greedy}$ ",
+    "is_bold": false
+   },
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   },
+   {
+    "value": " is $2^{O(\\sqrt{\\log\\log …",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://en.wikipedia.org/wiki/Binary_chop",
+  "title": [
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " - Wikipedia",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " In computer science, ",
+    "is_bold": false
+   },
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": ", also known as half-interval ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": ",[1]logarithmic ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": ",[2] or ",
+    "is_bold": false
+   },
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " chop,[3] is a ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " algorithm that finds the …",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://stackoverflow.com/a/15276577",
+  "title": [
+   {
+    "value": "c# - ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " - How to load +5M records from a file into Ra…",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " 2 Answers\n2 I'm going to assume you have a good disk. Scan through the file once and count the number of entries. If you can guarantee your file has no b…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://stackoverflow.com/a/998447",
+  "title": [
+   {
+    "value": "nio - ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " in a sorted (memory-mapped ?) file in Java -…",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " I am struggling to port a Perl program to Java, and learning Java as I go. A central component of the original program is a Perl module that does string …",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://stackoverflow.com/a/17049270",
+  "title": [
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " on c++ with comparison - Stack Overflow",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " I would like to perform a ",
+    "is_bold": false
+   },
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " on c++, on a sorted vector V.\nIn particular, I am not interested in finding a exact value of the entry of the vec…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://stackoverflow.com/a/39286893",
+  "title": [
+   {
+    "value": "c - ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " accessing out of range index - Stack Overflow",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " @Ziezi There are no negative numbers so using unsigned int is safe and will not cause what others say except, middle - 1, so this is the correct answer. …",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://www.nist.gov/dads/HTML/searchtrprop.html",
+  "title": [
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   },
+   {
+    "value": " property",
+    "is_bold": false
+   }
+  ],
+  "extract": [],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://stackoverflow.com/a/212971",
+  "title": [
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " (bisection) in Python - Stack Overflow",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " Is there a library function that performs ",
+    "is_bold": false
+   },
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " on a list/tuple and return the position of the item if found and 'False' (-1, None, etc.) if not?…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://jsfiddle.net/anjanasilva/ys6fbjrw/",
+  "title": [
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " JavaScript - JSFiddle - Code Playground",
+    "is_bold": false
+   }
+  ],
+  "extract": [],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://jsfiddle.net/shanimal/htxbgu8L/5/",
+  "title": [
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " - JSFiddle - Code Playground",
+    "is_bold": false
+   }
+  ],
+  "extract": [],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://gist.github.com/mro/275631",
+  "title": [
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " Cocoa NSArray · GitHub",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " You signed in with another tab or window. Reload to refresh your session.You signed out in another tab or window. Reload to refresh your session.You swit…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://gist.github.com/edolopez/9315023",
+  "title": [
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " method in Java · GitHub",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " You signed in with another tab or window. Reload to refresh your session.You signed out in another tab or window. Reload to refresh your session.You swit…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://pastebin.com/Zd41xyyV",
+  "title": [
+   {
+    "value": "Iterative ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " 2.0 - Pastebin.com",
+    "is_bold": false
+   }
+  ],
+  "extract": [],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://pastebin.com/HVtpNtmC",
+  "title": [
+   {
+    "value": "Recursive ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " - Pastebin.com",
+    "is_bold": false
+   }
+  ],
+  "extract": [],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://gist.github.com/371740",
+  "title": [
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " on queue · GitHub",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": "You signed in with another tab or window. Reload to refresh your session. You signed out in another tab or window. Reload to refresh your session. You swi…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://kukuruku.co/tag/binary%20search/",
+  "title": [
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " / Tag ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " / Kukuruku / Technology Hub",
+    "is_bold": false
+   }
+  ],
+  "extract": [],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://pastebin.com/vFqXX1R8",
+  "title": [
+   {
+    "value": "Interative ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " - Pastebin.com",
+    "is_bold": false
+   }
+  ],
+  "extract": [],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://arxiv.org/abs/2209.08024",
+  "title": [
+   {
+    "value": "[2209.08024] Fast approximation of ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " trees on trees with ce…",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " Abstract:",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " trees on trees (STTs) generalize the fundamental ",
+    "is_bold": false
+   },
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   },
+   {
+    "value": " (BST) data structure: in STTs the underlying ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " space is an arbit…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://pastebin.com/PUa5aYLR",
+  "title": [
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " (iterative) - Pastebin.com",
+    "is_bold": false
+   }
+  ],
+  "extract": [],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://pastebin.com/eHJKa37e",
+  "title": [
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " - Pastebin.com",
+    "is_bold": false
+   }
+  ],
+  "extract": [],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://pastebin.com/Gkrg4Fy6",
+  "title": [
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " - Pastebin.com",
+    "is_bold": false
+   }
+  ],
+  "extract": [],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://pastebin.com/uxRPkpaG",
+  "title": [
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " - Pastebin.com",
+    "is_bold": false
+   }
+  ],
+  "extract": [],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://stackoverflow.com/tags/binary-search/info",
+  "title": [
+   {
+    "value": "'",
+    "is_bold": false
+   },
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": "-",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": "' tag wiki - Stack Overflow",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " About ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " is an efficient algorithm for finding an element in a sorted array. The basic idea is to cut the ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " space in half in each step. T…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://lwn.net/Articles/189572/",
+  "title": [
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " trees considered harmful [LWN.net]",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " trees considered harmful ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " trees considered harmful The author/designer of Judy Trees remarks that, having measured them in comparison with o…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://stackoverflow.com/a/66527096",
+  "title": [
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " - using bisect with tuples in python - Stack Overf…",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " I am trying to understand the use of bisect function in the python's bisect module and how to use it with tuples. I have seen that it takes a list and a …",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://pages.cs.wisc.edu/~adaniels/",
+  "title": [
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " Algorithm",
+    "is_bold": false
+   }
+  ],
+  "extract": [],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://arxiv.org/abs/1709.00247",
+  "title": [
+   {
+    "value": "[1709.00247] A Simple Balanced ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Tree",
+    "is_bold": true
+   },
+   {
+    "value": " with No Balance Crite…",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " Title:A Simple Balanced ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Tree",
+    "is_bold": true
+   },
+   {
+    "value": " with No Balance Criterion Abstract:We present a method that maintains a balanced ",
+    "is_bold": false
+   },
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   },
+   {
+    "value": " without using any…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://bl.ocks.org/clippit/4016851",
+  "title": [
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " · GitHub",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " You signed in with another tab or window. Reload to refresh your session.You signed out in another tab or window. Reload to refresh your session.You swit…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://lwn.net/Articles/76621/",
+  "title": [
+   {
+    "value": "[RFC][PATCH 1/3] radix priority ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "tree",
+    "is_bold": true
+   },
+   {
+    "value": " - objrmap complexity…",
+    "is_bold": false
+   }
+  ],
+  "extract": [],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://hackaday.com/tag/binary-search/",
+  "title": [
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " | Hackaday",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " 1 Articles You might not think that it would be possible to have a favorite optimization algorithm, but I do. And if you’re well-versed in …",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://bl.ocks.org/emre/6340638",
+  "title": [
+   {
+    "value": "binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " implementation on golang slices · GitHub",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " You signed in with another tab or window. Reload to refresh your session.You signed out in another tab or window. Reload to refresh your session.You swit…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "https://repl.it/@Hwatwasthat/Binary-search",
+  "title": [
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " - Replit",
+    "is_bold": false
+   }
+  ],
+  "extract": [],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://arxiv.org/abs/2606.12970",
+  "title": [
+   {
+    "value": "[2606.12970] ",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " Variants: A Comprehensive Analysis",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " Title:",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " Variants: A Comprehensive Analysis Abstract:",
+    "is_bold": false
+   },
+   {
+    "value": "Binary",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "search",
+    "is_bold": true
+   },
+   {
+    "value": " is deceptively simple in concept yet notoriously difficult to implement cor…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://arxiv.org/abs/1006.3020",
+  "title": [
+   {
+    "value": "[1006.3020] Bounded ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Tree",
+    "is_bold": true
+   },
+   {
+    "value": " Algorithms for Parameterized Cog…",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " Download a PDF of the paper titled Bounded ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Tree",
+    "is_bold": true
+   },
+   {
+    "value": " Algorithms for Parameterized Cograph Deletion: Efficient Branching Rules by Exploiting Structures …",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://arxiv.org/abs/1006.3020v2",
+  "title": [
+   {
+    "value": "[1006.3020v2] Bounded ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Tree",
+    "is_bold": true
+   },
+   {
+    "value": " Algorithms for Parameterized C…",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": "arXivLabs is a framework that allows collaborators to develop and share new arXiv features directly on our website. Both individuals and organizations tha…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ },
+ {
+  "url": "http://arxiv.org/abs/1805.11548",
+  "title": [
+   {
+    "value": "[1805.11548] The Actor ",
+    "is_bold": false
+   },
+   {
+    "value": "Search",
+    "is_bold": true
+   },
+   {
+    "value": " ",
+    "is_bold": false
+   },
+   {
+    "value": "Tree",
+    "is_bold": true
+   },
+   {
+    "value": " Critic (ASTC) for Off-Policy …",
+    "is_bold": false
+   }
+  ],
+  "extract": [
+   {
+    "value": " Abstract:Off-policy reinforcement learning enables near-optimal policy from suboptimal experience, thereby provisions opportunity for artificial intellig…",
+    "is_bold": false
+   }
+  ],
+  "source": "mwmbl"
+ }
+]

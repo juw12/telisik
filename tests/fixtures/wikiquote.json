@@ -1,0 +1,56 @@
+{
+ "batchcomplete": "",
+ "continue": {
+  "sroffset": 6,
+  "continue": "-||"
+ },
+ "query": {
+  "searchinfo": {
+   "totalhits": 1028
+  },
+  "search": [
+   {
+    "ns": 0,
+    "title": "Albert Einstein",
+    "pageid": 2,
+    "snippet": "supposed <span class=\"searchmatch\">quote</span>), while the earlier sentences only paraphrase something that Samples claims <span class=\"searchmatch\">Einstein</span> to have said. <span class=\"searchmatch\">Einstein</span> had many <span class=\"searchmatch\">quotes</span> about the",
+    "timestamp": "2026-10-23T13:56:18Z"
+   },
+   {
+    "ns": 0,
+    "title": "Albert Einstein and politics",
+    "pageid": 179551,
+    "snippet": "<span class=\"searchmatch\">Quotes</span> exploring the political views of Albert <span class=\"searchmatch\">Einstein</span>. Autoritätsdusel ist der größte Feind der Wahrheit. Unthinking respect for authority is the greatest",
+    "timestamp": "2026-01-18T05:30:10Z"
+   },
+   {
+    "ns": 0,
+    "title": "Bohr–Einstein debates",
+    "pageid": 177844,
+    "snippet": "The Bohr–<span class=\"searchmatch\">Einstein</span> debates were a series of public disputes about quantum mechanics between Albert <span class=\"searchmatch\">Einstein</span> and Niels Bohr. The debates started in 1927",
+    "timestamp": "2024-03-03T07:04:40Z"
+   },
+   {
+    "ns": 0,
+    "title": "EPR paradox",
+    "pageid": 176640,
+    "snippet": "The <span class=\"searchmatch\">Einstein</span>–Podolsky–Rosen paradox or EPR paradox of 1935 is an influential thought experiment in quantum mechanics with which Albert <span class=\"searchmatch\">Einstein</span> and his",
+    "timestamp": "2026-02-20T01:53:01Z"
+   },
+   {
+    "ns": 0,
+    "title": "Bose–Einstein condensate",
+    "pageid": 224544,
+    "snippet": "A Bose-<span class=\"searchmatch\">Einstein</span> condensate (BEC) is a state of matter (named after Satyendra Nath Bose and Albert <span class=\"searchmatch\">Einstein</span>) which can be created by cooling a gas of bosons",
+    "timestamp": "2020-02-20T13:55:34Z"
+   },
+   {
+    "ns": 0,
+    "title": "Theory of relativity",
+    "pageid": 160755,
+    "snippet": "relativity in physics, usually encompasses two interrelated theories by Albert <span class=\"searchmatch\">Einstein</span>: special relativity and general relativity. Special relativity applies",
+    "timestamp": "2026-02-02T16:43:25Z"
+   }
+  ]
+ }
+}

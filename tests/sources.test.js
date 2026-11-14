@@ -1,12 +1,15 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { fixture } from "./helpers.js";
+import { fixtureQuery } from "../tools/fixture-names.mjs";
 import { parseQuery } from "../js/query.js";
 import {
   API_HOSTS,
+  KIND_LABELS,
   LENSES,
   SOURCES,
   SOURCE_BY_ID,
+  dictionaryTerm,
   isoDay,
   pickStackSite,
   planSources,
@@ -17,13 +20,20 @@ import {
 const parsed = parseQuery("binary search tree");
 const ctx = { parsed, opts: {} };
 
+// A dictionary answers with one entry; every other source must give several documents.
+const MIN_DOCS = { wiktionary: 1 };
+
 for (const source of SOURCES) {
+  const ownParsed = parseQuery(fixtureQuery(source.id));
+
   test(`${source.id}: parses the captured answer into plain documents`, () => {
-    const docs = source.parse(fixture(source.id), ctx);
-    assert.ok(docs.length >= 3, `only ${docs.length} documents`);
+    const docs = source.parse(fixture(source.id), { parsed: ownParsed, opts: {} });
+    assert.ok(docs.length >= (MIN_DOCS[source.id] ?? 3), `only ${docs.length} documents`);
+    assert.ok(KIND_LABELS[source.kind], `kind ${source.kind} has no label`);
     const ids = new Set();
     docs.forEach((doc, index) => {
       assert.equal(doc.source, source.id);
+      assert.equal(doc.kind, source.kind);
       assert.equal(doc.upstreamRank, index);
       assert.ok(doc.title.length > 0, "title");
       assert.match(doc.url, /^https:\/\/[^\s<>"]+$/, `url ${doc.url}`);
@@ -37,12 +47,69 @@ for (const source of SOURCES) {
   });
 
   test(`${source.id}: request goes to an allowed https host and carries the date window`, () => {
-    const url = new URL(source.request(parsed, { before: "2022-11-30", after: "2010-01-01", wikiLang: "en" }));
+    const url = new URL(source.request(ownParsed, { before: "2022-11-30", after: "2010-01-01", wikiLang: "en" }));
     assert.equal(url.protocol, "https:");
     assert.ok(API_HOSTS.some((host) => url.hostname === host || url.hostname.endsWith(`.${host}`)), url.hostname);
-    assert.ok(decodeURIComponent(url.search).includes("binary search tree"));
+    const firstWord = ownParsed.text.split(/\s+/)[0].toLowerCase();
+    assert.ok(decodeURIComponent(url.pathname + url.search).toLowerCase().includes(firstWord), url.href);
   });
 }
+
+test("there are twenty sources and each one describes itself", () => {
+  assert.equal(SOURCES.length, 20);
+  assert.equal(new Set(SOURCES.map((source) => source.id)).size, 20);
+  for (const source of SOURCES) {
+    assert.ok(source.label && source.about && /^https:\/\//.test(source.home), source.id);
+  }
+});
+
+test("gitlab stands in for github and its documents say so", () => {
+  const docs = SOURCE_BY_ID.github.fallback.parse(fixture("gitlab"), ctx);
+  assert.ok(docs.length >= 3);
+  for (const doc of docs) {
+    assert.equal(doc.source, "github");
+    assert.equal(doc.signals.via, "GitLab");
+    assert.match(doc.url, /^https:\/\/gitlab\.com\//);
+  }
+});
+
+test("sources with a small free allowance report what is left and keep answers for a day", () => {
+  const day = 24 * 60 * 60 * 1000;
+  for (const id of ["stackexchange", "github", "web", "wiktionary"]) {
+    assert.equal(SOURCE_BY_ID[id].cacheMs, day, id);
+  }
+  assert.deepEqual(SOURCE_BY_ID.stackexchange.quota({ quota_remaining: 12, quota_max: 300 }), {
+    remaining: 12,
+    max: 300,
+    per: "day",
+  });
+  assert.equal(SOURCE_BY_ID.stackexchange.quota({ items: [] }), null);
+  const headers = new Headers({ "x-ratelimit-remaining": "3", "x-ratelimit-limit": "10" });
+  assert.deepEqual(SOURCE_BY_ID.github.quota({}, headers), { remaining: 3, max: 10, per: "minute" });
+  assert.equal(SOURCE_BY_ID.github.quota({}, new Headers()), null);
+});
+
+test("a registered Stack Exchange key is sent only when it looks like one", () => {
+  assert.match(SOURCE_BY_ID.stackexchange.request(parsed, { stackKey: "abcDEF123456((" }), /&key=abcDEF123456/);
+  assert.doesNotMatch(SOURCE_BY_ID.stackexchange.request(parsed, { stackKey: "" }), /&key=/);
+  assert.doesNotMatch(SOURCE_BY_ID.stackexchange.request(parsed, { stackKey: "bad key&x=1" }), /&key=/);
+});
+
+test("wikipedia passes on its spelling suggestion as plain text", () => {
+  assert.match(SOURCE_BY_ID.wikipedia.request(parsed, {}), /srinfo=suggestion/);
+  assert.equal(SOURCE_BY_ID.wikipedia.suggest({ query: { searchinfo: { suggestion: " binary search tree " } } }), "binary search tree");
+  assert.equal(SOURCE_BY_ID.wikipedia.suggest({ query: {} }), null);
+  assert.equal(SOURCE_BY_ID.wikipedia.suggest(null), null);
+});
+
+test("the dictionary is asked for short terms only", () => {
+  assert.equal(dictionaryTerm(parseQuery("tree")), "tree");
+  assert.equal(dictionaryTerm(parseQuery("define serendipity")), "serendipity");
+  assert.equal(dictionaryTerm(parseQuery("meaning of ad hoc")), "ad hoc");
+  assert.equal(dictionaryTerm(parseQuery("binary search tree")), "");
+  assert.deepEqual(SOURCE_BY_ID.wiktionary.emptyOn, [404]);
+  assert.match(SOURCE_BY_ID.wiktionary.request(parseQuery("ad hoc"), {}), /\/definition\/ad_hoc$/);
+});
 
 test("crossref fallback parses into openalex-shaped documents", () => {
   const docs = SOURCE_BY_ID.openalex.fallback.parse(fixture("crossref"), ctx);
@@ -86,7 +153,43 @@ test("stack exchange quota errors are reported as a limit", () => {
 });
 
 test("lenses and in: operators choose the sources", () => {
-  assert.equal(planSources(parsed, "all").length, 8);
+  assert.deepEqual(planSources(parsed, "all"), [
+    "wikipedia",
+    "stackexchange",
+    "hackernews",
+    "github",
+    "openalex",
+    "europepmc",
+    "archive",
+    "openlibrary",
+    "web",
+    "wikibooks",
+  ]);
+  const asked = (query, lens = "all") => planSources(parseQuery(query), lens);
+  assert.ok(asked("serendipity").includes("wiktionary"));
+  assert.ok(asked('"to be or not to be" hamlet').includes("bookstext"));
+  assert.ok(asked("metformin diabetes trial").includes("clinicaltrials"));
+  assert.ok(asked("einstein quotes").includes("wikiquote"));
+  assert.ok(asked("bali travel itinerary").includes("wikivoyage"));
+  assert.ok(asked("earthquake news").includes("wikinews"));
+  assert.ok(asked("drone regulation").includes("govuk"));
+  assert.ok(asked("drone regulation").includes("federalregister"));
+  assert.ok(!asked("drone regulation").includes("wikivoyage"));
+  assert.deepEqual(asked("anything at all", "official"), [
+    "wikipedia",
+    "wikisource",
+    "clinicaltrials",
+    "govuk",
+    "federalregister",
+  ]);
+  assert.ok(asked("protein folding", "research").includes("zenodo"));
+  assert.ok(!asked("protein folding", "research").includes("clinicaltrials"));
+  assert.deepEqual(asked("x in:gov"), ["govuk"]);
+  assert.deepEqual(asked("x in:dict"), ["wiktionary"]);
+  assert.deepEqual(asked("x in:trials"), ["clinicaltrials"]);
+  assert.deepEqual(asked("x in:web"), ["web"]);
+  assert.deepEqual(asked("x in:data"), ["zenodo"]);
+  assert.deepEqual(asked("x in:law"), ["federalregister"]);
   assert.deepEqual(planSources(parsed, "discuss"), ["stackexchange", "hackernews", "github"]);
   assert.deepEqual(planSources(parseQuery("x in:papers"), "discuss"), ["openalex"]);
   for (const lens of Object.values(LENSES)) {

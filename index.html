@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sumber: search the sources</title>
-    <meta name="description" content="A search page that asks Wikipedia, Stack Exchange, Hacker News, GitHub, OpenAlex, Europe PMC, the Internet Archive and Open Library straight from your browser. No generated text, no ads, no account, and the ranking is shown for every result.">
+    <meta name="description" content="A search page that asks 20 public sources straight from your browser: Wikipedia and its sister projects, Stack Exchange, Hacker News, GitHub, OpenAlex, Europe PMC, Zenodo, the Internet Archive, Open Library, an open web index and government records. No generated text, no ads, no account, and the ranking is shown for every result.">
     <meta name="referrer" content="no-referrer">
     <meta name="color-scheme" content="light dark">
     <meta name="theme-color" content="#fbfbf8" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#111318" media="(prefers-color-scheme: dark)">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://*.wikipedia.org https://api.stackexchange.com https://hn.algolia.com https://api.github.com https://api.openalex.org https://api.crossref.org https://www.ebi.ac.uk https://archive.org https://openlibrary.org; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://*.wikipedia.org https://*.wikibooks.org https://*.wiktionary.org https://*.wikinews.org https://*.wikiquote.org https://*.wikivoyage.org https://*.wikisource.org https://api.stackexchange.com https://hn.algolia.com https://api.github.com https://gitlab.com https://api.openalex.org https://api.crossref.org https://www.ebi.ac.uk https://archive.org https://openlibrary.org https://api.mwmbl.org https://zenodo.org https://clinicaltrials.gov https://www.gov.uk https://www.federalregister.gov; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
     <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="icons/icon-192.png">
     <link rel="manifest" href="manifest.webmanifest">
@@ -36,11 +36,12 @@
 
     <div class="controls" id="controls">
         <div class="lenses" role="group" aria-label="Which sources to ask">
-          <button type="button" class="lens" data-lens="all" aria-pressed="true" title="Every source">All</button>
-          <button type="button" class="lens" data-lens="learn" aria-pressed="false" title="Encyclopedia, answers, books">Learn</button>
-          <button type="button" class="lens" data-lens="research" aria-pressed="false" title="Papers and archives">Research</button>
-          <button type="button" class="lens" data-lens="build" aria-pressed="false" title="Answers, code, discussion">Build</button>
+          <button type="button" class="lens" data-lens="all" aria-pressed="true" title="The ten general sources, plus others when the query calls for them">All</button>
+          <button type="button" class="lens" data-lens="learn" aria-pressed="false" title="Encyclopedia, textbooks, answers, books">Learn</button>
+          <button type="button" class="lens" data-lens="research" aria-pressed="false" title="Papers, data, trials, archives">Research</button>
+          <button type="button" class="lens" data-lens="build" aria-pressed="false" title="Answers, code, discussion, web">Build</button>
           <button type="button" class="lens" data-lens="discuss" aria-pressed="false" title="What people argued about">Discuss</button>
+          <button type="button" class="lens" data-lens="official" aria-pressed="false" title="Government, law, trials, source texts">Official</button>
         </div>
         <button type="button" class="switch" id="before-ai" aria-pressed="false" title="Only show items dated on or before 30 November 2022, the day ChatGPT was released">
           <span class="switch-box" aria-hidden="true"></span>Before AI <span class="switch-hint">up to Nov 2022</span>
@@ -57,6 +58,8 @@
             <li><a class="tap" href="#q=why+is+the+sky+blue">why is the sky blue</a></li>
             <li><a class="tap" href="#q=bolt+preload+torque+relationship">bolt preload torque relationship</a></li>
             <li><a class="tap" href="#q=binary+search+tree&amp;before_ai=1">binary search tree, before AI</a></li>
+            <li><a class="tap" href="#q=define+serendipity">define serendipity</a></li>
+            <li><a class="tap" href="#q=data+protection+act+guidance&amp;lens=official">data protection act guidance, official</a></li>
           </ul>
         </div>
 
@@ -71,9 +74,9 @@
 
         <ol class="footnotes">
           <li id="fn-name"><em>Sumber</em> is Indonesian for &ldquo;source&rdquo;.</li>
-          <li>Your browser asks eight public sources directly: Wikipedia, Stack Exchange, Hacker News, GitHub, OpenAlex, Europe PMC, the Internet Archive and Open Library. There is no Sumber server, account or tracker in between.</li>
+          <li>Your browser asks public sources directly. There are 20: Wikipedia and six sister projects, Stack Exchange, Hacker News, GitHub, OpenAlex, Europe PMC, Zenodo, the Internet Archive, Open Library, the Mwmbl web index, ClinicalTrials.gov, GOV.UK and the Federal Register. Ten are asked every time and the rest join when the query calls for them. There is no Sumber server, account or tracker in between.</li>
           <li>Every title, excerpt and quote on the results page is copied from a source and linked to it. Sumber adds only the labels and the ranking arithmetic. Nothing is written by a language model, and <a href="about.html#ranking">the ranking</a> is shown for each result.</li>
-          <li>It is not a crawl of the whole web. For shops, maps or today&rsquo;s news, add <code>!g</code>, <code>!ddg</code> or <code>!maps</code> and the query is handed to that engine. <a href="about.html#limits">What it cannot do</a>.</li>
+          <li>It is not a crawl of the whole web: the web index it asks is small and open. For shops, maps or today&rsquo;s news, add <code>!g</code>, <code>!ddg</code> or <code>!maps</code> and the query is handed to that engine. <a href="about.html#limits">What it cannot do</a>.</li>
         </ol>
       </section>
 
@@ -109,8 +112,9 @@
 
           <nav id="elsewhere" class="elsewhere" aria-labelledby="elsewhere-title" hidden>
             <h2 id="elsewhere-title" class="minor-heading">Not here?</h2>
-            <p class="fine">Sumber only knows its eight sources. Take the same query somewhere else:</p>
+            <p class="fine">Sumber only knows the sources in the list above. Take the same query somewhere else:</p>
             <ul id="elsewhere-list" class="elsewhere-list"></ul>
+            <p class="fine">Wrong or missing result? <a id="report-link" href="https://github.com/juw12/sumber/issues/new" rel="noopener noreferrer">Report this search</a>. It opens a public GitHub issue that includes your query. Nothing is sent unless you submit it.</p>
           </nav>
         </div>
       </section>

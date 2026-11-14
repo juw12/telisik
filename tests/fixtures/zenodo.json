@@ -1,0 +1,1346 @@
+{
+ "hits": {
+  "hits": [
+   {
+    "created": "2023-07-19T07:20:01.877499+00:00",
+    "modified": "2024-07-11T16:56:40.034059+00:00",
+    "id": 8162647,
+    "conceptrecid": "8162646",
+    "doi": "10.5281/zenodo.8162647",
+    "conceptdoi": "10.5281/zenodo.8162646",
+    "doi_url": "https://doi.org/10.5281/zenodo.8162647",
+    "metadata": {
+     "title": "E-Mail Classification System Using Ontology-Base Binary Tree",
+     "doi": "10.5281/zenodo.8162647",
+     "publication_date": "2023-07-19",
+     "description": "<p><em>The internet has changed everyone&rsquo;s lives. It has made accessing, retrieving and exchanging information easy. Email is one such service that has made communication with any person in any part of the world simple and easy. As the number of users is increasing every day, so is the number of emails sent and received. An email inbox contains different emails from important to spam emails. Categorising them manually is a tedious task. This paper will be presenting an approach to classification of mail into different categories using an ontology-based binary search tree.</em></p>",
+     "access_right": "open",
+     "creators": [
+      {
+       "name": "Aruna Kumara B",
+       "affiliation": "Faculty, School of Computing and Information Technology, REVA University"
+      },
+      {
+       "name": "Vishal S Hiremath",
+       "affiliation": "Students, School of Computing and Information Technology, REVA University"
+      },
+      {
+       "name": "Sanjana V",
+       "affiliation": "Students, School of Computing and Information Technology, REVA University"
+      },
+      {
+       "name": "Naveen S Narayanan",
+       "affiliation": "Students, School of Computing and Information Technology, REVA University"
+      },
+      {
+       "name": "Sumukha B G",
+       "affiliation": "Students, School of Computing and Information Technology, REVA University"
+      }
+     ],
+     "keywords": [
+      "ontology, binary search tree, classification"
+     ],
+     "references": [
+      "1.\tKiamarzpour, F., Dianat, R., & Sadeghzadeh, M. (2013). Improving the methods of email classification based on words ontology. arXiv preprint arXiv:1310.5963.",
+      "2.\tSonowal, G. (2020). Phishing email detection based on binary search feature selection. SN Computer Science, 1(4), 191.",
+      "3.\tChang, M., & Poon, C. K. (2009). Using phrases as features in email classification. Journal of Systems and Software, 82(6), 1036-1045.",
+      "4.\tKumara, B. A., Kodabagi, M. M., Choudhury, T., & Um, J. S. (2021). Improved email classification through enhanced data preprocessing approach. Spatial Information Research, 29, 247-255.",
+      "5.\tKodabagi, M. M. (2020, October). Efficient data preprocessing approach for imbalanced data in email classification system. In 2020 International Conference on Smart Technologies in Computing, Electrical and Electronics (ICSTCEE) (pp. 338-341). IEEE.",
+      "6.\tBahgat, E. M., Rady, S., Gad, W., & Moawad, I. F. (2018). Efficient email classification approach based on semantic methods. Ain Shams Engineering Journal, 9(4), 3259-",
+      "7.\tJunnarkar, A., Adhikari, S., Fagania, J., Chimurkar, P., & Karia, D. (2021, February). E-mail spam classification via machine learning and natural language processing. In 2021 Third International Conference on Intelligent Communication Technologies and Virtual Mobile Networks (ICICV) (pp. 693-699). IEEE.",
+      "8.\tKhan, Z. M. A., Saeidlou, S., & Saadat, M. (2019). Ontology-based decision tree model for prediction in a manufacturing network. Production & Manufacturing Research, 7(1), 335-349.",
+      "9.\tB, A. K. ., & Kodabagi, M. M. (2022). Feature engineering with sentence similarity using the longest common subsequence for email classification. Malaysian Journal of Computer Science, 65–78.",
+      "10.\tAruna, K. B., & Kodabagi, M. M. (2023, March). A Novel Node Similarity Measure for Efficient Email Classification. In 2023 2nd International Conference for Innovation in Technology (INOCON) (pp. 1-5). IEEE."
+     ],
+     "language": "eng",
+     "resource_type": {
+      "title": "Journal article",
+      "type": "publication",
+      "subtype": "article"
+     },
+     "journal": {
+      "issue": "3",
+      "pages": "8-15",
+      "title": "Recent Innovations in Wireless Network Security",
+      "volume": "5"
+     },
+     "license": {
+      "id": "cc-by-4.0"
+     },
+     "communities": [
+      {
+       "id": "compub"
+      }
+     ],
+     "relations": {
+      "version": [
+       {
+        "index": 0,
+        "is_last": true,
+        "parent": {
+         "pid_type": "recid",
+         "pid_value": "8162646"
+        }
+       }
+      ]
+     }
+    },
+    "title": "E-Mail Classification System Using Ontology-Base Binary Tree",
+    "links": {
+     "self": "https://zenodo.org/api/records/8162647",
+     "self_html": "https://zenodo.org/records/8162647",
+     "preview_html": "https://zenodo.org/records/8162647?preview=1",
+     "doi": "https://doi.org/10.5281/zenodo.8162647",
+     "self_doi": "https://doi.org/10.5281/zenodo.8162647",
+     "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.8162647",
+     "reserve_doi": "https://zenodo.org/api/records/8162647/draft/pids/doi",
+     "parent": "https://zenodo.org/api/records/8162646",
+     "parent_html": "https://zenodo.org/records/8162646",
+     "parent_doi": "https://doi.org/10.5281/zenodo.8162646",
+     "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.8162646",
+     "self_iiif_manifest": "https://zenodo.org/api/iiif/record:8162647/manifest",
+     "self_iiif_sequence": "https://zenodo.org/api/iiif/record:8162647/sequence/default",
+     "files": "https://zenodo.org/api/records/8162647/files",
+     "media_files": "https://zenodo.org/api/records/8162647/media-files",
+     "thumbnails": {
+      "10": "https://zenodo.org/api/iiif/record:8162647:Email%20classification%20system%20using%20ontology-base%20binary%20tree%20-Formatted%20Paper.pdf/full/%5E10,/0/default.jpg",
+      "50": "https://zenodo.org/api/iiif/record:8162647:Email%20classification%20system%20using%20ontology-base%20binary%20tree%20-Formatted%20Paper.pdf/full/%5E50,/0/default.jpg",
+      "100": "https://zenodo.org/api/iiif/record:8162647:Email%20classification%20system%20using%20ontology-base%20binary%20tree%20-Formatted%20Paper.pdf/full/%5E100,/0/default.jpg",
+      "250": "https://zenodo.org/api/iiif/record:8162647:Email%20classification%20system%20using%20ontology-base%20binary%20tree%20-Formatted%20Paper.pdf/full/%5E250,/0/default.jpg",
+      "750": "https://zenodo.org/api/iiif/record:8162647:Email%20classification%20system%20using%20ontology-base%20binary%20tree%20-Formatted%20Paper.pdf/full/%5E750,/0/default.jpg",
+      "1200": "https://zenodo.org/api/iiif/record:8162647:Email%20classification%20system%20using%20ontology-base%20binary%20tree%20-Formatted%20Paper.pdf/full/%5E1200,/0/default.jpg"
+     },
+     "latest": "https://zenodo.org/api/records/8162647/versions/latest",
+     "latest_html": "https://zenodo.org/records/8162647/latest",
+     "versions": "https://zenodo.org/api/records/8162647/versions",
+     "draft": "https://zenodo.org/api/records/8162647/draft",
+     "access_links": "https://zenodo.org/api/records/8162647/access/links",
+     "access_grants": "https://zenodo.org/api/records/8162647/access/grants",
+     "access_users": "https://zenodo.org/api/records/8162647/access/users",
+     "access_request": "https://zenodo.org/api/records/8162647/access/request",
+     "access": "https://zenodo.org/api/records/8162647/access",
+     "communities": "https://zenodo.org/api/records/8162647/communities",
+     "communities-suggestions": "https://zenodo.org/api/records/8162647/communities-suggestions",
+     "request_deletion": "https://zenodo.org/api/records/8162647/request-deletion",
+     "file_modification": "https://zenodo.org/api/records/8162647/file-modification",
+     "quota_increase": "https://zenodo.org/api/records/8162647/quota-increase",
+     "requests": "https://zenodo.org/api/records/8162647/requests"
+    },
+    "updated": "2024-07-11T16:56:40.034059+00:00",
+    "recid": "8162647",
+    "revision": 5,
+    "files": [
+     {
+      "id": "7ea176e2-af59-4bda-8120-eab2600fa55e",
+      "key": "Email classification system using ontology-base binary tree -Formatted Paper.pdf",
+      "size": 344886,
+      "checksum": "md5:15e7066e1e0b27c23a0540d332ea2edc",
+      "links": {
+       "self": "https://zenodo.org/api/records/8162647/files/Email%20classification%20system%20using%20ontology-base%20binary%20tree%20-Formatted%20Paper.pdf/content"
+      }
+     }
+    ],
+    "swh": null,
+    "owners": [
+     {
+      "id": "109378"
+     }
+    ],
+    "status": "published",
+    "stats": {
+     "downloads": 159,
+     "unique_downloads": 159,
+     "views": 110,
+     "unique_views": 109,
+     "version_downloads": 159,
+     "version_unique_downloads": 159,
+     "version_unique_views": 109,
+     "version_views": 110
+    },
+    "state": "done",
+    "submitted": true
+   },
+   {
+    "created": "2025-10-15T04:45:54.799625+00:00",
+    "modified": "2025-10-15T04:45:55.025916+00:00",
+    "id": 17355447,
+    "conceptrecid": "17355446",
+    "doi": "10.11591/ijai.v14.i3.pp2537-2546",
+    "doi_url": "https://doi.org/10.11591/ijai.v14.i3.pp2537-2546",
+    "metadata": {
+     "title": "Evaluating search key distribution impact on searching  performance in large data streams",
+     "doi": "10.11591/ijai.v14.i3.pp2537-2546",
+     "publication_date": "2025-06-01",
+     "description": "<p>The distribution pattern of search keys is assessed in this study by contrasting&nbsp;four methods of index searching on large-scale JSON files with data streams.&nbsp;The Adelson-Velskii and Landis (AVL) tree, binary search tree (BST), linear&nbsp;search (LS), and binary search (BS) are among the search strategies. We look at&nbsp;the normal distribution, left-skewed distribution, and right-skewed distribution&nbsp;of search-key distributions. According to the results, LS performs the slowest,&nbsp;averaging 653.166 milliseconds, whereas AVL tree performs better than the&nbsp;others in dense index, with an average search time of 0.005 milliseconds. With&nbsp;0.011 milliseconds per keyword for sparse index, BS outperforms LS, which&nbsp;averages 1007.848 milliseconds. For dense indexing, an AVL tree works best;&nbsp;for sparse indexing, BS is recommended.</p>",
+     "access_right": "open",
+     "creators": [
+      {
+       "name": "Srisungsittisunti, Bowonsak",
+       "affiliation": "University of Phayao",
+       "orcid": "0000-0001-5204-4070"
+      },
+      {
+       "name": "Duangkaew, Jirawat",
+       "affiliation": "University of Phayao",
+       "orcid": "0009-0002-2132-4728"
+      },
+      {
+       "name": "Chaikaew, Nakarin",
+       "affiliation": "University of Phayao",
+       "orcid": "0000-0003-1650-7503"
+      }
+     ],
+     "keywords": [
+      "Binary search tree",
+      "Dense indexing",
+      "Indexing efficiency",
+      "Large-scale dataset",
+      "Sparse indexing"
+     ],
+     "resource_type": {
+      "title": "Journal article",
+      "type": "publication",
+      "subtype": "article"
+     },
+     "journal": {
+      "issue": "3",
+      "pages": "2537-2546",
+      "title": "IAES International Journal of Artificial Intelligence (IJ-AI)",
+      "volume": "14"
+     },
+     "license": {
+      "id": "cc-by-4.0"
+     },
+     "relations": {
+      "version": [
+       {
+        "index": 0,
+        "is_last": true,
+        "parent": {
+         "pid_type": "recid",
+         "pid_value": "17355446"
+        }
+       }
+      ]
+     }
+    },
+    "title": "Evaluating search key distribution impact on searching  performance in large data streams",
+    "links": {
+     "self": "https://zenodo.org/api/records/17355447",
+     "self_html": "https://zenodo.org/records/17355447",
+     "preview_html": "https://zenodo.org/records/17355447?preview=1",
+     "doi": "https://doi.org/10.11591/ijai.v14.i3.pp2537-2546",
+     "self_doi": "https://doi.org/10.11591/ijai.v14.i3.pp2537-2546",
+     "self_doi_html": "https://zenodo.org/doi/10.11591/ijai.v14.i3.pp2537-2546",
+     "reserve_doi": "https://zenodo.org/api/records/17355447/draft/pids/doi",
+     "parent": "https://zenodo.org/api/records/17355446",
+     "parent_html": "https://zenodo.org/records/17355446",
+     "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17355447/manifest",
+     "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17355447/sequence/default",
+     "files": "https://zenodo.org/api/records/17355447/files",
+     "media_files": "https://zenodo.org/api/records/17355447/media-files",
+     "thumbnails": {
+      "10": "https://zenodo.org/api/iiif/record:17355447:80%2027118.pdf/full/%5E10,/0/default.jpg",
+      "50": "https://zenodo.org/api/iiif/record:17355447:80%2027118.pdf/full/%5E50,/0/default.jpg",
+      "100": "https://zenodo.org/api/iiif/record:17355447:80%2027118.pdf/full/%5E100,/0/default.jpg",
+      "250": "https://zenodo.org/api/iiif/record:17355447:80%2027118.pdf/full/%5E250,/0/default.jpg",
+      "750": "https://zenodo.org/api/iiif/record:17355447:80%2027118.pdf/full/%5E750,/0/default.jpg",
+      "1200": "https://zenodo.org/api/iiif/record:17355447:80%2027118.pdf/full/%5E1200,/0/default.jpg"
+     },
+     "latest": "https://zenodo.org/api/records/17355447/versions/latest",
+     "latest_html": "https://zenodo.org/records/17355447/latest",
+     "versions": "https://zenodo.org/api/records/17355447/versions",
+     "draft": "https://zenodo.org/api/records/17355447/draft",
+     "access_links": "https://zenodo.org/api/records/17355447/access/links",
+     "access_grants": "https://zenodo.org/api/records/17355447/access/grants",
+     "access_users": "https://zenodo.org/api/records/17355447/access/users",
+     "access_request": "https://zenodo.org/api/records/17355447/access/request",
+     "access": "https://zenodo.org/api/records/17355447/access",
+     "communities": "https://zenodo.org/api/records/17355447/communities",
+     "communities-suggestions": "https://zenodo.org/api/records/17355447/communities-suggestions",
+     "request_deletion": "https://zenodo.org/api/records/17355447/request-deletion",
+     "file_modification": "https://zenodo.org/api/records/17355447/file-modification",
+     "quota_increase": "https://zenodo.org/api/records/17355447/quota-increase",
+     "requests": "https://zenodo.org/api/records/17355447/requests"
+    },
+    "updated": "2025-10-15T04:45:55.025916+00:00",
+    "recid": "17355447",
+    "revision": 4,
+    "files": [
+     {
+      "id": "81dc1f93-eb1e-49e9-a683-3ee6aac431b9",
+      "key": "80 27118.pdf",
+      "size": 682674,
+      "checksum": "md5:dc25ce8d6398f19060ebdc1cfef422f8",
+      "links": {
+       "self": "https://zenodo.org/api/records/17355447/files/80%2027118.pdf/content"
+      }
+     }
+    ],
+    "swh": null,
+    "owners": [
+     {
+      "id": "369384"
+     }
+    ],
+    "status": "published",
+    "stats": {
+     "downloads": 27,
+     "unique_downloads": 24,
+     "views": 29,
+     "unique_views": 27,
+     "version_downloads": 27,
+     "version_unique_downloads": 24,
+     "version_unique_views": 27,
+     "version_views": 29
+    },
+    "state": "done",
+    "submitted": true
+   },
+   {
+    "created": "2026-07-25T21:54:13.055139+00:00",
+    "modified": "2026-07-25T21:54:13.437957+00:00",
+    "id": 21575321,
+    "conceptrecid": "21575320",
+    "doi": "10.5281/zenodo.21575321",
+    "conceptdoi": "10.5281/zenodo.21575320",
+    "doi_url": "https://doi.org/10.5281/zenodo.21575321",
+    "metadata": {
+     "title": "Cryptographic Techniques using Binary Tree and Tree Traversal",
+     "doi": "10.5281/zenodo.21575321",
+     "publication_date": "2017-02-28",
+     "description": "In 21<sub>st</sub> century one of the most emerging problems is Data Security. For secure communication we always use different security algorithms e.g. Caesar cipher, modified Caesar cipher, IDEA, AES, RSA algorithm etc. and in data structures using C we have Linked list, stack ,queue ,tree and graph. In graph we have graph traversal i.e. BFS (Breadth First Search) or DFS (Depth First Search). This paper presents a new idea for Data encryption and decryption in order to provide security for data. Also it provides the new technique for security which is combination of Caesar Cipher and graph traversal, Binary search tree together then security will be much higher than only using Caesar cipher or graph traversal or binary search tree.",
+     "access_right": "open",
+     "creators": [
+      {
+       "name": "Shoba, M Shanmugam",
+       "affiliation": null
+      }
+     ],
+     "keywords": [
+      "Cryptography",
+      "Encryption",
+      "Decryption",
+      "Hacker",
+      "Binary Search Tree",
+      "Breadth First Search",
+      "Caesar Cipher",
+      "Depth Firstsearch",
+      "Graph Traversal"
+     ],
+     "related_identifiers": [
+      {
+       "identifier": "https://ijsrst.com/IJSRST173118",
+       "relation": "isVersionOf",
+       "resource_type": "publication-article",
+       "scheme": "url"
+      }
+     ],
+     "resource_type": {
+      "title": "Journal article",
+      "type": "publication",
+      "subtype": "article"
+     },
+     "journal": {
+      "issue": "1",
+      "pages": "175-180",
+      "title": "ijsrst",
+      "volume": "3"
+     },
+     "license": {
+      "id": "cc-by-4.0"
+     },
+     "relations": {
+      "version": [
+       {
+        "index": 0,
+        "is_last": true,
+        "parent": {
+         "pid_type": "recid",
+         "pid_value": "21575320"
+        }
+       }
+      ]
+     }
+    },
+    "title": "Cryptographic Techniques using Binary Tree and Tree Traversal",
+    "links": {
+     "self": "https://zenodo.org/api/records/21575321",
+     "self_html": "https://zenodo.org/records/21575321",
+     "preview_html": "https://zenodo.org/records/21575321?preview=1",
+     "doi": "https://doi.org/10.5281/zenodo.21575321",
+     "self_doi": "https://doi.org/10.5281/zenodo.21575321",
+     "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.21575321",
+     "reserve_doi": "https://zenodo.org/api/records/21575321/draft/pids/doi",
+     "parent": "https://zenodo.org/api/records/21575320",
+     "parent_html": "https://zenodo.org/records/21575320",
+     "parent_doi": "https://doi.org/10.5281/zenodo.21575320",
+     "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.21575320",
+     "self_iiif_manifest": "https://zenodo.org/api/iiif/record:21575321/manifest",
+     "self_iiif_sequence": "https://zenodo.org/api/iiif/record:21575321/sequence/default",
+     "files": "https://zenodo.org/api/records/21575321/files",
+     "media_files": "https://zenodo.org/api/records/21575321/media-files",
+     "thumbnails": {
+      "10": "https://zenodo.org/api/iiif/record:21575321:768.pdf/full/%5E10,/0/default.jpg",
+      "50": "https://zenodo.org/api/iiif/record:21575321:768.pdf/full/%5E50,/0/default.jpg",
+      "100": "https://zenodo.org/api/iiif/record:21575321:768.pdf/full/%5E100,/0/default.jpg",
+      "250": "https://zenodo.org/api/iiif/record:21575321:768.pdf/full/%5E250,/0/default.jpg",
+      "750": "https://zenodo.org/api/iiif/record:21575321:768.pdf/full/%5E750,/0/default.jpg",
+      "1200": "https://zenodo.org/api/iiif/record:21575321:768.pdf/full/%5E1200,/0/default.jpg"
+     },
+     "latest": "https://zenodo.org/api/records/21575321/versions/latest",
+     "latest_html": "https://zenodo.org/records/21575321/latest",
+     "versions": "https://zenodo.org/api/records/21575321/versions",
+     "draft": "https://zenodo.org/api/records/21575321/draft",
+     "access_links": "https://zenodo.org/api/records/21575321/access/links",
+     "access_grants": "https://zenodo.org/api/records/21575321/access/grants",
+     "access_users": "https://zenodo.org/api/records/21575321/access/users",
+     "access_request": "https://zenodo.org/api/records/21575321/access/request",
+     "access": "https://zenodo.org/api/records/21575321/access",
+     "communities": "https://zenodo.org/api/records/21575321/communities",
+     "communities-suggestions": "https://zenodo.org/api/records/21575321/communities-suggestions",
+     "request_deletion": "https://zenodo.org/api/records/21575321/request-deletion",
+     "file_modification": "https://zenodo.org/api/records/21575321/file-modification",
+     "quota_increase": "https://zenodo.org/api/records/21575321/quota-increase",
+     "requests": "https://zenodo.org/api/records/21575321/requests"
+    },
+    "updated": "2026-07-25T21:54:13.437957+00:00",
+    "recid": "21575321",
+    "revision": 3,
+    "files": [
+     {
+      "id": "4a6c51b9-22ae-4cbe-bab3-67aff473d309",
+      "key": "768.pdf",
+      "size": 644174,
+      "checksum": "md5:19e05c47646f46d109e27ab810cadd6e",
+      "links": {
+       "self": "https://zenodo.org/api/records/21575321/files/768.pdf/content"
+      }
+     }
+    ],
+    "swh": null,
+    "owners": [
+     {
+      "id": "1474007"
+     }
+    ],
+    "status": "published",
+    "stats": {
+     "downloads": 6,
+     "unique_downloads": 6,
+     "views": 9,
+     "unique_views": 9,
+     "version_downloads": 6,
+     "version_unique_downloads": 6,
+     "version_unique_views": 9,
+     "version_views": 9
+    },
+    "state": "done",
+    "submitted": true
+   },
+   {
+    "created": "2026-09-27T09:17:02.513760+00:00",
+    "modified": "2026-09-27T09:17:02.804949+00:00",
+    "id": 22993781,
+    "conceptrecid": "22993780",
+    "doi": "10.32628/CSEIT241015",
+    "doi_url": "https://doi.org/10.32628/CSEIT241015",
+    "metadata": {
+     "title": "Treaps - A Balanced and Efficient Data Structure",
+     "doi": "10.32628/CSEIT241015",
+     "publication_date": "2024-02-29",
+     "description": "Treaps, blending Binary Search Trees (BST) and Heaps, present a distinctive data structure combining search accuracy with randomized prioritization. This paper explores Treap fundamentals, operations, and implementation details, emphasizing their adeptness in maintaining equilibrium during dynamic operations. The Treap structure, succinctly outlined, features nodes with keys, priorities, and left/right children. Operations like insertion, deletion, and search are demystified, showcasing Treaps",
+     "access_right": "open",
+     "creators": [
+      {
+       "name": "Khambhammettu, Guna",
+       "affiliation": null
+      }
+     ],
+     "keywords": [
+      "Treap",
+      "Binary Search Tree",
+      "Heap",
+      "Maxheap",
+      "Data Structure"
+     ],
+     "related_identifiers": [
+      {
+       "identifier": "https://ijsrcseit.com/CSEIT241015",
+       "relation": "isVersionOf",
+       "resource_type": "publication-article",
+       "scheme": "url"
+      }
+     ],
+     "resource_type": {
+      "title": "Journal article",
+      "type": "publication",
+      "subtype": "article"
+     },
+     "journal": {
+      "issue": "1",
+      "pages": "71-78",
+      "title": "International Journal of Scientific Research in Computer Science, Engineering and Information Technology",
+      "volume": "10"
+     },
+     "license": {
+      "id": "cc-by-4.0"
+     },
+     "relations": {
+      "version": [
+       {
+        "index": 0,
+        "is_last": true,
+        "parent": {
+         "pid_type": "recid",
+         "pid_value": "22993780"
+        }
+       }
+      ]
+     }
+    },
+    "title": "Treaps - A Balanced and Efficient Data Structure",
+    "links": {
+     "self": "https://zenodo.org/api/records/22993781",
+     "self_html": "https://zenodo.org/records/22993781",
+     "preview_html": "https://zenodo.org/records/22993781?preview=1",
+     "doi": "https://doi.org/10.32628/CSEIT241015",
+     "self_doi": "https://doi.org/10.32628/CSEIT241015",
+     "self_doi_html": "https://zenodo.org/doi/10.32628/CSEIT241015",
+     "reserve_doi": "https://zenodo.org/api/records/22993781/draft/pids/doi",
+     "parent": "https://zenodo.org/api/records/22993780",
+     "parent_html": "https://zenodo.org/records/22993780",
+     "self_iiif_manifest": "https://zenodo.org/api/iiif/record:22993781/manifest",
+     "self_iiif_sequence": "https://zenodo.org/api/iiif/record:22993781/sequence/default",
+     "files": "https://zenodo.org/api/records/22993781/files",
+     "media_files": "https://zenodo.org/api/records/22993781/media-files",
+     "thumbnails": {
+      "10": "https://zenodo.org/api/iiif/record:22993781:CSEIT241015.pdf/full/%5E10,/0/default.jpg",
+      "50": "https://zenodo.org/api/iiif/record:22993781:CSEIT241015.pdf/full/%5E50,/0/default.jpg",
+      "100": "https://zenodo.org/api/iiif/record:22993781:CSEIT241015.pdf/full/%5E100,/0/default.jpg",
+      "250": "https://zenodo.org/api/iiif/record:22993781:CSEIT241015.pdf/full/%5E250,/0/default.jpg",
+      "750": "https://zenodo.org/api/iiif/record:22993781:CSEIT241015.pdf/full/%5E750,/0/default.jpg",
+      "1200": "https://zenodo.org/api/iiif/record:22993781:CSEIT241015.pdf/full/%5E1200,/0/default.jpg"
+     },
+     "latest": "https://zenodo.org/api/records/22993781/versions/latest",
+     "latest_html": "https://zenodo.org/records/22993781/latest",
+     "versions": "https://zenodo.org/api/records/22993781/versions",
+     "draft": "https://zenodo.org/api/records/22993781/draft",
+     "access_links": "https://zenodo.org/api/records/22993781/access/links",
+     "access_grants": "https://zenodo.org/api/records/22993781/access/grants",
+     "access_users": "https://zenodo.org/api/records/22993781/access/users",
+     "access_request": "https://zenodo.org/api/records/22993781/access/request",
+     "access": "https://zenodo.org/api/records/22993781/access",
+     "communities": "https://zenodo.org/api/records/22993781/communities",
+     "communities-suggestions": "https://zenodo.org/api/records/22993781/communities-suggestions",
+     "request_deletion": "https://zenodo.org/api/records/22993781/request-deletion",
+     "file_modification": "https://zenodo.org/api/records/22993781/file-modification",
+     "quota_increase": "https://zenodo.org/api/records/22993781/quota-increase",
+     "requests": "https://zenodo.org/api/records/22993781/requests"
+    },
+    "updated": "2026-09-27T09:17:02.804949+00:00",
+    "recid": "22993781",
+    "revision": 3,
+    "files": [
+     {
+      "id": "f48b8e82-c4bf-4525-8491-acbdae832081",
+      "key": "CSEIT241015.pdf",
+      "size": 528238,
+      "checksum": "md5:653c0d28e4083a8e7934dc1e0c760169",
+      "links": {
+       "self": "https://zenodo.org/api/records/22993781/files/CSEIT241015.pdf/content"
+      }
+     }
+    ],
+    "swh": null,
+    "owners": [
+     {
+      "id": "1474007"
+     }
+    ],
+    "status": "published",
+    "stats": {
+     "downloads": 4,
+     "unique_downloads": 3,
+     "views": 9,
+     "unique_views": 9,
+     "version_downloads": 4,
+     "version_unique_downloads": 3,
+     "version_unique_views": 9,
+     "version_views": 9
+    },
+    "state": "done",
+    "submitted": true
+   },
+   {
+    "created": "2019-11-30T20:25:00.236480+00:00",
+    "modified": "2020-01-25T07:22:38.038377+00:00",
+    "id": 3558757,
+    "conceptrecid": "3558756",
+    "doi": "10.5281/zenodo.3558757",
+    "conceptdoi": "10.5281/zenodo.3558756",
+    "doi_url": "https://doi.org/10.5281/zenodo.3558757",
+    "metadata": {
+     "title": "sichkar-valentyn/Unique-Words-Count: Words Counter Python and Binary Search Tree",
+     "doi": "10.5281/zenodo.3558757",
+     "publication_date": "2019-11-30",
+     "description": "<p>Implementing Unique Words Counter by using Binary Search Tree and Python.</p>",
+     "access_right": "open",
+     "creators": [
+      {
+       "name": "Valentyn N Sichkar",
+       "affiliation": null
+      }
+     ],
+     "related_identifiers": [
+      {
+       "identifier": "https://github.com/sichkar-valentyn/Unique-Words-Count/tree/v1.0",
+       "relation": "isSupplementTo",
+       "scheme": "url"
+      }
+     ],
+     "version": "v1.0",
+     "resource_type": {
+      "title": "Software",
+      "type": "software"
+     },
+     "license": {
+      "id": "other-open"
+     },
+     "relations": {
+      "version": [
+       {
+        "index": 0,
+        "is_last": true,
+        "parent": {
+         "pid_type": "recid",
+         "pid_value": "3558756"
+        }
+       }
+      ]
+     }
+    },
+    "title": "sichkar-valentyn/Unique-Words-Count: Words Counter Python and Binary Search Tree",
+    "links": {
+     "self": "https://zenodo.org/api/records/3558757",
+     "self_html": "https://zenodo.org/records/3558757",
+     "preview_html": "https://zenodo.org/records/3558757?preview=1",
+     "doi": "https://doi.org/10.5281/zenodo.3558757",
+     "self_doi": "https://doi.org/10.5281/zenodo.3558757",
+     "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.3558757",
+     "reserve_doi": "https://zenodo.org/api/records/3558757/draft/pids/doi",
+     "parent": "https://zenodo.org/api/records/3558756",
+     "parent_html": "https://zenodo.org/records/3558756",
+     "parent_doi": "https://doi.org/10.5281/zenodo.3558756",
+     "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.3558756",
+     "self_iiif_manifest": "https://zenodo.org/api/iiif/record:3558757/manifest",
+     "self_iiif_sequence": "https://zenodo.org/api/iiif/record:3558757/sequence/default",
+     "files": "https://zenodo.org/api/records/3558757/files",
+     "media_files": "https://zenodo.org/api/records/3558757/media-files",
+     "latest": "https://zenodo.org/api/records/3558757/versions/latest",
+     "latest_html": "https://zenodo.org/records/3558757/latest",
+     "versions": "https://zenodo.org/api/records/3558757/versions",
+     "draft": "https://zenodo.org/api/records/3558757/draft",
+     "access_links": "https://zenodo.org/api/records/3558757/access/links",
+     "access_grants": "https://zenodo.org/api/records/3558757/access/grants",
+     "access_users": "https://zenodo.org/api/records/3558757/access/users",
+     "access_request": "https://zenodo.org/api/records/3558757/access/request",
+     "access": "https://zenodo.org/api/records/3558757/access",
+     "communities": "https://zenodo.org/api/records/3558757/communities",
+     "communities-suggestions": "https://zenodo.org/api/records/3558757/communities-suggestions",
+     "request_deletion": "https://zenodo.org/api/records/3558757/request-deletion",
+     "file_modification": "https://zenodo.org/api/records/3558757/file-modification",
+     "quota_increase": "https://zenodo.org/api/records/3558757/quota-increase",
+     "requests": "https://zenodo.org/api/records/3558757/requests"
+    },
+    "updated": "2020-01-25T07:22:38.038377+00:00",
+    "recid": "3558757",
+    "revision": 3,
+    "files": [
+     {
+      "id": "df2ed2eb-d6dc-4e08-8b56-98f2e04cd99c",
+      "key": "sichkar-valentyn/Unique-Words-Count-v1.0.zip",
+      "size": 60230,
+      "checksum": "md5:7b86fb3a8b4a364ce4a28104dbe08b45",
+      "links": {
+       "self": "https://zenodo.org/api/records/3558757/files/sichkar-valentyn/Unique-Words-Count-v1.0.zip/content"
+      }
+     }
+    ],
+    "swh": null,
+    "owners": [
+     {
+      "id": "49802"
+     }
+    ],
+    "status": "published",
+    "stats": {
+     "downloads": 41,
+     "unique_downloads": 41,
+     "views": 226,
+     "unique_views": 217,
+     "version_downloads": 41,
+     "version_unique_downloads": 41,
+     "version_unique_views": 217,
+     "version_views": 226
+    },
+    "state": "done",
+    "submitted": true
+   },
+   {
+    "created": "2021-11-10T17:50:12.540401+00:00",
+    "modified": "2024-07-17T16:01:00.691079+00:00",
+    "id": 5668972,
+    "conceptrecid": "5668971",
+    "doi": "10.5281/zenodo.5668972",
+    "conceptdoi": "10.5281/zenodo.5668971",
+    "doi_url": "https://doi.org/10.5281/zenodo.5668972",
+    "metadata": {
+     "title": "Substitution-boxes based on Binary Tree built by Variants of Depth First Search",
+     "doi": "10.5281/zenodo.5668972",
+     "publication_date": "2021-11-10",
+     "description": "<p>Abstract&mdash;In today&rsquo;s age maximum communication takes place through internet and online channels. Therefore, securing of data has become even more vital and to fulfil this purpose data is encrypted in an unreadable form known as cryptography. S-box is established to obtain this purpose because it provides data obscurity, dependability and power to withstand against attacks from illegal resources. This paper shows the construction of resilient and robust S-boxes based on binary tree build by variants of Depth First Search. We tested our S-boxes using different analyses such as algebraic, statistical and also for image encryption.<br>\nIndex Terms&mdash;Tree traversal, binary tree, Depth First Search, variants of DFS, adjacency matrix, Substitution box</p>",
+     "access_right": "open",
+     "creators": [
+      {
+       "name": "Mehwish Sarwar",
+       "affiliation": "Department of Basic Sciences, University of Engineering and Technology Taxila 47050, Pakistan"
+      },
+      {
+       "name": "Dr. Nasir Siddiqui",
+       "affiliation": "Department of Basic Sciences, University of Engineering and Technology Taxila 47050, Pakistan"
+      }
+     ],
+     "keywords": [
+      "Data Mining",
+      "Information Technology",
+      "computer science",
+      "IJCSIS"
+     ],
+     "language": "eng",
+     "resource_type": {
+      "title": "Journal article",
+      "type": "publication",
+      "subtype": "article"
+     },
+     "license": {
+      "id": "cc-by-4.0"
+     },
+     "relations": {
+      "version": [
+       {
+        "index": 0,
+        "is_last": true,
+        "parent": {
+         "pid_type": "recid",
+         "pid_value": "5668971"
+        }
+       }
+      ]
+     }
+    },
+    "title": "Substitution-boxes based on Binary Tree built by Variants of Depth First Search",
+    "links": {
+     "self": "https://zenodo.org/api/records/5668972",
+     "self_html": "https://zenodo.org/records/5668972",
+     "preview_html": "https://zenodo.org/records/5668972?preview=1",
+     "doi": "https://doi.org/10.5281/zenodo.5668972",
+     "self_doi": "https://doi.org/10.5281/zenodo.5668972",
+     "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.5668972",
+     "reserve_doi": "https://zenodo.org/api/records/5668972/draft/pids/doi",
+     "parent": "https://zenodo.org/api/records/5668971",
+     "parent_html": "https://zenodo.org/records/5668971",
+     "parent_doi": "https://doi.org/10.5281/zenodo.5668971",
+     "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.5668971",
+     "self_iiif_manifest": "https://zenodo.org/api/iiif/record:5668972/manifest",
+     "self_iiif_sequence": "https://zenodo.org/api/iiif/record:5668972/sequence/default",
+     "files": "https://zenodo.org/api/records/5668972/files",
+     "media_files": "https://zenodo.org/api/records/5668972/media-files",
+     "thumbnails": {
+      "10": "https://zenodo.org/api/iiif/record:5668972:03%20Paper%2001102104%20IJCSIS%20Camera%20Ready%20pp34-53.pdf/full/%5E10,/0/default.jpg",
+      "50": "https://zenodo.org/api/iiif/record:5668972:03%20Paper%2001102104%20IJCSIS%20Camera%20Ready%20pp34-53.pdf/full/%5E50,/0/default.jpg",
+      "100": "https://zenodo.org/api/iiif/record:5668972:03%20Paper%2001102104%20IJCSIS%20Camera%20Ready%20pp34-53.pdf/full/%5E100,/0/default.jpg",
+      "250": "https://zenodo.org/api/iiif/record:5668972:03%20Paper%2001102104%20IJCSIS%20Camera%20Ready%20pp34-53.pdf/full/%5E250,/0/default.jpg",
+      "750": "https://zenodo.org/api/iiif/record:5668972:03%20Paper%2001102104%20IJCSIS%20Camera%20Ready%20pp34-53.pdf/full/%5E750,/0/default.jpg",
+      "1200": "https://zenodo.org/api/iiif/record:5668972:03%20Paper%2001102104%20IJCSIS%20Camera%20Ready%20pp34-53.pdf/full/%5E1200,/0/default.jpg"
+     },
+     "latest": "https://zenodo.org/api/records/5668972/versions/latest",
+     "latest_html": "https://zenodo.org/records/5668972/latest",
+     "versions": "https://zenodo.org/api/records/5668972/versions",
+     "draft": "https://zenodo.org/api/records/5668972/draft",
+     "access_links": "https://zenodo.org/api/records/5668972/access/links",
+     "access_grants": "https://zenodo.org/api/records/5668972/access/grants",
+     "access_users": "https://zenodo.org/api/records/5668972/access/users",
+     "access_request": "https://zenodo.org/api/records/5668972/access/request",
+     "access": "https://zenodo.org/api/records/5668972/access",
+     "communities": "https://zenodo.org/api/records/5668972/communities",
+     "communities-suggestions": "https://zenodo.org/api/records/5668972/communities-suggestions",
+     "request_deletion": "https://zenodo.org/api/records/5668972/request-deletion",
+     "file_modification": "https://zenodo.org/api/records/5668972/file-modification",
+     "quota_increase": "https://zenodo.org/api/records/5668972/quota-increase",
+     "requests": "https://zenodo.org/api/records/5668972/requests"
+    },
+    "updated": "2024-07-17T16:01:00.691079+00:00",
+    "recid": "5668972",
+    "revision": 5,
+    "files": [
+     {
+      "id": "461eba6c-9810-437f-8b63-3dc5fd7ab49a",
+      "key": "03 Paper 01102104 IJCSIS Camera Ready pp34-53.pdf",
+      "size": 2473332,
+      "checksum": "md5:48fa40320335630bec574cf9f9113e9b",
+      "links": {
+       "self": "https://zenodo.org/api/records/5668972/files/03%20Paper%2001102104%20IJCSIS%20Camera%20Ready%20pp34-53.pdf/content"
+      }
+     }
+    ],
+    "swh": null,
+    "owners": [
+     {
+      "id": "121452"
+     }
+    ],
+    "status": "published",
+    "stats": {
+     "downloads": 159,
+     "unique_downloads": 154,
+     "views": 156,
+     "unique_views": 149,
+     "version_downloads": 159,
+     "version_unique_downloads": 154,
+     "version_unique_views": 149,
+     "version_views": 156
+    },
+    "state": "done",
+    "submitted": true
+   }
+  ],
+  "total": 216457
+ },
+ "aggregations": {
+  "publication_date": {
+   "buckets": [
+    {
+     "key": "2000",
+     "doc_count": 337,
+     "label": "2000",
+     "is_selected": false
+    },
+    {
+     "key": "2001",
+     "doc_count": 302,
+     "label": "2001",
+     "is_selected": false
+    },
+    {
+     "key": "2002",
+     "doc_count": 919,
+     "label": "2002",
+     "is_selected": false
+    },
+    {
+     "key": "2003",
+     "doc_count": 684,
+     "label": "2003",
+     "is_selected": false
+    },
+    {
+     "key": "2004",
+     "doc_count": 681,
+     "label": "2004",
+     "is_selected": false
+    },
+    {
+     "key": "2005",
+     "doc_count": 933,
+     "label": "2005",
+     "is_selected": false
+    },
+    {
+     "key": "2006",
+     "doc_count": 988,
+     "label": "2006",
+     "is_selected": false
+    },
+    {
+     "key": "2007",
+     "doc_count": 1269,
+     "label": "2007",
+     "is_selected": false
+    },
+    {
+     "key": "2008",
+     "doc_count": 1379,
+     "label": "2008",
+     "is_selected": false
+    },
+    {
+     "key": "2009",
+     "doc_count": 1783,
+     "label": "2009",
+     "is_selected": false
+    },
+    {
+     "key": "2010",
+     "doc_count": 1854,
+     "label": "2010",
+     "is_selected": false
+    },
+    {
+     "key": "2011",
+     "doc_count": 2141,
+     "label": "2011",
+     "is_selected": false
+    },
+    {
+     "key": "2012",
+     "doc_count": 2358,
+     "label": "2012",
+     "is_selected": false
+    },
+    {
+     "key": "2013",
+     "doc_count": 3201,
+     "label": "2013",
+     "is_selected": false
+    },
+    {
+     "key": "2014",
+     "doc_count": 3951,
+     "label": "2014",
+     "is_selected": false
+    },
+    {
+     "key": "2015",
+     "doc_count": 4589,
+     "label": "2015",
+     "is_selected": false
+    },
+    {
+     "key": "2016",
+     "doc_count": 5523,
+     "label": "2016",
+     "is_selected": false
+    },
+    {
+     "key": "2017",
+     "doc_count": 6286,
+     "label": "2017",
+     "is_selected": false
+    },
+    {
+     "key": "2018",
+     "doc_count": 7451,
+     "label": "2018",
+     "is_selected": false
+    },
+    {
+     "key": "2019",
+     "doc_count": 10648,
+     "label": "2019",
+     "is_selected": false
+    },
+    {
+     "key": "2020",
+     "doc_count": 9303,
+     "label": "2020",
+     "is_selected": false
+    },
+    {
+     "key": "2021",
+     "doc_count": 11647,
+     "label": "2021",
+     "is_selected": false
+    },
+    {
+     "key": "2022",
+     "doc_count": 13701,
+     "label": "2022",
+     "is_selected": false
+    },
+    {
+     "key": "2023",
+     "doc_count": 14212,
+     "label": "2023",
+     "is_selected": false
+    },
+    {
+     "key": "2024",
+     "doc_count": 19557,
+     "label": "2024",
+     "is_selected": false
+    },
+    {
+     "key": "2025",
+     "doc_count": 26945,
+     "label": "2025",
+     "is_selected": false
+    },
+    {
+     "key": "2026",
+     "doc_count": 61489,
+     "label": "2026",
+     "is_selected": false
+    }
+   ],
+   "label": "Publication date"
+  },
+  "access_status": {
+   "buckets": [
+    {
+     "key": "open",
+     "doc_count": 202375,
+     "label": "Open",
+     "is_selected": false
+    },
+    {
+     "key": "restricted",
+     "doc_count": 13741,
+     "label": "Restricted",
+     "is_selected": false
+    },
+    {
+     "key": "embargoed",
+     "doc_count": 341,
+     "label": "Embargoed",
+     "is_selected": false
+    }
+   ],
+   "label": "Access status"
+  },
+  "resource_type": {
+   "buckets": [
+    {
+     "key": "publication",
+     "doc_count": 131469,
+     "label": "Publication",
+     "is_selected": false,
+     "inner": {
+      "buckets": [
+       {
+        "key": "publication-article",
+        "doc_count": 65189,
+        "label": "Journal article",
+        "is_selected": false
+       },
+       {
+        "key": "publication-taxonomictreatment",
+        "doc_count": 20245,
+        "label": "Taxonomic treatment",
+        "is_selected": false
+       },
+       {
+        "key": "publication-preprint",
+        "doc_count": 18966,
+        "label": "Preprint",
+        "is_selected": false
+       },
+       {
+        "key": "publication-conferencepaper",
+        "doc_count": 4691,
+        "label": "Conference paper",
+        "is_selected": false
+       },
+       {
+        "key": "publication-report",
+        "doc_count": 2477,
+        "label": "Report",
+        "is_selected": false
+       },
+       {
+        "key": "publication-book",
+        "doc_count": 2244,
+        "label": "Book",
+        "is_selected": false
+       },
+       {
+        "key": "publication-workingpaper",
+        "doc_count": 2083,
+        "label": "Working paper",
+        "is_selected": false
+       },
+       {
+        "key": "publication-journal",
+        "doc_count": 1426,
+        "label": "Journal",
+        "is_selected": false
+       },
+       {
+        "key": "publication-other",
+        "doc_count": 1213,
+        "label": "Other",
+        "is_selected": false
+       },
+       {
+        "key": "publication-section",
+        "doc_count": 1195,
+        "label": "Book chapter",
+        "is_selected": false
+       }
+      ]
+     }
+    },
+    {
+     "key": "dataset",
+     "doc_count": 36092,
+     "label": "Dataset",
+     "is_selected": false,
+     "inner": {
+      "buckets": []
+     }
+    },
+    {
+     "key": "image",
+     "doc_count": 28562,
+     "label": "Image",
+     "is_selected": false,
+     "inner": {
+      "buckets": [
+       {
+        "key": "image-figure",
+        "doc_count": 25500,
+        "label": "Figure",
+        "is_selected": false
+       },
+       {
+        "key": "image-photo",
+        "doc_count": 2619,
+        "label": "Photo",
+        "is_selected": false
+       },
+       {
+        "key": "image-other",
+        "doc_count": 78,
+        "label": "Other",
+        "is_selected": false
+       },
+       {
+        "key": "image-diagram",
+        "doc_count": 75,
+        "label": "Diagram",
+        "is_selected": false
+       },
+       {
+        "key": "image-plot",
+        "doc_count": 28,
+        "label": "Plot",
+        "is_selected": false
+       },
+       {
+        "key": "image-drawing",
+        "doc_count": 13,
+        "label": "Drawing",
+        "is_selected": false
+       }
+      ]
+     }
+    },
+    {
+     "key": "software",
+     "doc_count": 11359,
+     "label": "Software",
+     "is_selected": false,
+     "inner": {
+      "buckets": [
+       {
+        "key": "software-computationalnotebook",
+        "doc_count": 363,
+        "label": "Computational notebook",
+        "is_selected": false
+       }
+      ]
+     }
+    },
+    {
+     "key": "presentation",
+     "doc_count": 2921,
+     "label": "Presentation",
+     "is_selected": false,
+     "inner": {
+      "buckets": []
+     }
+    },
+    {
+     "key": "poster",
+     "doc_count": 2338,
+     "label": "Poster",
+     "is_selected": false,
+     "inner": {
+      "buckets": []
+     }
+    },
+    {
+     "key": "other",
+     "doc_count": 1993,
+     "label": "Other",
+     "is_selected": false,
+     "inner": {
+      "buckets": []
+     }
+    },
+    {
+     "key": "model",
+     "doc_count": 529,
+     "label": "Model",
+     "is_selected": false,
+     "inner": {
+      "buckets": []
+     }
+    },
+    {
+     "key": "video",
+     "doc_count": 436,
+     "label": "Video/Audio",
+     "is_selected": false,
+     "inner": {
+      "buckets": []
+     }
+    },
+    {
+     "key": "lesson",
+     "doc_count": 353,
+     "label": "Lesson",
+     "is_selected": false,
+     "inner": {
+      "buckets": []
+     }
+    }
+   ],
+   "label": "Resource types"
+  },
+  "subject": {
+   "buckets": [
+    {
+     "key": "Biodiversity",
+     "doc_count": 56442,
+     "label": "Biodiversity",
+     "is_selected": false
+    },
+    {
+     "key": "Taxonomy",
+     "doc_count": 54137,
+     "label": "Taxonomy",
+     "is_selected": false
+    },
+    {
+     "key": "Animalia",
+     "doc_count": 30410,
+     "label": "Animalia",
+     "is_selected": false
+    },
+    {
+     "key": "Arthropoda",
+     "doc_count": 17682,
+     "label": "Arthropoda",
+     "is_selected": false
+    },
+    {
+     "key": "Insecta",
+     "doc_count": 12816,
+     "label": "Insecta",
+     "is_selected": false
+    },
+    {
+     "key": "Chordata",
+     "doc_count": 9142,
+     "label": "Chordata",
+     "is_selected": false
+    },
+    {
+     "key": "Plantae",
+     "doc_count": 6510,
+     "label": "Plantae",
+     "is_selected": false
+    },
+    {
+     "key": "Tracheophyta",
+     "doc_count": 6064,
+     "label": "Tracheophyta",
+     "is_selected": false
+    },
+    {
+     "key": "Magnoliopsida",
+     "doc_count": 5108,
+     "label": "Magnoliopsida",
+     "is_selected": false
+    },
+    {
+     "key": "Mammalia",
+     "doc_count": 3639,
+     "label": "Mammalia",
+     "is_selected": false
+    }
+   ],
+   "label": "Subjects"
+  },
+  "file_type": {
+   "buckets": [
+    {
+     "key": "pdf",
+     "doc_count": 99982,
+     "label": "PDF",
+     "is_selected": false
+    },
+    {
+     "key": "png",
+     "doc_count": 23145,
+     "label": "PNG",
+     "is_selected": false
+    },
+    {
+     "key": "html",
+     "doc_count": 23115,
+     "label": "HTML",
+     "is_selected": false
+    },
+    {
+     "key": "zip",
+     "doc_count": 22680,
+     "label": "ZIP",
+     "is_selected": false
+    },
+    {
+     "key": "txt",
+     "doc_count": 12908,
+     "label": "TXT",
+     "is_selected": false
+    },
+    {
+     "key": "jpg",
+     "doc_count": 9767,
+     "label": "JPG",
+     "is_selected": false
+    },
+    {
+     "key": "json",
+     "doc_count": 8524,
+     "label": "JSON",
+     "is_selected": false
+    },
+    {
+     "key": "csv",
+     "doc_count": 6760,
+     "label": "CSV",
+     "is_selected": false
+    },
+    {
+     "key": "md",
+     "doc_count": 6329,
+     "label": "MD",
+     "is_selected": false
+    },
+    {
+     "key": "gz",
+     "doc_count": 5604,
+     "label": "GZ",
+     "is_selected": false
+    }
+   ],
+   "label": "File type"
+  }
+ },
+ "links": {
+  "self": "https://zenodo.org/api/records?page=1&q=binary+search+tree&size=6&sort=bestmatch",
+  "next": "https://zenodo.org/api/records?page=2&q=binary+search+tree&size=6&sort=bestmatch"
+ }
+}

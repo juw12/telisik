@@ -1,0 +1,1100 @@
+{
+ "took": 550,
+ "timed_out": false,
+ "_shards": {
+  "total": 132,
+  "successful": 132,
+  "skipped": 0,
+  "failed": 0
+ },
+ "hits": {
+  "total": 1996,
+  "max_score": 32.88864,
+  "hits": [
+   {
+    "_index": "fts_main_v2",
+    "_id": "dataabstractionp0002fran|735251c2b147f49b6ff587e5aa8410961090ae06",
+    "_score": 32.88864,
+    "highlight": {
+     "text": [
+      "empty {{{binary search tree}}}.\nDestroy a {{{binary search tree}}}.\nDetermine whether a {{{binary search tree}}} is empty",
+      "Binary Tree 455 The ADT {{{Binary Search Tree}}} 470 Algorithms for the ADT {{{Binary Search Tree}}} Operations 473 A Pointer-Based",
+      "Implementation of the ADT {{{Binary Search Tree}}} 487 The Efficiency of {{{Binary Search Tree}}} Operations 495 Treesort",
+      "Binary Tree\nThe ADT {{{Binary Search Tree}}} Algorithms for the ADT {{{Binary Search Tree}}} Operations A Pointer-Based",
+      "Implementation of the ADT {{{Binary\nSearch Tree}}}\nThe Efficiency of {{{Binary Search Tree}}} Operations ‘Treesort Saving"
+     ]
+    },
+    "fields": {
+     "meta_creator": [
+      "Frank M. Carrano"
+     ],
+     "meta_date": [
+      "1998-03-01T00:00:00Z"
+     ],
+     "meta_mediatype": [
+      "texts"
+     ],
+     "meta_publisher": [
+      "Addison Wesley Publishing Company"
+     ],
+     "meta_title": [
+      "Data Abstraction & Problem Solving with C++, Walls & Mirrors 2nd Editionprofessional Copy"
+     ],
+     "meta_publicdate": [
+      "2023-07-01T16:58:33Z"
+     ],
+     "meta_collection": [
+      "internetarchivebooks",
+      "inlibrary",
+      "printdisabled"
+     ],
+     "meta_year": [
+      1998
+     ],
+     "meta_downloads": [
+      41
+     ],
+     "meta_creatorSorter": [
+      "frank m. carrano"
+     ],
+     "meta_titleSorter": [
+      "data abstraction & problem solving with c++, walls & mirrors 2nd editionprofessional copy"
+     ],
+     "meta_languageSorter": [
+      "English"
+     ],
+     "identifier": [
+      "dataabstractionp0002fran"
+     ],
+     "file_creation_mtime": "1688752222",
+     "sha1_file": "ac810e53259b1149fbd2ed20582b3dc691e249f5",
+     "filename": [
+      "dataabstractionp0002fran_hocr_searchtext.txt.gz"
+     ],
+     "page_num": [
+      [
+       858
+      ]
+     ],
+     "created_on": "2023-07-07 23:27:52",
+     "updated_on": "2025-07-22 20:19:17",
+     "file_basename": "dataabstractionp0002fran"
+    }
+   },
+   {
+    "_index": "fts_main_v2",
+    "_id": "dataabstractionp0000carr_s1p5|e65c33e3ae103fd01e0abb20ca9a2f87742beedf",
+    "_score": 32.78463,
+    "highlight": {
+     "text": [
+      "ADT {{{Binary Search Tree}}}\n15.3.1 {{{Binary Search Tree}}} Operations\n15.3.2 Searching a {{{Binary Search Tree}}}\n15.3",
+      "3.3. Creating a {{{Binary Search Tree}}}\n15.3.4 Traversals of a {{{Binary Search Tree}}}\n15.3.5 The Efficiency of",
+      "Implementation of the ADT {{{Binary Search Tree}}} 16.3.1 Algorithms for the ADT {{{Binary Search Tree}}} Operations 16.3.2",
+      "Binary Tree 441 15.3 The ADT {{{Binary Search Tree}}} 442\n15.3.1 {{{Binary Search Tree}}} Operations 443\n15.3.2 Searching",
+      "more useful {{{binary search tree}}}, which is a value-oriented ADT. Although a {{{binary search tree}}} is also not"
+     ]
+    },
+    "fields": {
+     "meta_creator": [
+      "Carrano, Frank M., author"
+     ],
+     "meta_date": [
+      "2013-01-01T00:00:00Z"
+     ],
+     "meta_mediatype": [
+      "texts"
+     ],
+     "meta_publisher": [
+      "Boston : Pearson"
+     ],
+     "meta_title": [
+      "Data abstraction & problem solving with C++ : walls & mirrors"
+     ],
+     "meta_publicdate": [
+      "2021-10-14T12:45:39Z"
+     ],
+     "meta_collection": [
+      "internetarchivebooks",
+      "printdisabled",
+      "fav-artisl",
+      "fav-bocke",
+      "fav-dergo32",
+      "fav-randomcyberread3r",
+      "fav-y_t510"
+     ],
+     "meta_year": [
+      2013
+     ],
+     "meta_downloads": [
+      169
+     ],
+     "meta_creatorSorter": [
+      "carrano, frank m., author"
+     ],
+     "meta_subjectSorter": [
+      "C++ (Computer program language)",
+      "Abstract data types (Computer science)",
+      "Problem solving -- Data processing"
+     ],
+     "meta_titleSorter": [
+      "data abstraction & problem solving with c++ : walls & mirrors"
+     ],
+     "meta_languageSorter": [
+      "English"
+     ],
+     "identifier": [
+      "dataabstractionp0000carr_s1p5"
+     ],
+     "updated_on": "2026-07-22 18:17:45",
+     "sha1_file": "713ef3bba6686a8171887bea1910da927af06a9b",
+     "created_on": "2021-10-16 01:15:31",
+     "page_num": [
+      [
+       846
+      ]
+     ],
+     "file_creation_mtime": "1634335264",
+     "filename": [
+      "dataabstractionp0000carr_s1p5_hocr_searchtext.txt.gz"
+     ],
+     "file_basename": "dataabstractionp0000carr_s1p5"
+    },
+    "edition": {
+     "key": "/books/OL26838124M",
+     "url": "/books/OL26838124M/Data_Abstraction_Problem_Solving_with_C_Walls_and_Mirrors_(6th_Edition)",
+     "title": "Data Abstraction & Problem Solving with C++: Walls and Mirrors (6th Edition)",
+     "ocaid": "dataabstractionp0000carr_s1p5",
+     "eligibility": {},
+     "availability": {},
+     "authors": [
+      {
+       "key": "/authors/OL394992A",
+       "name": "Frank M. Carrano"
+      },
+      {
+       "key": "/authors/OL7498132A",
+       "name": "Timothy M. Henry"
+      }
+     ],
+     "work_key": "/works/OL19547546W",
+     "cover_url": "//covers.openlibrary.org/b/id/8513818-M.jpg"
+    },
+    "availability": {
+     "status": "private",
+     "available_to_browse": null,
+     "available_to_borrow": null,
+     "available_to_waitlist": null,
+     "is_printdisabled": null,
+     "is_readable": null,
+     "is_lendable": null,
+     "is_previewable": true,
+     "identifier": "dataabstractionp0000carr_s1p5",
+     "isbn": "9780132923729",
+     "oclc": null,
+     "openlibrary_work": "OL19547546W",
+     "openlibrary_edition": "OL26838124M",
+     "last_loan_date": null,
+     "num_waitlist": null,
+     "last_waitlist_date": null,
+     "is_restricted": true,
+     "is_browseable": null,
+     "__src__": "core.models.lending.get_availability"
+    }
+   },
+   {
+    "_index": "fts_main_v2",
+    "_id": "dataabstractionp0002carr|27844cc9963291a1b865eb9f50ae0c2933db3193",
+    "_score": 32.781727,
+    "highlight": {
+     "text": [
+      "3 The ADT {{{Binary Search Tree}}} 551 Algorithms for the Operations of the ADT {{{Binary Search Tree}}} 556 A Reference-Based",
+      "Implementation of the ADT {{{Binary Search Tree}}} 572 The Efficiency of {{{Binary Search Tree}}} Operations 576 Treesort",
+      "3 The ADIT {{{Binary Search Tree}}}\nAlgorithms for the Operations of the ADT {{{Binary Search Tree}}}\nA Reference-Based",
+      "Implementation of the ADT {{{Binary Search Tree}}}\nThe Efficiency of {{{Binary Search Tree}}} Operations\nTreesort Saving",
+      "more useful {{{binary search tree}}}, which is a value-oriented ADT.:Although a {{{binary search tree}}} is also not"
+     ]
+    },
+    "fields": {
+     "meta_creator": [
+      "Carrano, Frank M"
+     ],
+     "meta_date": [
+      "2006-01-01T00:00:00Z"
+     ],
+     "meta_mediatype": [
+      "texts"
+     ],
+     "meta_publisher": [
+      "Boston : Pearson/Addison Wesley"
+     ],
+     "meta_title": [
+      "Data abstraction and problem solving with Java : walls and mirrors"
+     ],
+     "meta_publicdate": [
+      "2021-10-15T01:56:40Z"
+     ],
+     "meta_collection": [
+      "internetarchivebooks",
+      "printdisabled",
+      "fav-adfigueroa",
+      "fav-gcf_2651",
+      "fav-jecko696",
+      "fav-krishna_sharma523",
+      "fav-multadordo",
+      "openlibrary-d-ol"
+     ],
+     "meta_year": [
+      2006
+     ],
+     "meta_downloads": [
+      355
+     ],
+     "meta_creatorSorter": [
+      "carrano, frank m"
+     ],
+     "meta_subjectSorter": [
+      "Java (Computer program language)",
+      "Data structures (Computer science)"
+     ],
+     "meta_titleSorter": [
+      "data abstraction and problem solving with java : walls and mirrors"
+     ],
+     "meta_languageSorter": [
+      "English"
+     ],
+     "sha1_file": "6040f37389b53000b92f56a7740b40f34cbf8901",
+     "page_num": [
+      [
+       918
+      ]
+     ],
+     "updated_on": "2026-07-17 00:58:10",
+     "created_on": "2021-10-18 08:30:27",
+     "file_creation_mtime": "1634537350",
+     "filename": [
+      "dataabstractionp0002carr_hocr_searchtext.txt.gz"
+     ],
+     "identifier": [
+      "dataabstractionp0002carr"
+     ],
+     "file_basename": "dataabstractionp0002carr"
+    },
+    "edition": {
+     "key": "/books/OL3409792M",
+     "url": "/books/OL3409792M/Data_abstraction_and_problem_solving_with_Java",
+     "title": "Data abstraction and problem solving with Java",
+     "ocaid": "dataabstractionp0002carr",
+     "eligibility": {},
+     "availability": {},
+     "authors": [
+      {
+       "key": "/authors/OL394992A",
+       "name": "Frank M. Carrano"
+      }
+     ],
+     "work_key": "/works/OL2702246W",
+     "cover_url": "//covers.openlibrary.org/b/id/1176442-M.jpg"
+    },
+    "availability": {
+     "status": "private",
+     "available_to_browse": false,
+     "available_to_borrow": false,
+     "available_to_waitlist": false,
+     "is_printdisabled": true,
+     "is_readable": false,
+     "is_lendable": false,
+     "is_previewable": true,
+     "identifier": "dataabstractionp0002carr",
+     "isbn": "0321304284",
+     "oclc": null,
+     "openlibrary_work": "OL2702246W",
+     "openlibrary_edition": "OL3409792M",
+     "last_loan_date": null,
+     "num_waitlist": null,
+     "last_waitlist_date": null,
+     "is_restricted": true,
+     "is_browseable": false,
+     "__src__": "core.models.lending.get_availability"
+    }
+   },
+   {
+    "_index": "fts_main_v2",
+    "_id": "datamanagementfi0000loom_y0o6|cc075e749dd56a4b12728588dc22119a6c6f24da",
+    "_score": 32.717022,
+    "highlight": {
+     "text": [
+      "one  {{{binary  search  tree}}}  is  better  than  another?  What  is  a  good  {{{binary  search  tree}}}? How ",
+      "INSERTING  NODES  IN  A  {{{BINARY  SEARCH  TREE}}}\nA  new  node  in  a  {{{binary  search  tree}}}  always  is  placed",
+      "FROM  A  {{{BINARY  SEARCH  TREE}}}\nThe  operation  of  deleting  a  node  from  a  {{{binary  search  tree}}}  can ",
+      "maintain  a  {{{binary  search  tree}}}\nDOG\nAPE\nRAFFE\nFigure  8-24  Balanced  {{{binary  search  tree}}}.\n192\nGeneral",
+      "search  a  {{{binary  search  tree}}}  and  to  insert  a new  node  in  a  {{{binary  search  tree}}}.\n202\nGeneral"
+     ]
+    },
+    "fields": {
+     "meta_creator": [
+      "Loomis, Mary E. S"
+     ],
+     "meta_date": [
+      "1989-01-01T00:00:00Z"
+     ],
+     "meta_mediatype": [
+      "texts"
+     ],
+     "meta_publisher": [
+      "Englewood Cliffs, N.J. : Prentice-Hall"
+     ],
+     "meta_title": [
+      "Data management and file structures"
+     ],
+     "meta_publicdate": [
+      "2019-07-08T11:38:02Z"
+     ],
+     "meta_collection": [
+      "trent_university",
+      "internetarchivebooks",
+      "inlibrary",
+      "printdisabled",
+      "fav-bepote4156_eilnews_com",
+      "fav-bocke",
+      "fav-closeddoorcultivator",
+      "fav-husna3305",
+      "fav-msobiesz",
+      "fav-seyfullahk1",
+      "fav-t79",
+      "fav-yyy750",
+      "calacademy-ol",
+      "johnshopkins-ol"
+     ],
+     "meta_year": [
+      1989
+     ],
+     "meta_downloads": [
+      574
+     ],
+     "meta_creatorSorter": [
+      "loomis, mary e. s"
+     ],
+     "meta_subjectSorter": [
+      "Data base management",
+      "File organization (Computer science)"
+     ],
+     "meta_titleSorter": [
+      "data management and file structures"
+     ],
+     "meta_languageSorter": [
+      "English"
+     ],
+     "filename": [
+      "datamanagementfi0000loom_y0o6_hocr_searchtext.txt.gz"
+     ],
+     "page_num": [
+      [
+       522
+      ]
+     ],
+     "created_on": "2021-11-09 22:06:22",
+     "identifier": [
+      "datamanagementfi0000loom_y0o6"
+     ],
+     "updated_on": "2025-07-22 19:57:14",
+     "file_creation_mtime": "1636440040",
+     "sha1_file": "23b0848461ac4f4e6d99f4f27eda1e68a7068e18",
+     "file_basename": "datamanagementfi0000loom_y0o6"
+    },
+    "edition": {
+     "key": "/books/OL2046162M",
+     "url": "/books/OL2046162M/Data_management_and_file_structures",
+     "title": "Data management and file structures",
+     "ocaid": "datamanagementfi0000loom_y0o6",
+     "eligibility": {},
+     "availability": {},
+     "authors": [
+      {
+       "key": "/authors/OL399594A",
+       "name": "Mary E. S. Loomis"
+      }
+     ],
+     "work_key": "/works/OL2728876W",
+     "cover_url": "//covers.openlibrary.org/b/id/4062228-M.jpg"
+    },
+    "availability": {
+     "status": "borrow_available",
+     "available_to_browse": true,
+     "available_to_borrow": true,
+     "available_to_waitlist": false,
+     "is_printdisabled": true,
+     "is_readable": false,
+     "is_lendable": true,
+     "is_previewable": true,
+     "identifier": "datamanagementfi0000loom_y0o6",
+     "isbn": "0131983423",
+     "oclc": null,
+     "openlibrary_work": "OL2728876W",
+     "openlibrary_edition": "OL2046162M",
+     "last_loan_date": "2020-06-06T11:07:29Z",
+     "num_waitlist": "0",
+     "last_waitlist_date": "2019-11-12T10:03:51Z",
+     "is_restricted": true,
+     "is_browseable": true,
+     "__src__": "core.models.lending.get_availability"
+    }
+   },
+   {
+    "_index": "fts_main_v2",
+    "_id": "wallsmirrorsinte0000helm|9c1c873e5d78b297fb0cdbb5fc0e53ca8751d1be",
+    "_score": 32.66983,
+    "highlight": {
+     "text": [
+      "Table with a {{{Binary Search Tree}}} 432 Insert and Delete Operations for a {{{Binary Search Tree}}} 437 The Efficiency",
+      "Efficiency of the {{{Binary Search Tree}}} Algorithms 443 Details of the {{{Binary Search Tree}}} Implementation 445",
+      "TABLE WITH A {{{BINARY SEARCH TREE}}}\nWe are now just about ready to develop the {{{binary search tree}}} implementation",
+      "defining property of a {{{binary search tree}}}. The sorted property of a {{{binary search tree}}} allows us to perform",
+      "But since T is a {{{binary search tree}}} of height 4, each subtree is a {{{binary search tree}}} of height less than"
+     ]
+    },
+    "fields": {
+     "meta_creator": [
+      "Helman, Paul"
+     ],
+     "meta_date": [
+      "1988-01-01T00:00:00Z"
+     ],
+     "meta_mediatype": [
+      "texts"
+     ],
+     "meta_publisher": [
+      "Menlo Park, Calif. : Benjamin/Cummings Pub. Co."
+     ],
+     "meta_title": [
+      "Walls and mirrors : intermediate problem solving and data structures"
+     ],
+     "meta_publicdate": [
+      "2023-11-08T19:46:08Z"
+     ],
+     "meta_collection": [
+      "internetarchivebooks",
+      "inlibrary",
+      "printdisabled",
+      "fav-dstev1",
+      "fav-kudzrator",
+      "fav-sartaj_mashori"
+     ],
+     "meta_year": [
+      1988
+     ],
+     "meta_downloads": [
+      15
+     ],
+     "meta_creatorSorter": [
+      "helman, paul"
+     ],
+     "meta_subjectSorter": [
+      "Computer programming",
+      "Data structures (Computer science)",
+      "Modula-2 (Computer program language)"
+     ],
+     "meta_titleSorter": [
+      "walls and mirrors : intermediate problem solving and data structures"
+     ],
+     "meta_languageSorter": [
+      "English"
+     ],
+     "page_num": [
+      [
+       666
+      ]
+     ],
+     "sha1_file": "b6fb2f2a64dbac3686ef3e16eb0fb2f0f985b8e8",
+     "updated_on": "2025-08-02 23:37:12",
+     "identifier": [
+      "wallsmirrorsinte0000helm"
+     ],
+     "filename": [
+      "wallsmirrorsinte0000helm_hocr_searchtext.txt.gz"
+     ],
+     "file_creation_mtime": "1700263277",
+     "created_on": "2023-11-18 02:10:47",
+     "file_basename": "wallsmirrorsinte0000helm"
+    },
+    "edition": {
+     "key": "/books/OL2527604M",
+     "url": "/books/OL2527604M/Walls_and_mirrors",
+     "title": "Walls and mirrors",
+     "ocaid": "wallsmirrorsinte0000helm",
+     "eligibility": {},
+     "availability": {},
+     "authors": [
+      {
+       "key": "/authors/OL709916A",
+       "name": "Paul Helman"
+      }
+     ],
+     "work_key": "/works/OL3903040W",
+     "cover_url": "//covers.openlibrary.org/b/id/4141552-M.jpg"
+    },
+    "availability": {
+     "status": "borrow_available",
+     "available_to_browse": true,
+     "available_to_borrow": false,
+     "available_to_waitlist": false,
+     "is_printdisabled": true,
+     "is_readable": false,
+     "is_lendable": true,
+     "is_previewable": true,
+     "identifier": "wallsmirrorsinte0000helm",
+     "isbn": "0805389458",
+     "oclc": null,
+     "openlibrary_work": "OL3903040W",
+     "openlibrary_edition": "OL2527604M",
+     "last_loan_date": null,
+     "num_waitlist": null,
+     "last_waitlist_date": null,
+     "is_restricted": true,
+     "is_browseable": true,
+     "__src__": "core.models.lending.get_availability"
+    }
+   },
+   {
+    "_index": "fts_main_v2",
+    "_id": "dataabstractionp00fran|ed08f0bafaf639d5b0b85e35b79ed38944094457",
+    "_score": 32.668503,
+    "highlight": {
+     "text": [
+      "Efficiency  of  {{{Binary  Search  Tree}}}  Operations    474\nTreesort    478\nSaving  a  {{{Binary  Search  Tree}}}  in  a",
+      "ADT  {{{Binary  Search  Tree}}}\nAlgorithms  for  the  Operations  of  the  ADT  {{{Binary  Search  Tree}}} A  Reference-Based",
+      "Implementation  of  the  ADT  {{{Binary\nSearch  Tree}}} The  Efficiency  of  {{{Binary  Search  Tree}}}  Operations Treesort",
+      "useful  {{{binary  search  tree}}},  which  is  a  value-oriented  ADT.  Although  a {{{binary  search  tree}}}  is ",
+      "example  of  a  {{{binary  search  tree}}}.  As  its  name  suggests,  a {{{binary  search  tree}}}  organizes  data"
+     ]
+    },
+    "fields": {
+     "meta_publisher": [
+      "Boston : Addison-Wesley"
+     ],
+     "meta_title": [
+      "Data abstraction and problem solving with Java : walls and mirrors"
+     ],
+     "meta_date": [
+      "2001-01-01T00:00:00Z"
+     ],
+     "meta_creator": [
+      "Carrano, Frank M",
+      "Prichard, Janet J"
+     ],
+     "meta_mediatype": [
+      "texts"
+     ],
+     "meta_publicdate": [
+      "2011-08-24T16:59:20Z"
+     ],
+     "meta_collection": [
+      "internetarchivebooks",
+      "americana",
+      "printdisabled",
+      "fav-jecko696",
+      "fav-multadordo",
+      "fav-piichi",
+      "americanuniversity-ol",
+      "dartmouthlibrary-ol",
+      "gwulibraries-ol",
+      "johnshopkins-ol",
+      "rochester-ol",
+      "uni-ol",
+      "universityofcoloradoboulder-ol",
+      "wilsoncollege-ol"
+     ],
+     "meta_year": [
+      2001
+     ],
+     "meta_downloads": [
+      351
+     ],
+     "meta_creatorSorter": [
+      "carrano, frank m"
+     ],
+     "meta_subjectSorter": [
+      "Java (Computer program language)",
+      "Data structures (Computer science)"
+     ],
+     "meta_titleSorter": [
+      "data abstraction and problem solving with java : walls and mirrors"
+     ],
+     "meta_languageSorter": [
+      "English"
+     ],
+     "file_creation_mtime": "1636442059",
+     "sha1_file": "c1253dfdb93b2d3bcd9f9faf9a35766357545f71",
+     "page_num": [
+      [
+       842
+      ]
+     ],
+     "filename": [
+      "dataabstractionp00fran_hocr_searchtext.txt.gz"
+     ],
+     "identifier": [
+      "dataabstractionp00fran"
+     ],
+     "updated_on": "2025-08-20 07:32:10",
+     "created_on": "2021-11-16 05:52:13",
+     "file_basename": "dataabstractionp00fran"
+    },
+    "edition": {
+     "key": "/books/OL7408500M",
+     "url": "/books/OL7408500M/Data_Abstraction_and_Problem_Solving_with_Java",
+     "title": "Data Abstraction and Problem Solving with Java",
+     "ocaid": "dataabstractionp00fran",
+     "eligibility": {},
+     "availability": {},
+     "authors": [
+      {
+       "key": "/authors/OL394992A",
+       "name": "Frank M. Carrano"
+      },
+      {
+       "key": "/authors/OL2670871A",
+       "name": "Janet Prichard"
+      }
+     ],
+     "work_key": "/works/OL18156623W",
+     "cover_url": "//covers.openlibrary.org/b/id/135819-M.jpg"
+    },
+    "availability": {
+     "status": "private",
+     "available_to_browse": false,
+     "available_to_borrow": false,
+     "available_to_waitlist": false,
+     "is_printdisabled": true,
+     "is_readable": false,
+     "is_lendable": false,
+     "is_previewable": true,
+     "identifier": "dataabstractionp00fran",
+     "isbn": "0201702207",
+     "oclc": null,
+     "openlibrary_work": "OL18156623W",
+     "openlibrary_edition": "OL7408500M",
+     "last_loan_date": "2020-08-24T17:28:34Z",
+     "num_waitlist": "0",
+     "last_waitlist_date": "2020-02-19T08:52:49Z",
+     "is_restricted": true,
+     "is_browseable": false,
+     "__src__": "core.models.lending.get_availability"
+    }
+   }
+  ]
+ },
+ "aggregations": {
+  "top-year": {
+   "doc_count_error_upper_bound": 0,
+   "sum_other_doc_count": 570,
+   "buckets": [
+    {
+     "key": 1988,
+     "doc_count": 76
+    },
+    {
+     "key": 1997,
+     "doc_count": 75
+    },
+    {
+     "key": 1996,
+     "doc_count": 74
+    },
+    {
+     "key": 2005,
+     "doc_count": 72
+    },
+    {
+     "key": 2000,
+     "doc_count": 69
+    },
+    {
+     "key": 1992,
+     "doc_count": 67
+    },
+    {
+     "key": 2002,
+     "doc_count": 67
+    },
+    {
+     "key": 2003,
+     "doc_count": 65
+    },
+    {
+     "key": 1998,
+     "doc_count": 64
+    },
+    {
+     "key": 1990,
+     "doc_count": 63
+    },
+    {
+     "key": 1989,
+     "doc_count": 61
+    },
+    {
+     "key": 2004,
+     "doc_count": 60
+    },
+    {
+     "key": 1995,
+     "doc_count": 59
+    },
+    {
+     "key": 2007,
+     "doc_count": 59
+    },
+    {
+     "key": 2008,
+     "doc_count": 59
+    },
+    {
+     "key": 2006,
+     "doc_count": 56
+    },
+    {
+     "key": 1994,
+     "doc_count": 55
+    },
+    {
+     "key": 2001,
+     "doc_count": 55
+    },
+    {
+     "key": 1999,
+     "doc_count": 53
+    },
+    {
+     "key": 1986,
+     "doc_count": 52
+    }
+   ]
+  },
+  "top-creator": {
+   "doc_count_error_upper_bound": 0,
+   "sum_other_doc_count": 1487,
+   "buckets": [
+    {
+     "key": "deitel, harvey m., 1945-",
+     "doc_count": 26
+    },
+    {
+     "key": "weiss, mark allen",
+     "doc_count": 16
+    },
+    {
+     "key": "horowitz, ellis",
+     "doc_count": 13
+    },
+    {
+     "key": "horstmann, cay s., 1959-",
+     "doc_count": 13
+    },
+    {
+     "key": "koffman, elliot b",
+     "doc_count": 13
+    },
+    {
+     "key": "savitch, walter j., 1943-",
+     "doc_count": 12
+    },
+    {
+     "key": "deitel, paul j",
+     "doc_count": 10
+    },
+    {
+     "key": "dale, nell b",
+     "doc_count": 9
+    },
+    {
+     "key": "gaddis, tony",
+     "doc_count": 9
+    },
+    {
+     "key": "lewis, t. g. (theodore gyle), 1941-",
+     "doc_count": 9
+    },
+    {
+     "key": "malik, d. s",
+     "doc_count": 9
+    },
+    {
+     "key": "couchman, jason s",
+     "doc_count": 8
+    },
+    {
+     "key": "nance, douglas w",
+     "doc_count": 8
+    },
+    {
+     "key": "naps, thomas l",
+     "doc_count": 7
+    },
+    {
+     "key": "schneider, g. michael",
+     "doc_count": 7
+    },
+    {
+     "key": "goodrich, michael t",
+     "doc_count": 6
+    },
+    {
+     "key": "johnsonbaugh, richard, 1941-",
+     "doc_count": 6
+    },
+    {
+     "key": "litvin, maria",
+     "doc_count": 6
+    },
+    {
+     "key": "miller, lawrence h",
+     "doc_count": 6
+    },
+    {
+     "key": "ullman, jeffrey d., 1942-",
+     "doc_count": 6
+    }
+   ]
+  },
+  "top-subject": {
+   "doc_count_error_upper_bound": 87,
+   "sum_other_doc_count": 5248,
+   "buckets": [
+    {
+     "key": "Data structures (Computer science)",
+     "doc_count": 223
+    },
+    {
+     "key": "C++ (Computer program language)",
+     "doc_count": 146
+    },
+    {
+     "key": "Computer algorithms",
+     "doc_count": 134
+    },
+    {
+     "key": "Java (Computer program language)",
+     "doc_count": 111
+    },
+    {
+     "key": "Computer programming",
+     "doc_count": 99
+    },
+    {
+     "key": "Pascal (Computer program language)",
+     "doc_count": 97
+    },
+    {
+     "key": "Computer science",
+     "doc_count": 91
+    },
+    {
+     "key": "C (Computer program language)",
+     "doc_count": 77
+    },
+    {
+     "key": "Database management",
+     "doc_count": 54
+    },
+    {
+     "key": "Algorithms",
+     "doc_count": 47
+    },
+    {
+     "key": "Object-oriented programming (Computer science)",
+     "doc_count": 46
+    },
+    {
+     "key": "Computers",
+     "doc_count": 41
+    },
+    {
+     "key": "Computer science -- Mathematics",
+     "doc_count": 38
+    },
+    {
+     "key": "Electronic data processing",
+     "doc_count": 38
+    },
+    {
+     "key": "Informatique",
+     "doc_count": 37
+    },
+    {
+     "key": "Mathematics",
+     "doc_count": 35
+    },
+    {
+     "key": "Artificial intelligence",
+     "doc_count": 31
+    },
+    {
+     "key": "Datenstruktur",
+     "doc_count": 28
+    },
+    {
+     "key": "Computer programming -- Congresses",
+     "doc_count": 27
+    },
+    {
+     "key": "Computer science -- Congresses",
+     "doc_count": 27
+    }
+   ]
+  },
+  "top-collection": {
+   "doc_count_error_upper_bound": 117,
+   "sum_other_doc_count": 9639,
+   "buckets": [
+    {
+     "key": "printdisabled",
+     "doc_count": 1941
+    },
+    {
+     "key": "internetarchivebooks",
+     "doc_count": 1932
+    },
+    {
+     "key": "inlibrary",
+     "doc_count": 1091
+    },
+    {
+     "key": "universityofarizona-ol",
+     "doc_count": 410
+    },
+    {
+     "key": "fav-conail",
+     "doc_count": 402
+    },
+    {
+     "key": "johnshopkins-ol",
+     "doc_count": 352
+    },
+    {
+     "key": "universityofcoloradoboulder-ol",
+     "doc_count": 337
+    },
+    {
+     "key": "rochester-ol",
+     "doc_count": 283
+    },
+    {
+     "key": "fav-bocke",
+     "doc_count": 271
+    },
+    {
+     "key": "binghamton-ol",
+     "doc_count": 268
+    },
+    {
+     "key": "riceuniversity-ol",
+     "doc_count": 201
+    },
+    {
+     "key": "unb-ol",
+     "doc_count": 188
+    },
+    {
+     "key": "dartmouthlibrary-ol",
+     "doc_count": 182
+    },
+    {
+     "key": "universityofoklahoma-ol",
+     "doc_count": 178
+    },
+    {
+     "key": "fav-jecko696",
+     "doc_count": 141
+    },
+    {
+     "key": "fav-t79",
+     "doc_count": 140
+    },
+    {
+     "key": "uni-ol",
+     "doc_count": 133
+    },
+    {
+     "key": "the-claremont-colleges-ol",
+     "doc_count": 131
+    },
+    {
+     "key": "gwulibraries-ol",
+     "doc_count": 116
+    },
+    {
+     "key": "americanuniversity-ol",
+     "doc_count": 108
+    }
+   ]
+  },
+  "top-mediatype": {
+   "doc_count_error_upper_bound": 0,
+   "sum_other_doc_count": 0,
+   "buckets": [
+    {
+     "key": "texts",
+     "doc_count": 1996
+    }
+   ]
+  },
+  "top-languages": {
+   "doc_count_error_upper_bound": 0,
+   "sum_other_doc_count": 0,
+   "buckets": [
+    {
+     "key": "English",
+     "doc_count": 1940
+    },
+    {
+     "key": "Chinese",
+     "doc_count": 38
+    },
+    {
+     "key": "Spanish",
+     "doc_count": 6
+    },
+    {
+     "key": "German",
+     "doc_count": 3
+    },
+    {
+     "key": "Japanese",
+     "doc_count": 3
+    },
+    {
+     "key": "French",
+     "doc_count": 1
+    },
+    {
+     "key": "Italian",
+     "doc_count": 1
+    },
+    {
+     "key": "Polish",
+     "doc_count": 1
+    },
+    {
+     "key": "Portuguese",
+     "doc_count": 1
+    },
+    {
+     "key": "undetermined",
+     "doc_count": 1
+    }
+   ]
+  }
+ },
+ "fts-api": {
+  "version": "v3.20.2",
+  "commit": "feature/es8-py313 - 172e9c74",
+  "host": "search-text.us.archive.org",
+  "cached": false,
+  "auth": {
+   "type": "S3",
+   "email": "openlibrary+iasync@archive.org",
+   "context_scope": "standard"
+  },
+  "query_type": "dsl"
+ }
+}

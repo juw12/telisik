@@ -1,0 +1,226 @@
+{
+ "studies": [
+  {
+   "protocolSection": {
+    "identificationModule": {
+     "nctId": "NCT07229534",
+     "briefTitle": "Clinical Trial to Evaluate the Efficacy and Safety of DA-5218 in Patients With Type 2 Diabetes"
+    },
+    "statusModule": {
+     "overallStatus": "NOT_YET_RECRUITING",
+     "startDateStruct": {
+      "date": "2025-11"
+     }
+    },
+    "sponsorCollaboratorsModule": {
+     "leadSponsor": {
+      "name": "Dong-A ST Co., Ltd."
+     }
+    },
+    "descriptionModule": {
+     "briefSummary": "This study is a multicenter, double-blind, active-controlled, randomized, parallel, phase IV clinical trial to evaluate the efficacy and safety of DA-5218 in patients with type 2 diabetes who have inadequate glycemic control with metformin"
+    },
+    "conditionsModule": {
+     "conditions": [
+      "Diabete Mellitus"
+     ]
+    },
+    "designModule": {
+     "studyType": "INTERVENTIONAL",
+     "phases": [
+      "PHASE4"
+     ],
+     "enrollmentInfo": {
+      "count": 238
+     }
+    }
+   }
+  },
+  {
+   "protocolSection": {
+    "identificationModule": {
+     "nctId": "NCT01877564",
+     "briefTitle": "A Randomized Pilot Study to Evaluate the Effects of a Short Course of Metformin Versus No Therapy in the Period Prior to Hysterectomy for Grade 1-2 Adenocarcinoma of the Endometrium in Obese Non-Diabetic Women"
+    },
+    "statusModule": {
+     "overallStatus": "COMPLETED",
+     "startDateStruct": {
+      "date": "2013-08-29"
+     }
+    },
+    "sponsorCollaboratorsModule": {
+     "leadSponsor": {
+      "name": "University of Arkansas"
+     }
+    },
+    "descriptionModule": {
+     "briefSummary": "The purpose of this research is to determine the effects of Metformin, a well tolerated drug widely prescribed for treatment of Type 2 Diabetes Mellitus, on endometrium cancer patients."
+    },
+    "conditionsModule": {
+     "conditions": [
+      "Adenocarcinoma of the Endometrium"
+     ]
+    },
+    "designModule": {
+     "studyType": "INTERVENTIONAL",
+     "phases": [
+      "PHASE2"
+     ],
+     "enrollmentInfo": {
+      "count": 10
+     }
+    }
+   }
+  },
+  {
+   "protocolSection": {
+    "identificationModule": {
+     "nctId": "NCT05922033",
+     "briefTitle": "Patient Versus Provider-led Titration of Insulin for Glycemic Control in Gestational Diabetes (EMPOWER)"
+    },
+    "statusModule": {
+     "overallStatus": "COMPLETED",
+     "startDateStruct": {
+      "date": "2023-10-19"
+     }
+    },
+    "sponsorCollaboratorsModule": {
+     "leadSponsor": {
+      "name": "Ohio State University"
+     }
+    },
+    "descriptionModule": {
+     "briefSummary": "We propose a pragmatic, unblinded, randomized controlled, single center trial of 56 pregnant individuals with Gestational diabetes mellitus (GDM). Our study proposes a pragmatic randomized control trial of patient led rapid titration of basal insulin compared to standard therapy. There is a planned subgroup analysis of patients with and without concomitant metformin usage. Patients will continue routine clinic visits. Patients who are initiated on basal insulin or started on night-time basal insulin within 7 days will be approached about the study. Patients who agree to be enrolled will sign informed consent."
+    },
+    "conditionsModule": {
+     "conditions": [
+      "Gestational Diabetes Mellitus",
+      "Pregnancy in Diabetic",
+      "Pregnancy, High Risk"
+     ]
+    },
+    "designModule": {
+     "studyType": "INTERVENTIONAL",
+     "phases": [
+      "PHASE4"
+     ],
+     "enrollmentInfo": {
+      "count": 56
+     }
+    }
+   }
+  },
+  {
+   "protocolSection": {
+    "identificationModule": {
+     "nctId": "NCT00231647",
+     "briefTitle": "A Study on Efficacy and Safety of Topiramate OROS Controlled-Release in Obese, Type 2 Diabetic Subjects Managed With Diet or Metformin"
+    },
+    "statusModule": {
+     "overallStatus": "COMPLETED",
+     "startDateStruct": {
+      "date": "2004-02"
+     }
+    },
+    "sponsorCollaboratorsModule": {
+     "leadSponsor": {
+      "name": "Johnson & Johnson Pharmaceutical Research & Development, L.L.C."
+     }
+    },
+    "descriptionModule": {
+     "briefSummary": "The purpose of this study is to evaluate the effectiveness and safety of a topiramate controlled-release formulation in the treatment of obese, type 2 diabetic patients managed with diet alone or combined with metformin."
+    },
+    "conditionsModule": {
+     "conditions": [
+      "Obesity",
+      "Diabetes Mellitus, Type 2",
+      "Diabetes Mellitus, Adult-Onset"
+     ]
+    },
+    "designModule": {
+     "studyType": "INTERVENTIONAL",
+     "phases": [
+      "PHASE2"
+     ],
+     "enrollmentInfo": {
+      "count": 113
+     }
+    }
+   }
+  },
+  {
+   "protocolSection": {
+    "identificationModule": {
+     "nctId": "NCT02768948",
+     "briefTitle": "Telmisartan Promotes the Differentiation of Monocytes Into Macrophages M2 in Diabetic Nephropathy?"
+    },
+    "statusModule": {
+     "overallStatus": "COMPLETED",
+     "startDateStruct": {
+      "date": "2017-05-05"
+     }
+    },
+    "sponsorCollaboratorsModule": {
+     "leadSponsor": {
+      "name": "Centre Hospitalier Universitaire de Nice"
+     }
+    },
+    "descriptionModule": {
+     "briefSummary": "The severity of the diabetic nephropathy is proportional to proteinuria rate and degree of renal interstitial fibrosis. Despite many treatments available today, diabetic nephropathy is responsible for a quarter of cases of end-stage renal disease (ESRD) requiring the use of renal replacement therapy or kidney transplantation. It develops as follows: chronic hyperglycemia of diabetes abyss renal glomeruli that allow proteins in the urine room. In response, the tubular epithelium produces monocyte chemoattractant protein-1 (MCP-1) that attracts monocytes circulating in the renal interstitium. Monocytes then differentiate into M1 or M2 macrophages. M1 macrophages increased MCP-1 production while M2 macrophages produce transforming growth factor beta (TGF-β) pro-fibrogenic. Renal fibrosis is negatively correlated with the glomerular filtration rate itself proportional to the number of nephrons. The decrease in the number of nephrons majorises secondarily proteinuria by the onset of focal segmental glomerulosclerosis lesions. Production of MCP-1 increases with the renal proteinuria because M1 macrophages earning kidneys reinforce the production of MCP-1, and fibrosis worsens because M2 macrophages infiltrate in turn kidneys and produce TGF -β.\n\nA way of limiting renal fibrosis would be to decrease renal monocytic infiltration by promoting the differentiation of monocytes towards macrophages M2. Although more numerous, M2 macrophages no longer benefit the kidneys because the decline of M1 macrophages decrease renal MCP-1 production. Ex vivo IL1-β orients the differentiation of monocytes towards macrophages M1 and IL-4 to M2. By cons in vivo, the differentiating factors are poorly known. It is remarkable that metformin and telmisartan increase M2 macrophages M1 macrophages and decrease, respectively, in humans and mice. Moreover, telmisartan reduces proteinuria more than losartan in diabetic nephropathy in humans and Metformin decreases the amount of TGF-β intra-renal mice. This effect of telmisartan is independent of the type 1 receptor of angiotensin II (AT1R) since it is not obtained with losartan.\n\nTelmisartan is a partial agonist of peroxisome proliferator-activated receptor gamma (PPARgamma), the working assumption is that telmisartan fosters the transition of monocytes to macrophages M2 form, and limit the recruitment of more monocytes in the kidneys and therefore proteinuria and renal fibrosis. To show this, it will be compared the ability of monocytes to differentiate ex vivo in M1 or M2 macrophages in diabetic nephropathy patients treated with losartan or telmisartan then it will characterize the role of PPARgamma in the monocyte / macrophage transition. Finally, it will be compared the urinary excretion of amino terminal propeptide of procollagen type 3 (PIIINP), considered a marker of renal fibrosis in patients receiving losartan or telmisartan."
+    },
+    "conditionsModule": {
+     "conditions": [
+      "Diabetic Nephropathy"
+     ]
+    },
+    "designModule": {
+     "studyType": "INTERVENTIONAL",
+     "phases": [
+      "NA"
+     ],
+     "enrollmentInfo": {
+      "count": 20
+     }
+    }
+   }
+  },
+  {
+   "protocolSection": {
+    "identificationModule": {
+     "nctId": "NCT00624364",
+     "briefTitle": "Efficacy and Safety of Biphasic Insulin Aspart 30 With Metformin in Type 2 Diabetes"
+    },
+    "statusModule": {
+     "overallStatus": "COMPLETED",
+     "startDateStruct": {
+      "date": "2004-05"
+     }
+    },
+    "sponsorCollaboratorsModule": {
+     "leadSponsor": {
+      "name": "Novo Nordisk A/S"
+     }
+    },
+    "descriptionModule": {
+     "briefSummary": "This trial is conducted in Africa. The aim of this trial is to evaluate the efficacy and safety of biphasic insulin aspart plus OAD compared to biphasic insulin aspart alone on blood glucose control in type 2 diabetes."
+    },
+    "conditionsModule": {
+     "conditions": [
+      "Diabetes",
+      "Diabetes Mellitus, Type 2"
+     ]
+    },
+    "designModule": {
+     "studyType": "INTERVENTIONAL",
+     "phases": [
+      "PHASE4"
+     ],
+     "enrollmentInfo": {
+      "count": 140
+     }
+    }
+   }
+  }
+ ],
+ "nextPageToken": "ZVNj7o2Elu8o3lpyWc35o-32mpOQJJxuZvKk2_g"
+}

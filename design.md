@@ -35,7 +35,7 @@ that work like footnote marks: result numbers, the numbers after quotes, and the
 
 - One column of results with a narrow margin column for the "Sources asked" ledger on wide screens.
   The ledger uses dot leaders like a printed index.
-- On phones the ledger folds to one line ("8 of 8 answered") with a Show button, so the first quote
+- On phones the ledger folds to one line ("10 of 10 answered") with a Show button, so the first quote
   stays on the first screen. Opening it lists every source and its count.
 - Controls are 44 px tall on phones. Inline links in running text are left as text.
 - Light and dark follow the system and can be set by hand. Both pass WCAG AA for every text node; the

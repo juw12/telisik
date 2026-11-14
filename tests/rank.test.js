@@ -116,6 +116,20 @@ test("the same DOI from two sources is merged and remembered", () => {
   assert.deepEqual(results[0].alsoIn, ["europepmc"]);
 });
 
+test("addresses that differ only in the query string stay separate; a fragment does not", () => {
+  const parsed = parseQuery("tree");
+  const thread = (id, url) => doc({ id, source: "hackernews", kind: "discussion", title: "tree", url });
+  const results = rank(
+    [
+      thread("first", "https://news.ycombinator.com/item?id=1"),
+      thread("second", "https://news.ycombinator.com/item?id=2"),
+      thread("anchor", "https://news.ycombinator.com/item?id=2#comments"),
+    ],
+    parsed,
+  );
+  assert.deepEqual(results.map((result) => result.id).sort(), ["first", "second"]);
+});
+
 test("evidence: accepted and upvoted answers beat unvoted ones; stars and citations are log-scaled", () => {
   const strong = evidenceScore({ kind: "qa", signals: { accepted: true, score: 400 } });
   const weak = evidenceScore({ kind: "qa", signals: { accepted: false, score: 0 } });

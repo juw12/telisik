@@ -4,46 +4,79 @@
 import { BEFORE_AI_DATE, parseQuery } from "./query.js";
 import { SOURCE_BY_ID, planSources } from "./sources.js";
 import { bestPassages, rank } from "./rank.js";
+import { fold } from "./text.js";
 
 export const TIMEOUT_MS = 8000;
-const CACHE_KEY = "sumber.cache.v1";
-const CACHE_TTL_MS = 60 * 60 * 1000;
-const CACHE_MAX = 60;
+const CACHE_KEY = "sumber.cache.v2";
+const OLD_CACHE_KEYS = ["sumber.cache.v1"];
+/** How long a saved answer counts as fresh. Sources with a small free quota set a longer cacheMs. */
+export const CACHE_TTL_MS = 60 * 60 * 1000;
+/** A saved answer older than this is thrown away even as a last resort. */
+export const CACHE_KEEP_MS = 30 * 24 * 60 * 60 * 1000;
+const CACHE_MAX = 150;
 const BACKOFF_KEY = "sumber.backoff.v1";
 
-/** Small LRU on top of any Storage-like object; silently becomes memory-only when storage fails. */
+/**
+ * Small LRU on top of any Storage-like object; silently becomes memory-only when storage fails.
+ * get() returns a fresh value; peek() returns any saved value with its age, for when a source is down.
+ */
 export function createCache(storage, now = () => Date.now()) {
   let memory = {};
   try {
+    for (const oldKey of OLD_CACHE_KEYS) {
+      storage?.removeItem(oldKey);
+    }
     memory = JSON.parse(storage?.getItem(CACHE_KEY) ?? "{}") ?? {};
   } catch {
     memory = {};
   }
-  function persist() {
-    try {
-      storage?.setItem(CACHE_KEY, JSON.stringify(memory));
-    } catch {
-      try {
-        storage?.removeItem(CACHE_KEY);
-      } catch {
-        // Storage is unavailable (private mode or quota); the in-memory copy still works.
+  function newestFirst() {
+    return Object.keys(memory).sort((a, b) => memory[b].t - memory[a].t);
+  }
+  function trim(limit) {
+    for (const key of newestFirst()) {
+      if (now() - memory[key].t > CACHE_KEEP_MS) {
+        delete memory[key];
       }
+    }
+    for (const key of newestFirst().slice(limit)) {
+      delete memory[key];
+    }
+  }
+  function persist() {
+    // A full browser store is the usual failure: halve what is kept until the write goes through.
+    for (let limit = CACHE_MAX; limit >= 1; limit = Math.floor(limit / 2)) {
+      trim(limit);
+      try {
+        storage?.setItem(CACHE_KEY, JSON.stringify(memory));
+        return;
+      } catch {
+        // Try again with fewer entries.
+      }
+    }
+    try {
+      storage?.removeItem(CACHE_KEY);
+    } catch {
+      // Storage is unavailable (private mode); the in-memory copy still works.
     }
   }
   return {
-    get(key) {
+    get(key, ttlMs = CACHE_TTL_MS) {
       const entry = memory[key];
-      if (!entry || now() - entry.t > CACHE_TTL_MS) {
+      if (!entry || now() - entry.t > ttlMs) {
         return null;
       }
       return entry.v;
     },
+    peek(key) {
+      const entry = memory[key];
+      if (!entry || now() - entry.t > CACHE_KEEP_MS) {
+        return null;
+      }
+      return { value: entry.v, ageMs: now() - entry.t };
+    },
     set(key, value) {
       memory[key] = { t: now(), v: value };
-      const keys = Object.keys(memory).sort((a, b) => memory[b].t - memory[a].t);
-      for (const stale of keys.slice(CACHE_MAX)) {
-        delete memory[stale];
-      }
       persist();
     },
     clear() {
@@ -84,11 +117,33 @@ export function dateWindow(parsed, beforeAI) {
   return { before, after: parsed.after };
 }
 
+/** "3 minutes", "5 hours", "2 days": how old a saved answer is, in words. */
+export function ageWords(ageMs) {
+  const minutes = Math.max(1, Math.round(ageMs / 60000));
+  if (minutes < 90) {
+    return `${minutes} ${minutes === 1 ? "minute" : "minutes"}`;
+  }
+  const hours = Math.round(minutes / 60);
+  if (hours < 36) {
+    return `${hours} hours`;
+  }
+  return `${Math.round(hours / 24)} days`;
+}
+
+function fromCache(saved) {
+  const docs = Array.isArray(saved?.d) ? saved.d : [];
+  return { state: docs.length ? "ok" : "empty", docs, cached: true, suggestion: saved?.s ?? null };
+}
+
 async function fetchSource(adapter, parsed, opts, env) {
   const url = adapter.request(parsed, opts);
-  const cached = env.cache?.get(url);
-  if (cached) {
-    return { state: cached.length ? "ok" : "empty", docs: cached, cached: true };
+  // A saved answer is used before anything else, so a paused source still answers what it already has.
+  const fresh = env.cache?.get(url, adapter.cacheMs ?? CACHE_TTL_MS);
+  if (fresh) {
+    return fromCache(fresh);
+  }
+  if ((env.backoff[adapter.id] ?? 0) > env.now()) {
+    return { state: "limit", docs: [], note: "Paused for a few minutes after the source asked us to slow down." };
   }
   const controller = new AbortController();
   const onAbort = () => controller.abort();
@@ -105,6 +160,10 @@ async function fetchSource(adapter, parsed, opts, env) {
       json = await response.json();
     } catch {
       json = null;
+    }
+    if (adapter.emptyOn?.includes(response.status)) {
+      env.cache?.set(url, { d: [], s: null });
+      return { state: "empty", docs: [] };
     }
     const failure = adapter.failure?.(json);
     if (failure) {
@@ -124,8 +183,10 @@ async function fetchSource(adapter, parsed, opts, env) {
       writeBackoff(env.storage, adapter.id, env.now() + json.backoff * 1000);
     }
     const docs = adapter.parse(json, { parsed, opts });
-    env.cache?.set(url, docs);
-    return { state: docs.length ? "ok" : "empty", docs };
+    const suggestion = adapter.suggest?.(json) ?? null;
+    const quota = adapter.quota?.(json, response.headers) ?? null;
+    env.cache?.set(url, { d: docs, s: suggestion });
+    return { state: docs.length ? "ok" : "empty", docs, suggestion, quota };
   } catch (error) {
     if (env.signal?.aborted) {
       return { state: "cancelled", docs: [] };
@@ -140,11 +201,37 @@ async function fetchSource(adapter, parsed, opts, env) {
   }
 }
 
+const FAILED = ["error", "limit", "timeout"];
+const FAILURE_WORDS = { error: "could not be reached", limit: "is rate-limited", timeout: "did not answer in time" };
+
+/** When a source fails: its own older saved answer first, then the stand-in source, then the failure. */
+async function recover(adapter, outcome, parsed, opts, env) {
+  const saved = env.cache?.peek(adapter.request(parsed, opts));
+  if (saved && Array.isArray(saved.value?.d) && saved.value.d.length) {
+    return {
+      ...fromCache(saved.value),
+      stale: true,
+      ageMs: saved.ageMs,
+      note: `${adapter.label} ${FAILURE_WORDS[outcome.state]}; showing the answer saved ${ageWords(saved.ageMs)} ago.`,
+    };
+  }
+  if (adapter.fallback) {
+    const second = await fetchSource(adapter.fallback, parsed, opts, env);
+    if (second.state === "ok") {
+      return { ...second, note: `${adapter.label} did not answer; results come from ${adapter.fallback.label}.` };
+    }
+    if (second.state === "cancelled") {
+      return second;
+    }
+  }
+  return outcome;
+}
+
 /**
  * Run one search.
- * options: { lens, beforeAI, wikiLang, signal, fetch, cache, storage, timeoutMs, now }
+ * options: { lens, beforeAI, wikiLang, keys, signal, fetch, cache, storage, timeoutMs, now }
  * onUpdate(state) is called whenever a source settles; the returned promise resolves with the
- * final state: { parsed, window, planned, status, results, passages, done }.
+ * final state: { parsed, window, planned, status, suggestion, results, passages, done }.
  */
 export async function search(rawQuery, options = {}, onUpdate = () => {}) {
   const parsed = typeof rawQuery === "string" ? parseQuery(rawQuery) : rawQuery;
@@ -157,7 +244,13 @@ export async function search(rawQuery, options = {}, onUpdate = () => {}) {
     timeoutMs: options.timeoutMs ?? TIMEOUT_MS,
     now: options.now ?? (() => Date.now()),
   };
-  const opts = { ...window_, wikiLang: options.wikiLang ?? "en", lens: options.lens ?? "all" };
+  env.backoff = readBackoff(env.storage);
+  const opts = {
+    ...window_,
+    wikiLang: options.wikiLang ?? "en",
+    lens: options.lens ?? "all",
+    stackKey: options.keys?.stackexchange ?? "",
+  };
   const planned = parsed.text ? planSources(parsed, opts.lens) : [];
   const status = {};
   const pools = {};
@@ -176,25 +269,31 @@ export async function search(rawQuery, options = {}, onUpdate = () => {}) {
       status[id].count = kept[id] ?? 0;
     }
     const passages = bestPassages(results, parsed, { skipLiving: Boolean(window_.before) });
-    return { parsed, window: window_, planned, status: structuredCloneSafe(status), results, passages, done };
+    // A spelling suggestion is passed on only when it really differs from what was typed.
+    const typed = fold(parsed.upstream);
+    const suggestion =
+      planned.map((id) => status[id].suggestion).find((value) => value && fold(value) !== typed) ?? null;
+    return {
+      parsed,
+      window: window_,
+      planned,
+      status: structuredCloneSafe(status),
+      suggestion,
+      results,
+      passages,
+      done,
+      // The unranked documents, kept only when the evaluation tool asks for them.
+      ...(options.keepPool ? { pool } : {}),
+    };
   }
 
-  const backoff = readBackoff(env.storage);
   await Promise.all(
     planned.map(async (id) => {
       const adapter = SOURCE_BY_ID[id];
       const started = env.now();
-      let outcome;
-      if (backoff[id] && backoff[id] > env.now()) {
-        outcome = { state: "limit", docs: [], note: "Paused for a few minutes after the source asked us to slow down." };
-      } else {
-        outcome = await fetchSource(adapter, parsed, opts, env);
-      }
-      if (["error", "limit", "timeout"].includes(outcome.state) && adapter.fallback) {
-        const second = await fetchSource(adapter.fallback, parsed, opts, env);
-        if (second.state === "ok") {
-          outcome = { ...second, note: `${adapter.label} did not answer; results come from ${adapter.fallback.label}.` };
-        }
+      let outcome = await fetchSource(adapter, parsed, opts, env);
+      if (FAILED.includes(outcome.state)) {
+        outcome = await recover(adapter, outcome, parsed, opts, env);
       }
       if (outcome.state === "cancelled") {
         return;
@@ -206,6 +305,10 @@ export async function search(rawQuery, options = {}, onUpdate = () => {}) {
         fetched: outcome.docs.length,
         note: outcome.note ?? "",
         cached: Boolean(outcome.cached),
+        stale: Boolean(outcome.stale),
+        ageMs: outcome.ageMs ?? null,
+        quota: outcome.quota ?? null,
+        suggestion: outcome.suggestion ?? null,
         ms: env.now() - started,
       };
       if (adapter.site) {

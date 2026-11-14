@@ -1,9 +1,10 @@
 // Source adapters. Each one turns a parsed query into one public, key-less, CORS-enabled API request
 // and turns the JSON answer into the same plain document shape. Nothing here writes HTML.
 
-import { decodeEntities, fold, stripHtml, tokenize, truncate } from "./text.js";
+import { STOPWORDS, decodeEntities, fold, stripHtml, tokenize, truncate } from "./text.js";
 
 const enc = encodeURIComponent;
+const DAY_MS = 24 * 60 * 60 * 1000;
 
 export const KIND_LABELS = {
   encyclopedia: "Encyclopedia",
@@ -14,13 +15,28 @@ export const KIND_LABELS = {
   medical: "Medical paper",
   book: "Book",
   archive: "Archive",
+  web: "Web page",
+  dictionary: "Dictionary",
+  textbook: "Textbook",
+  sourcetext: "Source text",
+  quote: "Quotations",
+  travel: "Travel guide",
+  news: "News report",
+  record: "Research record",
+  official: "Government",
+  trial: "Clinical trial",
+  bookpage: "Inside a book",
 };
 
-/** Lenses choose which sources are asked and how much each one counts. */
+/**
+ * Lenses choose which sources are asked and how much each one counts.
+ * Sources named in `whenRelevant` are asked only when their own relevant(parsed) test says the query
+ * is their kind of question, so a search for a programming term does not bother a travel guide.
+ */
 export const LENSES = {
   all: {
     label: "All",
-    hint: "Every source",
+    hint: "Every source that fits",
     weights: {
       wikipedia: 1.1,
       stackexchange: 1.05,
@@ -30,27 +46,74 @@ export const LENSES = {
       openlibrary: 0.9,
       europepmc: 0.85,
       archive: 0.85,
+      web: 0.9,
+      wikibooks: 0.85,
+      wiktionary: 1,
+      bookstext: 0.9,
+      wikinews: 0.85,
+      wikiquote: 0.9,
+      wikivoyage: 0.9,
+      clinicaltrials: 0.85,
+      govuk: 0.85,
+      federalregister: 0.85,
     },
+    whenRelevant: [
+      "wiktionary",
+      "bookstext",
+      "wikinews",
+      "wikiquote",
+      "wikivoyage",
+      "clinicaltrials",
+      "govuk",
+      "federalregister",
+    ],
   },
   learn: {
     label: "Learn",
-    hint: "Encyclopedia, answers, books",
-    weights: { wikipedia: 1.2, stackexchange: 1.1, openlibrary: 1, archive: 0.9, openalex: 0.8 },
+    hint: "Encyclopedia, textbooks, answers, books",
+    weights: {
+      wikipedia: 1.2,
+      stackexchange: 1.1,
+      wikibooks: 1,
+      openlibrary: 1,
+      archive: 0.9,
+      openalex: 0.8,
+      wiktionary: 1,
+      wikiquote: 0.9,
+      wikivoyage: 0.9,
+    },
+    whenRelevant: ["wiktionary", "wikiquote", "wikivoyage"],
   },
   research: {
     label: "Research",
-    hint: "Papers and archives",
-    weights: { openalex: 1.2, europepmc: 1.1, wikipedia: 0.9, archive: 0.85, openlibrary: 0.8 },
+    hint: "Papers, data, trials, archives",
+    weights: {
+      openalex: 1.2,
+      europepmc: 1.1,
+      zenodo: 1,
+      wikipedia: 0.9,
+      archive: 0.85,
+      wikisource: 0.85,
+      openlibrary: 0.8,
+      clinicaltrials: 1,
+      bookstext: 0.9,
+    },
+    whenRelevant: ["clinicaltrials", "bookstext"],
   },
   build: {
     label: "Build",
-    hint: "Answers, code, discussion",
-    weights: { stackexchange: 1.2, github: 1.15, hackernews: 1, wikipedia: 0.8 },
+    hint: "Answers, code, discussion, web",
+    weights: { stackexchange: 1.2, github: 1.15, hackernews: 1, web: 0.9, wikipedia: 0.8 },
   },
   discuss: {
     label: "Discuss",
     hint: "What people argued about",
     weights: { hackernews: 1.2, stackexchange: 1.1, github: 0.7 },
+  },
+  official: {
+    label: "Official",
+    hint: "Government, law, trials, source texts",
+    weights: { govuk: 1.1, federalregister: 1.1, clinicaltrials: 1, wikisource: 0.9, wikipedia: 0.8 },
   },
 };
 
@@ -229,8 +292,13 @@ const wikipedia = {
       `&generator=search&gsrsearch=${query}&gsrlimit=8` +
       "&prop=extracts%7Cinfo%7Cdescription%7Cpageprops&ppprop=disambiguation" +
       "&exintro=1&explaintext=1&exsentences=4&exlimit=8&inprop=url" +
-      `&list=search&srsearch=${query}&srlimit=8&srprop=snippet%7Ctimestamp`
+      `&list=search&srsearch=${query}&srlimit=8&srprop=snippet%7Ctimestamp&srinfo=suggestion`
     );
+  },
+  /** Wikipedia's own "did you mean" for a misspelt query; plain text, never markup. */
+  suggest(json) {
+    const suggestion = json?.query?.searchinfo?.suggestion;
+    return typeof suggestion === "string" && suggestion.trim() ? suggestion.trim() : null;
   },
   parse(json) {
     const pages = Object.values(json?.query?.pages ?? {}).sort((a, b) => (a.index ?? 0) - (b.index ?? 0));
@@ -277,6 +345,9 @@ const stackexchange = {
     }
     if (opts.after) {
       url += `&fromdate=${unixSeconds(opts.after)}`;
+    }
+    if (/^[A-Za-z0-9()*]{8,40}$/.test(opts.stackKey ?? "")) {
+      url += `&key=${enc(opts.stackKey)}`;
     }
     return url;
   },
@@ -666,7 +737,526 @@ const openlibrary = {
   },
 };
 
-export const SOURCES = [wikipedia, stackexchange, hackernews, github, openalex, europepmc, archive, openlibrary];
+/** GitLab answers when GitHub's key-less limit is used up; documents keep the GitHub source slot. */
+const gitlab = {
+  id: "gitlab",
+  label: "GitLab",
+  kind: "code",
+  request(parsed) {
+    return `https://gitlab.com/api/v4/projects?search=${enc(parsed.upstream)}&order_by=star_count&per_page=6`;
+  },
+  parse(json) {
+    const docs = [];
+    for (const project of list(json)) {
+      if (!project?.path_with_namespace || !project.web_url) {
+        continue;
+      }
+      const doc = baseDoc("github", "code", `gitlab:${project.id}`, docs.length);
+      doc.title = project.path_with_namespace;
+      doc.url = project.web_url;
+      doc.snippet = truncate(project.description ?? "", 400);
+      if (!doc.snippet) {
+        doc.snippet = "Repository on GitLab, no description given.";
+        doc.snippetIsMeta = true;
+      }
+      doc.extra = list(project.topics).join(" ");
+      doc.date = isoDay(project.created_at);
+      doc.author = String(project.path_with_namespace).split("/")[0];
+      doc.signals = {
+        stars: project.star_count ?? 0,
+        archived: Boolean(project.archived),
+        updated: isoDay(project.last_activity_at),
+        license: null,
+        via: "GitLab",
+      };
+      docs.push(doc);
+    }
+    return docs;
+  },
+};
+github.fallback = gitlab;
+github.cacheMs = DAY_MS;
+github.quota = (json, headers) => {
+  const remaining = Number(headers?.get?.("x-ratelimit-remaining"));
+  const max = Number(headers?.get?.("x-ratelimit-limit"));
+  return Number.isFinite(remaining) && headers?.get?.("x-ratelimit-remaining") !== null
+    ? { remaining, max: Number.isFinite(max) && max > 0 ? max : 10, per: "minute" }
+    : null;
+};
+stackexchange.cacheMs = DAY_MS;
+stackexchange.quota = (json) => {
+  return typeof json?.quota_remaining === "number"
+    ? { remaining: json.quota_remaining, max: json.quota_max ?? 300, per: "day" }
+    : null;
+};
+
+function joinSpans(spans) {
+  return list(spans)
+    .map((span) => span?.value ?? "")
+    .join("")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+const web = {
+  id: "web",
+  label: "Mwmbl web index",
+  kind: "web",
+  home: "https://mwmbl.org/",
+  about:
+    "A small, non-profit, community-built index of the open web. It is far smaller than a commercial " +
+    "search engine's and reports no evidence about a page, so web pages rank on their words alone.",
+  cacheMs: DAY_MS,
+  request(parsed) {
+    return `https://api.mwmbl.org/search?s=${enc(parsed.upstream)}`;
+  },
+  parse(json) {
+    const docs = [];
+    for (const item of list(json)) {
+      const url = String(item?.url ?? "");
+      const title = joinSpans(item?.title);
+      if (!/^https:\/\/[^\s<>"]+$/.test(url) || !title) {
+        continue;
+      }
+      const doc = baseDoc("web", "web", url, docs.length);
+      doc.title = truncate(title, 160);
+      doc.url = url;
+      doc.snippet = truncate(joinSpans(item.extract), 500);
+      if (!doc.snippet) {
+        doc.snippet = `Web page on ${hostOf(url)}. The index holds no excerpt.`;
+        doc.snippetIsMeta = true;
+      }
+      doc.venue = hostOf(url);
+      docs.push(doc);
+      if (docs.length === 10) {
+        break;
+      }
+    }
+    return docs;
+  },
+};
+
+function wordSet(words) {
+  return new Set(words.split(" "));
+}
+
+function mentions(parsed, words) {
+  return tokenize(parsed.text).some((token) => words.has(token));
+}
+
+const QUOTE_WORDS = wordSet("quote quotes quotation quotations said saying sayings proverb proverbs motto");
+const TRAVEL_WORDS = wordSet(
+  "travel trip visit visiting itinerary sightseeing hotel hostel beach island hiking trek backpacking " +
+    "tourist tourism airport destination city guide vacation holiday wisata liburan",
+);
+const NEWS_WORDS = wordSet("news headline headlines breaking election earthquake flood outbreak protest berita");
+const MEDICAL_WORDS = wordSet(
+  "trial trials clinical placebo randomized randomised disease symptom symptoms vaccine dose dosage " +
+    "treatment therapy infection diabetes cancer tumor tumour drug medication patient patients syndrome " +
+    "disorder chemotherapy insulin covid asthma hypertension depression alzheimer stroke obesity",
+);
+const OFFICIAL_WORDS = wordSet(
+  "law laws legal regulation regulations rule rules act statute policy visa passport tax taxes benefit " +
+    "benefits licence license permit government federal agency compliance tariff customs immigration " +
+    "pension statutory legislation guidance",
+);
+const DEFINE_WORDS = wordSet("define definition definitions meaning means mean word etymology synonym synonyms");
+
+/** The word or two-word term a dictionary could hold, or "" when the query is not that kind. */
+export function dictionaryTerm(parsed) {
+  if (parsed.phrases.length > 1) {
+    return "";
+  }
+  const words = tokenize(parsed.text).filter((token) => !STOPWORDS.has(token) && !DEFINE_WORDS.has(token));
+  return words.length >= 1 && words.length <= 2 ? words.join(" ") : "";
+}
+
+const wiktionary = {
+  id: "wiktionary",
+  label: "Wiktionary",
+  kind: "dictionary",
+  home: "https://en.wiktionary.org/",
+  about: "Free dictionary. Asked only when the query is one or two words, or asks what a word means.",
+  cacheMs: DAY_MS,
+  emptyOn: [404],
+  relevant(parsed) {
+    return dictionaryTerm(parsed) !== "";
+  },
+  request(parsed) {
+    const term = dictionaryTerm(parsed) || parsed.upstream;
+    return `https://en.wiktionary.org/api/rest_v1/page/definition/${enc(term.replace(/ /g, "_"))}`;
+  },
+  parse(json, ctx) {
+    const term = dictionaryTerm(ctx.parsed) || ctx.parsed.upstream;
+    const languages = Object.keys(json ?? {}).filter((code) => Array.isArray(json[code]));
+    const code = languages.includes("en") ? "en" : languages[0];
+    if (!code) {
+      return [];
+    }
+    const parts = [];
+    for (const entry of json[code]) {
+      const senses = list(entry.definitions)
+        .map((sense) => stripHtml(sense?.definition ?? ""))
+        .filter((sense) => sense.length > 2)
+        .slice(0, 2);
+      if (senses.length) {
+        parts.push(`${entry.partOfSpeech ?? "Sense"}: ${senses.join(" ")}`);
+      }
+    }
+    if (!parts.length) {
+      return [];
+    }
+    const language = json[code][0]?.language ?? "English";
+    const doc = baseDoc("wiktionary", "dictionary", `${code}:${term}`, 0);
+    doc.title = term;
+    doc.url = `https://en.wiktionary.org/wiki/${enc(term.replace(/ /g, "_"))}`;
+    doc.snippet = truncate(parts.slice(0, 4).join(" "), 600);
+    doc.venue = language === "English" ? "" : language;
+    doc.living = true;
+    return [doc];
+  },
+};
+
+/** The Wikimedia sister projects share one search API, so one factory serves them all. */
+function wikiSister({ id, label, host, kind, about, relevant }) {
+  return {
+    id,
+    label,
+    kind,
+    home: `https://${host}/`,
+    about,
+    relevant,
+    request(parsed) {
+      return (
+        `https://${host}/w/api.php?action=query&format=json&origin=*&list=search` +
+        `&srsearch=${enc(parsed.upstream)}&srlimit=6&srprop=snippet%7Ctimestamp`
+      );
+    },
+    parse(json) {
+      const docs = [];
+      for (const hit of list(json?.query?.search)) {
+        if (!hit?.title) {
+          continue;
+        }
+        const doc = baseDoc(id, kind, hit.pageid, docs.length);
+        doc.title = hit.title;
+        doc.url = `https://${host}/wiki/${String(hit.title).replace(/ /g, "_").split("/").map(enc).join("/")}`;
+        doc.snippet = truncate(stripHtml(hit.snippet ?? "").replace(/[<>]/g, " ").replace(/\s+/g, " "), 400);
+        if (!doc.snippet) {
+          doc.snippet = `Page on ${label}. The search index holds no excerpt.`;
+          doc.snippetIsMeta = true;
+        }
+        doc.living = true;
+        doc.signals.lastEdited = isoDay(hit.timestamp);
+        docs.push(doc);
+      }
+      return docs;
+    },
+  };
+}
+
+const wikibooks = wikiSister({
+  id: "wikibooks",
+  label: "Wikibooks",
+  host: "en.wikibooks.org",
+  kind: "textbook",
+  about: "Free textbooks and course notes written in the open.",
+});
+
+const wikisource = wikiSister({
+  id: "wikisource",
+  label: "Wikisource",
+  host: "en.wikisource.org",
+  kind: "sourcetext",
+  about: "Transcribed original texts: laws, treaties, speeches, old books and papers.",
+});
+
+const wikiquote = wikiSister({
+  id: "wikiquote",
+  label: "Wikiquote",
+  host: "en.wikiquote.org",
+  kind: "quote",
+  about: "Quotations with their sources. Asked when the query is about a quote or a saying.",
+  relevant: (parsed) => mentions(parsed, QUOTE_WORDS),
+});
+
+const wikivoyage = wikiSister({
+  id: "wikivoyage",
+  label: "Wikivoyage",
+  host: "en.wikivoyage.org",
+  kind: "travel",
+  about: "Free travel guide. Asked when the query is about a trip or a place to visit.",
+  relevant: (parsed) => mentions(parsed, TRAVEL_WORDS),
+});
+
+const wikinews = wikiSister({
+  id: "wikinews",
+  label: "Wikinews",
+  host: "en.wikinews.org",
+  kind: "news",
+  about:
+    "Volunteer-written news reports. Small, and not a live news wire: asked when the query asks for " +
+    "news or something recent.",
+  relevant: (parsed) => parsed.wantsRecent || mentions(parsed, NEWS_WORDS),
+});
+
+const zenodo = {
+  id: "zenodo",
+  label: "Zenodo",
+  kind: "record",
+  home: "https://zenodo.org/",
+  about: "CERN's open repository of datasets, software, reports and preprints.",
+  request(parsed, opts) {
+    let query = parsed.upstream.replace(/[()[\]{}:^~\\/!+]/g, " ").replace(/\s+/g, " ").trim();
+    if (opts.before || opts.after) {
+      query = `(${query}) AND publication_date:[${opts.after ?? "1800-01-01"} TO ${opts.before ?? "2999-12-31"}]`;
+    }
+    return `https://zenodo.org/api/records?q=${enc(query)}&size=6&sort=bestmatch`;
+  },
+  parse(json) {
+    const docs = [];
+    for (const hit of list(json?.hits?.hits)) {
+      const meta = hit?.metadata ?? {};
+      const title = stripHtml(meta.title ?? hit?.title ?? "");
+      if (!title) {
+        continue;
+      }
+      const doc = baseDoc("zenodo", "record", hit.id, docs.length);
+      doc.title = title;
+      doc.doi = (meta.doi ?? hit.doi) ? String(meta.doi ?? hit.doi).toLowerCase() : null;
+      doc.url = hit.links?.self_html ?? `https://zenodo.org/records/${hit.id}`;
+      doc.author = authorLine(list(meta.creators).map((person) => person?.name));
+      doc.venue = meta.resource_type?.title ?? "";
+      doc.snippet = truncate(stripHtml(meta.description ?? ""), 700);
+      if (!doc.snippet) {
+        doc.snippet = `${doc.venue || "Record"} on Zenodo. No description given.`;
+        doc.snippetIsMeta = true;
+      }
+      doc.extra = list(meta.keywords).slice(0, 8).join(" ");
+      doc.date = isoDay(meta.publication_date);
+      doc.signals = {
+        downloads: hit.stats?.downloads ?? 0,
+        openAccess: meta.access_right === "open",
+      };
+      docs.push(doc);
+    }
+    return docs;
+  },
+};
+
+const govuk = {
+  id: "govuk",
+  label: "GOV.UK",
+  kind: "official",
+  home: "https://www.gov.uk/",
+  about: "Guidance, services and publications of the United Kingdom government.",
+  relevant: (parsed) => mentions(parsed, OFFICIAL_WORDS),
+  request(parsed, opts) {
+    let url =
+      `https://www.gov.uk/api/search.json?q=${enc(parsed.upstream)}&count=6` +
+      "&fields=title,description,link,public_timestamp,format,organisations";
+    if (opts.before || opts.after) {
+      const range = [opts.after ? `from:${opts.after}` : "", opts.before ? `to:${opts.before}` : ""];
+      url += `&filter_public_timestamp=${enc(range.filter(Boolean).join(","))}`;
+    }
+    return url;
+  },
+  parse(json) {
+    const docs = [];
+    for (const item of list(json?.results)) {
+      if (!item?.title || !item.link) {
+        continue;
+      }
+      const link = String(item.link);
+      const doc = baseDoc("govuk", "official", link, docs.length);
+      doc.title = stripHtml(item.title);
+      doc.url = link.startsWith("https://") ? link : `https://www.gov.uk${link.startsWith("/") ? "" : "/"}${link}`;
+      doc.snippet = truncate(stripHtml(item.description ?? ""), 500);
+      if (!doc.snippet) {
+        doc.snippet = "Page on GOV.UK. No description in the index.";
+        doc.snippetIsMeta = true;
+      }
+      doc.venue = list(item.organisations)
+        .map((organisation) => organisation?.title)
+        .filter(Boolean)
+        .slice(0, 2)
+        .join(", ");
+      doc.extra = String(item.format ?? "").replace(/_/g, " ");
+      doc.date = isoDay(item.public_timestamp);
+      doc.signals = { jurisdiction: "United Kingdom" };
+      docs.push(doc);
+    }
+    return docs;
+  },
+};
+
+const federalregister = {
+  id: "federalregister",
+  label: "Federal Register",
+  kind: "official",
+  home: "https://www.federalregister.gov/",
+  about: "Rules, proposed rules and notices published by United States federal agencies.",
+  relevant: (parsed) => mentions(parsed, OFFICIAL_WORDS),
+  request(parsed, opts) {
+    let url =
+      "https://www.federalregister.gov/api/v1/documents.json?per_page=6&order=relevance" +
+      `&conditions%5Bterm%5D=${enc(parsed.upstream)}`;
+    if (opts.before) {
+      url += `&conditions%5Bpublication_date%5D%5Blte%5D=${opts.before}`;
+    }
+    if (opts.after) {
+      url += `&conditions%5Bpublication_date%5D%5Bgte%5D=${opts.after}`;
+    }
+    return url;
+  },
+  parse(json) {
+    const docs = [];
+    for (const item of list(json?.results)) {
+      if (!item?.title || !item.html_url) {
+        continue;
+      }
+      const doc = baseDoc("federalregister", "official", item.document_number ?? item.html_url, docs.length);
+      doc.title = stripHtml(item.title);
+      doc.url = item.html_url;
+      doc.snippet = truncate(stripHtml(item.abstract ?? item.excerpts ?? ""), 600);
+      if (!doc.snippet) {
+        doc.snippet = `${item.type ?? "Document"} in the Federal Register. No abstract given.`;
+        doc.snippetIsMeta = true;
+      }
+      doc.venue = list(item.agencies)
+        .map((agency) => agency?.name ?? agency?.raw_name)
+        .filter(Boolean)
+        .slice(0, 2)
+        .join(", ");
+      doc.extra = item.type ?? "";
+      doc.date = isoDay(item.publication_date);
+      if (item.pdf_url) {
+        doc.links.pdf = item.pdf_url;
+      }
+      doc.signals = { jurisdiction: "United States", documentType: item.type ?? "" };
+      docs.push(doc);
+    }
+    return docs;
+  },
+};
+
+const clinicaltrials = {
+  id: "clinicaltrials",
+  label: "ClinicalTrials.gov",
+  kind: "trial",
+  home: "https://clinicaltrials.gov/",
+  about: "Registry of clinical studies. A registered trial is a plan or a record, not proof that a treatment works.",
+  relevant: (parsed) => mentions(parsed, MEDICAL_WORDS),
+  request(parsed) {
+    return (
+      `https://clinicaltrials.gov/api/v2/studies?query.term=${enc(parsed.upstream)}&pageSize=6` +
+      "&fields=NCTId,BriefTitle,BriefSummary,OverallStatus,StartDate,Condition,LeadSponsorName,Phase," +
+      "EnrollmentCount,StudyType"
+    );
+  },
+  parse(json) {
+    const docs = [];
+    for (const study of list(json?.studies)) {
+      const section = study?.protocolSection ?? {};
+      const nctId = section.identificationModule?.nctId;
+      const title = stripHtml(section.identificationModule?.briefTitle ?? "");
+      if (!nctId || !title) {
+        continue;
+      }
+      const doc = baseDoc("clinicaltrials", "trial", nctId, docs.length);
+      doc.title = title;
+      doc.url = `https://clinicaltrials.gov/study/${enc(nctId)}`;
+      doc.snippet = truncate(stripHtml(section.descriptionModule?.briefSummary ?? ""), 600);
+      if (!doc.snippet) {
+        doc.snippet = "Registered clinical study. No summary given.";
+        doc.snippetIsMeta = true;
+      }
+      doc.venue = section.sponsorCollaboratorsModule?.leadSponsor?.name ?? "";
+      doc.extra = list(section.conditionsModule?.conditions).join(" ");
+      doc.date = isoDay(section.statusModule?.startDateStruct?.date);
+      doc.signals = {
+        status: String(section.statusModule?.overallStatus ?? "").toLowerCase().replace(/_/g, " "),
+        phase: list(section.designModule?.phases).join(", ").toLowerCase().replace(/phase/g, "phase "),
+        enrollment: Number(section.designModule?.enrollmentInfo?.count) || 0,
+      };
+      docs.push(doc);
+    }
+    return docs;
+  },
+};
+
+const bookstext = {
+  id: "bookstext",
+  label: "Inside books",
+  kind: "bookpage",
+  home: "https://openlibrary.org/search/inside",
+  about:
+    "Full-text search inside millions of scanned books, run by Open Library and the Internet Archive. " +
+    "Asked when the query has an exact phrase in quotes.",
+  relevant: (parsed) => parsed.phrases.length > 0,
+  phrase(parsed) {
+    return parsed.phrases.length ? `"${parsed.phrases[0]}"` : parsed.upstream;
+  },
+  request(parsed) {
+    return `https://openlibrary.org/search/inside.json?q=${enc(this.phrase(parsed))}&limit=6`;
+  },
+  parse(json, ctx) {
+    const docs = [];
+    const seen = new Set();
+    const wanted = this.phrase(ctx.parsed);
+    for (const hit of list(json?.hits?.hits)) {
+      const fields = hit?.fields ?? {};
+      const identifier = first(fields.identifier);
+      const title = stripHtml(first(fields.meta_title) ?? "");
+      if (!identifier || !title || seen.has(identifier)) {
+        continue;
+      }
+      seen.add(identifier);
+      const doc = baseDoc("bookstext", "bookpage", identifier, docs.length);
+      const page = first(first(fields.page_num));
+      doc.title = title;
+      doc.url = `https://archive.org/details/${enc(identifier)}?q=${enc(wanted)}`;
+      doc.snippet = truncate(
+        stripHtml(String(first(hit.highlight?.text) ?? "").replace(/\{\{\{|\}\}\}/g, "")).replace(/[<>]/g, " "),
+        500,
+      );
+      if (!doc.snippet) {
+        doc.snippet = "The phrase was found in the scanned text of this book.";
+        doc.snippetIsMeta = true;
+      }
+      doc.author = authorLine(list(fields.meta_creator).map(String));
+      doc.venue = page ? `page ${page}` : "";
+      doc.date = isoDay(first(fields.meta_year) ?? first(fields.meta_date));
+      doc.dateIsYear = true;
+      doc.signals = { downloads: Number(first(fields.meta_downloads)) || 0 };
+      docs.push(doc);
+    }
+    return docs;
+  },
+};
+
+export const SOURCES = [
+  wikipedia,
+  stackexchange,
+  hackernews,
+  github,
+  openalex,
+  europepmc,
+  archive,
+  openlibrary,
+  web,
+  wikibooks,
+  wiktionary,
+  bookstext,
+  wikinews,
+  wikiquote,
+  wikivoyage,
+  wikisource,
+  zenodo,
+  clinicaltrials,
+  govuk,
+  federalregister,
+];
 
 export const SOURCE_BY_ID = Object.fromEntries(SOURCES.map((source) => [source.id, source]));
 
@@ -676,11 +1266,34 @@ export const API_HOSTS = [
   "api.stackexchange.com",
   "hn.algolia.com",
   "api.github.com",
+  "gitlab.com",
   "api.openalex.org",
   "api.crossref.org",
   "www.ebi.ac.uk",
   "archive.org",
   "openlibrary.org",
+  "api.mwmbl.org",
+  "wikibooks.org",
+  "wiktionary.org",
+  "wikinews.org",
+  "wikiquote.org",
+  "wikivoyage.org",
+  "wikisource.org",
+  "zenodo.org",
+  "clinicaltrials.gov",
+  "www.gov.uk",
+  "www.federalregister.gov",
+];
+
+/** Hosts reached through a language sub-domain; the content security policy lists them as https://*.host. */
+export const WILDCARD_HOSTS = [
+  "wikipedia.org",
+  "wikibooks.org",
+  "wiktionary.org",
+  "wikinews.org",
+  "wikiquote.org",
+  "wikivoyage.org",
+  "wikisource.org",
 ];
 
 /** Which sources a search will ask: an in: operator wins over the lens. */
@@ -689,7 +1302,13 @@ export function planSources(parsed, lensId) {
     return parsed.sources.filter((id) => SOURCE_BY_ID[id]);
   }
   const lens = LENSES[lensId] ?? LENSES.all;
-  return SOURCES.map((source) => source.id).filter((id) => lens.weights[id] !== undefined);
+  const conditional = new Set(lens.whenRelevant ?? []);
+  return SOURCES.filter((source) => {
+    if (lens.weights[source.id] === undefined) {
+      return false;
+    }
+    return !conditional.has(source.id) || !source.relevant || source.relevant(parsed);
+  }).map((source) => source.id);
 }
 
 export function lensWeight(lensId, sourceId, parsed) {

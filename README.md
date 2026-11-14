@@ -5,7 +5,7 @@ Search the sources. Nothing generated, nothing sponsored.
 **Live:** https://juw12.github.io/sumber/ · **How it works:** https://juw12.github.io/sumber/about.html
 
 Sumber ("source" in Indonesian) is a search page for questions where the source matters. One query goes
-from your browser to eight public libraries of human-written material at the same time. The results are
+from your browser to up to 20 public libraries of human-written material at the same time. The results are
 pooled, ranked with a formula printed on the page, and shown with the exact passage, the date and the
 reason each one sits where it does. Sumber never writes a sentence of its own.
 
@@ -28,28 +28,62 @@ and it prints only what a source wrote.
 
 | | |
 |---|---|
-| Eight sources, one query | Wikipedia, Stack Exchange, Hacker News, GitHub, OpenAlex (Crossref as fallback), Europe PMC, Internet Archive, Open Library |
+| 20 sources, one query | Ten every time: Wikipedia, Stack Exchange, Hacker News, GitHub (GitLab as fallback), OpenAlex (Crossref as fallback), Europe PMC, Internet Archive, Open Library, the Mwmbl web index, Wikibooks. Ten more when the query or lens calls for them: Wiktionary, Wikinews, Wikiquote, Wikivoyage, Wikisource, Zenodo, ClinicalTrials.gov, GOV.UK, the Federal Register, and full-text search inside scanned books |
 | In the sources' own words | Up to three sentences copied character for character from the top results, each numbered to the result it came from |
-| Why ranked | Every result opens the arithmetic behind its position: text match, evidence the source reports, the source's own order |
+| Why ranked | Every result says in one line why it is there and opens the arithmetic behind its position: text match, evidence the source reports, the source's own order |
 | Before AI | One switch limits results to items dated up to 30 November 2022. It is a date filter, not a detector |
-| Lenses | All, Learn, Research, Build, Discuss re-weight the sources for the job |
+| Lenses | All, Learn, Research, Build, Discuss, Official choose and re-weight the sources for the job |
+| Saved copies | If a source fails or runs out of quota, the last answer this browser got for the same search is shown, labelled with its age |
+| Did you mean | Wikipedia's spelling suggestion is passed on when it differs from what was typed |
+| Report this search | A link under the results opens a prefilled GitHub issue; nothing is sent unless you submit it |
 | Cite | A ready citation for any result, one press to copy |
-| Operators | `"exact phrase"`, `-word`, `in:papers`, `se:physics`, `before:2020`, `after:2019-06` |
+| Operators | `"exact phrase"`, `-word`, `in:papers`, `in:gov`, `in:dict`, `se:physics`, `before:2020`, `after:2019-06` |
 | Bangs | `!g`, `!ddg`, `!maps`, `!yt` and others hand the query to another engine, so it can be your default search |
 | Private by construction | No server, no account, no key, no cookies, no analytics. The query stays behind the `#` in the address |
 | Works offline as a shell | Installable; the page opens with no connection and says which sources did not answer |
 
 ## What it cannot do
 
-- It is not a crawl of the web. Shops, news sites, company pages and forums outside the eight sources
-  are not in it. Use a bang for those.
+- It is not a crawl of the whole web. The Mwmbl index adds some ordinary web pages, but it is small.
+  Shops, news sites, company pages and forums outside the sources are mostly not in it. Use a bang.
+- It is not a news wire. The only news source is Wikinews.
+- The government sources cover the United Kingdom and the United States only.
 - It matches words, not meaning. There is no language model anywhere in it.
 - It sees titles and short excerpts, not full pages.
 - Word matching is weak for languages written without spaces.
 - The sources set quotas per IP address (Stack Exchange about 300 requests a day, GitHub about 10
-  searches a minute without an account). On a shared network they can run out; the source is then
-  marked and the others still answer.
+  searches a minute without an account). On a shared network they can run out. A saved copy of the same
+  search is reused, GitLab stands in for GitHub, and the others still answer, but a new search on an
+  exhausted source gets nothing from it until the quota resets.
 - Votes, stars and citations show attention, not truth.
+
+## Measured
+
+`tools/eval.mjs` asks 72 questions that each have one known right answer (a named Wikipedia article, a
+Stack Overflow thread, a repository, a paper, a book, a government page) and reports where that answer
+lands. The answers the sources gave on 14 November 2026 are saved in `tests/eval/pools.json`, so the
+numbers below can be reproduced without touching the network.
+
+| | Queries | Right answer in the pool | First | Top 3 | Top 10 | MRR |
+|---|---|---|---|---|---|---|
+| All | 72 | 90% | 74% | 78% | 88% | 0.777 |
+| Half used to choose the numbers | 35 | 83% | 71% | 74% | 83% | 0.747 |
+| Half held back | 37 | 97% | 76% | 81% | 92% | 0.805 |
+
+Read it with these limits in mind:
+
+- The questions and their right answers were written by an AI assistant, one answer per question. It is
+  a regression check for this formula, not a comparison with any other search engine.
+- A hash of each question decides its half. The formula's numbers were searched on one half (378
+  settings) and kept because the held-back half also improved, from MRR 0.700 to 0.805. That decision
+  used the held-back half once, so it is no longer untouched.
+- 15 of the 72 saved pools are missing one source: Stack Exchange had reached its daily limit for the
+  network the capture ran on (14 pools) and GitHub its per-minute limit (1). Three Stack Overflow
+  questions miss for that reason alone.
+- GitHub's search does not return the canonical repository for some plain descriptions ("rust
+  programming language compiler"), so those miss whatever the formula does.
+- The first run found a real fault: addresses were compared without their query string, so every
+  Hacker News thread (`item?id=...`) counted as the same page and only one survived. Fixed, with a test.
 
 ## Run it
 
@@ -66,7 +100,8 @@ Then open http://localhost:8080/.
 ## Check it
 
 ```
-node --test tests/                 # 69 unit tests: parser, adapters, ranking, text, promises
+node --test tests/                 # 115 unit tests: parser, adapters, ranking, text, promises
+node tools/eval.mjs --misses       # ranking quality on the saved answers, with every miss listed
 python tools/e2e.py                # real Chromium, API answers from tests/fixtures
 python tools/e2e.py --only live    # one search against the real sources
 python tools/e2e.py --base https://juw12.github.io/sumber/ --only live
@@ -87,14 +122,15 @@ money settings.
 |---|---|
 | `index.html`, `about.html` | The search page and the page that explains it |
 | `js/query.js` | Query parser: phrases, exclusions, operators, bangs |
-| `js/sources.js` | The eight source adapters and the lens weights |
-| `js/engine.js` | The only file that makes network requests; timeouts, cache, back-off |
+| `js/sources.js` | The 20 source adapters, the two fallbacks and the lens weights |
+| `js/engine.js` | The only file that makes network requests; timeouts, cache, saved copies, back-off |
 | `js/rank.js` | The whole ranking formula |
 | `js/text.js`, `js/cite.js` | Stemming, highlighting, verbatim passages, citations |
 | `js/app.js`, `js/theme.js` | The interface |
-| `js/config.js` | The two optional money links |
+| `js/config.js` | The two optional money links and the optional Stack Apps key |
 | `sw.js` | Offline shell, network first |
 | `design.md` | Why it looks the way it does |
+| `tools/eval.mjs`, `tests/eval/` | The ranking check: 72 questions, the saved answers, the tuning search |
 | `founder/` | Niche, competitors and money notes |
 
 ## Money

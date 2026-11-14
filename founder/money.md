@@ -25,6 +25,12 @@ The ranking code does not import that file, and `tests/hygiene.test.js` fails if
 Turning either on needs a payment account in Juwen's own name. That step was left alone on purpose:
 an agent should not open payment accounts or handle money.
 
+Checked on 14 November 2026 for a link that already exists and could be reused: the GitHub account
+`juw12` has no Sponsors listing, and a code search across its repositories for Ko-fi, PayPal.me,
+Saweria, Trakteer, Buy Me a Coffee and GitHub Sponsors addresses found none. So there is nothing to
+fill in yet, and income stays at zero until one account exists and its address is pasted into
+`js/config.js`.
+
 ## Why this can be passive
 
 - There is no server to keep alive and no bill that grows with use.
@@ -44,6 +50,13 @@ an agent should not open payment accounts or handle money.
 - No ads, affiliate links or paid placement in results. That would undo the reason to use it.
 - No tracking to prove traffic to sponsors.
 - No paid tier. Every feature runs in the visitor's browser at no cost, so there is nothing to meter.
+
+## Name check
+
+"Sumber" is the ordinary Indonesian and Malay word for "source". A web search on 14 November 2026
+found a Netherlands IT company trading under the same name and no search engine using it. That is a
+quick look, not a trademark clearance: the Indonesian (PDKI) and WIPO Global Brand registers were
+not queried. Before putting money behind the name, have it checked properly.
 
 ## If income matters more later
 

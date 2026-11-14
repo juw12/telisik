@@ -7,7 +7,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { BANGS, BEFORE_AI_DATE, parseQuery } from "../js/query.js";
-import { API_HOSTS, LENSES, SOURCES } from "../js/sources.js";
+import { API_HOSTS, LENSES, SOURCES, WILDCARD_HOSTS } from "../js/sources.js";
 import { WEIGHTS } from "../js/rank.js";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -66,7 +66,7 @@ test("every source request goes to an allowed host over https", () => {
       adapters.push(source.fallback);
     }
   }
-  assert.ok(adapters.length >= 8);
+  assert.ok(adapters.length >= 22);
   for (const adapter of adapters) {
     for (const opts of [{}, { before: "2022-11-30", after: "2015-01-01", wikiLang: "id" }]) {
       const url = new URL(adapter.request(parsed, opts));
@@ -97,7 +97,7 @@ test("the content security policy allows exactly the source hosts", () => {
     .split(/\s+/)
     .slice(1)
     .filter((value) => value !== "'self'");
-  const expected = API_HOSTS.map((host) => (host === "wikipedia.org" ? "https://*.wikipedia.org" : `https://${host}`));
+  const expected = API_HOSTS.map((host) => (WILDCARD_HOSTS.includes(host) ? `https://*.${host}` : `https://${host}`));
   assert.deepEqual([...connect].sort(), [...expected].sort());
   assert.match(policy, /script-src 'self'(;|$)/);
   assert.match(policy, /style-src 'self'(;|$)/);

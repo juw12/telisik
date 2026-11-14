@@ -22,7 +22,7 @@ import sys
 import threading
 import time
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import unquote_plus, urlparse
 
 from playwright.sync_api import sync_playwright
 
@@ -33,16 +33,23 @@ SCHEMES = ["light", "dark"]
 QUERY = "binary search tree"
 PROXY = os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy") or ""
 
+# Same routing as tools/fixture-names.mjs, which the unit tests use.
 FIXTURE_HOSTS = {
     "api.stackexchange.com": "stackexchange",
     "hn.algolia.com": "hackernews",
     "api.github.com": "github",
+    "gitlab.com": "gitlab",
     "api.openalex.org": "openalex",
     "api.crossref.org": "crossref",
     "www.ebi.ac.uk": "europepmc",
     "archive.org": "archive",
-    "openlibrary.org": "openlibrary",
+    "api.mwmbl.org": "web",
+    "zenodo.org": "zenodo",
+    "clinicaltrials.gov": "clinicaltrials",
+    "www.gov.uk": "govuk",
+    "www.federalregister.gov": "federalregister",
 }
+WIKI_PROJECTS = ["wikipedia", "wikibooks", "wiktionary", "wikinews", "wikiquote", "wikivoyage", "wikisource"]
 
 AUDIT_JS = r"""
 (phone) => {
@@ -271,11 +278,17 @@ def host_allowed(host, allowed):
     return False
 
 
-def fixture_for(host):
+def fixture_for(url):
+    """Name of the fixture that answers a request, or None when no fixture belongs to its host."""
+    parts = urlparse(url)
+    host = parts.hostname or ""
+    if host == "openlibrary.org":
+        return "bookstext" if parts.path.startswith("/search/inside") else "openlibrary"
     if host in FIXTURE_HOSTS:
         return FIXTURE_HOSTS[host]
-    if host.endswith(".wikipedia.org"):
-        return "wikipedia"
+    for project in WIKI_PROJECTS:
+        if host.endswith(f".{project}.org"):
+            return project
     return None
 
 
@@ -333,7 +346,12 @@ class Session:
         elif self.mode == "live":
             route.continue_()
         else:
-            name = fixture_for(host)
+            name = fixture_for(request.url)
+            if name is None:
+                # A declared host without a fixture would make the hermetic run depend on the network.
+                self.outside.append(f"no fixture for {request.url}")
+                route.abort()
+                return
             body = (FIXTURES / f"{name}.json").read_text(encoding="utf-8")
             route.fulfill(
                 status=200,
@@ -472,9 +490,18 @@ def functional(results, browser, base, allowed):
     results.check("search: address uses the fragment", page.url.endswith(f"#q={query}"), page.url)
     results.check("search: title carries the query", page.title().startswith(QUERY), page.title())
     ledger = page.locator("#ledger-list li").count()
-    results.check("search: ledger lists every source asked", ledger >= 8, f"{ledger} rows")
-    asked = {fixture_for(urlparse(url).hostname) for url in session.api_calls}
-    results.check("search: eight sources were asked", len(asked) >= 8, ", ".join(sorted(asked)))
+    results.check("search: ledger lists every source asked", ledger >= 10, f"{ledger} rows")
+    asked = {fixture_for(url) for url in session.api_calls}
+    results.check("search: ten sources were asked", len(asked) >= 10, ", ".join(sorted(asked)))
+    report = page.get_attribute("#report-link", "href") or ""
+    report_text = unquote_plus(report)
+    results.check("report: the link opens a prefilled issue with the query and the sources asked",
+                  report.startswith("https://github.com/juw12/sumber/issues/new?")
+                  and f"Query: {QUERY}" in report_text and "Sources asked:" in report_text
+                  and "Top results:\n1. " in report_text,
+                  report_text[:300])
+    results.check("report: following the link is the only way anything is sent",
+                  not any("github.com/juw12" in url for url in session.api_calls + session.outside))
     carries_query = [url for url in session.api_calls if "binary" in url.lower()]
     results.check("search: every API call carries the query", len(carries_query) == len(session.api_calls))
 
@@ -555,6 +582,18 @@ def functional(results, browser, base, allowed):
     research_sources = set(page.evaluate("[...document.querySelectorAll('#ledger-list [data-source]')].map((node) => node.dataset.source)"))
     results.check("lens: research asks papers and archives only",
                   "hackernews" not in research_sources and "openalex" in research_sources, str(research_sources))
+
+    page.click('.lens[data-lens="official"]')
+    session.wait_done()
+    official_calls = {fixture_for(url) for url in session.api_calls}
+    official_rows = page.locator("#ledger-list li").count()
+    results.check("lens: official records itself in the address", "lens=official" in page.url, page.url)
+    results.check("lens: official asks government, law and trial sources",
+                  {"govuk", "federalregister", "clinicaltrials", "wikisource"} <= official_calls and official_rows == 5,
+                  f"{sorted(name for name in official_calls if name)}; {official_rows} ledger rows")
+    page.go_back()
+    page.wait_for_timeout(400)
+    results.check("history: back returns to the research lens", "lens=research" in page.url, page.url)
 
     page.go_back()
     page.wait_for_timeout(400)
@@ -647,12 +686,57 @@ def functional(results, browser, base, allowed):
     open_ledger(page)
     visible_rows = page.locator("#ledger-list li:visible").count()
     results.check("phone ledger: the toggle opens every source",
-                  visible_rows >= 8 and toggle.get_attribute("aria-expanded") == "true", f"{visible_rows} rows")
+                  visible_rows >= 10 and toggle.get_attribute("aria-expanded") == "true", f"{visible_rows} rows")
     page.click("#ledger-list button[data-source]")
     page.wait_for_timeout(120)
     phone_sources = set(page.evaluate("[...document.querySelectorAll('#results > li')].map((node) => node.dataset.source)"))
     results.check("phone ledger: stays open and filters after a tap",
                   len(phone_sources) == 1 and page.locator("#ledger-list").is_visible(), str(phone_sources))
+    session.close()
+
+    for width in (320, 390):
+        session = Session(browser, base, allowed, width)
+        page = session.open(f"#q={query}")
+        session.wait_done()
+        boxes = page.evaluate(
+            """() => [...document.querySelectorAll(".lens, .switch")].map((node) => {
+              const box = node.getBoundingClientRect();
+              return { left: box.left, right: box.right, top: Math.round(box.top), height: box.height };
+            })"""
+        )
+        rows = sorted({box["top"] for box in boxes})
+        inside = all(box["left"] >= 0 and box["right"] <= width + 0.5 and box["height"] >= 43.5 for box in boxes)
+        results.check(f"phone controls {width}: six lenses and the switch fit in at most two rows",
+                      len(boxes) == 7 and inside and len(rows) <= 2, f"{len(boxes)} controls, rows at {rows}")
+        session.close()
+
+    session = Session(browser, base, allowed, 1280)
+    page = session.open(f"#q={query}")
+    session.wait_done()
+    fresh_count = page.locator("#results > li.result").count()
+    aged = page.evaluate(
+        """() => {
+          const key = "sumber.cache.v2";
+          const saved = JSON.parse(localStorage.getItem(key) || "{}");
+          for (const entry of Object.values(saved)) {
+            entry.t -= 2 * 24 * 60 * 60 * 1000;
+          }
+          localStorage.setItem(key, JSON.stringify(saved));
+          return Object.keys(saved).length;
+        }"""
+    )
+    session.mode = "dead"
+    page.reload()
+    session.wait_done(timeout=30000)
+    saved_labels = page.locator("#ledger-list .ledger-saved").count()
+    saved_count = page.locator("#results > li.result").count()
+    summary_text = page.inner_text("#summary")
+    results.check("saved copy: answers survive when every source is down",
+                  aged >= 10 and saved_count == fresh_count and saved_count >= 10,
+                  f"{aged} saved answers, {saved_count} results against {fresh_count} fresh")
+    results.check("saved copy: the ledger and the summary say the answers are saved copies",
+                  saved_labels >= 10 and "saved copy" in summary_text,
+                  f"{saved_labels} labels; {summary_text}")
     session.close()
 
     session = Session(browser, base, allowed, 1280)

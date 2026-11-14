@@ -1,0 +1,56 @@
+{
+ "batchcomplete": "",
+ "continue": {
+  "sroffset": 6,
+  "continue": "-||"
+ },
+ "query": {
+  "searchinfo": {
+   "totalhits": 293
+  },
+  "search": [
+   {
+    "ns": 0,
+    "title": "Jakarta",
+    "pageid": 16075,
+    "snippet": "<span class=\"searchmatch\">Jakarta</span> is a huge city with several district articles that contain information about specific sights, restaurants, and accommodation. <span class=\"searchmatch\">Jakarta</span> is Indonesia&#039;s",
+    "timestamp": "2026-10-27T11:47:58Z"
+   },
+   {
+    "ns": 0,
+    "title": "Jakarta/East",
+    "pageid": 16079,
+    "snippet": "East <span class=\"searchmatch\">Jakarta</span> (Indonesian: <span class=\"searchmatch\">Jakarta</span> Timur) is the industrial quarter of <span class=\"searchmatch\">Jakarta</span>, and the location of Taman Mini Indonesia Indah, where you can see parts",
+    "timestamp": "2026-10-28T12:12:30Z"
+   },
+   {
+    "ns": 0,
+    "title": "Jakarta/Central",
+    "pageid": 16078,
+    "snippet": "Central <span class=\"searchmatch\">Jakarta</span> (Indonesian: <span class=\"searchmatch\">Jakarta</span> Pusat) acts as the commercial and business district of <span class=\"searchmatch\">Jakarta</span>. By day the many office buildings are filled with",
+    "timestamp": "2026-11-09T21:30:13Z"
+   },
+   {
+    "ns": 0,
+    "title": "Jakarta/West",
+    "pageid": 16082,
+    "snippet": "West <span class=\"searchmatch\">Jakarta</span> (Indonesian: <span class=\"searchmatch\">Jakarta</span> Barat) is part of the Old Batavia and is home to <span class=\"searchmatch\">Jakarta&#039;s</span> Chinatown, called the Glodok area. Glodok is more of electronic",
+    "timestamp": "2026-10-27T12:02:35Z"
+   },
+   {
+    "ns": 0,
+    "title": "Jakarta/South",
+    "pageid": 16081,
+    "snippet": "South <span class=\"searchmatch\">Jakarta</span> (Indonesian: <span class=\"searchmatch\">Jakarta</span> Selatan) is one of the municipalities of the Indonesian capital <span class=\"searchmatch\">Jakarta</span>, known for its upscale residential areas and",
+    "timestamp": "2026-10-27T12:00:11Z"
+   },
+   {
+    "ns": 0,
+    "title": "Jakarta/North",
+    "pageid": 16080,
+    "snippet": "<span class=\"searchmatch\">Jakarta</span> (Indonesian: <span class=\"searchmatch\">Jakarta</span> Utara) is one of the municipalities of the Indonesian capital, along the Java Sea coast, and the location where <span class=\"searchmatch\">Jakarta</span> began",
+    "timestamp": "2026-11-03T03:50:09Z"
+   }
+  ]
+ }
+}

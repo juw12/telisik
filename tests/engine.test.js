@@ -1,15 +1,15 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { fixtureFetch, hang, memoryStorage } from "./helpers.js";
-import { createCache, dateWindow, search } from "../js/engine.js";
+import { fixture, fixtureFetch, hang, memoryStorage } from "./helpers.js";
+import { CACHE_KEEP_MS, ageWords, createCache, dateWindow, search } from "../js/engine.js";
 import { parseQuery } from "../js/query.js";
 
 test("all sources answer: every one is reported and results are ranked", async () => {
   const updates = [];
   const state = await search("binary search tree", { fetch: fixtureFetch() }, (snapshot) => updates.push(snapshot));
   assert.equal(state.done, true);
-  assert.equal(state.planned.length, 8);
-  assert.equal(updates.length, 8);
+  assert.equal(state.planned.length, 10);
+  assert.equal(updates.length, 10);
   for (const id of state.planned) {
     assert.equal(state.status[id].state, "ok", id);
   }
@@ -21,6 +21,7 @@ test("all sources answer: every one is reported and results are ranked", async (
 test("one slow source and one broken source do not hold back the rest", async () => {
   const fetch = fixtureFetch({
     github: hang,
+    gitlab: hang,
     archive: async () => new Response("<html>bad gateway</html>", { status: 502 }),
     hackernews: async () => {
       throw new TypeError("network down");
@@ -35,7 +36,7 @@ test("one slow source and one broken source do not hold back the rest", async ()
   assert.ok(state.results.every((result) => !["github", "archive", "hackernews"].includes(result.source)));
 });
 
-test("rate limits are named, remembered, and OpenAlex falls back to Crossref", async () => {
+test("rate limits are named and remembered; GitHub and OpenAlex hand over to their stand-ins", async () => {
   const storage = memoryStorage();
   const calls = [];
   const fetch = fixtureFetch(
@@ -48,7 +49,9 @@ test("rate limits are named, remembered, and OpenAlex falls back to Crossref", a
     calls,
   );
   const state = await search("binary search tree", { fetch, storage });
-  assert.equal(state.status.github.state, "limit");
+  assert.equal(state.status.github.state, "ok");
+  assert.match(state.status.github.note, /GitLab/);
+  assert.ok(state.results.some((result) => result.source === "github" && result.signals.via === "GitLab"));
   assert.equal(state.status.stackexchange.state, "limit");
   assert.equal(state.status.openalex.state, "ok");
   assert.match(state.status.openalex.note, /Crossref/);
@@ -78,13 +81,138 @@ test("cache expires and keeps a bounded number of entries", () => {
   cache.set("a", [1]);
   assert.deepEqual(cache.get("a"), [1]);
   now += 61 * 60 * 1000;
-  assert.equal(cache.get("a"), null);
-  for (let index = 0; index < 80; index += 1) {
+  assert.equal(cache.get("a"), null, "older than the default hour");
+  assert.deepEqual(cache.get("a", 2 * 60 * 60 * 1000), [1], "a longer allowance still accepts it");
+  assert.deepEqual(cache.peek("a"), { value: [1], ageMs: 61 * 60 * 1000 });
+  for (let index = 0; index < 200; index += 1) {
     now += 1;
     cache.set(`k${index}`, [index]);
   }
-  assert.equal(cache.get("k0"), null);
-  assert.deepEqual(cache.get("k79"), [79]);
+  assert.equal(cache.peek("a"), null, "pushed out by newer entries");
+  assert.equal(cache.peek("k0"), null);
+  assert.deepEqual(cache.get("k199"), [199]);
+  now += CACHE_KEEP_MS + 1;
+  assert.equal(cache.peek("k199"), null, "too old to show even as a last resort");
+});
+
+test("cache survives a full browser store by keeping fewer entries", () => {
+  const data = new Map();
+  const storage = {
+    getItem: (key) => (data.has(key) ? data.get(key) : null),
+    setItem(key, value) {
+      if (String(value).length > 600) {
+        throw new DOMException("full", "QuotaExceededError");
+      }
+      data.set(key, String(value));
+    },
+    removeItem: (key) => data.delete(key),
+  };
+  let now = 1000;
+  const cache = createCache(storage, () => now);
+  for (let index = 0; index < 40; index += 1) {
+    now += 1;
+    cache.set(`key${index}`, { d: ["x".repeat(20)], s: null });
+  }
+  assert.deepEqual(cache.get("key39"), { d: ["x".repeat(20)], s: null });
+  const reopened = createCache(storage, () => now);
+  assert.deepEqual(reopened.get("key39"), { d: ["x".repeat(20)], s: null });
+});
+
+test("a source that fails shows its own saved answer and says how old it is", async () => {
+  let now = Date.parse("2026-01-01T00:00:00Z");
+  const clock = () => now;
+  const cache = createCache(memoryStorage(), clock);
+  await search("binary search tree", { fetch: fixtureFetch(), cache, now: clock });
+
+  now += 2 * 60 * 60 * 1000;
+  const calls = [];
+  const fetch = fixtureFetch(
+    {
+      wikipedia: async () => new Response("<html>bad gateway</html>", { status: 502 }),
+      hackernews: async () => new Response("{}", { status: 429 }),
+    },
+    calls,
+  );
+  const state = await search("binary search tree", { fetch, cache, now: clock });
+  for (const id of ["wikipedia", "hackernews"]) {
+    assert.equal(state.status[id].state, "ok", id);
+    assert.equal(state.status[id].stale, true, id);
+    assert.equal(state.status[id].ageMs, 2 * 60 * 60 * 1000, id);
+    assert.match(state.status[id].note, /saved 2 hours ago/, id);
+  }
+  assert.ok(state.results.some((result) => result.source === "wikipedia"));
+  // Sources with a small free allowance keep their answer for a day, so they are not asked again.
+  const askedAgain = new Set(calls.map((call) => call.name));
+  for (const id of ["github", "stackexchange", "web"]) {
+    assert.ok(!askedAgain.has(id), `${id} was asked again within a day`);
+    assert.equal(state.status[id].cached, true, id);
+    assert.equal(state.status[id].stale, false, id);
+  }
+  assert.ok(askedAgain.has("openalex"), "an hour-old answer from an unmetered source is refreshed");
+});
+
+test("a paused source still answers what it already has", async () => {
+  const now = Date.parse("2026-01-01T00:00:00Z");
+  const clock = () => now;
+  const storage = memoryStorage();
+  const cache = createCache(memoryStorage(), clock);
+  await search("binary search tree", { fetch: fixtureFetch(), cache, storage, now: clock });
+  storage.setItem("sumber.backoff.v1", JSON.stringify({ stackexchange: now + 10 * 60 * 1000 }));
+  const state = await search("binary search tree", { fetch: fixtureFetch(), cache, storage, now: clock });
+  assert.equal(state.status.stackexchange.state, "ok");
+  assert.equal(state.status.stackexchange.cached, true);
+});
+
+test("a dictionary without the word is simply empty, not an error", async () => {
+  const fetch = fixtureFetch({ wiktionary: async () => new Response('{"title":"Not found."}', { status: 404 }) });
+  const state = await search("zzzqqq in:dict", { fetch });
+  assert.deepEqual(state.planned, ["wiktionary"]);
+  assert.equal(state.status.wiktionary.state, "empty");
+});
+
+test("remaining free requests are reported with the answer", async () => {
+  const fetch = fixtureFetch({
+    github: async () =>
+      new Response(JSON.stringify(fixture("github")), {
+        status: 200,
+        headers: { "x-ratelimit-remaining": "2", "x-ratelimit-limit": "10" },
+      }),
+    stackexchange: async () =>
+      new Response(JSON.stringify({ ...fixture("stackexchange"), quota_remaining: 41, quota_max: 300 }), { status: 200 }),
+  });
+  const state = await search("binary search tree", { fetch });
+  assert.deepEqual(state.status.github.quota, { remaining: 2, max: 10, per: "minute" });
+  assert.deepEqual(state.status.stackexchange.quota, { remaining: 41, max: 300, per: "day" });
+  assert.equal(state.status.wikipedia.quota, null);
+});
+
+test("a spelling suggestion is passed on only when it differs from what was typed", async () => {
+  const withSuggestion = (suggestion) => async () => {
+    const body = structuredClone(fixture("wikipedia"));
+    body.query.searchinfo = { suggestion };
+    return new Response(JSON.stringify(body), { status: 200 });
+  };
+  const typo = await search("binray search tree", { fetch: fixtureFetch({ wikipedia: withSuggestion("binary search tree") }) });
+  assert.equal(typo.suggestion, "binary search tree");
+  assert.equal(typo.status.wikipedia.suggestion, "binary search tree");
+  const same = await search("Binary Search Tree", { fetch: fixtureFetch({ wikipedia: withSuggestion("binary search tree") }) });
+  assert.equal(same.suggestion, null);
+  const none = await search("binary search tree", { fetch: fixtureFetch() });
+  assert.equal(none.suggestion, null);
+});
+
+test("a registered Stack Exchange key reaches the request", async () => {
+  const calls = [];
+  await search("binary search tree", { fetch: fixtureFetch({}, calls), keys: { stackexchange: "abcDEF123456((" } });
+  const asked = calls.find((call) => call.name === "stackexchange");
+  assert.match(asked.url, /&key=abcDEF123456/);
+});
+
+test("ages are worded for people", () => {
+  assert.equal(ageWords(20 * 1000), "1 minute");
+  assert.equal(ageWords(45 * 60 * 1000), "45 minutes");
+  assert.equal(ageWords(5 * 60 * 60 * 1000), "5 hours");
+  assert.equal(ageWords(3 * 24 * 60 * 60 * 1000), "3 days");
 });
 
 test("Before AI: the stricter date wins and Wikipedia is not quoted", async () => {
