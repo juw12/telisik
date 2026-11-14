@@ -8,7 +8,7 @@ export const CONFIG = {
   },
   // A page where people can chip in (GitHub Sponsors, Ko-fi, Buy Me a Coffee ...). https only.
   support: {
-    label: "Support Sumber",
+    label: "Support Telisik",
     url: "",
   },
   // One text line in the footer, always prefixed with the word "Sponsor". https only.

@@ -4,19 +4,19 @@
 
 import { BANGS, bangUrl, parseQuery } from "./query.js";
 import { KIND_LABELS, LENSES, SE_SITES, SOURCE_BY_ID, describeDate } from "./sources.js";
-import { WEIGHTS } from "./rank.js";
+import { TUNING, WEIGHTS } from "./rank.js";
 import { ageWords, createCache, search } from "./engine.js";
 import { formatCitation, snapshotUrl } from "./cite.js";
 import { highlight, truncate } from "./text.js";
 import { CONFIG, safeHttpsUrl } from "./config.js";
 
-const SETTINGS_KEY = "sumber.settings.v1";
-const HISTORY_KEY = "sumber.history.v1";
+const SETTINGS_KEY = "telisik.settings.v1";
+const HISTORY_KEY = "telisik.history.v1";
 const HISTORY_MAX = 8;
 const PAGE_SIZE = 20;
 const FIRST_PAINT_MS = 1200;
 const ELSEWHERE = ["g", "ddg", "b", "m", "r", "yt", "s", "maps"];
-const REPORT_URL = "https://github.com/juw12/sumber/issues/new";
+const REPORT_URL = "https://github.com/juw12/telisik/issues/new";
 /** A quota is mentioned in the ledger only once less than this share of it is left. */
 const QUOTA_LOW_SHARE = 0.2;
 const WIKI_LANGUAGES = [
@@ -101,6 +101,25 @@ const storage = {
     }
   },
 };
+
+// The page was called Sumber until November 2026 and lived on the same origin: carry saved choices over once.
+for (const [oldKey, newKey] of [
+  ["sumber.settings.v1", SETTINGS_KEY],
+  ["sumber.history.v1", HISTORY_KEY],
+]) {
+  const store = storage.raw();
+  try {
+    const old = store?.getItem(oldKey);
+    if (old !== null && old !== undefined) {
+      if (store.getItem(newKey) === null) {
+        store.setItem(newKey, old);
+      }
+      store.removeItem(oldKey);
+    }
+  } catch {
+    // Private mode: nothing was saved, nothing to move.
+  }
+}
 
 const settings = {
   theme: "auto",
@@ -259,7 +278,7 @@ function showHome() {
   document.body.className = "is-home";
   byId("home-view").hidden = false;
   byId("results-view").hidden = true;
-  document.title = "Sumber: search the sources";
+  document.title = "Telisik: search the sources";
   syncControls();
   renderHistory();
 }
@@ -305,7 +324,7 @@ function startSearch({ push = true } = {}) {
   }
   const parsed = parseQuery(raw);
   if (parsed.bang) {
-    // A bang leaves Sumber on purpose: the query goes to the engine the person named.
+    // A bang leaves Telisik on purpose: the query goes to the engine the person named.
     location.assign(bangUrl(parsed.bang, parsed.text));
     return;
   }
@@ -329,7 +348,7 @@ function startSearch({ push = true } = {}) {
     history.pushState(null, "", buildSearchString());
   }
   rememberQuery(raw);
-  document.title = `${raw} - Sumber`;
+  document.title = `${raw} - Telisik`;
   document.body.className = "is-results";
   byId("home-view").hidden = true;
   byId("results-view").hidden = false;
@@ -787,10 +806,15 @@ function whyLine(doc, number, snapshot) {
   const reasons = [];
   if (why.titleIsQuery) {
     reasons.push("its title is your query");
+  } else if (why.titleIsCore) {
+    reasons.push(`its title is your query without "${why.intentWords.join(" ")}"`);
   } else if (why.titleHasAll) {
     reasons.push("every query word is in its title");
   } else if (totalTerms > 0) {
     reasons.push(`${why.matched.length} of ${totalTerms} query words were found in it`);
+  }
+  if (why.phraseRun >= 1 && !why.titleIsQuery) {
+    reasons.push("it repeats your query word for word");
   }
   reasons.push(`${label} itself listed it ${ordinal(why.upstreamPosition)}`);
   const lead = number === 1 ? "First" : ordinal(number);
@@ -814,8 +838,13 @@ function whyPanel(doc, number, snapshot) {
   const textNotes = [`${why.matched.length} of ${totalTerms} query words found`];
   if (why.titleIsQuery) {
     textNotes.push("the title is your query");
+  } else if (why.titleIsCore) {
+    textNotes.push(`the title is your query without "${why.intentWords.join(" ")}"`);
   } else if (why.titleHasAll) {
     textNotes.push("all of them in the title");
+  }
+  if (why.alias) {
+    textNotes.push(`${label} also files this page under "${why.alias}"`);
   }
   if (why.phraseNote) {
     textNotes.push(why.phraseNote);
@@ -833,15 +862,30 @@ function whyPanel(doc, number, snapshot) {
       `${fixed(why.upstream)} × ${WEIGHTS.upstream} = ${fixed(why.upstream * WEIGHTS.upstream)}`,
     ),
   );
-  if (why.titleIsQuery) {
+  // The two bonuses do not add up: the larger one counts.
+  const titleBonus = why.titleIsQuery || why.titleIsCore ? 0.08 : 0;
+  const runBonus = TUNING.runBonus * (why.phraseRun ?? 0);
+  if (titleBonus > 0 && titleBonus >= runBonus) {
     list.append(whyRow("Exact title", "", "+ 0.08"));
+  } else if (runBonus > 0) {
+    const share = Math.round(why.phraseRun * 100);
+    list.append(
+      whyRow("Your words in order", `${share}% of your query is in it word for word`, `+ ${fixed(runBonus)}`),
+    );
   }
   if (why.recency > 0) {
     list.append(whyRow("Recent", "you asked for something new", `+ ${fixed(why.recency)}`));
   }
-  if (why.lens !== 1) {
+  const intentBoost = why.intentBoost ?? 1;
+  const lensOnly = why.lens / intentBoost;
+  if (Math.abs(lensOnly - 1) > 1e-9) {
     const lensName = LENSES[view.lens]?.label ?? "All";
-    list.append(whyRow(`${lensName} lens`, `weight for ${label}`, `× ${fixed(why.lens)}`));
+    list.append(whyRow(`${lensName} lens`, `weight for ${label}`, `× ${fixed(lensOnly)}`));
+  }
+  if (intentBoost !== 1) {
+    list.append(
+      whyRow("Kind of page you asked for", `your query says "${why.intentWords.join(" ")}"`, `× ${fixed(intentBoost)}`),
+    );
   }
   if (why.diversity !== 1) {
     list.append(whyRow("Variety", `not the first ${label} result on the page`, `× ${fixed(why.diversity)}`));
@@ -892,7 +936,7 @@ function renderEmpty(snapshot) {
   } else {
     box.append(el("h2", { text: "No source had a match" }));
     const tips = el("ul", { class: "tips" });
-    tips.append(el("li", { text: "Sumber matches words, not meaning. Try the plain terms a title would use." }));
+    tips.append(el("li", { text: "Telisik matches words, not meaning. Try the plain terms a title would use." }));
     if (snapshot.parsed.phrases.length || snapshot.parsed.excluded.length || snapshot.parsed.sources.length) {
       tips.append(el("li", { text: "Remove the quotes, minus words or in: to widen the search." }));
     }
@@ -1047,7 +1091,7 @@ function setupMoney() {
   const supportUrl = safeHttpsUrl(CONFIG.support?.url);
   if (supportUrl) {
     const item = byId("support");
-    item.append(el("a", { class: "tap", href: supportUrl, rel: "noopener noreferrer", text: CONFIG.support.label || "Support Sumber" }));
+    item.append(el("a", { class: "tap", href: supportUrl, rel: "noopener noreferrer", text: CONFIG.support.label || "Support Telisik" }));
     item.hidden = false;
   }
 }

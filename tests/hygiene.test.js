@@ -141,6 +141,6 @@ test("the about page states the numbers the code uses", () => {
 });
 
 test("the default-search address keeps the query out of the request", () => {
-  assert.match(read("opensearch.xml"), /template="https:\/\/juw12\.github\.io\/sumber\/#q=\{searchTerms\}"/);
-  assert.ok(read("about.html").includes("https://juw12.github.io/sumber/#q=%s"));
+  assert.match(read("opensearch.xml"), /template="https:\/\/juw12\.github\.io\/telisik\/#q=\{searchTerms\}"/);
+  assert.ok(read("about.html").includes("https://juw12.github.io/telisik/#q=%s"));
 });

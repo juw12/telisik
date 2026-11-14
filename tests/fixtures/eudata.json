@@ -1,0 +1,136 @@
+{
+ "result": {
+  "index": "dataset",
+  "count": 127708,
+  "results": [
+   {
+    "country": {
+     "resource": "http://publications.europa.eu/resource/authority/country/LUX",
+     "label": "Luxembourg",
+     "id": "lu"
+    },
+    "description": {
+     "en": "- Number of job seekers in 2016 (Lorraine: 2014)\n\n- Unemployment rate 2016 (in %, Lorraine: 2014)\n\n- Territorial entities: Cantons (LOR, LUX), Kreise (RLP, SL), arrondissements (WAL)\n\n- Statistical data sources: INSEE Grand Est, Statistisches Landesamt Rheinland-Pfalz, Statistisches Amt Saarland, STATEC, IWEPS. Calculations: LISER 2018\n\n- Geodata sources: ACT Luxembourg 2017, IGN France 2017, GeoBasis-DE / BKG 2017, NGI-Belgium 2017. Harmonization: SIG-GR / GIS-GR 2018\n"
+    },
+    "publisher": {
+     "name": "SIG-GR @ Ministère du Logement et de l'Aménagement du territoire - Département de l’aménagement du territoire",
+     "type": "Organization"
+    },
+    "index": "dataset",
+    "id": "unemployment-rate-2016",
+    "title": {
+     "en": "Unemployment rate 2016*"
+    },
+    "issued": "2020-03-25T14:30:35.758000+00:00"
+   },
+   {
+    "country": {
+     "resource": "http://publications.europa.eu/resource/authority/country/DEU",
+     "label": "Germany",
+     "id": "de"
+    },
+    "description": {
+     "en": "Labour market statistics of the Federal Employment Agency with unemployment figures for Bretten"
+    },
+    "publisher": {
+     "resource": "https://opendata.readi.de/organization/207512d4-d974-4a6b-8042-98360a5fc490",
+     "name": "Stadt Bretten",
+     "type": "Agent"
+    },
+    "modified": "2026-06-09T14:11:24.416423",
+    "index": "dataset",
+    "id": "bf1aeb1a-49c5-43e5-936f-ac903b9eee90",
+    "title": {
+     "en": "Unemployment statistics (Bretten)"
+    },
+    "issued": "2026-06-09T14:02:50.859568"
+   },
+   {
+    "country": {
+     "label": "Greece",
+     "id": "gr",
+     "resource": "http://publications.europa.eu/resource/authority/country/GRC"
+    },
+    "description": {
+     "en": "Pogoji-trajanje-znesek subvencije itd. "
+    },
+    "publisher": {
+     "type": "Agent",
+     "name": "Δ/ΝΣΗ ΑΣΦΑΛΙΣΗΣ"
+    },
+    "modified": "2026-02-22T15:17:35.334252",
+    "index": "dataset",
+    "id": "bcc798d5-b43d-41a7-b877-c402b672707a",
+    "title": {
+     "en": "_ General Subvention au chômage"
+    },
+    "issued": "2025-11-18T11:05:05.985395"
+   },
+   {
+    "country": {
+     "label": "Germany",
+     "id": "de",
+     "resource": "http://publications.europa.eu/resource/authority/country/DEU"
+    },
+    "description": {
+     "en": "District of Wesel Unemployment statistics (December 2020)"
+    },
+    "modified": "2025-11-06T11:03:56.893319",
+    "publisher": {
+     "type": "Agent",
+     "name": "Kreis Wesel ",
+     "resource": "https://opendata.ruhr/organization/890f77f5-660f-4a3c-8974-5b9fe129a00f"
+    },
+    "index": "dataset",
+    "id": "2fcce223-6d0c-42f3-af0a-55b3a2345488",
+    "title": {
+     "en": "District of Wesel Unemployment statistics (December 2020)"
+    },
+    "issued": "2025-11-06T11:03:56.893315"
+   },
+   {
+    "country": {
+     "resource": "http://publications.europa.eu/resource/authority/country/MLT",
+     "label": "Malta",
+     "id": "mt"
+    },
+    "description": {
+     "en": "The data on expenditure under the various social protection schemes are drawn up according to the ESSPROS (European System of integrated Social Protection Statistics) Manual issued by Eurostat. Generally, the objectives of ESSPROS are to provide a comprehensive, realistic and coherent description of social protection which: (i) covers social benefits and their financing; (ii) is geared towards international comparability; and (iii) is completely harmonised with other statistics, particularly the National Accounts, in its main concepts. The Unemployment function consists of the following benefits: Special Unemployment Benefit, Unemployment Benefit, Social Assistance Board, Subsidiary Unemployment Assistance, Unemployment Assistance and Unemployment Assistance Tapering. Spatial ESSPROS data is represented per 1000 population. The data source used to compile the beneficiaries data is the System for the Administration of Social Benefits (SABS) database held by the Department of Social Security. Beneficiaries are grouped according to their ID card number. If a person received a particular benefit more than once in a calendar year, the records show one beneficiary. Beneficiaries obtaining more than one benefit under the same function are counted once. Beneficiaries living abroad are not included in the data."
+    },
+    "modified": "2025-11-20T10:12:18",
+    "publisher": {
+     "resource": "https://portal.data.gov.mt/organization/3fd1c612-c3dc-494a-8dda-14ccc423758b",
+     "name": "National Statistics Office",
+     "type": "Agent",
+     "homepage": "https://nso.gov.mt/"
+    },
+    "index": "dataset",
+    "id": "88cf9916-67e2-40bc-83a7-262f0a37e29c",
+    "title": {
+     "en": "Unemployment beneficiaries and benefits"
+    },
+    "issued": "2025-01-29T16:07:37"
+   },
+   {
+    "country": {
+     "label": "United Kingdom",
+     "id": "gb",
+     "resource": "http://publications.europa.eu/resource/authority/country/GBR"
+    },
+    "description": {
+     "en": "This Data has been sourced from LG Inform Plus and shows the percentage in terms of age for unemployment in Plymouth."
+    },
+    "publisher": {
+     "type": "Agent",
+     "name": "Plymouth City Council"
+    },
+    "index": "dataset",
+    "id": "unemployment-statistics-by-age",
+    "title": {
+     "en": "Unemployment statistics by age"
+    }
+   }
+  ],
+  "facets": []
+ }
+}

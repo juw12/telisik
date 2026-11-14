@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { fixture } from "./helpers.js";
 import { parseQuery } from "../js/query.js";
 import { SOURCES } from "../js/sources.js";
-import { WEIGHTS, bestPassages, evidenceScore, rank } from "../js/rank.js";
+import { TUNING, WEIGHTS, bestPassages, evidenceNotes, evidenceScore, phraseRun, rank } from "../js/rank.js";
 import { formatCitation, snapshotUrl } from "../js/cite.js";
 
 function pool(query) {
@@ -194,4 +194,84 @@ test("citations use only returned fields", () => {
     '"Binary search tree." Wikipedia. https://en.wikipedia.org/wiki/Binary_search_tree (accessed 2026-11-13).',
   );
   assert.equal(snapshotUrl("https://a.org/x", "2022-11-30"), "https://web.archive.org/web/20221130/https://a.org/x");
+});
+
+test("a title that is the query without its intent words counts as the exact title", () => {
+  const parsed = parseQuery("kyoto travel guide");
+  const guide = doc({ id: "voyage", source: "wikivoyage", kind: "travel", title: "Kyoto", snippet: "Kyoto was the capital of Japan.", upstreamRank: 0 });
+  const article = doc({ id: "wiki", title: "Kyoto Protocol", snippet: "The Kyoto Protocol is an international treaty on emissions.", upstreamRank: 0 });
+  const results = rank([article, guide], parsed);
+  assert.equal(results[0].id, "voyage");
+  assert.equal(results[0].why.titleIsCore, true);
+  assert.deepEqual(results[0].why.intentWords, ["travel", "guide"]);
+  assert.equal(results[0].why.intentBoost, 1.25);
+  assert.equal(results.find((result) => result.id === "wiki").why.titleIsCore, false);
+});
+
+test("a repository is matched by its bare name, without the owner", () => {
+  const parsed = parseQuery("linux");
+  const repo = doc({ id: "repo", source: "github", kind: "code", title: "torvalds/linux", snippet: "Linux kernel source tree", signals: { stars: 180000 } });
+  const [result] = rank([repo], parsed);
+  assert.equal(result.why.titleIsQuery, true);
+});
+
+test("phraseRun: the share of the query a text repeats word for word, in order", () => {
+  const query = ["currency", "of", "japan"];
+  assert.equal(phraseRun(query, "The yen is the official currency of Japan."), 1);
+  assert.equal(phraseRun(query, "Japan has a currency. Of course."), 0);
+  assert.equal(phraseRun(["first", "person", "to", "walk", "on", "the", "moon"], "He was the first person to walk on a comet."), 5 / 7);
+  // Two words are not a phrase, and a run needs two content words.
+  assert.equal(phraseRun(["currency", "japan"], "currency japan"), 0);
+  assert.equal(phraseRun(["what", "is", "the", "yen"], "what is the point"), 0);
+});
+
+test("a sentence-like query prefers the page that repeats it in order; keyword queries get no such bonus", () => {
+  const yen = doc({ id: "yen", title: "Japanese yen", snippet: "The yen is the official currency of Japan.", upstreamRank: 1 });
+  const economy = doc({ id: "economy", title: "Economy of Japan", snippet: "Japan has a large economy. Its currency is traded widely.", upstreamRank: 0 });
+  const results = rank([economy, yen], parseQuery("currency of japan"));
+  const found = results.find((result) => result.id === "yen");
+  assert.equal(found.why.phraseRun, 1);
+  assert.equal(results.find((result) => result.id === "economy").why.phraseRun, 0);
+  assert.equal(TUNING.runBonus, 0.1);
+  const without = rank([economy, yen], parseQuery("currency of japan"), { tuning: { runBonus: 0 } });
+  assert.ok(found.score > without.find((result) => result.id === "yen").score);
+  // No stopword in the query: it is a list of keywords, word order says nothing.
+  const keywords = rank([doc({ id: "k", title: "Notes", snippet: "A rust async runtime for servers." })], parseQuery("rust async runtime"));
+  assert.equal(keywords[0].why.phraseRun, 0);
+});
+
+test("a Wikipedia redirect is another name of the page", () => {
+  const infarction = doc({ id: "mi", title: "Myocardial infarction", alias: "Heart attack", snippet: "A myocardial infarction occurs when blood flow stops.", upstreamRank: 1 });
+  const burn = doc({ id: "burn", title: "Heartburn", snippet: "Heartburn is not a heart attack, though the attack of pain is similar.", upstreamRank: 0 });
+  const pick = (results) => results.find((result) => result.id === "mi");
+  const named = pick(rank([burn, infarction], parseQuery("heart attack")));
+  assert.equal(named.why.titleIsQuery, true);
+  assert.equal(named.why.alias, "Heart attack");
+  const unnamed = pick(rank([burn, { ...infarction, alias: undefined }], parseQuery("heart attack myocardial")));
+  assert.equal(unnamed.why.titleIsQuery, false);
+  assert.equal(unnamed.why.alias, null);
+  // Without the redirect the page shares no word with "heart attack" and is not listed at all.
+  assert.equal(pick(rank([burn, { ...infarction, alias: undefined }], parseQuery("heart attack"))), undefined);
+});
+
+test("an open data set says which government catalogue it comes from", () => {
+  const dataset = doc({ id: "data", source: "eudata", kind: "dataset", title: "Unemployment statistics", signals: { jurisdiction: "European Union" } });
+  assert.equal(evidenceScore(dataset), 0.65);
+  assert.ok(evidenceNotes(dataset).some((note) => /government catalogue, European Union/.test(note)));
+});
+
+test("a meaning model is used only when it is given and weighted, and can keep a page that shares no word", () => {
+  const parsed = parseQuery("fear of spiders");
+  const phobia = doc({ id: "phobia", title: "Arachnophobia", snippet: "An intense dread of arachnids.", upstreamRank: 1 });
+  const spider = doc({ id: "spider", title: "Spiders", snippet: "Spiders are air-breathing arthropods; fear of them is common.", upstreamRank: 0 });
+  const meaning = {
+    vector: (text) => text,
+    similarity: (queryVector, text) => (text.startsWith("Arachnophobia") ? 0.9 : 0.2),
+  };
+  const without = rank([spider, phobia], parsed, { meaning });
+  assert.deepEqual(without.map((result) => result.id), ["spider"]);
+  assert.equal(without[0].why.meaning, null);
+  const withModel = rank([spider, phobia], parsed, { meaning, weights: { meaning: 0.3 } });
+  assert.ok(withModel.some((result) => result.id === "phobia"));
+  assert.equal(withModel.find((result) => result.id === "phobia").why.meaning, 1);
 });

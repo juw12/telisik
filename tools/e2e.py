@@ -1,4 +1,4 @@
-"""End-to-end check of Sumber in a real Chromium (Playwright).
+"""End-to-end check of Telisik in a real Chromium (Playwright).
 
     python tools/e2e.py                 hermetic run: every API call is answered from tests/fixtures
     python tools/e2e.py --shots DIR     also save screenshots
@@ -48,6 +48,9 @@ FIXTURE_HOSTS = {
     "clinicaltrials.gov": "clinicaltrials",
     "www.gov.uk": "govuk",
     "www.federalregister.gov": "federalregister",
+    "data.europa.eu": "eudata",
+    "open.canada.ca": "canadadata",
+    "data.gov.au": "ausdata",
 }
 WIKI_PROJECTS = ["wikipedia", "wikibooks", "wiktionary", "wikinews", "wikiquote", "wikivoyage", "wikisource"]
 
@@ -496,7 +499,7 @@ def functional(results, browser, base, allowed):
     report = page.get_attribute("#report-link", "href") or ""
     report_text = unquote_plus(report)
     results.check("report: the link opens a prefilled issue with the query and the sources asked",
-                  report.startswith("https://github.com/juw12/sumber/issues/new?")
+                  report.startswith("https://github.com/juw12/telisik/issues/new?")
                   and f"Query: {QUERY}" in report_text and "Sources asked:" in report_text
                   and "Top results:\n1. " in report_text,
                   report_text[:300])
@@ -588,8 +591,9 @@ def functional(results, browser, base, allowed):
     official_calls = {fixture_for(url) for url in session.api_calls}
     official_rows = page.locator("#ledger-list li").count()
     results.check("lens: official records itself in the address", "lens=official" in page.url, page.url)
-    results.check("lens: official asks government, law and trial sources",
-                  {"govuk", "federalregister", "clinicaltrials", "wikisource"} <= official_calls and official_rows == 5,
+    official_expected = {"govuk", "federalregister", "eudata", "canadadata", "ausdata", "clinicaltrials", "wikisource"}
+    results.check("lens: official asks government, law, open data and trial sources",
+                  official_expected <= official_calls and official_rows == 8,
                   f"{sorted(name for name in official_calls if name)}; {official_rows} ledger rows")
     page.go_back()
     page.wait_for_timeout(400)
@@ -716,7 +720,7 @@ def functional(results, browser, base, allowed):
     fresh_count = page.locator("#results > li.result").count()
     aged = page.evaluate(
         """() => {
-          const key = "sumber.cache.v2";
+          const key = "telisik.cache.v1";
           const saved = JSON.parse(localStorage.getItem(key) || "{}");
           for (const entry of Object.values(saved)) {
             entry.t -= 2 * 24 * 60 * 60 * 1000;
@@ -801,7 +805,12 @@ def main():
         launch_args = []
         if PROXY:
             launch_args = [f"--proxy-server={PROXY}", "--proxy-bypass-list=127.0.0.1;localhost"]
-        browser = playwright.chromium.launch(args=launch_args)
+        try:
+            browser = playwright.chromium.launch(args=launch_args)
+        except Exception as launch_error:
+            # A Playwright upgrade can leave its bundled Chromium missing; fall back to installed Chrome.
+            print(f"bundled Chromium unavailable ({str(launch_error).splitlines()[0]}); using system Chrome", flush=True)
+            browser = playwright.chromium.launch(channel="chrome", args=launch_args)
         if args.only in ("", "functional"):
             functional(results, browser, base, allowed)
         if args.only in ("", "visual"):

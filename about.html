@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>How Sumber works: sources, ranking, privacy, limits</title>
-    <meta name="description" content="What Sumber searches, the exact ranking formula, how quotes are chosen, what the Before AI filter does, the operators, what is stored in your browser, and what it cannot do.">
+    <title>How Telisik works: sources, ranking, privacy, limits</title>
+    <meta name="description" content="What Telisik searches, the exact ranking formula, how quotes are chosen, what the Before AI filter does, the operators, what is stored in your browser, and what it cannot do.">
     <meta name="referrer" content="no-referrer">
     <meta name="color-scheme" content="light dark">
     <meta name="theme-color" content="#fbfbf8" media="(prefers-color-scheme: light)">
@@ -20,13 +20,13 @@
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="page-head">
-      <p class="site-name"><a href="./" aria-label="Sumber, back to search">Sumber<sup aria-hidden="true">1</sup></a></p>
+      <p class="site-name"><a href="./" aria-label="Telisik, back to search">Telisik<sup aria-hidden="true">1</sup></a></p>
       <a class="tap" href="./">Back to search</a>
     </header>
 
     <main id="main" class="prose" tabindex="-1">
-      <h1>How Sumber works</h1>
-      <p class="lede">Sumber is a search page for questions where the source matters. It asks up to 20 public libraries of human-written material at once, ranks what comes back with a formula you can read below, and prints nothing that a source did not write.</p>
+      <h1>How Telisik works</h1>
+      <p class="lede">Telisik is a search page for questions where the source matters. It asks up to 23 public libraries of human-written material at once, ranks what comes back with a formula you can read below, and prints nothing that a source did not write.</p>
 
       <ul class="toc">
         <li><a class="tap" href="#what">What it is for</a></li>
@@ -37,21 +37,22 @@
         <li><a class="tap" href="#operators">Operators and shortcuts</a></li>
         <li><a class="tap" href="#default">Make it your default search</a></li>
         <li><a class="tap" href="#privacy">Privacy</a></li>
+        <li><a class="tap" href="#compare">How it compares</a></li>
         <li><a class="tap" href="#limits">What it cannot do</a></li>
         <li><a class="tap" href="#money">Who pays for it</a></li>
       </ul>
 
       <h2 id="what">What it is for</h2>
-      <p>Two things have made looking something up harder. Ordinary web results are crowded with pages written to rank and to sell: a study of 7,392 product-review queries found that higher-ranked pages were on average more optimised, more monetised with affiliate links, and showed signs of lower text quality (<a href="https://doi.org/10.1007/978-3-031-56063-7_4">Bevendorff, Wiegmann, Potthast and Stein, ECIR 2024</a>). And answer engines write confident text whose sources often do not check out: the Tow Center tested eight of them on 1,600 queries about news articles and they gave a wrong answer to more than 60 percent (<a href="https://www.cjr.org/tow_center/ai-search-has-a-citation-problem.php">Columbia Journalism Review, March 2025</a>).</p>
-      <p>Sumber takes the opposite position on both. It only searches places that have no shop window to optimise for, and it never writes a sentence of its own. You get the source, the passage, the date, and the reason it is ranked where it is.</p>
+      <p>Two things have made looking something up harder. Ordinary web results are crowded with pages written to rank and to sell: a study of 7,392 product-review queries found that higher-ranked pages were on average more optimised, more monetised with affiliate links, and showed signs of lower text quality (<a href="https://doi.org/10.1007/978-3-031-56063-7_4">Bevendorff, Wiegmann, Potthast and Stein, ECIR 2024</a>). And answer engines write confident text whose sources often do not check out: the Tow Center tested eight of them on 1,600 queries about news articles and they gave a wrong answer to more than 60 percent (<a href="https://www.cjr.org/tow_center/we-compared-eight-ai-search-engines-theyre-all-bad-at-citing-news.php">Columbia Journalism Review, March 2025</a>).</p>
+      <p>Telisik takes the opposite position on both. It only searches places that have no shop window to optimise for, and it never writes a sentence of its own. You get the source, the passage, the date, and the reason it is ranked where it is.</p>
       <p>That makes it good for learning a topic, finding the paper, the accepted answer, the repository or the old discussion. It is the wrong tool for shopping, maps, local results and breaking news, and it says so on every results page.</p>
 
       <h2 id="sources">The sources</h2>
-      <p>There are 20. Each search goes from your browser straight to the public search interface of each source that fits the query. None of them needs an account or a key.</p>
+      <p>There are 23. Each search goes from your browser straight to the public search interface of each source that fits the query. None of them needs an account or a key.</p>
       <div class="table-wrap">
         <table>
           <thead>
-            <tr><th scope="col">Source</th><th scope="col">What it holds</th><th scope="col">Evidence Sumber reads</th></tr>
+            <tr><th scope="col">Source</th><th scope="col">What it holds</th><th scope="col">Evidence Telisik reads</th></tr>
           </thead>
           <tbody>
             <tr><th scope="row">Wikipedia</th><td>Encyclopedia articles, in the language you pick in Settings</td><td>None; a fixed value</td></tr>
@@ -74,17 +75,21 @@
             <tr><th scope="row">ClinicalTrials.gov</th><td>Registered clinical studies. Asked when the query uses medical words. A registered trial is a plan or a record, not proof that a treatment works.</td><td>Status, enrollment</td></tr>
             <tr><th scope="row">GOV.UK</th><td>Guidance and publications of the United Kingdom government. Asked when the query uses words such as law, regulation, visa or tax.</td><td>None; a fixed value</td></tr>
             <tr><th scope="row">Federal Register</th><td>Rules and notices of United States federal agencies. Asked on the same words as GOV.UK.</td><td>None; a fixed value</td></tr>
+            <tr><th scope="row">data.europa.eu</th><td>The European Union&rsquo;s catalogue of public datasets from its institutions and member states. Asked when the query uses words such as data, statistics, census, population or emissions.</td><td>None; a fixed value</td></tr>
+            <tr><th scope="row">Open Canada</th><td>Datasets published by the Government of Canada. Asked on the same words as data.europa.eu.</td><td>None; a fixed value</td></tr>
+            <tr><th scope="row">data.gov.au</th><td>Datasets published by Australian governments. Asked on the same words as data.europa.eu.</td><td>None; a fixed value</td></tr>
           </tbody>
         </table>
       </div>
-      <p>The lenses choose who is asked. <strong>All</strong> always asks ten: Wikipedia, Stack Exchange, Hacker News, GitHub, OpenAlex, Europe PMC, the Internet Archive, Open Library, the Mwmbl web index and Wikibooks. Eight more join only when the query calls for them, as the table says: Wiktionary, Inside books, Wikinews, Wikiquote, Wikivoyage, ClinicalTrials.gov, GOV.UK and the Federal Register. <strong>Learn</strong> asks Wikipedia, Stack Exchange, Wikibooks, Open Library, the Internet Archive and OpenAlex, plus Wiktionary, Wikiquote and Wikivoyage when they fit. <strong>Research</strong> asks OpenAlex, Europe PMC, Zenodo, Wikipedia, the Internet Archive, Wikisource and Open Library, plus ClinicalTrials.gov and Inside books when they fit. <strong>Build</strong> asks Stack Exchange, GitHub, Hacker News, the web index and Wikipedia. <strong>Discuss</strong> asks Hacker News, Stack Exchange and GitHub. <strong>Official</strong> asks GOV.UK, the Federal Register, ClinicalTrials.gov, Wikisource and Wikipedia. The list of sources asked, and what each answered, is printed on every results page.</p>
+      <p>The lenses choose who is asked. <strong>All</strong> always asks ten: Wikipedia, Stack Exchange, Hacker News, GitHub, OpenAlex, Europe PMC, the Internet Archive, Open Library, the Mwmbl web index and Wikibooks. Eleven more join only when the query calls for them, as the table says: Wiktionary, Inside books, Wikinews, Wikiquote, Wikivoyage, ClinicalTrials.gov, GOV.UK, the Federal Register and the three open-data catalogues (data.europa.eu, Open Canada and data.gov.au). <strong>Learn</strong> asks Wikipedia, Stack Exchange, Wikibooks, Open Library, the Internet Archive and OpenAlex, plus Wiktionary, Wikiquote and Wikivoyage when they fit. <strong>Research</strong> asks OpenAlex, Europe PMC, Zenodo, Wikipedia, the Internet Archive, Wikisource and Open Library, plus ClinicalTrials.gov, Inside books and the three open-data catalogues when they fit. <strong>Build</strong> asks Stack Exchange, GitHub, Hacker News, the web index and Wikipedia. <strong>Discuss</strong> asks Hacker News, Stack Exchange and GitHub. <strong>Official</strong> asks GOV.UK, the Federal Register, the three open-data catalogues, ClinicalTrials.gov, Wikisource and Wikipedia. The list of sources asked, and what each answered, is printed on every results page.</p>
 
       <h2 id="ranking">How results are ranked</h2>
-      <p>Every source returns its best six to eight items. Sumber pools them, removes duplicates, and gives each one a score. The whole formula is this:</p>
+      <p>Every source returns its best six to eight items. Telisik pools them, removes duplicates, and gives each one a score. The whole formula is this:</p>
       <p class="formula">base  = 0.30 &times; text + 0.20 &times; evidence + 0.50 &times; source position
-        + 0.08 if the title is exactly your query
+        + the larger of: 0.08 if the title is your query, or 0.10 &times; the share of your query the text repeats in the same order
         + up to 0.10 for items under five years old, only when the query says "latest", "new", "recent" or names this year or last
-score = base &times; lens weight &times; 0.85 ^ (earlier results from the same source)</p>
+score = base &times; lens weight &times; 1.25 if your query names this kind of page &times; 0.85 ^ (earlier results from the same source)</p>
+      <p>Three of those lines need a sentence each. <strong>The title is your query</strong> also holds when the title equals your query without the words that name the kind of page: &ldquo;kyoto travel guide&rdquo; matches the travel guide titled &ldquo;Kyoto&rdquo;. Other names that Wikipedia redirects to an article count as its title, so &ldquo;heart attack&rdquo; finds &ldquo;Myocardial infarction&rdquo;. <strong>Words in the same order</strong> only counts for queries written like a sentence, three words or more with a small word such as &ldquo;of&rdquo; or &ldquo;the&rdquo; among them. <strong>Naming the kind of page</strong> means words such as &ldquo;define&rdquo;, &ldquo;quotes&rdquo;, &ldquo;travel guide&rdquo;, &ldquo;textbook&rdquo;, &ldquo;source code&rdquo;, &ldquo;regulation&rdquo; or &ldquo;dataset&rdquo;; the dictionary, the quotation collection, the travel guide and so on are then multiplied by 1.25.</p>
       <h3>Text, 0 to 1</h3>
       <p>BM25 over the title (counted 1.5 times), the excerpt, and tags or authors (counted 0.5 times), after stemming and dropping stop words. It is divided by the best BM25 in the pool and multiplied by <code>0.5 + 0.5 &times; coverage</code>, where coverage is the share of your words that appear at all. If every word is in the title, 0.10 is added. With a quoted phrase, 0.15 is added when the phrase is found and the text score is multiplied by 0.6 when it is not. A result that contains none of your words is dropped.</p>
       <h3>Evidence, 0 to 1</h3>
@@ -103,6 +108,7 @@ score = base &times; lens weight &times; 0.85 ^ (earlier results from the same s
             <tr><th scope="row">Book</th><td>0.30 + 0.70 &times; editions (full at 200)</td></tr>
             <tr><th scope="row">Archive item</th><td>0.20 + 0.60 &times; downloads (full at 100,000)</td></tr>
             <tr><th scope="row">Dictionary, Government</th><td>0.70, fixed</td></tr>
+            <tr><th scope="row">Open data</th><td>0.65, fixed</td></tr>
             <tr><th scope="row">Source text</th><td>0.60, fixed</td></tr>
             <tr><th scope="row">Textbook, Travel guide</th><td>0.55, fixed</td></tr>
             <tr><th scope="row">Quotations, News report</th><td>0.50, fixed</td></tr>
@@ -114,20 +120,20 @@ score = base &times; lens weight &times; 0.85 ^ (earlier results from the same s
         </table>
       </div>
       <h3>Source position, 0 to 1</h3>
-      <p>The sources search their full text. Sumber only sees the title and a short excerpt, so the order a source chose carries real information. First place is 1, and it falls evenly to the last item returned.</p>
+      <p>The sources search their full text. Telisik only sees the title and a short excerpt, so the order a source chose carries real information. First place is 1, and it falls evenly to the last item returned.</p>
       <h3>Lens weight and repeats</h3>
       <p>The lens multiplies the score by a value between 0.7 and 1.2 per source; in <strong>All</strong> it runs from 1.1 for Wikipedia to 0.85 for the Internet Archive, Europe PMC and the government sources. Each further result from the same source is multiplied by 0.85 again, so one source cannot fill the first screen.</p>
-      <p>Every result carries one line saying why it is where it is. Press the <strong>Why</strong> button under it to see these numbers for that result. Nothing else goes into the order: no payment, no click tracking, no profile of you. The code is one file, <a href="https://github.com/juw12/sumber/blob/main/js/rank.js">js/rank.js</a>.</p>
+      <p>Every result carries one line saying why it is where it is. Press the <strong>Why</strong> button under it to see these numbers for that result. Nothing else goes into the order: no payment, no click tracking, no profile of you. The code is one file, <a href="https://github.com/juw12/telisik/blob/main/js/rank.js">js/rank.js</a>.</p>
 
       <h3>How these numbers were checked</h3>
-      <p>The weights above were not picked by taste. A script asks 72 questions that each have one known right answer and records where it lands. On the half of the questions held back from tuning, the right answer is first for 76%, in the first three for 81% and in the first ten for 92%. The questions and answers were written by an AI assistant, 15 of the 72 saved answer sets are missing one source that had reached its limit, and it is a check on this formula, not a comparison with any other search engine. The questions, the saved answers and the script are in the repository: <a href="https://github.com/juw12/sumber/blob/main/tools/eval.mjs">tools/eval.mjs</a>.</p>
+      <p>The weights above were not picked by taste. A script asks questions that each have one known right answer and records where that answer lands. There are two sets. The first has 72 questions, and the formula was fitted to it, so its figures flatter the formula: the right answer is first for 79% and in the first ten for 92%. The second has 64 questions written afterwards, about half of them plain descriptions such as &ldquo;ship that sank after hitting an iceberg in 1912&rdquo;. Half of the second set was used while making changes. The other half was looked at once, after the last change: there the right answer is first for 63%, in the first three for 81% and in the first ten for 88%. On the half used for changes the figures are lower, 50%, 53% and 69%, because that half happens to hold more of the plain descriptions (21 of 32 against 12 of 32). Both sets were written by an AI assistant, 32 questions is a small sample, and Stack Exchange had reached its limit when the second set&rsquo;s answers were saved, so none of them include it. The questions, the saved answers and the scripts are in the repository: <a href="https://github.com/juw12/telisik/blob/main/tools/eval.mjs">tools/eval.mjs</a> and <a href="https://github.com/juw12/telisik/blob/main/tools/compare.mjs">tools/compare.mjs</a>.</p>
 
       <h2 id="quotes">How quotes are chosen</h2>
       <p>The block titled &ldquo;In the sources&rsquo; own words&rdquo; shows at most three sentences. Each is copied character for character from the excerpt of one of the top ten results. A sentence qualifies only if it is 40 to 320 characters long, is not a question, is not cut off, does not open with a word such as &ldquo;It&rdquo; or &ldquo;This&rdquo; that points back at an earlier sentence, and contains at least half of your query words. No sentence is shortened, joined to another, or reworded. If nothing qualifies, the block is not shown.</p>
       <p>A quote is still only as right as its source. The number beside it jumps to the result it came from, so you can read the context before you rely on it.</p>
 
       <h2 id="before-ai">The Before AI switch</h2>
-      <p>ChatGPT was released on 30 November 2022. With the switch on, Sumber asks each source only for items dated on or before that day and drops anything without a date. It is a date filter, not a detector: it cannot prove a text was written by a person, and it hides good work published since.</p>
+      <p>ChatGPT was released on 30 November 2022. With the switch on, Telisik asks each source only for items dated on or before that day and drops anything without a date. It is a date filter, not a detector: it cannot prove a text was written by a person, and it hides good work published since.</p>
       <p>Wikipedia articles keep changing, so in this mode the title links to the Internet Archive&rsquo;s saved copy of the article from that date, the live page is offered as a second link, and Wikipedia text is left out of the quotes. You can set your own window with <code>before:</code> and <code>after:</code>.</p>
 
       <h2 id="operators">Operators and shortcuts</h2>
@@ -147,7 +153,7 @@ score = base &times; lens weight &times; 0.85 ^ (earlier results from the same s
         </table>
       </div>
       <h3>Bangs: hand the query to another engine</h3>
-      <p>Put one of these anywhere in the query and Sumber sends you there instead of searching.</p>
+      <p>Put one of these anywhere in the query and Telisik sends you there instead of searching.</p>
       <div class="table-wrap">
         <table>
           <thead>
@@ -174,48 +180,72 @@ score = base &times; lens weight &times; 0.85 ^ (earlier results from the same s
 
       <h2 id="default">Make it your default search</h2>
       <p>The address to give your browser is:</p>
-      <p class="formula">https://juw12.github.io/sumber/#q=%s</p>
+      <p class="formula">https://juw12.github.io/telisik/#q=%s</p>
       <ul>
-        <li><strong>Chrome, Edge, Brave:</strong> Settings, Search engine, Manage search engines and site search, Add. Name it Sumber, give it a shortcut such as <code>s</code>, paste the address, save, then choose &ldquo;Make default&rdquo; from its menu.</li>
-        <li><strong>Firefox:</strong> open Sumber, right-click the address bar and choose &ldquo;Add Sumber&rdquo;. Then pick it under Settings, Search, Default search engine.</li>
-        <li><strong>Safari:</strong> Safari does not accept custom engines. Add Sumber to the home screen or the Dock instead (Share, Add to Home Screen).</li>
+        <li><strong>Chrome, Edge, Brave:</strong> Settings, Search engine, Manage search engines and site search, Add. Name it Telisik, give it a shortcut such as <code>s</code>, paste the address, save, then choose &ldquo;Make default&rdquo; from its menu.</li>
+        <li><strong>Firefox:</strong> open Telisik, right-click the address bar and choose &ldquo;Add Telisik&rdquo;. Then pick it under Settings, Search, Default search engine.</li>
+        <li><strong>Safari:</strong> Safari does not accept custom engines. Add Telisik to the home screen or the Dock instead (Share, Add to Home Screen).</li>
       </ul>
-      <p>The <code>#</code> matters. Everything after it stays inside your browser, so the server that delivers this page never receives your query. If your browser refuses an address with <code>#</code>, use <code>?q=%s</code>. Sumber moves it behind the <code>#</code> at once, but the host can see that first request.</p>
-      <p>Because bangs work, making Sumber the default does not cut you off from anything: <code>!g cheap flights</code> still lands on Google.</p>
+      <p>The <code>#</code> matters. Everything after it stays inside your browser, so the server that delivers this page never receives your query. If your browser refuses an address with <code>#</code>, use <code>?q=%s</code>. Telisik moves it behind the <code>#</code> at once, but the host can see that first request.</p>
+      <p>Because bangs work, making Telisik the default does not cut you off from anything: <code>!g cheap flights</code> still lands on Google.</p>
 
       <h2 id="privacy">Privacy</h2>
       <ul>
-        <li><strong>No Sumber server exists.</strong> The page is a set of static files on GitHub Pages. GitHub can log that your address loaded the page, as any web host can. It does not receive your query.</li>
-        <li><strong>Your query goes to the sources you ask</strong>, from your own address, the same as if you had searched each of them yourself. They see the query and your IP address. Sumber sends no cookies and no referrer with it.</li>
+        <li><strong>No Telisik server exists.</strong> The page is a set of static files on GitHub Pages. GitHub can log that your address loaded the page, as any web host can. It does not receive your query.</li>
+        <li><strong>Your query goes to the sources you ask</strong>, from your own address, the same as if you had searched each of them yourself. They see the query and your IP address. Telisik sends no cookies and no referrer with it.</li>
         <li><strong>Nothing else can be contacted.</strong> The page carries a content security policy that lets it talk to those source hosts and nowhere else. There are no analytics, fonts, ads or scripts from third parties.</li>
         <li><strong>Stored in this browser only:</strong> your settings; your last eight searches, if you leave that on; up to 150 source answers; and a note of when a source asked the page to slow down. An answer counts as fresh for one hour (a day for Stack Exchange, GitHub, the web index and Wiktionary), so going back is instant. After that it is kept for up to 30 days and used only if the source fails, and then it is labelled &ldquo;saved copy&rdquo; with its age. &ldquo;Clear saved searches and cache&rdquo; in Settings deletes the searches and the cache, and your settings stay.</li>
         <li><strong>Links you follow</strong> open the source&rsquo;s own site, and from then on its own privacy rules apply.</li>
         <li><strong>&ldquo;Report this search&rdquo;</strong> opens a GitHub issue form filled with your query and the list of sources. Nothing is sent unless you press submit there, and the issue is public.</li>
       </ul>
 
+      <h2 id="compare">How it compares</h2>
+      <p>Telisik is not the best search engine, and this page will not say it is. Measured on questions with one known right answer, it finds a named thing more often than any one of its sources does alone. It is no better than Wikipedia&rsquo;s own search at questions put in plain language. It could not be measured against Google, Bing, ChatGPT or Perplexity at all, because their terms forbid automated queries.</p>
+      <p>The table is the half of the second question set that was held back: 32 questions, asked on 14 November 2026. A source &ldquo;alone&rdquo; is that source&rsquo;s own results in its own order. Only the first ten results count.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th scope="col">Asked of</th><th scope="col">Right answer first</th><th scope="col">In the first ten</th><th scope="col">Mean of 1 &divide; position</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Telisik, all sources</th><td>63%</td><td>88%</td><td>0.720</td></tr>
+            <tr><th scope="row">Wikipedia search alone</th><td>47%</td><td>59%</td><td>0.514</td></tr>
+            <tr><th scope="row">Hacker News search alone</th><td>22%</td><td>25%</td><td>0.229</td></tr>
+            <tr><th scope="row">Mwmbl web index alone</th><td>9%</td><td>25%</td><td>0.135</td></tr>
+            <tr><th scope="row">Wiby web index</th><td>6%</td><td>9%</td><td>0.073</td></tr>
+            <tr><th scope="row">GitHub search alone</th><td>0%</td><td>0%</td><td>0.000</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>Where it loses.</strong> Twelve of those 32 questions are plain descriptions. On them Wikipedia&rsquo;s own search put the right article first for 67% and Telisik for 50%. Over all 33 plain descriptions in the set the two tie on first place (45% each) and Wikipedia has more in its first ten (82% against 73%): mixing in other sources pushes some right articles down. On the 31 questions that name a thing, Telisik is first for 68% and the best single source for 35%.</p>
+      <p><strong>The test leans Telisik&rsquo;s way.</strong> Every right answer is a page inside one of the libraries Telisik searches, most of them Wikipedia articles. An index of small personal sites such as Wiby could hardly score, and its row says nothing about how good it is at what it is for. GitHub refused 11 of the 64 requests for the set, and its search seldom returns the best-known repository for a plain description.</p>
+      <p><strong>What could not be measured.</strong> Google, Bing, ChatGPT and Perplexity, for the reason above. Marginalia, Stract and the DuckDuckGo instant-answer interface did not answer from the network this ran on. Wiby answered 133 of 136 queries.</p>
+      <p><strong>What others have measured.</strong> Liu, Zhang and Liang put 1,450 queries to four answer engines in 2023 and found that 51.5% of the generated sentences were fully supported by their citations and 74.5% of citations supported their sentence (<a href="https://arxiv.org/abs/2304.09848" rel="noopener">paper</a>). The Tow Center put 1,600 queries to eight AI search tools in March 2025 and more than 60% of the answers were wrong (<a href="https://www.cjr.org/tow_center/we-compared-eight-ai-search-engines-theyre-all-bad-at-citing-news.php" rel="noopener">report</a>). Bevendorff and colleagues followed 7,392 product-review queries on Google, Bing and DuckDuckGo and found that higher-ranked pages were on average more optimised, carried more affiliate marketing and showed signs of lower text quality (<a href="https://doi.org/10.1007/978-3-031-56063-7_4" rel="noopener">paper</a>). These explain why Telisik quotes and never writes. They do not show that it finds more.</p>
+      <p><strong>What it is best at.</strong> One narrow thing: a free page with no account, no advertising and no tracking that asks 23 public libraries at once, shows only their own words, and prints the arithmetic behind every position. A day of looking found no other tool that does all of that together, which is not proof that none exists. For the open web use a general search engine. For a written answer use an assistant, then check its sources here.</p>
+
       <h2 id="limits">What it cannot do</h2>
       <ul>
-        <li><strong>It is not a crawl of the whole web.</strong> The Mwmbl index gives it some ordinary web pages, but that index is small. If the answer is on a company site, a news site, a forum outside these sources, or a shop, Sumber will often not find it. Use a bang.</li>
+        <li><strong>It is not a crawl of the whole web.</strong> The Mwmbl index gives it some ordinary web pages, but that index is small. If the answer is on a company site, a news site, a forum outside these sources, or a shop, Telisik will often not find it. Use a bang.</li>
         <li><strong>It is not a news wire.</strong> The only news source is Wikinews, which is written by volunteers and covers little. For today&rsquo;s news use a bang.</li>
-        <li><strong>The government sources cover two countries.</strong> GOV.UK and the United States Federal Register. Other countries&rsquo; records are not searched.</li>
-        <li><strong>It matches words, not meaning.</strong> There is no language model, so a search for &ldquo;car&rdquo; does not find &ldquo;automobile&rdquo; unless the source&rsquo;s own search does. Try the term the experts would use. When Wikipedia suggests a different spelling, Sumber passes it on as &ldquo;Did you mean&rdquo;, and that is all the help it gives.</li>
+        <li><strong>The government sources cover a few places.</strong> Guidance and rules come from GOV.UK and the United States Federal Register only. Open data comes from the European Union, Canada and Australia. Other countries&rsquo; records are not searched.</li>
+        <li><strong>It matches words, not meaning.</strong> There is no language model, so a search for &ldquo;car&rdquo; does not find &ldquo;automobile&rdquo; unless the source&rsquo;s own search does. Try the term the experts would use. When Wikipedia suggests a different spelling, Telisik passes it on as &ldquo;Did you mean&rdquo;. It also matches the other names Wikipedia files an article under, so &ldquo;heart attack&rdquo; finds &ldquo;Myocardial infarction&rdquo;. A description that shares no word with the page still fails: in the check described above, &ldquo;how do airplanes stay in the air&rdquo; did not find the article on lift, &ldquo;general rise in prices over time&rdquo; did not find the one on inflation, and &ldquo;building blocks of proteins&rdquo; did not find the one on amino acids.</li>
         <li><strong>It sees excerpts, not full pages.</strong> Ranking and quotes use the title and the few sentences each source returns.</li>
         <li><strong>It is built for languages with spaces between words.</strong> Wikipedia can be set to other languages, but the word matching is weak for Chinese, Japanese and Thai.</li>
-        <li><strong>Sources set quotas per IP address.</strong> Stack Exchange allows about 300 requests a day and GitHub about 10 searches a minute without an account. On a shared office network they can run out. Sumber softens this in four ways: it reuses a saved copy of the same search, labelled as such; it asks GitLab when GitHub refuses; it shows how much quota is left once it runs low; and the code has an empty slot for a free Stack Apps key that raises the Stack Exchange quota. A new search on an exhausted source still gets nothing from it until the quota resets, and the rest still answer.</li>
+        <li><strong>Sources set quotas per IP address.</strong> Stack Exchange allows about 300 requests a day and GitHub about 10 searches a minute without an account. On a shared office network they can run out. Telisik softens this in four ways: it reuses a saved copy of the same search, labelled as such; it asks GitLab when GitHub refuses; it shows how much quota is left once it runs low; and the code has an empty slot for a free Stack Apps key that raises the Stack Exchange quota. A new search on an exhausted source still gets nothing from it until the quota resets, and the rest still answer.</li>
         <li><strong>It depends on the sources staying open.</strong> If one changes or closes its interface, that source stops answering until the code is updated.</li>
         <li><strong>Popularity is not truth.</strong> Votes, stars and citations show that people paid attention, not that something is correct.</li>
       </ul>
 
       <h2 id="money">Who pays for it</h2>
-      <p>Nobody has to. There is no server to rent and no search index to buy, so running Sumber costs nothing, and it is free with no account.</p>
+      <p>Nobody has to. There is no server to rent and no search index to buy, so running Telisik costs nothing, and it is free with no account.</p>
       <p>The code has room for two things, and both are empty unless they are filled in: a link where people can support the project, and one text line at the foot of the page that always begins with the word &ldquo;Sponsor&rdquo;. Neither can touch the results. The ranking code does not read them, and an automated test fails if it ever does.</p>
-      <p>Sumber is open source under the MIT licence: <a href="https://github.com/juw12/sumber">github.com/juw12/sumber</a>.</p>
+      <p>Telisik is open source under the MIT licence: <a href="https://github.com/juw12/telisik">github.com/juw12/telisik</a>.</p>
     </main>
 
     <footer class="footer">
       <ul class="footer-links">
         <li><a class="tap" href="./">Search</a></li>
-        <li><a class="tap" href="https://github.com/juw12/sumber" rel="noopener noreferrer">Source code</a></li>
+        <li><a class="tap" href="https://github.com/juw12/telisik" rel="noopener noreferrer">Source code</a></li>
       </ul>
       <p class="fine">Free, no account, no ads. Results come from the sources named next to them.</p>
     </footer>

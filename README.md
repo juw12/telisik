@@ -1,13 +1,13 @@
-# Sumber
+# Telisik
 
 Search the sources. Nothing generated, nothing sponsored.
 
-**Live:** https://juw12.github.io/sumber/ · **How it works:** https://juw12.github.io/sumber/about.html
+**Live:** https://juw12.github.io/telisik/ · **How it works:** https://juw12.github.io/telisik/about.html
 
-Sumber ("source" in Indonesian) is a search page for questions where the source matters. One query goes
-from your browser to up to 20 public libraries of human-written material at the same time. The results are
+Telisik (Indonesian for "to look into closely") is a search page for questions where the source matters. One query goes
+from your browser to up to 23 public libraries of human-written material at the same time. The results are
 pooled, ranked with a formula printed on the page, and shown with the exact passage, the date and the
-reason each one sits where it does. Sumber never writes a sentence of its own.
+reason each one sits where it does. Telisik never writes a sentence of its own.
 
 ## Why it exists
 
@@ -19,16 +19,16 @@ Two things have made looking something up harder.
   ([Bevendorff et al., ECIR 2024](https://doi.org/10.1007/978-3-031-56063-7_4)).
 - Answer engines write confident text whose sources often do not check out. The Tow Center tested
   eight of them on 1,600 queries about news articles and more than 60 percent of the answers were wrong
-  ([Columbia Journalism Review, March 2025](https://www.cjr.org/tow_center/ai-search-has-a-citation-problem.php)).
+  ([Columbia Journalism Review, March 2025](https://www.cjr.org/tow_center/we-compared-eight-ai-search-engines-theyre-all-bad-at-citing-news.php)).
 
-Sumber takes the opposite position on both: it only asks places with no shop window to optimise for,
+Telisik takes the opposite position on both: it only asks places with no shop window to optimise for,
 and it prints only what a source wrote.
 
 ## What you get
 
 | | |
 |---|---|
-| 20 sources, one query | Ten every time: Wikipedia, Stack Exchange, Hacker News, GitHub (GitLab as fallback), OpenAlex (Crossref as fallback), Europe PMC, Internet Archive, Open Library, the Mwmbl web index, Wikibooks. Ten more when the query or lens calls for them: Wiktionary, Wikinews, Wikiquote, Wikivoyage, Wikisource, Zenodo, ClinicalTrials.gov, GOV.UK, the Federal Register, and full-text search inside scanned books |
+| 23 sources, one query | Ten every time: Wikipedia, Stack Exchange, Hacker News, GitHub (GitLab as fallback), OpenAlex (Crossref as fallback), Europe PMC, Internet Archive, Open Library, the Mwmbl web index, Wikibooks. Thirteen more when the query or lens calls for them: Wiktionary, Wikinews, Wikiquote, Wikivoyage, Wikisource, Zenodo, ClinicalTrials.gov, GOV.UK, the Federal Register, the open-data catalogues of the European Union, Canada and Australia, and full-text search inside scanned books |
 | In the sources' own words | Up to three sentences copied character for character from the top results, each numbered to the result it came from |
 | Why ranked | Every result says in one line why it is there and opens the arithmetic behind its position: text match, evidence the source reports, the source's own order |
 | Before AI | One switch limits results to items dated up to 30 November 2022. It is a date filter, not a detector |
@@ -47,7 +47,9 @@ and it prints only what a source wrote.
 - It is not a crawl of the whole web. The Mwmbl index adds some ordinary web pages, but it is small.
   Shops, news sites, company pages and forums outside the sources are mostly not in it. Use a bang.
 - It is not a news wire. The only news source is Wikinews.
-- The government sources cover the United Kingdom and the United States only.
+- The government sources cover a few places. Guidance and rules come from GOV.UK and the United
+  States Federal Register only. Open data comes from the European Union, Canada and Australia. Other
+  countries' records are not searched.
 - It matches words, not meaning. There is no language model anywhere in it.
 - It sees titles and short excerpts, not full pages.
 - Word matching is weak for languages written without spaces.
@@ -59,30 +61,87 @@ and it prints only what a source wrote.
 
 ## Measured
 
-`tools/eval.mjs` asks 72 questions that each have one known right answer (a named Wikipedia article, a
-Stack Overflow thread, a repository, a paper, a book, a government page) and reports where that answer
-lands. The answers the sources gave on 14 November 2026 are saved in `tests/eval/pools.json`, so the
-numbers below can be reproduced without touching the network.
+`tools/eval.mjs` asks questions that each have one known right answer (a named Wikipedia article, a
+repository, a paper, a book, a government page) and reports where that answer lands. The answers the
+sources gave on 14 November 2026 are saved in `tests/eval/`, so every number below can be reproduced
+without touching the network. MRR is the mean of 1 / position of the right answer.
 
-| | Queries | Right answer in the pool | First | Top 3 | Top 10 | MRR |
+### The set the formula was fitted to (72 questions)
+
+| | In the pool | First | Top 3 | Top 10 | MRR |
+|---|---|---|---|---|---|
+| Before this round | 90% | 74% | 78% | 88% | 0.777 |
+| Now | 93% | 79% | 86% | 92% | 0.836 |
+
+These figures flatter the formula: its numbers were chosen on this set and its held-back half has been
+looked at more than once. One question got worse: "theory of plate tectonics" fell from first to fifth
+when the in-order bonus was added.
+
+### A second set written afterwards (64 questions)
+
+31 name a thing ("django web framework"), 33 are plain descriptions ("ship that sank after hitting an
+iceberg in 1912"). A hash of each question decides its half. Changes were made while watching one half
+only; the other was run once, after the last change.
+
+| | Queries | In the pool | First | Top 3 | Top 10 | MRR |
 |---|---|---|---|---|---|---|
-| All | 72 | 90% | 74% | 78% | 88% | 0.777 |
-| Half used to choose the numbers | 35 | 83% | 71% | 74% | 83% | 0.747 |
-| Half held back | 37 | 97% | 76% | 81% | 92% | 0.805 |
+| Half used for changes, before | 32 | | 41% | 53% | 66% | 0.493 |
+| Half used for changes, now | 32 | 75% | 50% | 53% | 69% | 0.555 |
+| Half held back, run once | 32 | 94% | 63% | 81% | 88% | 0.724 |
+| Held back, named things | 20 | 90% | 70% | 85% | 85% | 0.761 |
+| Held back, plain descriptions | 12 | 100% | 50% | 75% | 92% | 0.662 |
 
-Read it with these limits in mind:
+The held-back half scores higher than the other because of its mix, not because of the changes: it has
+12 plain descriptions out of 32 and the other half has 21.
 
-- The questions and their right answers were written by an AI assistant, one answer per question. It is
-  a regression check for this formula, not a comparison with any other search engine.
-- A hash of each question decides its half. The formula's numbers were searched on one half (378
-  settings) and kept because the held-back half also improved, from MRR 0.700 to 0.805. That decision
-  used the held-back half once, so it is no longer untouched.
-- 15 of the 72 saved pools are missing one source: Stack Exchange had reached its daily limit for the
-  network the capture ran on (14 pools) and GitHub its per-minute limit (1). Three Stack Overflow
-  questions miss for that reason alone.
+### Against each source alone
+
+`tools/compare.mjs` scores the same saved answers as each source returned them, in the source's own
+order, and adds the live Wiby index. Held-back half of the second set, first ten results only:
+
+| Asked of | Queries | First | Top 3 | Top 10 | MRR |
+|---|---|---|---|---|---|
+| Telisik, all sources | 32 | 63% | 81% | 88% | 0.720 |
+| Wikipedia search alone | 32 | 47% | 53% | 59% | 0.514 |
+| Hacker News search alone | 32 | 22% | 25% | 25% | 0.229 |
+| Mwmbl web index alone | 32 | 9% | 16% | 25% | 0.135 |
+| Wiby web index | 32 | 6% | 9% | 9% | 0.073 |
+| GitHub search alone | 32 | 0% | 0% | 0% | 0.000 |
+
+Where Telisik loses: on plain descriptions Wikipedia's own search is as good or better.
+
+| Plain descriptions | Queries | First | Top 3 | Top 10 | MRR |
+|---|---|---|---|---|---|
+| Telisik, held back | 12 | 50% | 75% | 92% | 0.656 |
+| Wikipedia alone, held back | 12 | 67% | 83% | 100% | 0.787 |
+| Telisik, whole set | 33 | 45% | 55% | 73% | 0.538 |
+| Wikipedia alone, whole set | 33 | 45% | 64% | 82% | 0.578 |
+
+On the 31 named things in the whole set Telisik is first for 68% and the best single source for 35%.
+
+Read all of it with these limits in mind:
+
+- Both sets and their right answers were written by an AI assistant, one answer per question, and 32
+  questions is a small sample.
+- Every right answer is a page inside one of the libraries Telisik searches, mostly Wikipedia. The
+  comparison therefore leans Telisik's way, and an index of small personal sites such as Wiby could
+  hardly score. Its row says nothing about how good Wiby is at what it is for.
+- Google, Bing, ChatGPT and Perplexity are not in the table because their terms forbid automated
+  queries. Marginalia (502), Stract (404) and the DuckDuckGo instant-answer interface (timeout) did not
+  answer from the network this ran on. Wiby answered 133 of 136 queries.
+- Saved pools are incomplete. First set: 23 of 72 are missing a source (Stack Exchange at its daily
+  limit in 14, GitHub at its per-minute limit in 11). Second set: Stack Exchange was at its limit for
+  all 64, GitHub refused 11 and Europe PMC timed out once.
+- Descriptions that share no word with the right page still miss: "how do airplanes stay in the air"
+  (Lift), "general rise in prices over time" (Inflation), "building blocks of proteins" (Amino acid),
+  "tallest mountain on earth", "largest planet in the solar system", "the smallest unit of life".
+  That needs matching on meaning, which Telisik does not have.
+- Four labels are strict: for "kubernetes container orchestration", "django web framework", "numpy
+  array library" and "curl command line tool source" only the GitHub repository counts as right, and
+  Telisik shows the Wikipedia article first.
 - GitHub's search does not return the canonical repository for some plain descriptions ("rust
   programming language compiler"), so those miss whatever the formula does.
-- The first run found a real fault: addresses were compared without their query string, so every
+- An earlier run found a real fault: addresses were compared without their query string, so every
   Hacker News thread (`item?id=...`) counted as the same page and only one survived. Fixed, with a test.
 
 ## Run it
@@ -90,8 +149,8 @@ Read it with these limits in mind:
 No build step and no dependencies. Any static file server works.
 
 ```
-git clone https://github.com/juw12/sumber
-cd sumber
+git clone https://github.com/juw12/telisik
+cd telisik
 python -m http.server 8080
 ```
 
@@ -100,11 +159,11 @@ Then open http://localhost:8080/.
 ## Check it
 
 ```
-node --test tests/                 # 115 unit tests: parser, adapters, ranking, text, promises
+node --test tests/                 # 139 unit tests: parser, adapters, ranking, text, promises
 node tools/eval.mjs --misses       # ranking quality on the saved answers, with every miss listed
 python tools/e2e.py                # real Chromium, API answers from tests/fixtures
 python tools/e2e.py --only live    # one search against the real sources
-python tools/e2e.py --base https://juw12.github.io/sumber/ --only live
+python tools/e2e.py --base https://juw12.github.io/telisik/ --only live
 ```
 
 The browser run needs Python with Playwright (`pip install playwright`, `playwright install chromium`).
@@ -122,7 +181,7 @@ money settings.
 |---|---|
 | `index.html`, `about.html` | The search page and the page that explains it |
 | `js/query.js` | Query parser: phrases, exclusions, operators, bangs |
-| `js/sources.js` | The 20 source adapters, the two fallbacks and the lens weights |
+| `js/sources.js` | The 23 source adapters, the two fallbacks and the lens weights |
 | `js/engine.js` | The only file that makes network requests; timeouts, cache, saved copies, back-off |
 | `js/rank.js` | The whole ranking formula |
 | `js/text.js`, `js/cite.js` | Stemming, highlighting, verbatim passages, citations |
@@ -130,12 +189,13 @@ money settings.
 | `js/config.js` | The two optional money links and the optional Stack Apps key |
 | `sw.js` | Offline shell, network first |
 | `design.md` | Why it looks the way it does |
-| `tools/eval.mjs`, `tests/eval/` | The ranking check: 72 questions, the saved answers, the tuning search |
+| `tools/eval.mjs`, `tests/eval/` | The ranking check: two question sets (`queries.json`, `queries2.json`), the saved answers (`pools.json`, `pools2.json`), the tuning search |
+| `tools/compare.mjs`, `tests/eval/wiby.json` | The same questions asked of each source alone and of the Wiby index |
 | `founder/` | Niche, competitors and money notes |
 
 ## Money
 
-Running Sumber costs nothing: static files, no server, no index to pay for. It is free with no account.
+Running Telisik costs nothing: static files, no server, no index to pay for. It is free with no account.
 
 `js/config.js` has room for two things, both empty by default and hidden while empty:
 

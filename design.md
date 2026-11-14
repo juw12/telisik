@@ -1,4 +1,4 @@
-# Sumber design notes
+# Telisik design notes
 
 ## The idea
 
@@ -26,7 +26,7 @@ that work like footnote marks: result numbers, the numbers after quotes, and the
 ## Type
 
 - Serif (`Iowan Old Style`, Palatino, Georgia) for what the sources wrote: titles and quotes.
-- System sans for what Sumber says: labels, controls, counts.
+- System sans for what Telisik says: labels, controls, counts.
 - Monospace for the ranking arithmetic, so the columns line up.
 - No web fonts. Nothing is fetched from another host, which the content security policy enforces.
 - Body 16 px, smallest text 12 px, reading measure 44 rem.

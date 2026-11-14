@@ -18,7 +18,7 @@ def draw_master() -> Image.Image:
     draw = ImageDraw.Draw(image)
     letter_font = ImageFont.truetype(FONT, 620)
     note_font = ImageFont.truetype(FONT, 230)
-    draw.text((MASTER * 0.455, MASTER * 0.52), "S", font=letter_font, fill=PAPER, anchor="mm")
+    draw.text((MASTER * 0.455, MASTER * 0.52), "T", font=letter_font, fill=PAPER, anchor="mm")
     draw.text((MASTER * 0.725, MASTER * 0.335), "1", font=note_font, fill=ACCENT, anchor="mm")
     return image
 

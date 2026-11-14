@@ -69,7 +69,7 @@ export const SOURCE_ALIASES = {
   bookstext: "bookstext",
 };
 
-/** Bangs hand the query to another engine. Sumber does not pretend to cover the whole web. */
+/** Bangs hand the query to another engine. Telisik does not pretend to cover the whole web. */
 export const BANGS = {
   g: { name: "Google", url: "https://www.google.com/search?q=%s" },
   ddg: { name: "DuckDuckGo", url: "https://duckduckgo.com/?q=%s" },

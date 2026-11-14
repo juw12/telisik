@@ -1,11 +1,11 @@
-// Offline shell for Sumber. It only ever handles this site's own files: requests to the source APIs
+// Offline shell for Telisik. It only ever handles this site's own files: requests to the source APIs
 // are not touched, not cached and not seen here.
 //
 // Network first, cache as the fallback, so a new release shows up on the next load and the page
 // still opens with no connection. Requests are made for the bare path, so a "?q=" address typed by
 // an older bookmark never leaves the browser a second time.
 
-const CACHE = "sumber-shell-v2";
+const CACHE = "telisik-shell-v1";
 const NETWORK_WAIT_MS = 3000;
 const SHELL = [
   "./",

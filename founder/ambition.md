@@ -8,7 +8,7 @@ source matters more than the summary, and be honest enough that they can set it 
 
 ## The weakness being covered
 
-| What people run into today | What Sumber does instead |
+| What people run into today | What Telisik does instead |
 |---|---|
 | Result pages crowded with pages written to rank and to sell | Asks public libraries and records that have no shop window to optimise for, plus one small non-profit web index |
 | Answer engines that write confident text with citations that do not check out | Writes nothing. Every sentence is copied from a source and linked to it |
@@ -23,7 +23,7 @@ Evidence for the first two rows:
   higher-ranked pages were on average more optimised and more monetised with affiliate links, and
   showed signs of lower text quality.
 - Tow Center for Digital Journalism, Columbia Journalism Review, March 2025,
-  https://www.cjr.org/tow_center/ai-search-has-a-citation-problem.php. Eight AI search tools, 1,600
+  https://www.cjr.org/tow_center/we-compared-eight-ai-search-engines-theyre-all-bad-at-citing-news.php. Eight AI search tools, 1,600
   queries about news articles, more than 60 percent of the answers wrong.
 
 - European Broadcasting Union and BBC, "News Integrity in AI Assistants", October 2025,
@@ -38,7 +38,7 @@ Evidence for the first two rows:
   inside the summary on 1 percent.
 
 The last two were read on the publishers' own pages on 14 November 2026 and the figures above were
-found there word for word. They say why the niche exists. They do not say Sumber is better than
+found there word for word. They say why the niche exists. They do not say Telisik is better than
 anything.
 
 ## Who it is for

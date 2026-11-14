@@ -1,0 +1,64 @@
+{
+ "help": "https://open.canada.ca/data/api/3/action/help_show?name=package_search",
+ "success": true,
+ "result": {
+  "count": 474,
+  "facets": {},
+  "facet_ranges": {
+   "portal_release_date": {
+    "counts": [
+     "1926-11-14T00:00:00Z",
+     5
+    ],
+    "gap": "+100YEARS",
+    "start": "1926-11-14T00:00:00Z",
+    "end": "2126-11-14T00:00:00Z"
+   }
+  },
+  "facet_queries": {},
+  "results": [
+   {
+    "id": "196ae6b1-b1af-4c0a-96a8-9f66db457718",
+    "name": "196ae6b1-b1af-4c0a-96a8-9f66db457718",
+    "title": "Job vacancies, unemployed and unemployment-to-job vacancies ratio, annual, inactive",
+    "notes": "Number of job vacancies, number of unemployed and unemployment-to-job vacancies ratio by North American Industry Classification (NAICS), last 5 years.",
+    "metadata_modified": "2023-01-17T23:12:11.687Z",
+    "organization": "statcan"
+   },
+   {
+    "id": "c2560599-b14b-4705-964a-2b06e83a5d9b",
+    "name": "c2560599-b14b-4705-964a-2b06e83a5d9b",
+    "title": "Supplementary unemployment rates, annual",
+    "notes": "Supplementary unemployment rates by gender and age group, annual.",
+    "metadata_modified": "2026-01-09T13:48:22.029Z",
+    "organization": "statcan"
+   },
+   {
+    "id": "5481631d-005c-4e17-9c59-1cf01efab198",
+    "name": "5481631d-005c-4e17-9c59-1cf01efab198",
+    "title": "Duration of unemployment, annual",
+    "notes": "Number of unemployed persons by duration of unemployment, gender and age group, annual.",
+    "metadata_modified": "2026-01-09T13:48:15.232Z",
+    "organization": "statcan"
+   },
+   {
+    "id": "d16e9271-760f-4889-a1ee-2c1cfc1fd202",
+    "name": "d16e9271-760f-4889-a1ee-2c1cfc1fd202",
+    "title": "Activity prior to unemployment, annual",
+    "notes": "Number of unemployed persons by activity prior to unemployment, gender and age group, annual.  ",
+    "metadata_modified": "2026-01-09T13:48:26.374Z",
+    "organization": "statcan"
+   },
+   {
+    "id": "fb6718d2-8a9f-4101-8df4-7f9f4490a078",
+    "name": "fb6718d2-8a9f-4101-8df4-7f9f4490a078",
+    "title": "Employment and unemployment rate, annual",
+    "notes": "Number of employees and unemployment rate by population centre and rural area, gender and age group, annual.<br>",
+    "metadata_modified": "2026-01-09T13:48:39.504Z",
+    "organization": "statcan"
+   }
+  ],
+  "sort": "score desc, metadata_modified desc",
+  "search_facets": {}
+ }
+}

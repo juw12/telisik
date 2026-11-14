@@ -1,0 +1,52 @@
+{
+ "help": "https://data.gov.au/data/api/3/action/help_show?name=package_search",
+ "success": true,
+ "result": {
+  "count": 355,
+  "facets": {},
+  "results": [
+   {
+    "id": "2726bc11-aeeb-4673-bea9-9d6992c32bf2",
+    "name": "unemployment-benefits-data",
+    "title": "Unemployment Benefits Data",
+    "notes": "Includes statistics encompassing labour force status and indicators of unemployment.\r\n\r\nFor further information about this dataset [visit this page on the Department of Social Services website](https://www.dss.gov.au/about-the-department/labour-market-and-related-payments-monthly-profile-publications).",
+    "metadata_modified": "2022-11-28T04:49:20.982Z",
+    "organization": "department-of-social-services"
+   },
+   {
+    "id": "585aceef-a3a9-4b95-bcac-78af3b26f285",
+    "name": "labour-market-data-for-australian-bureau-of-statistics-statistical-area-4-sa4-regions",
+    "title": "Labour Market Data for Australian Bureau of Statistics Statistical Area 4 (SA4) Regions",
+    "notes": "The Australian Government Department of Jobs and Small Business publishes a range of labour market data on its Labour Market Information Portal website (lmip.gov.au).\r\nThe link below provides data from the Labour Force Survey conducted by the Australian Bureau of Statistics. The boundaries used in this survey are known as Statistical Area 4 regions. The data provided includes unemployment rate, employment rate, participation rate, youth unemployment rate, unemployment duration, population by age group and employment by industry and occupation.",
+    "metadata_modified": "2023-08-11T09:48:41.604Z",
+    "organization": "department-of-employment-and-workplace-relations"
+   },
+   {
+    "id": "394b3f5a-1091-498b-bca5-dab526d4bf7f",
+    "name": "current-lga-population-density-gaming-expenditures-statistics",
+    "title": "Current LGA Population density & gaming expenditures statistics",
+    "notes": "This data set included population and expenditure breakdowns by LGA,\ndemographic statistics, labor statistics and Socio Economis Indexes for Areas\n(SEIFA) LGA score and ranking per LGA.\nDetailed descriptions of this data set include:\n- LGA name\n- LGA code\n- Region\n- Total Net Expenditure\n- SEIFA DIS RANK State\n- SEIFA DIS RANK Country\n- SEIFA DIS RANK Metro\n- SEIFA ADV DIS Score\n- SEIFA ADV DIS RANK State\n- SEIFA ADV DIS RANK Country\n- SEIFA ADV DIS RANK Metro\n- Adult population\n- Adult population per venue\n- EGM numbers per 1000 adults\n- Expenditure per adult\n- Workforce\n- Unemployment\n- Unemployment rate",
+    "metadata_modified": "2025-06-25T18:36:14.351Z",
+    "organization": "victorian-gambling-and-casino-control-commission-victoria-government"
+   },
+   {
+    "id": "4e65eead-0c2e-4a13-bddf-ded7bb8fd6a9",
+    "name": "au-govt-djsb-djsb-salm-smoothed-unemployment-lga-2010-18-lga2018",
+    "title": "DJSB Small Area Labour Market - Unemployment LGA 2010-2018",
+    "notes": "This datasets presents smooth values of the number of people unemployed in Local Government Area (LGA) regions for each quarter starting December 2010 up to June 2018. The boundaries used for the dataset follow the 2018 edition of the Australian Statistical Geography Standard (ASGS).\nSmall Area Labour Markets presents regional estimates of unemployment and the unemployment rate at two small area levels:\n\n\nFor approximately 2,100 Australian Bureau of Statistics’ (ABS) Statistical Area Level 2s (SA2s), on a State/Territory and Metropolitan/Non-metropolitan basis; and\n\n\nFor each of Australia’s 540 Local Government Areas (LGAs).\n\n\nThe estimates in Table 1 and 2 are smoothed using a four-quarter average to minimise the variability inherent in small area estimates. A description of the methodology used to prepare the estimates in this publication is presented in the Explanatory Notes, as well as on page 43 of the PDF Publication.\nPlease note: \n\n\nAURIN has spatially enabled the original data.\n\n\nWhere data values were \"-\" (no data provided) in the original data they have been set to null.\n\n\nCaution: Highly disaggregated estimates of unemployment and the unemployment rate at the SA2 and LGA level can display significant variability and should be viewed with caution. Indeed, quarter-to-quarter comparisons may not be indicative of actual movements in the labour market. It is therefore recommended that year-on-year comparisons be used.\n\n",
+    "metadata_modified": "2025-07-31T11:37:12.474Z",
+    "organization": "government-of-the-commonwealth-of-australia-department-of-jobs-and-small-businesses-australian-urban"
+   },
+   {
+    "id": "817dac0c-af4b-4b96-8297-5a4cfaec2deb",
+    "name": "au-govt-djsb-djsb-salm-smoothed-unemployment-sa2-2010-18-sa2",
+    "title": "DJSB Small Area Labour Market - Unemployment SA2 2010-2018",
+    "notes": "This datasets presents smooth values of the number of people unemployed in Statistical Area Level 2 (SA2) regions for each quarter starting December 2010 up to June 2018. The boundaries used for the dataset follow the 2011 edition of the Australian Statistical Geography Standard (ASGS).\nSmall Area Labour Markets presents regional estimates of unemployment and the unemployment rate at two small area levels:\n\n\nFor approximately 2,100 Australian Bureau of Statistics’ (ABS) Statistical Area Level 2s (SA2s), on a State/Territory and Metropolitan/Non-metropolitan basis; and\n\n\nFor each of Australia’s 540 Local Government Areas (LGAs).\n\n\nThe estimates in Table 1 and 2 are smoothed using a four-quarter average to minimise the variability inherent in small area estimates. A description of the methodology used to prepare the estimates in this publication is presented in the Explanatory Notes, as well as on page 43 of the PDF Publication.\nPlease note: \n\n\nAURIN has spatially enabled the original data.\n\n\nWhere data values were \"-\" (no data provided) in the original data they have been set to null.\n\n\nCaution: Highly disaggregated estimates of unemployment and the unemployment rate at the SA2 and LGA level can display significant variability and should be viewed with caution. Indeed, quarter-to-quarter comparisons may not be indicative of actual movements in the labour market. It is therefore recommended that year-on-year comparisons be used.\n\n",
+    "metadata_modified": "2025-07-31T14:05:32.470Z",
+    "organization": "government-of-the-commonwealth-of-australia-department-of-jobs-and-small-businesses-australian-urban"
+   }
+  ],
+  "sort": "extras_harvest_portal asc, score desc, metadata_modified desc",
+  "search_facets": {}
+ }
+}

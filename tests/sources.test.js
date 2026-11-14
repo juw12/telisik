@@ -13,6 +13,7 @@ import {
   isoDay,
   pickStackSite,
   planSources,
+  intentOf,
   rebuildAbstract,
   stackHost,
 } from "../js/sources.js";
@@ -55,9 +56,9 @@ for (const source of SOURCES) {
   });
 }
 
-test("there are twenty sources and each one describes itself", () => {
-  assert.equal(SOURCES.length, 20);
-  assert.equal(new Set(SOURCES.map((source) => source.id)).size, 20);
+test("there are twenty-three sources and each one describes itself", () => {
+  assert.equal(SOURCES.length, 23);
+  assert.equal(new Set(SOURCES.map((source) => source.id)).size, 23);
   for (const source of SOURCES) {
     assert.ok(source.label && source.about && /^https:\/\//.test(source.home), source.id);
   }
@@ -117,6 +118,22 @@ test("crossref fallback parses into openalex-shaped documents", () => {
   assert.equal(docs[0].source, "openalex");
   assert.equal(docs[0].signals.via, "Crossref");
   assert.match(docs[0].url, /^https:\/\/doi\.org\//);
+});
+
+test("wikipedia keeps the redirect a page was found under as its other name", () => {
+  assert.match(SOURCE_BY_ID.wikipedia.request(parsed, {}), /srprop=snippet%7Ctimestamp%7Credirecttitle/);
+  const json = {
+    query: {
+      pages: {
+        20556798: { pageid: 20556798, index: 1, title: "Myocardial infarction", extract: "A myocardial infarction occurs when blood flow stops." },
+        3997: { pageid: 3997, index: 2, title: "Blood", extract: "Blood is a body fluid." },
+      },
+      search: [{ pageid: 20556798, redirecttitle: "Heart Attack", snippet: "" }, { pageid: 3997, snippet: "" }],
+    },
+  };
+  const docs = SOURCE_BY_ID.wikipedia.parse(json, ctx);
+  assert.equal(docs[0].alias, "Heart Attack");
+  assert.equal("alias" in docs[1], false);
 });
 
 test("wikipedia documents are marked as living pages", () => {
@@ -181,6 +198,9 @@ test("lenses and in: operators choose the sources", () => {
     "clinicaltrials",
     "govuk",
     "federalregister",
+    "eudata",
+    "canadadata",
+    "ausdata",
   ]);
   assert.ok(asked("protein folding", "research").includes("zenodo"));
   assert.ok(!asked("protein folding", "research").includes("clinicaltrials"));
@@ -206,4 +226,56 @@ test("helpers", () => {
   assert.equal(isoDay("2021"), "2021-01-01");
   assert.equal(isoDay("2021-05-17T10:00:00Z"), "2021-05-17");
   assert.equal(isoDay(""), null);
+});
+
+test("open data portals are asked only when the query is about data, and say whose data it is", () => {
+  const asked = (query, lens = "all") => planSources(parseQuery(query), lens);
+  for (const id of ["eudata", "canadadata", "ausdata"]) {
+    assert.ok(asked("unemployment statistics").includes(id), id);
+    assert.ok(asked("air quality dataset", "research").includes(id), id);
+    assert.ok(!asked("binary search tree").includes(id), id);
+    const docs = SOURCE_BY_ID[id].parse(fixture(id), { parsed: parseQuery("unemployment statistics"), opts: {} });
+    assert.ok(docs.every((doc) => doc.kind === "dataset" && doc.signals.jurisdiction), id);
+  }
+  assert.equal(KIND_LABELS.dataset, "Open data");
+});
+
+test("intent words name the kind of page wanted and are set apart from the subject", () => {
+  const travel = intentOf("wikivoyage", parseQuery("kyoto travel guide"));
+  assert.equal(travel.boost, 1.25);
+  assert.deepEqual(travel.words, ["travel", "guide"]);
+  assert.deepEqual(travel.core, ["kyoto"]);
+  const encyclopedia = intentOf("wikipedia", parseQuery("kyoto travel guide"));
+  assert.equal(encyclopedia.boost, 1);
+  assert.deepEqual(encyclopedia.words, []);
+  assert.equal(intentOf("wikivoyage", parseQuery("kyoto")).boost, 1);
+  assert.equal(intentOf("eudata", parseQuery("unemployment statistics")).boost, 1.25);
+});
+
+test("GitHub asks a second time only when its first answer has no well-known repository", () => {
+  const github = SOURCE_BY_ID.github;
+  const repo = (title, stars) => ({ id: `github:${title}`, title, signals: { stars } });
+  const query = parseQuery("linux kernel source tree");
+  const unknown = [repo("someone/kernel-notes", 12)];
+  const url = new URL(github.followUp(query, unknown, {}));
+  assert.equal(url.hostname, "api.github.com");
+  assert.equal(url.searchParams.get("q"), "linux in:name");
+  assert.equal(url.searchParams.get("sort"), "stars");
+  assert.equal(github.followUp(query, [repo("torvalds/linux", 180000)], {}), null);
+  // A famous repository that is not named like the project does not stop the second question.
+  assert.notEqual(github.followUp(query, [repo("someone/awesome-linux-list", 50000)], {}), null);
+  assert.equal(github.followUp(parseQuery('"linux kernel"'), unknown, {}), null);
+  assert.equal(github.followUp(parseQuery("how do airplanes stay in the air"), unknown, {}), null);
+  assert.match(github.followUp(query, unknown, { before: "2022-11-30" }), /created%3A%3C2022-11-30/);
+
+  const merged = github.mergeFollowUp(query, unknown, [
+    repo("torvalds/linux", 180000),
+    repo("raspberrypi/linux-tools", 9000),
+    repo("nobody/linux", 3),
+  ]);
+  assert.deepEqual(
+    merged.map((doc) => doc.title),
+    ["torvalds/linux", "someone/kernel-notes", "raspberrypi/linux-tools"],
+  );
+  assert.deepEqual(merged.map((doc) => doc.upstreamRank), [0, 1, 2]);
 });

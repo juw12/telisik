@@ -5,6 +5,10 @@
 //   node tools/eval.mjs --capture       ask the live sources and save the pools (slow: one query per 7 s)
 //   node tools/eval.mjs --capture --retry-failed   ask again only the sources that failed (one query per 20 s)
 //   node tools/eval.mjs --capture --retry-failed --skip=stackexchange   leave a source that is still refusing alone
+//   node tools/eval.mjs --capture --refresh=github,govuk   ask the named sources and any newly planned ones again
+//   node tools/eval.mjs --queries=queries2.json --pools=pools2.json   use the second, blind query set
+//   node tools/eval.mjs --pace=13000    milliseconds between captured queries
+//   node tools/eval.mjs --half=train    print the training half only (keeps the held-out half unseen)
 // Behind a proxy: set NODE_USE_ENV_PROXY=1 and HTTPS_PROXY.
 //
 // What this is not: the targets in tests/eval/queries.json were written by an AI model, one per query.
@@ -17,19 +21,24 @@ import path from "node:path";
 import { search } from "../js/engine.js";
 import { parseQuery } from "../js/query.js";
 import { rank, TUNING, WEIGHTS } from "../js/rank.js";
+import { planSources } from "../js/sources.js";
 import { fixtureNameOf } from "./fixture-names.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const queriesFile = path.join(here, "..", "tests", "eval", "queries.json");
-const poolsFile = path.join(here, "..", "tests", "eval", "pools.json");
 const args = process.argv.slice(2);
+const valueOf = (name) => (args.find((arg) => arg.startsWith(`--${name}=`)) ?? "").slice(name.length + 3);
+const listOf = (name) => new Set(valueOf(name).split(",").filter(Boolean));
+const evalFile = (name, fallback) => path.resolve(path.join(here, "..", "tests", "eval"), valueOf(name) || fallback);
+const queriesFile = evalFile("queries", "queries.json");
+const poolsFile = evalFile("pools", "pools.json");
 const RETRY_FAILED = args.includes("--retry-failed");
-const SKIP = new Set((args.find((arg) => arg.startsWith("--skip=")) ?? "").slice(7).split(",").filter(Boolean));
-const PACE_MS = RETRY_FAILED ? 20000 : 7000;
+const SKIP = listOf("skip");
+const REFRESH = listOf("refresh");
+const PACE_MS = Number(valueOf("pace")) || (RETRY_FAILED ? 20000 : 7000);
 const ORIGIN = {
   Origin: "https://juw12.github.io",
   // Says what it is, as the Wikimedia User-Agent policy asks of scripts.
-  "User-Agent": "SumberCheck/1.0 (https://github.com/juw12/sumber; search quality check, a few requests a minute)",
+  "User-Agent": "TelisikCheck/1.0 (https://github.com/juw12/telisik; search quality check, a few requests a minute)",
   Accept: "application/json",
 };
 
@@ -99,9 +108,36 @@ export function mergeRetry(before, state, retried) {
   return { planned: before.planned, failed: before.failed.filter((failure) => !answered(idOf(failure))), docs };
 }
 
+/**
+ * A refresh asks the named sources again, and any source the current code plans that the saved
+ * pool never asked. Everything else stays as saved. A source that answers replaces its old
+ * documents (and those of its stand-in); a source that fails keeps what it had.
+ */
+export function mergeRefresh(before, state, asked) {
+  const ownerOf = (doc) => STANDS_IN_FOR[doc.source] ?? doc.source;
+  // An answer given by a stand-in host (GitLab for GitHub) does not count as the source answering.
+  const stoodIn = (id) => state.pool.some((doc) => doc.source !== id && ownerOf(doc) === id);
+  const answered = new Set(
+    [...asked].filter((id) => ["ok", "empty"].includes(state.status[id]?.state) && !stoodIn(id)),
+  );
+  const docs = [
+    ...before.docs.filter((doc) => !answered.has(ownerOf(doc))),
+    ...state.pool.filter((doc) => answered.has(ownerOf(doc)) && doc.source === ownerOf(doc)),
+  ];
+  const failed = [
+    ...before.failed.filter((failure) => !answered.has(idOf(failure))),
+    ...failuresOf(state).filter(
+      (failure) => asked.has(idOf(failure)) && !before.failed.some((old) => idOf(old) === idOf(failure)),
+    ),
+  ];
+  return { planned: state.planned, failed, docs };
+}
+
 async function capture(queries) {
   const saved = await readJson(poolsFile, { capturedAt: null, pools: {} });
-  const fetchWithOrigin = (url, init) => fetch(url, { ...init, headers: ORIGIN });
+  const refused = () => Promise.reject(new Error("not asked"));
+  const fetchWithOrigin = (url, init) =>
+    SKIP.has(sourceOfRequest(url)) ? refused() : fetch(url, { ...init, headers: ORIGIN });
   const options = { lens: "all", timeoutMs: 20000, keepPool: true };
   for (const [index, entry] of queries.entries()) {
     const before = saved.pools[entry.q];
@@ -111,6 +147,22 @@ async function capture(queries) {
     if (!before || args.includes("--force")) {
       const state = await search(entry.q, { ...options, fetch: fetchWithOrigin });
       pool = { planned: state.planned, failed: failuresOf(state), docs: state.pool };
+    } else if (REFRESH.size) {
+      const planned = planSources(parseQuery(entry.q), "all");
+      const asked = new Set(
+        planned.filter((id) => (REFRESH.has(id) || !before.planned.includes(id)) && !SKIP.has(id)),
+      );
+      const onlyAsked = (url, init) => (asked.has(sourceOfRequest(url)) ? fetchWithOrigin(url, init) : refused());
+      pool = mergeRefresh(before, await search(entry.q, { ...options, fetch: onlyAsked }), asked);
+      saved.pools[entry.q] = pool;
+      saved.capturedAt = new Date().toISOString().slice(0, 10);
+      await writeFile(poolsFile, JSON.stringify(saved) + "\n", "utf8");
+      console.log(
+        `${label}: asked ${[...asked].join(", ") || "nothing"}; ${pool.docs.length} documents` +
+          (pool.failed.length ? ` (failed ${pool.failed.join(", ")})` : ""),
+      );
+      await new Promise((resolve) => setTimeout(resolve, Math.max(0, PACE_MS - (Date.now() - started))));
+      continue;
     } else {
       const retried = new Set(RETRY_FAILED ? before.failed.map(idOf).filter((id) => !SKIP.has(id)) : []);
       if (!retried.size) {
@@ -223,10 +275,32 @@ async function main() {
   const train = queries.filter((entry) => splitOf(entry.q) === "train");
   const test = queries.filter((entry) => splitOf(entry.q) === "test");
   console.log(`pools captured ${capturedAt}; shipped weights ${JSON.stringify(WEIGHTS)} tuning ${JSON.stringify(TUNING)}`);
-  const shipped = { all: score(queries, pools), train: score(train, pools), test: score(test, pools) };
+  const settings = {};
+  const shipped = {
+    all: score(queries, pools, settings),
+    train: score(train, pools, settings),
+    test: score(test, pools, settings),
+  };
+  // --half=train prints the training half only, so the held-out half stays unseen while tuning.
+  const trainOnly = valueOf("half") === "train";
+  if (trainOnly) {
+    console.log(line("shipped, train", shipped.train));
+    for (const kind of [...new Set(queries.map((entry) => entry.kind).filter(Boolean))]) {
+      console.log(line(`${kind}, train`, score(train.filter((entry) => entry.kind === kind), pools, settings)));
+    }
+    for (const miss of args.includes("--misses") ? shipped.train.misses : []) {
+      console.log(`  ${miss.position ? `position ${miss.position}` : "not found"}: ${miss.q}`);
+    }
+    return;
+  }
   console.log(line("shipped, all", shipped.all));
   console.log(line("shipped, train", shipped.train));
   console.log(line("shipped, held out", shipped.test));
+  for (const kind of [...new Set(queries.map((entry) => entry.kind).filter(Boolean))]) {
+    for (const [half, entries] of [["train", train], ["held out", test]]) {
+      console.log(line(`${kind}, ${half}`, score(entries.filter((entry) => entry.kind === kind), pools, settings)));
+    }
+  }
   // A pool is incomplete when a source refused the request (rate limit) on the day of the capture.
   const complete = queries.filter((entry) => pools[entry.q]?.failed.length === 0);
   console.log(line("complete pools only", score(complete, pools)));

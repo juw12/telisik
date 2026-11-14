@@ -7,14 +7,15 @@ import { bestPassages, rank } from "./rank.js";
 import { fold } from "./text.js";
 
 export const TIMEOUT_MS = 8000;
-const CACHE_KEY = "sumber.cache.v2";
-const OLD_CACHE_KEYS = ["sumber.cache.v1"];
+const CACHE_KEY = "telisik.cache.v1";
+/** Keys from before the rename to Telisik; removed on first load. */
+const OLD_CACHE_KEYS = ["sumber.cache.v1", "sumber.cache.v2", "sumber.backoff.v1"];
 /** How long a saved answer counts as fresh. Sources with a small free quota set a longer cacheMs. */
 export const CACHE_TTL_MS = 60 * 60 * 1000;
 /** A saved answer older than this is thrown away even as a last resort. */
 export const CACHE_KEEP_MS = 30 * 24 * 60 * 60 * 1000;
 const CACHE_MAX = 150;
-const BACKOFF_KEY = "sumber.backoff.v1";
+const BACKOFF_KEY = "telisik.backoff.v1";
 
 /**
  * Small LRU on top of any Storage-like object; silently becomes memory-only when storage fails.
@@ -135,8 +136,38 @@ function fromCache(saved) {
   return { state: docs.length ? "ok" : "empty", docs, cached: true, suggestion: saved?.s ?? null };
 }
 
+/**
+ * Ask one source. An adapter may name a second, narrower request after seeing its first answer
+ * (GitHub does, for queries its best-match order handles badly). The second request goes through
+ * the same cache, pause and time limit, and when it fails the first answer stands.
+ */
 async function fetchSource(adapter, parsed, opts, env) {
-  const url = adapter.request(parsed, opts);
+  const first = await fetchUrl(adapter, adapter.request(parsed, opts), parsed, opts, env);
+  if (!adapter.followUp || !["ok", "empty"].includes(first.state)) {
+    return first;
+  }
+  const nextUrl = adapter.followUp(parsed, first.docs, opts);
+  if (!nextUrl) {
+    return first;
+  }
+  const second = await fetchUrl(adapter, nextUrl, parsed, opts, env);
+  if (second.state === "cancelled") {
+    return second;
+  }
+  if (second.state !== "ok") {
+    return first;
+  }
+  const docs = adapter.mergeFollowUp(parsed, first.docs, second.docs);
+  return {
+    ...first,
+    state: docs.length ? "ok" : "empty",
+    docs,
+    cached: Boolean(first.cached && second.cached),
+    quota: second.quota ?? first.quota ?? null,
+  };
+}
+
+async function fetchUrl(adapter, url, parsed, opts, env) {
   // A saved answer is used before anything else, so a paused source still answers what it already has.
   const fresh = env.cache?.get(url, adapter.cacheMs ?? CACHE_TTL_MS);
   if (fresh) {

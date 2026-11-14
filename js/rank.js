@@ -1,15 +1,15 @@
 // Ranking, written to be read. Every number that moves a result is returned in `why`, and the same
 // breakdown is shown in the interface. No money, no click data and no personal profile is involved.
 
-import { fold, formatCount, splitSentences, terms as toTerms, tokenize, stem } from "./text.js";
-import { lensWeight } from "./sources.js";
+import { STOPWORDS, fold, formatCount, splitSentences, terms as toTerms, tokenize, stem } from "./text.js";
+import { intentOf, lensWeight } from "./sources.js";
 
 // The sources search their full text; this page only sees titles and excerpts. So the position a
 // source gave a document counts for more than the words we can check ourselves. These numbers
 // were chosen on half of tests/eval/queries.json and kept because the other half improved too.
-export const WEIGHTS = { text: 0.3, evidence: 0.2, upstream: 0.5 };
+export const WEIGHTS = { text: 0.3, evidence: 0.2, upstream: 0.5, meaning: 0 };
 /** The other numbers of the formula. tools/eval.mjs measures them against known-item queries. */
-export const TUNING = { titleBoost: 1.5, extraBoost: 0.5, k1: 1.2, b: 0.4, diversity: 0.85 };
+export const TUNING = { titleBoost: 1.5, extraBoost: 0.5, k1: 1.2, b: 0.4, diversity: 0.85, runBonus: 0.1 };
 
 /** Wording that usually marks an explanation or a definition; used only to choose between sentences. */
 const INTENT_CUES = {
@@ -55,6 +55,8 @@ export function evidenceScore(doc) {
     case "dictionary":
     case "official":
       return 0.7;
+    case "dataset":
+      return 0.65;
     case "sourcetext":
       return 0.6;
     case "textbook":
@@ -131,6 +133,9 @@ export function evidenceNotes(doc) {
     if (signals.openAccess) {
       notes.push("open access");
     }
+  }
+  if (doc.kind === "dataset" && signals.jurisdiction) {
+    notes.push(`government catalogue, ${signals.jurisdiction}`);
   }
   if (doc.kind === "official") {
     if (signals.jurisdiction) {
@@ -219,9 +224,69 @@ function passesDates(doc, opts) {
  * weights and tuning replace WEIGHTS and TUNING for one call; only the evaluation tool passes them.
  * Returns documents with { score, why } added, best first.
  */
+/** A document without any query word is kept only when its meaning score is at least this (0..1 in the pool). */
+const MEANING_KEEP = 0.8;
+
+/**
+ * The token lists a title can be matched by: the whole title, for a repository also its bare name,
+ * and for an encyclopedia page the redirect that led to it ("Heart attack" for "Myocardial infarction").
+ */
+function titleForms(doc) {
+  const forms = [tokenize(doc.title)];
+  if (doc.alias) {
+    forms.push(tokenize(doc.alias));
+  }
+  if (doc.kind === "code" && doc.title.includes("/")) {
+    forms.push(tokenize(doc.title.slice(doc.title.indexOf("/") + 1)));
+  }
+  return forms;
+}
+
+/**
+ * How much of the query the text repeats word for word and in the same order: the longest run of
+ * consecutive query words found in the text, as a share of the query. "currency of japan" is found
+ * whole in "the yen is the official currency of Japan". Runs under three words, or with fewer than
+ * two content words, count as nothing.
+ */
+export function phraseRun(queryWords, text) {
+  if (queryWords.length < 3) {
+    return 0;
+  }
+  const words = tokenize(text);
+  let best = 0;
+  for (let start = 0; start < words.length; start += 1) {
+    for (let at = 0; at < queryWords.length; at += 1) {
+      if (words[start] !== queryWords[at]) {
+        continue;
+      }
+      let length = 1;
+      let content = STOPWORDS.has(queryWords[at]) ? 0 : 1;
+      while (
+        start + length < words.length &&
+        at + length < queryWords.length &&
+        words[start + length] === queryWords[at + length]
+      ) {
+        content += STOPWORDS.has(queryWords[at + length]) ? 0 : 1;
+        length += 1;
+      }
+      if (length >= 3 && content >= 2 && length > best) {
+        best = length;
+      }
+    }
+  }
+  return best / queryWords.length;
+}
+
 export function rank(docs, parsed, opts = {}) {
   const weights = { ...WEIGHTS, ...opts.weights };
-  const { titleBoost: TITLE_BOOST, extraBoost: EXTRA_BOOST, k1: K1, b: B, diversity: DIVERSITY } = {
+  const {
+    titleBoost: TITLE_BOOST,
+    extraBoost: EXTRA_BOOST,
+    k1: K1,
+    b: B,
+    diversity: DIVERSITY,
+    runBonus: RUN_BONUS,
+  } = {
     ...TUNING,
     ...opts.tuning,
   };
@@ -234,7 +299,7 @@ export function rank(docs, parsed, opts = {}) {
     if (!passesDates(doc, opts)) {
       continue;
     }
-    const title = countTerms(doc.title);
+    const title = countTerms(doc.alias ? `${doc.title} ${doc.alias}` : doc.title);
     const body = countTerms(doc.snippetIsMeta ? "" : doc.snippet);
     const extra = countTerms(doc.extra);
     const weighted = new Map();
@@ -307,10 +372,32 @@ export function rank(docs, parsed, opts = {}) {
     bestBm25 = Math.max(bestBm25, bm25);
   }
 
+  // Optional: closeness in meaning from a word-vector model passed in as opts.meaning. None ships with the app (its weight is 0). It is scaled
+  // inside this pool, 0 for the least similar document and 1 for the most similar one.
+  const meaning = opts.meaning && weights.meaning > 0 && parsed.text ? opts.meaning : null;
+  if (meaning) {
+    const queryVector = meaning.vector(parsed.text);
+    let lowest = Infinity;
+    let highest = -Infinity;
+    for (const entry of prepared) {
+      const { doc } = entry;
+      entry.similarity = meaning.similarity(queryVector, `${doc.title}. ${doc.snippetIsMeta ? "" : doc.snippet}`);
+      lowest = Math.min(lowest, entry.similarity);
+      highest = Math.max(highest, entry.similarity);
+    }
+    for (const entry of prepared) {
+      entry.meaning = highest > lowest ? (entry.similarity - lowest) / (highest - lowest) : 0;
+    }
+  }
+
+  const intents = new Map();
   const scored = [];
+  // A query phrased like a sentence ("currency of japan") has a joining word between content words.
+  const isSentence = queryWords.length >= 3 && queryWords.some((word) => STOPWORDS.has(word));
   for (const entry of prepared) {
     const { doc } = entry;
-    if (queryTerms.length && entry.coverage === 0) {
+    // A document sharing no word with the query stays only when the meaning model puts it near the top.
+    if (queryTerms.length && entry.coverage === 0 && !(meaning && entry.meaning >= MEANING_KEEP)) {
       continue;
     }
     let text = bestBm25 > 0 ? (entry.bm25 / bestBm25) * (0.5 + 0.5 * entry.coverage) : entry.coverage;
@@ -325,22 +412,46 @@ export function rank(docs, parsed, opts = {}) {
     if (titleHasAll) {
       text = Math.min(1, text + 0.1);
     }
-    const titleIsQuery = queryWords.length > 0 && tokenize(doc.title).join(" ") === queryWords.join(" ");
-    if (titleIsQuery) {
+    if (!intents.has(doc.source)) {
+      intents.set(doc.source, intentOf(doc.source, parsed));
+    }
+    const intent = intents.get(doc.source);
+    const names = titleForms(doc);
+    const wholeQuery = queryWords.join(" ");
+    const titleIsQuery = queryWords.length > 0 && names.some((name) => name.join(" ") === wholeQuery);
+    // "kyoto travel guide" names the travel guide titled "Kyoto": the intent words say which kind
+    // of page is wanted, the rest is the title.
+    const coreQuery = intent.core.join(" ");
+    const titleIsCore =
+      !titleIsQuery &&
+      intent.words.length > 0 &&
+      coreQuery !== "" &&
+      names.some((name) => name.filter((word) => !STOPWORDS.has(word)).join(" ") === coreQuery);
+    if (titleIsQuery || titleIsCore) {
       text = 1;
     }
     const evidence = Math.min(1, evidenceScore(doc));
     const size = sourceSizes.get(doc.source) ?? 1;
     const upstream = size > 1 ? 1 - doc.upstreamRank / size : 1;
-    const lens = lensWeight(opts.lens, doc.source, parsed);
+    const lens = lensWeight(opts.lens, doc.source, parsed) * intent.boost;
     let recency = 0;
     if (parsed.wantsRecent && doc.date) {
       const ageYears = ((opts.now ?? Date.now()) - Date.parse(doc.date)) / (365.25 * 24 * 3600 * 1000);
       recency = 0.1 * Math.max(0, 1 - ageYears / 5);
     }
-    const exactTitle = titleIsQuery ? 0.08 : 0;
+    const run =
+      RUN_BONUS > 0 && isSentence
+        ? phraseRun(queryWords, `${doc.title}. ${doc.alias ?? ""}. ${doc.snippet}. ${doc.extra}`)
+        : 0;
+    const exactTitle = Math.max(titleIsQuery || titleIsCore ? 0.08 : 0, RUN_BONUS * run);
+    const closeness = meaning ? entry.meaning : 0;
     const base =
-      weights.text * text + weights.evidence * evidence + weights.upstream * upstream + recency + exactTitle;
+      weights.text * text +
+      weights.evidence * evidence +
+      weights.upstream * upstream +
+      (meaning ? weights.meaning * closeness : 0) +
+      recency +
+      exactTitle;
     scored.push({
       ...doc,
       score: base * lens,
@@ -351,6 +462,15 @@ export function rank(docs, parsed, opts = {}) {
         missing: entry.missing,
         titleHasAll,
         titleIsQuery,
+        titleIsCore,
+        phraseRun: run,
+        alias:
+          doc.alias && tokenize(doc.alias).some((word) => !STOPWORDS.has(word) && queryWords.includes(word))
+            ? doc.alias
+            : null,
+        intentWords: intent.words,
+        intentBoost: intent.boost,
+        meaning: meaning ? closeness : null,
         phraseNote,
         evidence,
         evidenceNotes: evidenceNotes(doc),

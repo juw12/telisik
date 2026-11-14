@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
-  <ShortName>Sumber</ShortName>
+  <ShortName>Telisik</ShortName>
   <Description>Search the sources: encyclopedia, papers, answers, code. Nothing generated.</Description>
   <InputEncoding>UTF-8</InputEncoding>
-  <Image width="32" height="32" type="image/png">https://juw12.github.io/sumber/icons/icon-32.png</Image>
-  <Url type="text/html" method="get" template="https://juw12.github.io/sumber/#q={searchTerms}"/>
+  <Image width="32" height="32" type="image/png">https://juw12.github.io/telisik/icons/icon-32.png</Image>
+  <Url type="text/html" method="get" template="https://juw12.github.io/telisik/#q={searchTerms}"/>
 </OpenSearchDescription>

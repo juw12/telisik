@@ -1,0 +1,436 @@
+{
+ "about": "Second query set for tools/eval.mjs, written on 2026-11-14 before any of its results were seen, after the first set (queries.json) had been read miss by miss and could no longer judge anything. kind 'known' = the name of a thing; kind 'question' = a question worded differently from the title of the page that answers it. Targets were written by an AI model from memory, one per query; they are not human relevance judgements. No Stack Overflow targets: that API was refusing this network on the day. Same hit rule as queries.json.",
+ "queries": [
+  {
+   "q": "pythagorean theorem",
+   "kind": "known",
+   "url": [
+    "en.wikipedia.org/wiki/pythagorean_theorem"
+   ]
+  },
+  {
+   "q": "mitochondria",
+   "kind": "known",
+   "url": [
+    "en.wikipedia.org/wiki/mitochondrion"
+   ]
+  },
+  {
+   "q": "fall of the berlin wall",
+   "kind": "known",
+   "url": [
+    "en.wikipedia.org/wiki/fall_of_the_berlin_wall"
+   ]
+  },
+  {
+   "q": "prisoner's dilemma",
+   "kind": "known",
+   "url": [
+    "en.wikipedia.org/wiki/prisoner's_dilemma"
+   ]
+  },
+  {
+   "q": "angkor wat",
+   "kind": "known",
+   "url": [
+    "en.wikipedia.org/wiki/angkor_wat"
+   ]
+  },
+  {
+   "q": "halting problem",
+   "kind": "known",
+   "url": [
+    "en.wikipedia.org/wiki/halting_problem"
+   ]
+  },
+  {
+   "q": "kubernetes container orchestration",
+   "kind": "known",
+   "url": [
+    "github.com/kubernetes/kubernetes"
+   ]
+  },
+  {
+   "q": "django web framework",
+   "kind": "known",
+   "url": [
+    "github.com/django/django"
+   ]
+  },
+  {
+   "q": "numpy array library",
+   "kind": "known",
+   "url": [
+    "github.com/numpy/numpy"
+   ]
+  },
+  {
+   "q": "neovim text editor repo",
+   "kind": "known",
+   "url": [
+    "github.com/neovim/neovim"
+   ]
+  },
+  {
+   "q": "curl command line tool source",
+   "kind": "known",
+   "url": [
+    "github.com/curl/curl"
+   ]
+  },
+  {
+   "q": "dropout a simple way to prevent neural networks from overfitting",
+   "kind": "known",
+   "title": "dropout.*simple way to prevent neural networks"
+  },
+  {
+   "q": "computing machinery and intelligence turing",
+   "kind": "known",
+   "title": "computing machinery and intelligence"
+  },
+  {
+   "q": "the pagerank citation ranking bringing order to the web",
+   "kind": "known",
+   "title": "pagerank citation ranking"
+  },
+  {
+   "q": "playing atari with deep reinforcement learning",
+   "kind": "known",
+   "title": "playing atari with deep reinforcement learning"
+  },
+  {
+   "q": "long short-term memory hochreiter",
+   "kind": "known",
+   "title": "^long short-term memory$"
+  },
+  {
+   "q": "effect of hydroxychloroquine in hospitalized patients with covid-19",
+   "kind": "known",
+   "title": "hydroxychloroquine in hospitalized patients with covid-19"
+  },
+  {
+   "q": "crime and punishment dostoevsky",
+   "kind": "known",
+   "title": "crime and punishment"
+  },
+  {
+   "q": "the pragmatic programmer",
+   "kind": "known",
+   "title": "pragmatic programmer"
+  },
+  {
+   "q": "thinking fast and slow kahneman",
+   "kind": "known",
+   "title": "thinking,? fast and slow"
+  },
+  {
+   "q": "frankenstein mary shelley",
+   "kind": "known",
+   "title": "frankenstein"
+  },
+  {
+   "q": "how to do great work paul graham",
+   "kind": "known",
+   "title": "how to do great work"
+  },
+  {
+   "q": "define ephemeral",
+   "kind": "known",
+   "url": [
+    "en.wiktionary.org/wiki/ephemeral"
+   ]
+  },
+  {
+   "q": "meaning of ubiquitous",
+   "kind": "known",
+   "url": [
+    "en.wiktionary.org/wiki/ubiquitous"
+   ]
+  },
+  {
+   "q": "lisbon travel guide",
+   "kind": "known",
+   "url": [
+    "en.wikivoyage.org/wiki/lisbon"
+   ]
+  },
+  {
+   "q": "visiting bali",
+   "kind": "known",
+   "url": [
+    "en.wikivoyage.org/wiki/bali"
+   ]
+  },
+  {
+   "q": "linear algebra textbook",
+   "kind": "known",
+   "url": [
+    "en.wikibooks.org/wiki/linear_algebra"
+   ]
+  },
+  {
+   "q": "oscar wilde quotes",
+   "kind": "known",
+   "url": [
+    "en.wikiquote.org/wiki/oscar_wilde"
+   ]
+  },
+  {
+   "q": "register to vote uk",
+   "kind": "known",
+   "url": [
+    "gov.uk/register-to-vote"
+   ]
+  },
+  {
+   "q": "uk state pension age",
+   "kind": "known",
+   "url": [
+    "gov.uk/state-pension-age"
+   ]
+  },
+  {
+   "q": "statutory maternity pay",
+   "kind": "known",
+   "url": [
+    "gov.uk/maternity-pay-leave",
+    "gov.uk/statutory-maternity-pay"
+   ]
+  },
+  {
+   "q": "why is the sky blue",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/rayleigh_scattering",
+    "en.wikipedia.org/wiki/diffuse_sky_radiation"
+   ]
+  },
+  {
+   "q": "heart attack",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/myocardial_infarction"
+   ]
+  },
+  {
+   "q": "how do airplanes stay in the air",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/lift_(force)"
+   ]
+  },
+  {
+   "q": "fear of spiders",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/arachnophobia"
+   ]
+  },
+  {
+   "q": "why does the sea level rise and fall twice a day",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/tide"
+   ]
+  },
+  {
+   "q": "disease caused by lack of vitamin c",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/scurvy"
+   ]
+  },
+  {
+   "q": "study of insects",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/entomology"
+   ]
+  },
+  {
+   "q": "first person to walk on the moon",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/neil_armstrong"
+   ]
+  },
+  {
+   "q": "tallest mountain on earth",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/mount_everest"
+   ]
+  },
+  {
+   "q": "largest planet in the solar system",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/jupiter"
+   ]
+  },
+  {
+   "q": "who wrote hamlet",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/william_shakespeare",
+    "en.wikipedia.org/wiki/hamlet"
+   ]
+  },
+  {
+   "q": "high blood pressure",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/hypertension"
+   ]
+  },
+  {
+   "q": "kidney stones",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/kidney_stone_disease"
+   ]
+  },
+  {
+   "q": "shortsightedness",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/myopia"
+   ]
+  },
+  {
+   "q": "general rise in prices over time",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/inflation"
+   ]
+  },
+  {
+   "q": "the war between the north and south in america 1861",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/american_civil_war"
+   ]
+  },
+  {
+   "q": "ship that sank after hitting an iceberg in 1912",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/titanic",
+    "en.wikipedia.org/wiki/sinking_of_the_titanic"
+   ]
+  },
+  {
+   "q": "algorithm to find the greatest common divisor",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/euclidean_algorithm"
+   ]
+  },
+  {
+   "q": "sorting algorithm that picks a pivot",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/quicksort"
+   ]
+  },
+  {
+   "q": "data structure first in first out",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/queue_(abstract_data_type)",
+    "en.wikipedia.org/wiki/fifo_(computing_and_electronics)"
+   ]
+  },
+  {
+   "q": "the smallest unit of life",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/cell_(biology)"
+   ]
+  },
+  {
+   "q": "why do we have leap years",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/leap_year"
+   ]
+  },
+  {
+   "q": "fear of heights",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/acrophobia"
+   ]
+  },
+  {
+   "q": "medicine that kills bacteria",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/antibiotic"
+   ]
+  },
+  {
+   "q": "painting of a woman with a mysterious smile by da vinci",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/mona_lisa"
+   ]
+  },
+  {
+   "q": "currency of japan",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/japanese_yen"
+   ]
+  },
+  {
+   "q": "capital of australia",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/canberra"
+   ]
+  },
+  {
+   "q": "how does gps know where i am",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/global_positioning_system"
+   ]
+  },
+  {
+   "q": "machine that turns heat into motion using steam",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/steam_engine"
+   ]
+  },
+  {
+   "q": "study of earthquakes",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/seismology"
+   ]
+  },
+  {
+   "q": "programming language created by guido van rossum",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/python_(programming_language)"
+   ]
+  },
+  {
+   "q": "speed of light in vacuum value",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/speed_of_light"
+   ]
+  },
+  {
+   "q": "building blocks of proteins",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/amino_acid"
+   ]
+  }
+ ]
+}

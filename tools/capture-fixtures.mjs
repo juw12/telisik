@@ -24,7 +24,7 @@ const query = args.find((arg) => !arg.startsWith("--"));
 const ORIGIN = {
   Origin: "https://juw12.github.io",
   // Says what it is, as the Wikimedia User-Agent policy asks of scripts.
-  "User-Agent": "SumberCheck/1.0 (https://github.com/juw12/sumber; search quality check, a few requests a minute)",
+  "User-Agent": "TelisikCheck/1.0 (https://github.com/juw12/telisik; search quality check, a few requests a minute)",
   Accept: "application/json",
 };
 

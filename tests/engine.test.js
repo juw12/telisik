@@ -157,7 +157,7 @@ test("a paused source still answers what it already has", async () => {
   const storage = memoryStorage();
   const cache = createCache(memoryStorage(), clock);
   await search("binary search tree", { fetch: fixtureFetch(), cache, storage, now: clock });
-  storage.setItem("sumber.backoff.v1", JSON.stringify({ stackexchange: now + 10 * 60 * 1000 }));
+  storage.setItem("telisik.backoff.v1", JSON.stringify({ stackexchange: now + 10 * 60 * 1000 }));
   const state = await search("binary search tree", { fetch: fixtureFetch(), cache, storage, now: clock });
   assert.equal(state.status.stackexchange.state, "ok");
   assert.equal(state.status.stackexchange.cached, true);
@@ -244,4 +244,28 @@ test("an empty query asks nobody", async () => {
   const state = await search("   ", { fetch: fixtureFetch({}, calls) });
   assert.equal(calls.length, 0);
   assert.deepEqual(state.results, []);
+});
+
+test("GitHub's second request adds the well-known repository, and a failed second request changes nothing", async () => {
+  const items = (rows) => new Response(JSON.stringify({ items: rows }), { status: 200 });
+  const first = [{ id: 1, full_name: "someone/kernel-notes", html_url: "https://github.com/someone/kernel-notes", stargazers_count: 12 }];
+  const second = [{ id: 2, full_name: "torvalds/linux", html_url: "https://github.com/torvalds/linux", stargazers_count: 180000 }];
+  const asked = [];
+  const github = (answerSecond) => async (url) => {
+    asked.push(url);
+    if (!decodeURIComponent(url).includes("in:name")) {
+      return items(first);
+    }
+    return answerSecond ? items(second) : new Response("", { status: 500 });
+  };
+  const titles = (state) => state.pool.filter((doc) => doc.source === "github").map((doc) => doc.title);
+
+  const state = await search("linux kernel source tree in:code", { fetch: fixtureFetch({ github: github(true) }), keepPool: true });
+  assert.equal(asked.length, 2);
+  assert.deepEqual(titles(state), ["torvalds/linux", "someone/kernel-notes"]);
+  assert.equal(state.status.github.state, "ok");
+
+  const broken = await search("linux kernel source tree in:code", { fetch: fixtureFetch({ github: github(false) }), keepPool: true });
+  assert.deepEqual(titles(broken), ["someone/kernel-notes"]);
+  assert.equal(broken.status.github.state, "ok");
 });

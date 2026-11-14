@@ -24,6 +24,7 @@ export const KIND_LABELS = {
   news: "News report",
   record: "Research record",
   official: "Government",
+  dataset: "Open data",
   trial: "Clinical trial",
   bookpage: "Inside a book",
 };
@@ -56,6 +57,9 @@ export const LENSES = {
       clinicaltrials: 0.85,
       govuk: 0.85,
       federalregister: 0.85,
+      eudata: 0.8,
+      canadadata: 0.8,
+      ausdata: 0.8,
     },
     whenRelevant: [
       "wiktionary",
@@ -66,6 +70,9 @@ export const LENSES = {
       "clinicaltrials",
       "govuk",
       "federalregister",
+      "eudata",
+      "canadadata",
+      "ausdata",
     ],
   },
   learn: {
@@ -97,8 +104,11 @@ export const LENSES = {
       openlibrary: 0.8,
       clinicaltrials: 1,
       bookstext: 0.9,
+      eudata: 0.9,
+      canadadata: 0.9,
+      ausdata: 0.9,
     },
-    whenRelevant: ["clinicaltrials", "bookstext"],
+    whenRelevant: ["clinicaltrials", "bookstext", "eudata", "canadadata", "ausdata"],
   },
   build: {
     label: "Build",
@@ -112,8 +122,17 @@ export const LENSES = {
   },
   official: {
     label: "Official",
-    hint: "Government, law, trials, source texts",
-    weights: { govuk: 1.1, federalregister: 1.1, clinicaltrials: 1, wikisource: 0.9, wikipedia: 0.8 },
+    hint: "Government, law, open data, trials, source texts",
+    weights: {
+      govuk: 1.1,
+      federalregister: 1.1,
+      eudata: 1,
+      canadadata: 1,
+      ausdata: 1,
+      clinicaltrials: 1,
+      wikisource: 0.9,
+      wikipedia: 0.8,
+    },
   },
 };
 
@@ -292,7 +311,7 @@ const wikipedia = {
       `&generator=search&gsrsearch=${query}&gsrlimit=8` +
       "&prop=extracts%7Cinfo%7Cdescription%7Cpageprops&ppprop=disambiguation" +
       "&exintro=1&explaintext=1&exsentences=4&exlimit=8&inprop=url" +
-      `&list=search&srsearch=${query}&srlimit=8&srprop=snippet%7Ctimestamp&srinfo=suggestion`
+      `&list=search&srsearch=${query}&srlimit=8&srprop=snippet%7Ctimestamp%7Credirecttitle&srinfo=suggestion`
     );
   },
   /** Wikipedia's own "did you mean" for a misspelt query; plain text, never markup. */
@@ -316,6 +335,10 @@ const wikipedia = {
       doc.extra = [page.description ?? "", stripHtml(hit?.snippet ?? "")].join(" ").trim();
       if (!doc.snippet) {
         doc.snippet = stripHtml(hit?.snippet ?? "") || (page.description ?? "");
+      }
+      // "heart attack" is a redirect to "Myocardial infarction": the redirect is another name of the page.
+      if (typeof hit?.redirecttitle === "string" && hit.redirecttitle.trim()) {
+        doc.alias = hit.redirecttitle.trim();
       }
       doc.living = true;
       doc.signals.lastEdited = isoDay(hit?.timestamp ?? page.touched);
@@ -453,6 +476,51 @@ const github = {
       query += ` created:>${opts.after}`;
     }
     return `https://api.github.com/search/repositories?q=${enc(query)}&per_page=6`;
+  },
+  /**
+   * GitHub's best-match order is poor for descriptive queries: "linux kernel source tree" does not
+   * return torvalds/linux, and "django web framework" returns starter kits before django/django. When
+   * the first answer has no well-known repository named like the query's first content word, ask once
+   * more for the most-starred repositories whose name contains that word.
+   */
+  followUp(parsed, docs, opts) {
+    const word = projectWord(parsed);
+    if (!word || parsed.phrases.length) {
+      return null;
+    }
+    const known = docs
+      .slice(0, 3)
+      .some(
+        (doc) => (doc.signals?.stars ?? 0) >= KNOWN_REPO_STARS && fold(doc.title).split("/").includes(word),
+      );
+    const contentWords = tokenize(parsed.text).filter((token) => !STOPWORDS.has(token));
+    if (known || !(contentWords.length <= 2 || mentions(parsed, CODE_WORDS))) {
+      return null;
+    }
+    let query = `${word} in:name`;
+    if (opts.before) {
+      query += ` created:<${opts.before}`;
+    }
+    if (opts.after) {
+      query += ` created:>${opts.after}`;
+    }
+    return `https://api.github.com/search/repositories?q=${enc(query)}&sort=stars&order=desc&per_page=3`;
+  },
+  /** Well-known repositories named exactly like the word go first; unknown ones are not added at all. */
+  mergeFollowUp(parsed, first, second) {
+    const word = projectWord(parsed);
+    const known = second.filter((doc) => (doc.signals?.stars ?? 0) >= KNOWN_REPO_STARS);
+    const isNamed = (doc) => fold(doc.title).split("/").includes(word);
+    const ordered = [...known.filter(isNamed), ...first, ...known.filter((doc) => !isNamed(doc))];
+    const seen = new Set();
+    const docs = [];
+    for (const doc of ordered) {
+      if (!seen.has(doc.id)) {
+        seen.add(doc.id);
+        docs.push({ ...doc, upstreamRank: docs.length });
+      }
+    }
+    return docs;
   },
   parse(json) {
     const docs = [];
@@ -855,12 +923,80 @@ const MEDICAL_WORDS = wordSet(
     "treatment therapy infection diabetes cancer tumor tumour drug medication patient patients syndrome " +
     "disorder chemotherapy insulin covid asthma hypertension depression alzheimer stroke obesity",
 );
-const OFFICIAL_WORDS = wordSet(
+/** Words that say outright "I want the government's page". They also raise those sources in the ranking. */
+const OFFICIAL_INTENT = wordSet(
   "law laws legal regulation regulations rule rules act statute policy visa passport tax taxes benefit " +
     "benefits licence license permit government federal agency compliance tariff customs immigration " +
     "pension statutory legislation guidance",
 );
+/** Everyday words of dealing with a government. They decide only whether the official sources are asked. */
+const OFFICIAL_WORDS = new Set([
+  ...OFFICIAL_INTENT,
+  ...wordSet(
+    "eligibility eligible claim claims allowance council universal childcare apply renew register vote " +
+      "voting driving vehicle nhs hmrc dvla vat citizenship residency asylum court tribunal penalty " +
+      "consumer employment redundancy maternity paternity parental wage landlord tenant tenancy housing " +
+      "probate inheritance marriage divorce certificate",
+  ),
+]);
 const DEFINE_WORDS = wordSet("define definition definitions meaning means mean word etymology synonym synonyms");
+const TRAVEL_INTENT = wordSet(
+  "travel trip itinerary sightseeing tourist tourism vacation holiday guide visit visiting backpacking " +
+    "wisata liburan",
+);
+const NEWS_INTENT = wordSet("news headline headlines breaking berita");
+const TEXTBOOK_WORDS = wordSet("textbook textbooks wikibook wikibooks course lecture lectures tutorial primer handbook");
+const CODE_INTENT = wordSet("repo repository repositories github library framework sdk package source code");
+/** Words that make a query look like the description of a software project. */
+const CODE_WORDS = new Set([
+  ...CODE_INTENT,
+  ...wordSet(
+    "compiler interpreter engine kernel language programming toolkit cli plugin runtime database editor " +
+      "orchestration container server client parser bundler",
+  ),
+]);
+const DATA_WORDS = wordSet(
+  "data dataset datasets statistics statistical census indicator indicators figures survey emissions " +
+    "population unemployment inflation gdp",
+);
+const KNOWN_REPO_STARS = 1000;
+
+/**
+ * Words in a query that name the kind of page wanted. A source whose intent words appear in the
+ * query counts for more, and its title is compared with the query without those words:
+ * "kyoto travel guide" should find the travel guide titled "Kyoto".
+ */
+const INTENT_WORDS = {
+  wiktionary: DEFINE_WORDS,
+  wikivoyage: TRAVEL_INTENT,
+  wikiquote: QUOTE_WORDS,
+  wikinews: NEWS_INTENT,
+  wikibooks: TEXTBOOK_WORDS,
+  github: CODE_INTENT,
+  govuk: OFFICIAL_INTENT,
+  federalregister: OFFICIAL_INTENT,
+  eudata: DATA_WORDS,
+  canadadata: DATA_WORDS,
+  ausdata: DATA_WORDS,
+};
+export const INTENT_BOOST = 1.25;
+
+/**
+ * { boost, words, core } for one source and one query: the multiplier, the intent words the query
+ * used, and the query's remaining content words.
+ */
+export function intentOf(sourceId, parsed) {
+  const set = INTENT_WORDS[sourceId];
+  const tokens = tokenize(parsed.text);
+  const words = set ? tokens.filter((token) => set.has(token)) : [];
+  const core = tokens.filter((token) => !STOPWORDS.has(token) && !(set && set.has(token)));
+  return { boost: words.length ? INTENT_BOOST : 1, words, core };
+}
+
+/** The first query word that could be the name of a software project. */
+function projectWord(parsed) {
+  return tokenize(parsed.text).find((token) => !STOPWORDS.has(token) && !CODE_WORDS.has(token)) ?? "";
+}
 
 /** The word or two-word term a dictionary could hold, or "" when the query is not that kind. */
 export function dictionaryTerm(parsed) {
@@ -1090,6 +1226,116 @@ const govuk = {
   },
 };
 
+/** Canada and Australia run the same open-data catalogue software (CKAN), so one factory serves both. */
+function ckanPortal({ id, label, host, base, page, jurisdiction, about }) {
+  return {
+    id,
+    label,
+    kind: "dataset",
+    home: `https://${host}/`,
+    about,
+    relevant: (parsed) => mentions(parsed, DATA_WORDS),
+    request(parsed) {
+      return (
+        `https://${host}${base}/api/3/action/package_search?q=${enc(parsed.upstream)}&rows=5` +
+        "&fl=id,name,title,notes,metadata_modified,organization"
+      );
+    },
+    parse(json) {
+      const docs = [];
+      for (const item of list(json?.result?.results)) {
+        if (!item?.title || !(item.name || item.id)) {
+          continue;
+        }
+        const doc = baseDoc(id, "dataset", item.id ?? item.name, docs.length);
+        doc.title = stripHtml(String(item.title));
+        doc.url = page(item);
+        doc.snippet = truncate(plainMarkdown(item.notes), 500);
+        if (!doc.snippet) {
+          doc.snippet = `Dataset on ${label}. The catalogue holds no description.`;
+          doc.snippetIsMeta = true;
+        }
+        const organisation = typeof item.organization === "string" ? item.organization : item.organization?.title;
+        doc.venue = String(organisation ?? "").replace(/[-_]/g, " ");
+        doc.date = isoDay(item.metadata_modified);
+        doc.signals = { jurisdiction };
+        docs.push(doc);
+      }
+      return docs;
+    },
+  };
+}
+
+/** Catalogue descriptions are Markdown or HTML; an excerpt shows them as plain text. */
+function plainMarkdown(value) {
+  return stripHtml(String(value ?? ""))
+    .replace(/!?\[([^\]]*)\]\([^)]*\)/g, "$1")
+    .replace(/[*_`#>|]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+const canadadata = ckanPortal({
+  id: "canadadata",
+  label: "Open Canada",
+  host: "open.canada.ca",
+  base: "/data",
+  page: (item) => `https://open.canada.ca/data/en/dataset/${enc(item.id)}`,
+  jurisdiction: "Canada",
+  about: "Datasets published by the Government of Canada. Asked when the query is about data or statistics.",
+});
+
+const ausdata = ckanPortal({
+  id: "ausdata",
+  label: "data.gov.au",
+  host: "data.gov.au",
+  base: "/data",
+  page: (item) => `https://data.gov.au/data/dataset/${enc(item.name ?? item.id)}`,
+  jurisdiction: "Australia",
+  about: "Datasets published by Australian governments. Asked when the query is about data or statistics.",
+});
+
+const eudata = {
+  id: "eudata",
+  label: "data.europa.eu",
+  kind: "dataset",
+  home: "https://data.europa.eu/",
+  about:
+    "The European Union's catalogue of public datasets from its institutions and member states. " +
+    "Asked when the query is about data or statistics.",
+  relevant: (parsed) => mentions(parsed, DATA_WORDS),
+  request(parsed) {
+    // aggregation=false leaves out 400 KB of facet counts this page never shows.
+    return (
+      `https://data.europa.eu/api/hub/search/search?q=${enc(parsed.upstream)}&limit=6&filter=dataset` +
+      "&aggregation=false&includes=id,title.en,description.en,country,modified,issued,publisher"
+    );
+  },
+  parse(json) {
+    const docs = [];
+    for (const item of list(json?.result?.results)) {
+      const title = item?.title?.en;
+      if (!title || !item.id) {
+        continue;
+      }
+      const doc = baseDoc("eudata", "dataset", item.id, docs.length);
+      doc.title = stripHtml(String(title));
+      doc.url = `https://data.europa.eu/data/datasets/${enc(item.id)}?locale=en`;
+      doc.snippet = truncate(plainMarkdown(item.description?.en), 500);
+      if (!doc.snippet) {
+        doc.snippet = "Dataset on data.europa.eu. The catalogue holds no English description.";
+        doc.snippetIsMeta = true;
+      }
+      doc.venue = String(item.publisher?.name ?? "");
+      doc.date = isoDay(item.modified ?? item.issued);
+      const country = item.country?.label;
+      doc.signals = { jurisdiction: country && country !== "European Union" ? `European Union, ${country}` : "European Union" };
+      docs.push(doc);
+    }
+    return docs;
+  },
+};
+
 const federalregister = {
   id: "federalregister",
   label: "Federal Register",
@@ -1256,6 +1502,9 @@ export const SOURCES = [
   clinicaltrials,
   govuk,
   federalregister,
+  eudata,
+  canadadata,
+  ausdata,
 ];
 
 export const SOURCE_BY_ID = Object.fromEntries(SOURCES.map((source) => [source.id, source]));
@@ -1283,6 +1532,9 @@ export const API_HOSTS = [
   "clinicaltrials.gov",
   "www.gov.uk",
   "www.federalregister.gov",
+  "data.europa.eu",
+  "open.canada.ca",
+  "data.gov.au",
 ];
 
 /** Hosts reached through a language sub-domain; the content security policy lists them as https://*.host. */

@@ -1,6 +1,6 @@
 {
-  "name": "Sumber: search the sources",
-  "short_name": "Sumber",
+  "name": "Telisik: search the sources",
+  "short_name": "Telisik",
   "description": "Search Wikipedia, Stack Exchange, Hacker News, GitHub, OpenAlex, Europe PMC, the Internet Archive and Open Library at once. No generated text, no ads, no account.",
   "lang": "en",
   "start_url": "./",

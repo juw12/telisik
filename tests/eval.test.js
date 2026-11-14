@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { isHigher, isHit, mergeRetry, score, splitOf } from "../tools/eval.mjs";
+import { isHigher, isHit, mergeRefresh, mergeRetry, score, splitOf } from "../tools/eval.mjs";
 
 const { queries } = JSON.parse(readFileSync(new URL("./eval/queries.json", import.meta.url), "utf8"));
 
@@ -107,4 +107,27 @@ test("a retry keeps what was saved and only fills in the sources that answer thi
   assert.deepEqual(merged.failed, ["stackexchange:limit"]);
   assert.deepEqual(merged.docs.map((doc) => doc.id), ["new", "saved"]);
   assert.deepEqual(merged.planned, before.planned);
+});
+
+test("a refresh replaces only the sources that answer and adds the ones never asked before", () => {
+  const before = {
+    planned: ["wikipedia", "github"],
+    failed: ["github:limit"],
+    docs: [
+      { source: "wikipedia", id: "kept" },
+      { source: "github", id: "old" },
+    ],
+  };
+  const state = {
+    planned: ["wikipedia", "github", "eudata", "govuk"],
+    status: { github: { state: "ok" }, eudata: { state: "ok" }, govuk: { state: "error" } },
+    pool: [
+      { source: "github", id: "fresh" },
+      { source: "eudata", id: "data" },
+    ],
+  };
+  const merged = mergeRefresh(before, state, new Set(["github", "eudata", "govuk"]));
+  assert.deepEqual(merged.docs.map((doc) => doc.id).sort(), ["data", "fresh", "kept"]);
+  assert.deepEqual(merged.failed, ["govuk:error"]);
+  assert.deepEqual(merged.planned, state.planned);
 });

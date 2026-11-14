@@ -53,7 +53,7 @@ fill in yet, and income stays at zero until one account exists and its address i
 
 ## Name check
 
-"Sumber" is the ordinary Indonesian and Malay word for "source". A web search on 14 November 2026
+"Telisik" is the ordinary Indonesian and Malay word for "source". A web search on 14 November 2026
 found a Netherlands IT company trading under the same name and no search engine using it. That is a
 quick look, not a trademark clearance: the Indonesian (PDKI) and WIPO Global Brand registers were
 not queried. Before putting money behind the name, have it checked properly.

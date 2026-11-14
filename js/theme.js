@@ -2,7 +2,10 @@
 (function applySavedTheme() {
   var theme = "auto";
   try {
-    var saved = JSON.parse(localStorage.getItem("sumber.settings.v1") || "{}");
+    // "sumber.settings.v1" is the key from before the rename; app.js moves it on first load.
+    var saved = JSON.parse(
+      localStorage.getItem("telisik.settings.v1") || localStorage.getItem("sumber.settings.v1") || "{}"
+    );
     if (saved && (saved.theme === "light" || saved.theme === "dark")) {
       theme = saved.theme;
     }

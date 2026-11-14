@@ -14,6 +14,9 @@ const HOSTS = {
   "clinicaltrials.gov": "clinicaltrials",
   "www.gov.uk": "govuk",
   "www.federalregister.gov": "federalregister",
+  "data.europa.eu": "eudata",
+  "open.canada.ca": "canadadata",
+  "data.gov.au": "ausdata",
 };
 
 const WIKI_SUFFIXES = ["wikipedia", "wikibooks", "wiktionary", "wikinews", "wikiquote", "wikivoyage", "wikisource"];
@@ -44,6 +47,9 @@ export const FIXTURE_QUERIES = {
   federalregister: "drone regulation",
   clinicaltrials: "metformin diabetes",
   bookstext: '"binary search tree"',
+  eudata: "unemployment statistics",
+  canadadata: "unemployment statistics",
+  ausdata: "unemployment statistics",
 };
 
 export function fixtureQuery(id) {
