@@ -29,6 +29,12 @@ def main() -> None:
         target = ROOT / "icons" / f"icon-{size}.png"
         master.resize((size, size), Image.LANCZOS).save(target, optimize=True)
         print(f"wrote {target} ({target.stat().st_size} bytes)")
+    # The browser extension cannot read files outside its own folder, so it keeps its own sizes.
+    for size in (16, 32, 48, 128):
+        target = ROOT / "extension" / "icons" / f"icon-{size}.png"
+        target.parent.mkdir(parents=True, exist_ok=True)
+        master.resize((size, size), Image.LANCZOS).save(target, optimize=True)
+        print(f"wrote {target} ({target.stat().st_size} bytes)")
 
 
 if __name__ == "__main__":

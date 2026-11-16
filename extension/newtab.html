@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>New tab</title>
+    <meta name="referrer" content="no-referrer">
+    <meta name="color-scheme" content="light dark">
+    <link rel="icon" href="icons/icon-32.png" type="image/png">
+    <link rel="stylesheet" href="page.css">
+    <script type="module" src="page.js"></script>
+  </head>
+  <body data-surface="newtab">
+    <main class="page">
+      <h1 class="wordmark"><a href="https://juw12.github.io/telisik/" aria-label="Telisik, home">Telisik<sup aria-hidden="true">1</sup></a></h1>
+      <p class="tagline">Search the sources. Nothing generated, nothing sponsored.</p>
+      <form id="search-form" class="search" role="search">
+        <label for="q" class="visually-hidden">Search the sources</label>
+        <input id="q" name="q" type="search" inputmode="search" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="300" placeholder="Encyclopedia, papers, answers, code" autofocus>
+        <button type="submit" class="search-button">Search</button>
+      </form>
+      <ul class="hints">
+        <li>In the address bar, type <kbd>tk</kbd>, a space, then your search.</li>
+        <li>Select text on any page and right-click it to search for it.</li>
+        <li><a href="https://juw12.github.io/telisik/about.html#operators">Operators and shortcuts</a> &middot; <a href="https://juw12.github.io/telisik/about.html">How it works</a></li>
+      </ul>
+      <p class="footnote"><sup aria-hidden="true">1</sup> This page is stored inside the extension. It asks nothing from the network until you search.</p>
+    </main>
+  </body>
+</html>

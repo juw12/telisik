@@ -41,13 +41,16 @@ and it prints only what a source wrote.
 | Bangs | `!g`, `!ddg`, `!maps`, `!yt` and others hand the query to another engine, so it can be your default search |
 | Private by construction | No server, no account, no cookies, no analytics, and no key needed. The query stays behind the `#` in the address |
 | In the browser | An install button where the browser offers one, address-bar search (the page declares itself with OpenSearch), and a place in the Android share sheet once installed. Tested in Chromium and Firefox |
+| Browser extension | Optional, in `extension/`. Puts Telisik on the new tab page, behind the address-bar keyword `tk`, in the right-click menu for selected text and on a toolbar button (Alt+Shift+K). It asks for one permission, the right-click menu, and no access to any site |
 | Your own Stack Exchange key | Optional field in Settings. A key raises that source's daily quota; it stays in this browser and goes only to Stack Exchange |
 | Works offline as a shell | The page opens with no connection and says which sources did not answer |
 
 ## What it cannot do
 
 - It is a web page, not a browser. It runs inside Chrome, Edge, Firefox or Safari and cannot replace
-  them.
+  them. The extension changes where a search starts (new tab, address bar, right-click, toolbar). It
+  does not change how the browser loads or draws pages, and it is not faster or safer than the browser
+  it sits in.
 - It is not a crawl of the whole web. The Mwmbl index adds some ordinary web pages, but it is small.
   Shops, news sites, company pages and forums outside the sources are mostly not in it. Use a bang.
 - It is not a news wire. News comes from Wikinews and the links posted to Hacker News only.
@@ -208,15 +211,51 @@ python -m http.server 8080
 
 Then open http://localhost:8080/.
 
+## Browser extension
+
+The folder `extension/` is a small extension for Chrome, Edge and Firefox. It takes over the four
+places where the browser decides where a search goes:
+
+| Place | What happens |
+|---|---|
+| New tab | A Telisik search box. The page is stored inside the extension and asks nothing from the network until you search |
+| Address bar | Type `tk`, a space, then the search. Enter opens it in the tab in front, Alt+Enter in a new one |
+| Right-click | Select text on any page, right-click, "Search Telisik for ...". The results open in the tab next to it |
+| Toolbar button | A small search box. Alt+Shift+K opens it |
+
+It asks for one permission, `contextMenus`, and no access to any site: it cannot read the pages you
+visit. It has no remote code, and its own pages may not make a network request at all: their content
+security policy starts from `default-src 'none'` and allows only the extension's own scripts, styles
+and images. All it ever does is open `https://juw12.github.io/telisik/#q=...`.
+
+It is not in the Chrome Web Store or on addons.mozilla.org. Both need the owner's own developer
+account (Chrome's has a one-time fee), and neither has been set up. Until then it is loaded by hand:
+
+- **Chrome, Edge:** open `chrome://extensions` (Edge: `edge://extensions`), switch on Developer mode,
+  press "Load unpacked" and choose the `extension` folder. Chrome says in its prompt that the extension
+  changes the new tab page; that is the new tab override and it is listed next to `contextMenus`.
+- **Firefox:** run `python tools/pack_extension.py`, open `about:debugging#/runtime/this-firefox`,
+  press "Load Temporary Add-on" and choose `dist/telisik-firefox/manifest.json`. Firefox removes a
+  temporary add-on when it closes. Staying installed needs a copy signed by Mozilla.
+
+`python tools/pack_extension.py` also writes `dist/telisik-chrome.zip` and `dist/telisik-firefox.zip`,
+the forms the two stores take. `dist/` is not in git.
+
+On a real new tab the cursor starts in the browser's address bar, not in the page's search box. The
+browser decides that and an extension cannot change it. Press Tab once, or type `tk` and a space.
+
 ## Check it
 
 ```
-node --test tests/                 # 146 unit tests: parser, adapters, ranking, text, promises
+node --test tests/                 # 159 unit tests: parser, adapters, ranking, text, promises, extension
 node tools/eval.mjs --misses       # ranking quality on the saved answers, with every miss listed
 python tools/e2e.py                # real Chromium, API answers from tests/fixtures
 python tools/e2e.py --only functional --browser firefox   # the same behaviour checks in Firefox
 python tools/e2e.py --only live    # one search against the real sources
 python tools/e2e.py --base https://juw12.github.io/telisik/ --only live
+python tools/extension_e2e.py --browser chromium   # the extension, loaded into a real browser
+python tools/extension_e2e.py --browser chrome
+python tools/extension_e2e.py --browser firefox --firefox-binary PATH
 ```
 
 The browser run needs Python with Playwright (`pip install playwright`, `playwright install chromium
@@ -224,6 +263,18 @@ firefox`).
 It fails on any console error, any request outside the declared sources, horizontal overflow at 320,
 390, 768, 1024 or 1440 px, text contrast below WCAG AA, tap targets under 44 px on phones and text
 under 12 px, in light and dark.
+
+The extension run installs the extension into a fresh browser profile and checks what the browser
+itself reports: that it is enabled with no manifest warning, which permissions it holds, that a new tab
+opens its page, that the page loads nothing from outside the extension, and that a search typed there
+arrives on the site. On 16 November 2026 it passed 27 of 27 checks in Playwright's Chromium 148 and in
+Chrome 157, and 24 of 24 in Playwright's Firefox 150. Edge was not run.
+
+The robot cannot press keys in the browser's own address bar, open its right-click menu or press
+Alt+Shift+K, so those three are checked one step in: the test confirms the browser has the keyword,
+the menu entry and the shortcut registered, then calls the code they run and checks which tab opens
+where. Nobody has yet typed `tk` into a real address bar under test. In Firefox the test checks the
+address each search opens, not the site behind it.
 
 `tests/hygiene.test.js` holds the page to its own words: no remote scripts or fonts, no inline script,
 a content security policy that lists exactly the source hosts, and ranking code that cannot read the
@@ -245,6 +296,9 @@ money settings.
 | `design.md` | Why it looks the way it does |
 | `tools/eval.mjs`, `tests/eval/` | The ranking check: three question sets (`queries.json`, `queries2.json`, `queries3.json`), the saved answers (`pools.json`, `pools2.json`, `pools3-first.json`, `pools3.json`), the tuning search |
 | `tools/compare.mjs`, `tests/eval/wiby.json` | The same questions asked of each source alone and of the Wiby index |
+| `extension/` | The browser extension: `manifest.json`, `url.js` (builds the search address), `background.js` (address-bar keyword, right-click entry), `page.js`, `newtab.html`, `popup.html`, `page.css`, `icons/` |
+| `tools/pack_extension.py` | Writes `dist/`: the Chrome zip and the Firefox folder and zip with Firefox's manifest |
+| `tools/extension_e2e.py` | Loads the extension into Chromium, Chrome or Firefox and checks it there |
 | `founder/` | Niche, competitors and money notes |
 
 ## Money
