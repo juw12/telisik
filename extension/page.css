@@ -228,3 +228,9 @@ kbd {
   margin-top: 0.9rem;
   padding-top: 0.5rem;
 }
+
+.popup-hint {
+  margin-top: 0.35rem;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}

@@ -241,13 +241,29 @@ account (Chrome's has a one-time fee), and neither has been set up. Until then i
 `python tools/pack_extension.py` also writes `dist/telisik-chrome.zip` and `dist/telisik-firefox.zip`,
 the forms the two stores take. `dist/` is not in git.
 
-On a real new tab the cursor starts in the browser's address bar, not in the page's search box. The
-browser decides that and an extension cannot change it. Press Tab once, or type `tk` and a space.
+What the browser itself adds, measured with real keys and a real mouse in Chrome 157, Edge 157 and
+Playwright's Firefox 150:
+
+- **New tab.** After Ctrl+T the cursor is in the browser's address bar, not in the page's search box,
+  in all three. The browser decides that and the extension does not fight it. Click in the box, or
+  type `tk` and a space.
+- **One question, once.** The first new tab asks whether to keep the new page: "Keep it" in Chrome,
+  "Keep changes" in Edge, "Keep Changes" in Firefox. The test only ever chose to keep it.
+- **Edge** sometimes shows "Turn off extensions in developer mode" for an extension loaded by hand
+  (seen in 1 of 3 runs).
+- **Right-click.** Firefox keeps its own "Search Google for ..." entry next to the Telisik one.
+- **Firefox toolbar.** The button is not pinned by default. It sits in the Extensions menu as
+  "Search Telisik".
+- **Firefox bubble.** After Alt+Shift+K or a click on the button the bubble opens, but typing did not
+  reach its box until one real click in it, in every Firefox run. Mozilla's bug tracker has reports
+  that appear to describe the same thing (1512917, 1918031); that they are the cause is not confirmed.
+  The bubble says so in Firefox: "In Firefox, click in the box first if typing does nothing." In
+  Chrome and Edge the bubble takes typing right away.
 
 ## Check it
 
 ```
-node --test tests/                 # 159 unit tests: parser, adapters, ranking, text, promises, extension
+node --test tests/                 # 160 unit tests: parser, adapters, ranking, text, promises, extension
 node tools/eval.mjs --misses       # ranking quality on the saved answers, with every miss listed
 python tools/e2e.py                # real Chromium, API answers from tests/fixtures
 python tools/e2e.py --only functional --browser firefox   # the same behaviour checks in Firefox
@@ -255,7 +271,9 @@ python tools/e2e.py --only live    # one search against the real sources
 python tools/e2e.py --base https://juw12.github.io/telisik/ --only live
 python tools/extension_e2e.py --browser chromium   # the extension, loaded into a real browser
 python tools/extension_e2e.py --browser chrome
+python tools/extension_e2e.py --browser edge
 python tools/extension_e2e.py --browser firefox --firefox-binary PATH
+python tools/extension_real_input.py --browser chrome    # real keys and mouse, Windows only; also edge, firefox
 ```
 
 The browser run needs Python with Playwright (`pip install playwright`, `playwright install chromium
@@ -267,14 +285,35 @@ under 12 px, in light and dark.
 The extension run installs the extension into a fresh browser profile and checks what the browser
 itself reports: that it is enabled with no manifest warning, which permissions it holds, that a new tab
 opens its page, that the page loads nothing from outside the extension, and that a search typed there
-arrives on the site. On 16 November 2026 it passed 27 of 27 checks in Playwright's Chromium 148 and in
-Chrome 157, and 24 of 24 in Playwright's Firefox 150. Edge was not run.
+arrives on the site. On 16 November 2026 it passed 28 of 28 checks in Playwright's Chromium 148, in
+Chrome 157 and in Edge 157, and 25 of 25 in Playwright's Firefox 150. On a busy computer the first
+tries failed four times on waits that were too short. The waits were lengthened, nothing else.
 
-The robot cannot press keys in the browser's own address bar, open its right-click menu or press
-Alt+Shift+K, so those three are checked one step in: the test confirms the browser has the keyword,
-the menu entry and the shortcut registered, then calls the code they run and checks which tab opens
-where. Nobody has yet typed `tk` into a real address bar under test. In Firefox the test checks the
-address each search opens, not the site behind it.
+That run cannot press keys in the browser's own address bar, open its right-click menu or press
+Alt+Shift+K, so it checks those one step in: the browser has the keyword, the menu entry and the
+shortcut registered, and the code they run opens the right tab.
+
+`tools/extension_real_input.py` covers the rest with the keyboard and mouse of the whole computer:
+Ctrl+T, `tk` typed in the real address bar, the real right-click menu, Alt+Shift+K and the real
+toolbar button. It takes about half a minute of input in Chrome and Edge and about a minute in
+Firefox. It starts only after 6 seconds without a key or mouse move, uses its own browser window on a
+throwaway profile, checks before every key and click that this window has the keyboard, stops
+sending if you take it back, and puts the pointer and your window back at the end. The test browser
+gets a proxy that does not exist, so nothing reaches the network. On 16 November 2026 the last runs
+gave:
+
+| Browser | Real-input checks passed |
+|---|---|
+| Chrome 157.0.8103.78 | 25 of 25 |
+| Edge 157.0.4341.46 | 25 of 25 |
+| Firefox 150.0.2, the build Playwright ships | 24 of 26 |
+
+The two Firefox misses are the bubble not taking typing before a click (above). The two checks
+"after one real click it works" pass. In Firefox the test cannot answer the site from the folder, so
+it checks the address each search opens, not the page behind it.
+
+Still not tested: the Firefox that Mozilla releases (only Playwright's build was here), the live site
+behind the extension with real input, and an extension installed from a store.
 
 `tests/hygiene.test.js` holds the page to its own words: no remote scripts or fonts, no inline script,
 a content security policy that lists exactly the source hosts, and ranking code that cannot read the

@@ -146,6 +146,14 @@ test("extension pages have no inline code and load nothing from another host", (
   assert.doesNotMatch(read("page.css"), /@import|url\(/i);
 });
 
+test("the popup hint for Firefox starts hidden and only a moz-extension page shows it", () => {
+  assert.match(read("popup.html"), /<p id="firefox-hint" class="popup-hint" hidden>[^<]+<\/p>/);
+  assert.doesNotMatch(read("newtab.html"), /firefox-hint/);
+  const page = read("page.js");
+  assert.match(page, /if \(isPopup && location\.protocol === "moz-extension:"\) \{\s*document\.getElementById\("firefox-hint"\)\.hidden = false;/);
+  assert.doesNotMatch(read("page.css"), /\.popup-hint\s*\{[^}]*display/, "a display rule would defeat the hidden attribute");
+});
+
 test("extension text files have no byte-order mark and no mis-decoded characters", () => {
   for (const name of textFiles) {
     const text = read(name);

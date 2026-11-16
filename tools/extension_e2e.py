@@ -2,6 +2,7 @@
 
     python tools/extension_e2e.py                      Chromium that Playwright ships
     python tools/extension_e2e.py --browser chrome     the Chrome installed on this computer
+    python tools/extension_e2e.py --browser edge       the Edge installed on this computer
     python tools/extension_e2e.py --browser firefox    Firefox (--firefox-binary PATH if it is not found)
     python tools/extension_e2e.py --shots DIR          also save screenshots
 
@@ -9,9 +10,10 @@ Hermetic: the browser gets a proxy that does not exist, and in Chromium the page
 https://juw12.github.io/telisik/ are answered from this folder. Nothing reaches the network.
 The browser runs headless on a throwaway profile; only that browser is stopped at the end.
 
-What a robot cannot do without taking over the keyboard and mouse of the whole computer is left
-out and not claimed: typing "tk" in the real address bar, opening the real right-click menu,
-pressing Alt+Shift+K and the real toolbar bubble. The code those four run is called directly instead.
+Four things need the real keyboard and mouse of the computer and are not done here: typing "tk"
+in the real address bar, opening the real right-click menu, pressing Alt+Shift+K and the real toolbar
+bubble. Here the code those four run is called directly; tools/extension_real_input.py does them
+with real keys and a real mouse in a window on the screen.
 Exit code 1 when a check fails.
 """
 
@@ -36,6 +38,8 @@ DEAD_PROXY_PORT = 9
 MENU_ID = "telisik-search-selection"
 GECKO_ID = "telisik@juw12.github.io"
 SHORTCUT = "Alt+Shift+K"
+# Installed browsers that Playwright starts by channel: its channel name and the name to print.
+BRANDED = {"chrome": ("chrome", "Chrome"), "edge": ("msedge", "Edge")}
 ELEMENT_KEY = "element-6066-11e4-a52e-4f735466cecf"
 ENTER = "\ue007"
 
@@ -93,7 +97,7 @@ def remove_folder(folder):
         time.sleep(0.5)
 
 
-def wait_until(probe, seconds=10.0, pause=0.2):
+def wait_until(probe, seconds=30.0, pause=0.2):
     """Ask until the answer is truthy; return the last answer either way."""
     deadline = time.time() + seconds
     answer = probe()
@@ -166,14 +170,14 @@ EXTENSION_INFO_JS = """
     runtimeErrors: (info.runtimeErrors || []).map((error) => error.message),
     runtimeWarnings: info.runtimeWarnings || [],
   })),
-  new Promise((resolve) => setTimeout(() => resolve({ state: "no answer within 5 s" }), 5000)),
+  new Promise((resolve) => setTimeout(() => resolve({ state: "no answer within 20 s" }), 20000)),
 ])
 """
 
 DEVELOPER_MODE_JS = """
 () => Promise.race([
   chrome.developerPrivate.updateProfileConfiguration({ inDeveloperMode: true }).then(() => "on"),
-  new Promise((resolve) => setTimeout(() => resolve("no answer within 5 s"), 5000)),
+  new Promise((resolve) => setTimeout(() => resolve("no answer within 20 s"), 20000)),
 ])
 """
 
@@ -202,12 +206,13 @@ def run_chromium(args, checks):
         with sync_playwright() as playwright:
             # Every tab the extension opens runs into this proxy, which does not exist.
             switches = [f"--proxy-server=http://127.0.0.1:{DEAD_PROXY_PORT}"]
-            if args.browser == "chrome":
-                # Chrome took --load-extension out of its branded builds: load the folder the way
-                # the "Load unpacked" button does, over the debugging protocol.
+            if args.browser in BRANDED:
+                # Chrome took --load-extension out of its branded builds, and Edge is loaded the same
+                # way: the folder goes in the way the "Load unpacked" button does, over the debugging
+                # protocol.
                 context = playwright.chromium.launch_persistent_context(
                     profile,
-                    channel="chrome",
+                    channel=BRANDED[args.browser][0],
                     headless=True,
                     args=switches + ["--enable-unsafe-extension-debugging"],
                     ignore_default_args=["--disable-extensions"],
@@ -220,17 +225,18 @@ def run_chromium(args, checks):
                     args=switches + [f"--disable-extensions-except={EXTENSION}", f"--load-extension={EXTENSION}"],
                 )
             context.set_default_timeout(8000)
-            print(f"browser: {'Chrome' if args.browser == 'chrome' else 'Chromium'} {context.browser.version}", flush=True)
+            name = BRANDED[args.browser][1] if args.browser in BRANDED else "Chromium"
+            print(f"browser: {name} {context.browser.version}", flush=True)
             session = context.browser.new_browser_cdp_session()
 
             settings = context.new_page()
             settings.goto("chrome://extensions/")
             developer_mode = settings.evaluate(DEVELOPER_MODE_JS)
             extension_id = ""
-            if args.browser == "chrome":
+            if args.browser in BRANDED:
                 extension_id = session.send("Extensions.loadUnpacked", {"path": str(EXTENSION)})["id"]
 
-            def wait_for(probe, seconds=8.0):
+            def wait_for(probe, seconds=20.0):
                 """Like wait_until, but Playwright keeps reading the browser's messages while it waits."""
                 deadline = time.time() + seconds
                 answer = probe()
@@ -278,7 +284,9 @@ def run_chromium(args, checks):
                 audit["blocked"] == "connect-src",
                 audit["blocked"],
             )
-            checks.check("the new tab page puts the cursor in the search box", audit["focus"] == "q", audit["focus"])
+            # Opened by address, as here, the page gets the cursor. After a real Ctrl+T the browser keeps the
+            # cursor in its own address bar (measured with tools/extension_real_input.py); that is not claimed here.
+            checks.check("the new tab page, opened by its address, has the cursor in the search box", audit["focus"] == "q", audit["focus"])
             for width in (320, 1280):
                 page.set_viewport_size({"width": width, "height": 720})
                 overflow = page.evaluate("document.documentElement.scrollWidth - document.documentElement.clientWidth")
@@ -370,6 +378,8 @@ def run_chromium(args, checks):
             popup.goto(f"{origin}/popup.html")
             overflow = popup.evaluate("document.documentElement.scrollWidth - document.documentElement.clientWidth")
             checks.check("popup: no sideways scroll at its own width", overflow <= 0, f"{overflow} px")
+            hint_hidden = popup.evaluate("document.getElementById('firefox-hint').hidden")
+            checks.check("popup: the hint that is only for Firefox stays hidden here", hint_hidden is True, hint_hidden)
             for scheme in ("light", "dark"):
                 popup.emulate_media(color_scheme=scheme)
                 save_png(args.shots, f"{args.browser}-popup-{scheme}.png", popup.screenshot())
@@ -645,7 +655,7 @@ def run_firefox(args, checks):
 
         before = len(tabs()["urls"])
         client.browser_script(FIREFOX_OPEN_TAB_JS)
-        wait_until(lambda: selected_url() == f"{origin}/newtab.html", 10)
+        wait_until(lambda: selected_url() == f"{origin}/newtab.html")
         state = tabs()
         checks.check(
             "a new tab opens the extension's page",
@@ -675,7 +685,7 @@ def run_firefox(args, checks):
 
         before = tabs()
         client.page_script(call + "await handlers.openFromAddressBar(arguments[0], 'currentTab'); return true;", [ADDRESS_BAR[0]])
-        wait_until(lambda: selected_url() == search_url(ADDRESS_BAR[1]), 10)
+        wait_until(lambda: selected_url() == search_url(ADDRESS_BAR[1]))
         state = tabs()
         checks.check(
             "address bar, Enter: the search opens in the tab in front",
@@ -685,7 +695,7 @@ def run_firefox(args, checks):
 
         before = tabs()
         client.page_script(call + "await handlers.openFromAddressBar(arguments[0], 'newForegroundTab'); return true;", [NEW_TAB[0]])
-        wait_until(lambda: search_url(NEW_TAB[1]) in tabs()["urls"], 10)
+        wait_until(lambda: search_url(NEW_TAB[1]) in tabs()["urls"])
         state = tabs()
         checks.check(
             "address bar, Alt+Enter: the search opens in a new tab in front",
@@ -696,7 +706,7 @@ def run_firefox(args, checks):
         before = tabs()
         front = before["urls"][before["selected"]]
         client.page_script(call + "await handlers.openFromAddressBar(arguments[0], 'newBackgroundTab'); return true;", [BACKGROUND_TAB[0]])
-        wait_until(lambda: search_url(BACKGROUND_TAB[1]) in tabs()["urls"], 10)
+        wait_until(lambda: search_url(BACKGROUND_TAB[1]) in tabs()["urls"])
         state = tabs()
         checks.check(
             "address bar, background tab: the search opens behind",
@@ -709,7 +719,7 @@ def run_firefox(args, checks):
             call + "const tab = await handlers.openFromMenu({ menuItemId: handlers.MENU_ID, selectionText: arguments[0] }, { index: 0 }); return tab.index;",
             [SELECTION[0]],
         )
-        wait_until(lambda: search_url(SELECTION[1]) in tabs()["urls"], 10)
+        wait_until(lambda: search_url(SELECTION[1]) in tabs()["urls"])
         state = tabs()
         checks.check(
             "right-click on selected text: the search opens next to that tab",
@@ -752,6 +762,15 @@ def run_firefox(args, checks):
             checks.note(f"opening the popup page: {str(error)[:90]}")
         overflow = client.page_script("return document.documentElement.scrollWidth - document.documentElement.clientWidth;")
         checks.check("popup: no sideways scroll", overflow <= 0, f"{overflow} px")
+        hint = client.page_script(
+            "const hint = document.getElementById('firefox-hint');"
+            " return { hidden: hint.hidden, height: hint.getBoundingClientRect().height, text: hint.textContent };"
+        )
+        checks.check(
+            "popup: Firefox shows the hint to click in the box first",
+            hint["hidden"] is False and hint["height"] > 0 and "click in the box" in hint["text"],
+            hint,
+        )
         if args.shots:
             save_png(args.shots, "firefox-popup.png", base64.b64decode(client.send("WebDriver:TakeScreenshot", {"full": True})))
         before = tabs()
@@ -760,7 +779,7 @@ def run_firefox(args, checks):
             client.send("WebDriver:ElementSendKeys", {"id": box, "text": POPUP[0] + ENTER})
         except RuntimeError as error:
             checks.note(f"the popup closed itself while Firefox answered: {str(error)[:90]}")
-        wait_until(lambda: search_url(POPUP[1]) in tabs()["urls"], 10)
+        wait_until(lambda: search_url(POPUP[1]) in tabs()["urls"])
         state = tabs()
         checks.check("popup: Enter opens the search in a new tab", search_url(POPUP[1]) in state["urls"], state)
 
@@ -778,10 +797,10 @@ def run_firefox(args, checks):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("--browser", choices=["chromium", "chrome", "firefox"], default="chromium")
+    parser.add_argument("--browser", choices=["chromium", "chrome", "edge", "firefox"], default="chromium")
     parser.add_argument("--firefox-binary", default=None)
     parser.add_argument("--shots", default=None)
-    parser.add_argument("--seconds", type=int, default=150, help="give up after this long")
+    parser.add_argument("--seconds", type=int, default=300, help="give up after this long")
     args = parser.parse_args()
     checks = Checks()
 
