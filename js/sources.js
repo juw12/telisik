@@ -297,22 +297,60 @@ export function rebuildAbstract(invertedIndex) {
   return words.filter((word) => word !== undefined).join(" ");
 }
 
+const WIKI_PAGES = 8;
+/** The most introductions Wikipedia returns in one answer. */
+const WIKI_QUESTION_PAGES = 20;
+
 const wikipedia = {
   id: "wikipedia",
   label: "Wikipedia",
   kind: "encyclopedia",
   home: "https://www.wikipedia.org/",
   about: "Free encyclopedia. Pages are living documents and can change after any date you filter by.",
-  request(parsed, opts) {
+  /**
+   * A name ("photosynthesis") is found in the first few pages. The page that answers a question or
+   * a description ("medicine that kills bacteria" -> Antibiotic) often sits further down, because
+   * Wikipedia matches words, not meaning: so a question asks for 20 pages instead of 8.
+   */
+  url(parsed, opts, text) {
     const language = /^[a-z-]{2,12}$/.test(opts.wikiLang ?? "") ? opts.wikiLang : "en";
-    const query = enc(parsed.upstream);
+    const query = enc(text);
+    const limit = parsed.isQuestion ? WIKI_QUESTION_PAGES : WIKI_PAGES;
     return (
       `https://${language}.wikipedia.org/w/api.php?action=query&format=json&origin=*` +
-      `&generator=search&gsrsearch=${query}&gsrlimit=8` +
+      `&generator=search&gsrsearch=${query}&gsrlimit=${limit}` +
       "&prop=extracts%7Cinfo%7Cdescription%7Cpageprops&ppprop=disambiguation" +
-      "&exintro=1&explaintext=1&exsentences=4&exlimit=8&inprop=url" +
-      `&list=search&srsearch=${query}&srlimit=8&srprop=snippet%7Ctimestamp%7Credirecttitle&srinfo=suggestion`
+      `&exintro=1&explaintext=1&exsentences=4&exlimit=${limit}&inprop=url` +
+      `&list=search&srsearch=${query}&srlimit=${limit}&srprop=snippet%7Ctimestamp%7Credirecttitle&srinfo=suggestion`
     );
+  },
+  request(parsed, opts) {
+    return this.url(parsed, opts, parsed.upstream);
+  },
+  /**
+   * The first request sends only the content words. Wikipedia orders pages differently when it gets
+   * the question as typed ("how do airplanes stay in the air" finds Lift (force) at 4 instead of 49),
+   * so a question is asked a second time, whole.
+   */
+  followUp(parsed, docs, opts) {
+    if (!parsed.isQuestion || fold(parsed.text) === fold(parsed.upstream)) {
+      return null;
+    }
+    return this.url(parsed, opts, parsed.text);
+  },
+  /** Both answers, alternating from the top; a page found by both keeps its better place. */
+  mergeFollowUp(parsed, first, second) {
+    const seen = new Set();
+    const docs = [];
+    for (let index = 0; index < Math.max(first.length, second.length); index += 1) {
+      for (const doc of [first[index], second[index]]) {
+        if (doc && !seen.has(doc.id)) {
+          seen.add(doc.id);
+          docs.push({ ...doc, upstreamRank: docs.length });
+        }
+      }
+    }
+    return docs;
   },
   /** Wikipedia's own "did you mean" for a misspelt query; plain text, never markup. */
   suggest(json) {

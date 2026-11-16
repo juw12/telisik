@@ -90,10 +90,13 @@ function sourceOfRequest(url) {
 
 const idOf = (failure) => failure.split(":")[0];
 
+/** A source answered in full: it answered, and its second request (when it makes one) did not fail. */
+const isFull = (status) => ["ok", "empty"].includes(status?.state) && !status.partial;
+
 function failuresOf(state) {
   return Object.entries(state.status)
-    .filter(([, status]) => status.state !== "ok" && status.state !== "empty")
-    .map(([id, status]) => `${id}:${status.state}`);
+    .filter(([, status]) => !isFull(status))
+    .map(([id, status]) => `${id}:${status.partial ? `partial-${status.partial}` : status.state}`);
 }
 
 /**
@@ -101,7 +104,7 @@ function failuresOf(state) {
  * source that answered once is never lost because it refuses today.
  */
 export function mergeRetry(before, state, retried) {
-  const answered = (id) => retried.has(id) && ["ok", "empty"].includes(state.status[id]?.state);
+  const answered = (id) => retried.has(id) && isFull(state.status[id]);
   const docs = before.planned.flatMap((id) =>
     (answered(id) ? state.pool : before.docs).filter((doc) => doc.source === id),
   );
@@ -118,7 +121,7 @@ export function mergeRefresh(before, state, asked) {
   // An answer given by a stand-in host (GitLab for GitHub) does not count as the source answering.
   const stoodIn = (id) => state.pool.some((doc) => doc.source !== id && ownerOf(doc) === id);
   const answered = new Set(
-    [...asked].filter((id) => ["ok", "empty"].includes(state.status[id]?.state) && !stoodIn(id)),
+    [...asked].filter((id) => isFull(state.status[id]) && !stoodIn(id)),
   );
   const docs = [
     ...before.docs.filter((doc) => !answered.has(ownerOf(doc))),

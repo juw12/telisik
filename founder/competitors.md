@@ -35,26 +35,32 @@ such tool exists.
 - A position that gets more useful as more of the web is machine-written: dated, attributed,
   human-written sources.
 
-## Measured head to head (14 November 2026)
+## Measured head to head (16 November 2026)
 
-32 held-back questions with one known right answer each, first ten results, `node tools/compare.mjs
---queries=queries2.json --pools=pools2.json --half=test`:
+50 questions with one known right answer each, written after the last change to the ranking formula
+and scored once, first ten results, `node tools/compare.mjs --queries=queries3.json
+--pools=pools3-first.json`:
 
 | Asked of | First | Top 10 | MRR |
 |---|---|---|---|
-| Telisik, all sources | 63% | 88% | 0.720 |
-| Wikipedia search alone | 47% | 59% | 0.514 |
-| Hacker News search alone | 22% | 25% | 0.229 |
-| Mwmbl web index alone | 9% | 25% | 0.135 |
-| Wiby web index | 6% | 9% | 0.073 |
+| Telisik, all sources | 50% | 72% | 0.579 |
+| Wikipedia search alone | 36% | 64% | 0.468 |
+| Mwmbl web index alone | 14% | 24% | 0.174 |
+| Hacker News search alone | 6% | 10% | 0.073 |
 | GitHub search alone | 0% | 0% | 0.000 |
 
-- Loss: on the 12 plain-description questions Wikipedia's own search beats Telisik (first 67% against
-  50%, MRR 0.787 against 0.656).
+- Loss: on the 33 plain-description questions Wikipedia's own search beats Telisik (first 42% each,
+  top 3 70% against 52%, top 10 82% against 67%, MRR 0.573 against 0.498).
+- Win: on the 17 named things Telisik is first for 65% and the best single source (Mwmbl) for 35%.
 - Bias: every right answer is a page inside the libraries Telisik searches, so the table leans
-  Telisik's way and says little about Wiby or Mwmbl.
+  Telisik's way. GitHub refused or failed 4 of the 50 requests; asked again with every source
+  answering, Telisik reads 52%, 76% and 0.609.
 - Not measured: Google, Bing, ChatGPT, Perplexity (terms forbid automated queries); Marginalia, Stract
-  and the DuckDuckGo instant-answer interface (no answer from this network).
+  and the DuckDuckGo instant-answer interface (tried again 16 November 2026, no answer from this
+  network).
+- Not a competitor at all: Chromium and Firefox. Telisik is a page that runs inside a browser. It
+  installs as an app in them and plugs into the address bar and the share sheet; it does not replace
+  them.
 
 ## Verdict
 

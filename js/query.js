@@ -107,6 +107,8 @@ export function normalizeDate(value) {
   return `${match[1]}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 }
 
+const QUESTION_OPENERS = new Set(["who", "what", "why", "how", "when", "where", "which"]);
+
 const RECENCY_WORDS = new Set(["latest", "newest", "recent", "new", "today", "current", "now", "terbaru"]);
 
 /** Words that carry no topic in a question ("how does X work"); dropped only from the upstream query. */
@@ -147,6 +149,7 @@ export function parseQuery(raw) {
     bang: null,
     upstream: "",
     intent: null,
+    isQuestion: false,
     seSite: null,
     wantsRecent: false,
   };
@@ -202,6 +205,12 @@ export function parseQuery(raw) {
   parsed.upstream = upstreamQuery(kept) || parsed.text;
   const firstWord = fold(kept[0] ?? "").replace(/[^a-z]/g, "");
   parsed.intent = { why: "why", what: "what", who: "what", how: "how" }[firstWord] ?? null;
+  // A question or a description ("medicine that kills bacteria") rather than the name of a thing:
+  // it opens with a question word, or has three or more words with a joining word among them.
+  const words = tokenize(parsed.text);
+  parsed.isQuestion =
+    !parsed.phrases.length &&
+    (QUESTION_OPENERS.has(firstWord) || (words.length >= 3 && words.some((word) => STOPWORDS.has(word))));
   const currentYear = new Date().getFullYear();
   parsed.wantsRecent = kept.some((word) => {
     const lower = word.toLowerCase();

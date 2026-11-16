@@ -125,7 +125,9 @@
       <ul class="footer-links">
         <li><a class="tap" href="about.html">How it works</a></li>
         <li><a class="tap" href="about.html#default">Make it your default search</a></li>
+        <li><a class="tap" href="about.html#install">Install it</a></li>
         <li><a class="tap" href="about.html#operators">Operators and shortcuts</a></li>
+        <li id="install" hidden><button type="button" class="text-button" id="install-button">Install as an app</button></li>
         <li><button type="button" class="text-button" id="open-settings">Settings</button></li>
         <li><a class="tap" href="https://github.com/juw12/telisik" rel="noopener noreferrer">Source code</a></li>
         <li id="support" hidden></li>
@@ -149,6 +151,11 @@
           <span>Wikipedia language</span>
           <select id="set-wiki"></select>
         </label>
+        <label class="field" for="set-stackkey">
+          <span>Stack Exchange key (optional)</span>
+          <input type="text" id="set-stackkey" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="40" aria-describedby="set-stackkey-note">
+        </label>
+        <p class="fine" id="set-stackkey-note">Without a key Stack Exchange allows about 300 requests a day per network. A free key from stackapps.com raises that to 10,000. <a href="about.html#limits">Why</a></p>
         <label class="check" for="set-history">
           <input type="checkbox" id="set-history">
           <span>Keep my recent searches on the home page</span>

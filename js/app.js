@@ -126,6 +126,7 @@ const settings = {
   wikiLang: "en",
   keepHistory: true,
   newTab: false,
+  stackKey: "",
   ...storage.read(SETTINGS_KEY, {}),
 };
 
@@ -238,7 +239,8 @@ function readLocation() {
   }
   const lens = params.get("lens");
   return {
-    query: (params.get("q") ?? "").trim(),
+    // "title" is what the share sheet of an installed copy sends when no text was selected.
+    query: (params.get("q") || params.get("title") || "").trim(),
     lens: LENSES[lens] ? lens : "all",
     beforeAI: params.get("before_ai") === "1",
   };
@@ -369,7 +371,7 @@ function startSearch({ push = true } = {}) {
     signal: view.controller.signal,
     cache,
     storage: storage.raw(),
-    keys: { stackexchange: String(CONFIG.keys?.stackexchange ?? "").trim() },
+    keys: { stackexchange: String(settings.stackKey || (CONFIG.keys?.stackexchange ?? "")).trim() },
   };
   const onUpdate = (snapshot) => receive(snapshot, runId);
   search(parsed, options, onUpdate)
@@ -1016,6 +1018,7 @@ function setupSettings() {
   const wiki = byId("set-wiki");
   const keep = byId("set-history");
   const newTab = byId("set-newtab");
+  const stackKey = byId("set-stackkey");
   const status = byId("settings-status");
   for (const [code, name] of WIKI_LANGUAGES) {
     wiki.append(el("option", { value: code, text: name }));
@@ -1029,6 +1032,7 @@ function setupSettings() {
     wiki.value = settings.wikiLang;
     keep.checked = settings.keepHistory;
     newTab.checked = settings.newTab;
+    stackKey.value = settings.stackKey;
     status.textContent = "";
     if (typeof dialog.showModal === "function") {
       dialog.showModal();
@@ -1068,6 +1072,17 @@ function setupSettings() {
       paint(view.shown);
     }
   });
+  stackKey.addEventListener("change", () => {
+    const value = stackKey.value.trim();
+    // The same shape the Stack Exchange adapter accepts before it adds the key to a request.
+    if (value && !/^[A-Za-z0-9()*]{8,40}$/.test(value)) {
+      status.textContent = "That does not look like a Stack Exchange key, so it was not saved.";
+      return;
+    }
+    settings.stackKey = value;
+    saveSettings();
+    status.textContent = value ? "Key saved in this browser." : "Key removed.";
+  });
   byId("clear-data").addEventListener("click", () => {
     storage.remove(HISTORY_KEY);
     cache.clear();
@@ -1094,6 +1109,28 @@ function setupMoney() {
     item.append(el("a", { class: "tap", href: supportUrl, rel: "noopener noreferrer", text: CONFIG.support.label || "Support Telisik" }));
     item.hidden = false;
   }
+}
+
+/**
+ * Chromium browsers announce that the page can be installed with an event, and only then is the
+ * button shown. Firefox and Safari install from their own menus and never fire it.
+ */
+function setupInstall() {
+  const item = byId("install");
+  let offer = null;
+  window.addEventListener("beforeinstallprompt", (event) => {
+    event.preventDefault();
+    offer = event;
+    item.hidden = false;
+  });
+  byId("install-button").addEventListener("click", () => {
+    offer?.prompt();
+    offer = null;
+    item.hidden = true;
+  });
+  window.addEventListener("appinstalled", () => {
+    item.hidden = true;
+  });
 }
 
 // ------------------------------------------------------------------------------------ events
@@ -1340,6 +1377,7 @@ function start() {
   applyTheme();
   setupSettings();
   setupMoney();
+  setupInstall();
   setupEvents();
   Object.assign(view, readLocation());
   if (location.search) {

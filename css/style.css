@@ -1235,7 +1235,8 @@ a.action:visited {
   font-weight: 600;
 }
 
-.field select {
+.field select,
+.field input {
   width: 100%;
   height: var(--control);
   padding: 0 0.6rem;

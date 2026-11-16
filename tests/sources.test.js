@@ -279,3 +279,45 @@ test("GitHub asks a second time only when its first answer has no well-known rep
   );
   assert.deepEqual(merged.map((doc) => doc.upstreamRank), [0, 1, 2]);
 });
+
+test("wikipedia: a question asks for more pages than a name", () => {
+  const wikipedia = SOURCE_BY_ID.wikipedia;
+  const name = parseQuery("photosynthesis");
+  const question = parseQuery("medicine that kills bacteria");
+  assert.match(wikipedia.request(name, {}), /gsrlimit=8&.*exlimit=8&.*srlimit=8&/);
+  assert.match(wikipedia.request(question, {}), /gsrlimit=20&.*exlimit=20&.*srlimit=20&/);
+});
+
+test("wikipedia: a question is asked a second time as typed, a name is not", () => {
+  const wikipedia = SOURCE_BY_ID.wikipedia;
+  const question = parseQuery("how do airplanes stay in the air");
+  const second = wikipedia.followUp(question, [], {});
+  assert.notEqual(question.upstream, question.text);
+  assert.ok(second.includes(encodeURIComponent(question.text)), second);
+  assert.notEqual(second, wikipedia.request(question, {}));
+  // A name is sent once.
+  assert.equal(wikipedia.followUp(parseQuery("binary search tree"), [], {}), null);
+  // A question whose first request already carried every word is not repeated.
+  const whole = parseQuery("to be or not to be");
+  assert.equal(whole.upstream, whole.text);
+  assert.equal(wikipedia.followUp(whole, [], {}), null);
+});
+
+test("wikipedia: the two answers alternate, without repeats, renumbered from the top", () => {
+  const page = (id, upstreamRank) => ({ id, upstreamRank });
+  const first = [page("a", 0), page("b", 1), page("c", 2)];
+  const second = [page("b", 0), page("d", 1)];
+  const merged = SOURCE_BY_ID.wikipedia.mergeFollowUp(parseQuery("x"), first, second);
+  assert.deepEqual(merged.map((doc) => doc.id), ["a", "b", "d", "c"]);
+  assert.deepEqual(merged.map((doc) => doc.upstreamRank), [0, 1, 2, 3]);
+  // The inputs are left as they were.
+  assert.equal(first[2].upstreamRank, 2);
+});
+
+test("stackexchange: only a well-formed key is added to the request", () => {
+  const stack = SOURCE_BY_ID.stackexchange;
+  const code = parseQuery("python list comprehension");
+  assert.match(stack.request(code, { stackKey: "AbCdEfGh12345678" }), /&key=AbCdEfGh12345678$/);
+  assert.doesNotMatch(stack.request(code, {}), /[?&]key=/);
+  assert.doesNotMatch(stack.request(code, { stackKey: "bad key!" }), /[?&]key=/);
+});

@@ -4,6 +4,7 @@
     python tools/e2e.py --shots DIR     also save screenshots
     python tools/e2e.py --live          add one search against the real sources
     python tools/e2e.py --base URL      check a deployed copy instead of the local folder
+    python tools/e2e.py --browser firefox   the same checks in Firefox (playwright install firefox)
 
 Gates: no console or page errors, no CSP violation, no request outside the declared sources,
 no horizontal overflow at 320/390/768/1024/1440 px, WCAG AA contrast for every piece of text,
@@ -22,7 +23,7 @@ import sys
 import threading
 import time
 from pathlib import Path
-from urllib.parse import unquote_plus, urlparse
+from urllib.parse import quote, unquote_plus, urlparse
 
 from playwright.sync_api import sync_playwright
 
@@ -31,6 +32,8 @@ FIXTURES = ROOT / "tests" / "fixtures"
 WIDTHS = [320, 390, 768, 1024, 1440]
 SCHEMES = ["light", "dark"]
 QUERY = "binary search tree"
+# A made-up key in the shape Stack Apps issues. The fixture run never reaches Stack Exchange.
+STACK_KEY = "AbCdEfGh12345678"
 PROXY = os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy") or ""
 
 # Same routing as tools/fixture-names.mjs, which the unit tests use.
@@ -307,13 +310,12 @@ class Session:
         self.outside = []
         self.api_calls = []
         self.left_for = []
-        self.context = browser.new_context(
-            viewport={"width": width, "height": height},
-            color_scheme=scheme,
-            permissions=["clipboard-read", "clipboard-write"],
-            is_mobile=width <= 390,
-            has_touch=width <= 390,
-        )
+        options = {"viewport": {"width": width, "height": height}, "color_scheme": scheme, "has_touch": width <= 390}
+        if browser.browser_type.name == "chromium":
+            # Firefox has no clipboard permission to grant and no mobile emulation.
+            options["permissions"] = ["clipboard-read", "clipboard-write"]
+            options["is_mobile"] = width <= 390
+        self.context = browser.new_context(**options)
         self.context.add_init_script(INIT_JS)
         self.context.route("**/*", self.route)
         self.page = self.context.new_page()
@@ -633,6 +635,14 @@ def functional(results, browser, base, allowed):
     page.wait_for_timeout(150)
     light = page.evaluate("getComputedStyle(document.body).backgroundColor")
     results.check("settings: light theme differs from dark", light != dark, f"{light} vs {dark}")
+    page.fill("#set-stackkey", "bad key!")
+    page.keyboard.press("Tab")
+    results.check("settings: a malformed Stack Exchange key is refused",
+                  "not saved" in page.inner_text("#settings-status"), page.inner_text("#settings-status"))
+    page.fill("#set-stackkey", STACK_KEY)
+    page.keyboard.press("Tab")
+    results.check("settings: a well-formed Stack Exchange key is saved",
+                  "Key saved" in page.inner_text("#settings-status"), page.inner_text("#settings-status"))
     page.click("#clear-data")
     results.check("settings: clear reports what it did", "Cleared" in page.inner_text("#settings-status"))
     page.click("#close-settings")
@@ -644,6 +654,23 @@ def functional(results, browser, base, allowed):
     page.click(".example-list a")
     session.wait_done()
     results.check("examples: a click runs the search", page.locator("#results > li").count() > 0)
+
+    calls_before = len(session.api_calls)
+    page.goto(f"{base}#q=python+list+comprehension&lens=build")
+    session.wait_done()
+    stack_calls = [url for url in session.api_calls[calls_before:] if "api.stackexchange.com" in url]
+    results.check("settings: the saved key rides on Stack Exchange requests and nowhere else",
+                  bool(stack_calls)
+                  and all(f"key={quote(STACK_KEY)}" in url for url in stack_calls)
+                  and not any(quote(STACK_KEY) in url for url in session.api_calls if "api.stackexchange.com" not in url),
+                  f"{len(stack_calls)} Stack Exchange calls")
+    page.click("#open-settings")
+    results.check("settings: the key field shows the saved key", page.input_value("#set-stackkey") == STACK_KEY)
+    page.fill("#set-stackkey", "")
+    page.keyboard.press("Tab")
+    results.check("settings: emptying the field removes the key",
+                  "Key removed" in page.inner_text("#settings-status"), page.inner_text("#settings-status"))
+    page.click("#close-settings")
 
     page.fill("#q", "!g mechanical keyboards")
     page.keyboard.press("Enter")
@@ -661,6 +688,30 @@ def functional(results, browser, base, allowed):
     session.wait_done()
     results.check("old links: ?q= is rewritten to #q=", "?" not in page.url and f"#q={query}&lens=build" in page.url, page.url)
     results.check("old links: no errors", not session.errors and not session.csp(), "; ".join(session.errors[:4]))
+    session.close()
+
+    session = Session(browser, base, allowed, 1280)
+    page = session.open(f"?title={query}")
+    session.wait_done()
+    results.check("share sheet: a shared title with no text is searched",
+                  page.input_value("#q") == QUERY and f"#q={query}" in page.url, page.url)
+    session.close()
+
+    session = Session(browser, base, allowed, 1280)
+    page = session.open()
+    hidden_at_start = page.locator("#install").is_hidden()
+    page.evaluate("""() => {
+      const offer = new Event("beforeinstallprompt", { cancelable: true });
+      offer.prompt = () => { window.__prompted = true; };
+      window.dispatchEvent(offer);
+    }""")
+    shown_on_offer = page.locator("#install-button").is_visible()
+    page.click("#install-button")
+    results.check("install: the button appears only when the browser offers an install, and asks once",
+                  hidden_at_start and shown_on_offer and page.evaluate("window.__prompted === true")
+                  and page.locator("#install").is_hidden(),
+                  f"hidden at start {hidden_at_start}, shown on offer {shown_on_offer}")
+    results.check("install: no errors", not session.errors and not session.csp(), "; ".join(session.errors[:4]))
     session.close()
 
     session = Session(browser, base, allowed, 1280)
@@ -756,6 +807,31 @@ def functional(results, browser, base, allowed):
         results.check(f"static: {name} is served", response.status == 200 and needle in response.text(), str(response.status))
         session.close()
 
+    manifest = json.loads((ROOT / "manifest.webmanifest").read_text(encoding="utf-8"))
+    missing = [src for src in [icon["src"] for icon in manifest["icons"]] + [link["url"].split("#")[0] for link in manifest["shortcuts"]]
+               if src != "./" and not (ROOT / src).is_file()]
+    results.check("manifest: id, shortcuts and a share target that hands text over as q; every file it names exists",
+                  manifest.get("id") and manifest["share_target"]["method"] == "GET"
+                  and manifest["share_target"]["params"]["text"] == "q" and not missing,
+                  f"missing {missing}")
+
+
+def installable(results, browser, base):
+    """Ask Chromium itself whether the deployed copy can be installed. Needs https, so not the local folder."""
+    context = browser.new_context()
+    page = context.new_page()
+    page.goto(base, wait_until="load")
+    page.evaluate("navigator.serviceWorker.ready.then(() => true)")
+    client = context.new_cdp_session(page)
+    errors = client.send("Page.getInstallabilityErrors").get("installabilityErrors", [])
+    manifest = client.send("Page.getAppManifest")
+    results.check("installable: Chromium reports no installability errors",
+                  not errors and not manifest.get("errors"), json.dumps([errors, manifest.get("errors")]))
+    context.set_offline(True)
+    page.reload(wait_until="load")
+    results.check("installable: the page opens with no connection", page.locator("#q").is_visible(), page.url)
+    context.close()
+
 
 def live(results, browser, base, allowed):
     session = Session(browser, base, allowed, 1280, mode="live")
@@ -791,6 +867,7 @@ def main():
     parser.add_argument("--base", default="")
     parser.add_argument("--live", action="store_true")
     parser.add_argument("--only", default="", help="visual, functional or live")
+    parser.add_argument("--browser", default="chromium", choices=["chromium", "firefox"])
     args = parser.parse_args()
 
     base = args.base or serve_folder()
@@ -805,12 +882,17 @@ def main():
         launch_args = []
         if PROXY:
             launch_args = [f"--proxy-server={PROXY}", "--proxy-bypass-list=127.0.0.1;localhost"]
-        try:
-            browser = playwright.chromium.launch(args=launch_args)
-        except Exception as launch_error:
-            # A Playwright upgrade can leave its bundled Chromium missing; fall back to installed Chrome.
-            print(f"bundled Chromium unavailable ({str(launch_error).splitlines()[0]}); using system Chrome", flush=True)
-            browser = playwright.chromium.launch(channel="chrome", args=launch_args)
+        if args.browser == "firefox":
+            proxy = {"server": PROXY, "bypass": "127.0.0.1,localhost"} if PROXY else None
+            browser = playwright.firefox.launch(proxy=proxy)
+        else:
+            try:
+                browser = playwright.chromium.launch(args=launch_args)
+            except Exception as launch_error:
+                # A Playwright upgrade can leave its bundled Chromium missing; fall back to installed Chrome.
+                print(f"bundled Chromium unavailable ({str(launch_error).splitlines()[0]}); using system Chrome", flush=True)
+                browser = playwright.chromium.launch(channel="chrome", args=launch_args)
+        print(f"browser {browser.browser_type.name} {browser.version}", flush=True)
         if args.only in ("", "functional"):
             functional(results, browser, base, allowed)
         if args.only in ("", "visual"):
@@ -818,6 +900,8 @@ def main():
         if args.live or args.only == "live":
             session = live(results, browser, base, allowed)
             shot(session, shots, "live-1280")
+            if base.startswith("https:") and args.browser == "chromium":
+                installable(results, browser, base)
 
         total = len(results.rows)
         failed = results.failed

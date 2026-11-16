@@ -1,0 +1,354 @@
+{
+ "about": "Third query set for tools/eval.mjs, written on 2026-11-16 before any of its results were seen and before the ranking and Wikipedia changes of that day were made. It exists because every query of the second set (queries2.json) has by now been read miss by miss, so that set can no longer count as unseen. It is scored once. kind 'question' = a question or description worded differently from the title of the page that answers it; kind 'known' = the name of a thing. Targets were written by an AI model from memory; they are not human relevance judgements. Where two pages answer a question equally (the person and the thing they made), both are listed, decided before any result was seen. Same hit rule as queries.json.",
+ "queries": [
+  {
+   "q": "why do leaves change color in autumn",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/autumn_leaf_color"
+   ]
+  },
+  {
+   "q": "who painted the sistine chapel ceiling",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/sistine_chapel_ceiling",
+    "en.wikipedia.org/wiki/michelangelo"
+   ]
+  },
+  {
+   "q": "what causes the seasons",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/season"
+   ]
+  },
+  {
+   "q": "deepest part of the ocean",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/mariana_trench",
+    "en.wikipedia.org/wiki/challenger_deep"
+   ]
+  },
+  {
+   "q": "fear of enclosed spaces",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/claustrophobia"
+   ]
+  },
+  {
+   "q": "study of fossils",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/paleontology"
+   ]
+  },
+  {
+   "q": "organ that pumps blood",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/heart"
+   ]
+  },
+  {
+   "q": "process by which plants lose water through their leaves",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/transpiration"
+   ]
+  },
+  {
+   "q": "who discovered penicillin",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/alexander_fleming",
+    "en.wikipedia.org/wiki/penicillin",
+    "en.wikipedia.org/wiki/discovery_of_penicillin"
+   ]
+  },
+  {
+   "q": "inventor of the telephone",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/alexander_graham_bell",
+    "en.wikipedia.org/wiki/invention_of_the_telephone"
+   ]
+  },
+  {
+   "q": "chemical element with the symbol au",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/gold"
+   ]
+  },
+  {
+   "q": "largest ocean on earth",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/pacific_ocean"
+   ]
+  },
+  {
+   "q": "the planet closest to the sun",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/mercury_(planet)"
+   ]
+  },
+  {
+   "q": "how do vaccines work",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/vaccine",
+    "en.wikipedia.org/wiki/vaccination"
+   ]
+  },
+  {
+   "q": "first woman to win a nobel prize",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/marie_curie"
+   ]
+  },
+  {
+   "q": "who wrote war and peace",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/leo_tolstoy",
+    "en.wikipedia.org/wiki/war_and_peace"
+   ]
+  },
+  {
+   "q": "mountain that erupts lava",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/volcano"
+   ]
+  },
+  {
+   "q": "disease where blood sugar is too high",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/diabetes",
+    "en.wikipedia.org/wiki/hyperglycemia"
+   ]
+  },
+  {
+   "q": "war between england and france that lasted over a hundred years",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/hundred_years'_war"
+   ]
+  },
+  {
+   "q": "wall built to keep invaders out of northern china",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/great_wall_of_china"
+   ]
+  },
+  {
+   "q": "theory that the universe began from a single point",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/big_bang"
+   ]
+  },
+  {
+   "q": "economic system based on private ownership",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/capitalism"
+   ]
+  },
+  {
+   "q": "code that sends messages with dots and dashes",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/morse_code"
+   ]
+  },
+  {
+   "q": "bending of light when it passes through water",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/refraction"
+   ]
+  },
+  {
+   "q": "force that keeps the planets in orbit",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/gravity"
+   ]
+  },
+  {
+   "q": "search algorithm that halves a sorted list",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/binary_search",
+    "en.wikipedia.org/wiki/binary_search_algorithm"
+   ]
+  },
+  {
+   "q": "system that translates domain names to ip addresses",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/domain_name_system"
+   ]
+  },
+  {
+   "q": "ancient egyptian writing with pictures",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/egyptian_hieroglyphs"
+   ]
+  },
+  {
+   "q": "loss of memory",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/amnesia"
+   ]
+  },
+  {
+   "q": "infection of the lungs",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/pneumonia"
+   ]
+  },
+  {
+   "q": "ship that carried the pilgrims to america in 1620",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/mayflower"
+   ]
+  },
+  {
+   "q": "currency of the united kingdom",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/pound_sterling"
+   ]
+  },
+  {
+   "q": "capital of canada",
+   "kind": "question",
+   "url": [
+    "en.wikipedia.org/wiki/ottawa"
+   ]
+  },
+  {
+   "q": "raft consensus algorithm",
+   "kind": "known",
+   "url": [
+    "en.wikipedia.org/wiki/raft_(algorithm)"
+   ]
+  },
+  {
+   "q": "magellan circumnavigation",
+   "kind": "known",
+   "url": [
+    "en.wikipedia.org/wiki/magellan_expedition"
+   ]
+  },
+  {
+   "q": "hagia sophia",
+   "kind": "known",
+   "url": [
+    "en.wikipedia.org/wiki/hagia_sophia"
+   ]
+  },
+  {
+   "q": "pytorch github repository",
+   "kind": "known",
+   "url": [
+    "github.com/pytorch/pytorch"
+   ]
+  },
+  {
+   "q": "redis source code",
+   "kind": "known",
+   "url": [
+    "github.com/redis/redis"
+   ]
+  },
+  {
+   "q": "vscode editor repo",
+   "kind": "known",
+   "url": [
+    "github.com/microsoft/vscode"
+   ]
+  },
+  {
+   "q": "a few useful things to know about machine learning",
+   "kind": "known",
+   "title": "few useful things to know about machine learning"
+  },
+  {
+   "q": "reflections on trusting trust",
+   "kind": "known",
+   "title": "reflections on trusting trust"
+  },
+  {
+   "q": "distilling the knowledge in a neural network",
+   "kind": "known",
+   "title": "distilling the knowledge in a neural network"
+  },
+  {
+   "q": "the great gatsby fitzgerald",
+   "kind": "known",
+   "title": "great gatsby"
+  },
+  {
+   "q": "meditations marcus aurelius",
+   "kind": "known",
+   "title": "^(the )?meditations"
+  },
+  {
+   "q": "define obsequious",
+   "kind": "known",
+   "url": [
+    "en.wiktionary.org/wiki/obsequious"
+   ]
+  },
+  {
+   "q": "tokyo travel guide",
+   "kind": "known",
+   "url": [
+    "en.wikivoyage.org/wiki/tokyo"
+   ]
+  },
+  {
+   "q": "calculus textbook",
+   "kind": "known",
+   "url": [
+    "en.wikibooks.org/wiki/calculus"
+   ]
+  },
+  {
+   "q": "mark twain quotes",
+   "kind": "known",
+   "url": [
+    "en.wikiquote.org/wiki/mark_twain"
+   ]
+  },
+  {
+   "q": "apply for a provisional driving licence",
+   "kind": "known",
+   "url": [
+    "gov.uk/apply-first-provisional-driving-licence"
+   ]
+  },
+  {
+   "q": "council tax bands",
+   "kind": "known",
+   "url": [
+    "gov.uk/council-tax-bands"
+   ]
+  }
+ ]
+}

@@ -246,7 +246,7 @@ test("an empty query asks nobody", async () => {
   assert.deepEqual(state.results, []);
 });
 
-test("GitHub's second request adds the well-known repository, and a failed second request changes nothing", async () => {
+test("GitHub's second request adds the well-known repository, and a failed second request is said out loud", async () => {
   const items = (rows) => new Response(JSON.stringify({ items: rows }), { status: 200 });
   const first = [{ id: 1, full_name: "someone/kernel-notes", html_url: "https://github.com/someone/kernel-notes", stargazers_count: 12 }];
   const second = [{ id: 2, full_name: "torvalds/linux", html_url: "https://github.com/torvalds/linux", stargazers_count: 180000 }];
@@ -264,8 +264,11 @@ test("GitHub's second request adds the well-known repository, and a failed secon
   assert.equal(asked.length, 2);
   assert.deepEqual(titles(state), ["torvalds/linux", "someone/kernel-notes"]);
   assert.equal(state.status.github.state, "ok");
+  assert.equal(state.status.github.partial, null);
 
   const broken = await search("linux kernel source tree in:code", { fetch: fixtureFetch({ github: github(false) }), keepPool: true });
   assert.deepEqual(titles(broken), ["someone/kernel-notes"]);
   assert.equal(broken.status.github.state, "ok");
+  assert.equal(broken.status.github.partial, "error");
+  assert.match(broken.status.github.note, /second request could not be reached; showing its first answer only/);
 });

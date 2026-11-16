@@ -109,6 +109,19 @@ test("a retry keeps what was saved and only fills in the sources that answer thi
   assert.deepEqual(merged.planned, before.planned);
 });
 
+test("a source whose second request failed still counts as failed, and its saved answer is kept", () => {
+  const before = { planned: ["github"], failed: ["github:partial-limit"], docs: [{ source: "github", id: "saved" }] };
+  const half = { status: { github: { state: "ok", partial: "limit" } }, pool: [{ source: "github", id: "half" }] };
+  const again = mergeRetry(before, half, new Set(["github"]));
+  assert.deepEqual(again.failed, ["github:partial-limit"]);
+  assert.deepEqual(again.docs.map((doc) => doc.id), ["saved"]);
+
+  const whole = { status: { github: { state: "ok", partial: null } }, pool: [{ source: "github", id: "whole" }] };
+  const fixed = mergeRetry(before, whole, new Set(["github"]));
+  assert.deepEqual(fixed.failed, []);
+  assert.deepEqual(fixed.docs.map((doc) => doc.id), ["whole"]);
+});
+
 test("a refresh replaces only the sources that answer and adds the ones never asked before", () => {
   const before = {
     planned: ["wikipedia", "github"],

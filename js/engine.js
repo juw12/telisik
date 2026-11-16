@@ -139,7 +139,8 @@ function fromCache(saved) {
 /**
  * Ask one source. An adapter may name a second, narrower request after seeing its first answer
  * (GitHub does, for queries its best-match order handles badly). The second request goes through
- * the same cache, pause and time limit, and when it fails the first answer stands.
+ * the same cache, pause and time limit. When it fails the first answer stands, marked as partial
+ * with a note, so the ledger and the evaluation can tell a whole answer from half of one.
  */
 async function fetchSource(adapter, parsed, opts, env) {
   const first = await fetchUrl(adapter, adapter.request(parsed, opts), parsed, opts, env);
@@ -153,6 +154,13 @@ async function fetchSource(adapter, parsed, opts, env) {
   const second = await fetchUrl(adapter, nextUrl, parsed, opts, env);
   if (second.state === "cancelled") {
     return second;
+  }
+  if (FAILED.includes(second.state)) {
+    return {
+      ...first,
+      partial: second.state,
+      note: `${adapter.label}'s second request ${FAILURE_WORDS[second.state]}; showing its first answer only.`,
+    };
   }
   if (second.state !== "ok") {
     return first;
@@ -335,6 +343,7 @@ export async function search(rawQuery, options = {}, onUpdate = () => {}) {
         count: 0,
         fetched: outcome.docs.length,
         note: outcome.note ?? "",
+        partial: outcome.partial ?? null,
         cached: Boolean(outcome.cached),
         stale: Boolean(outcome.stale),
         ageMs: outcome.ageMs ?? null,

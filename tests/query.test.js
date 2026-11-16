@@ -64,3 +64,18 @@ test("recency words", () => {
   assert.equal(parseQuery("latest rust release").wantsRecent, true);
   assert.equal(parseQuery("rust ownership").wantsRecent, false);
 });
+
+test("a question or a description is told apart from a name", () => {
+  // Opens with a question word.
+  assert.equal(parseQuery("who wrote war and peace").isQuestion, true);
+  assert.equal(parseQuery("why is the sky blue").isQuestion, true);
+  // Three or more words with a joining word among them.
+  assert.equal(parseQuery("medicine that kills bacteria").isQuestion, true);
+  assert.equal(parseQuery("fear of spiders").isQuestion, true);
+  // Names: one or two words, or several words with no joining word.
+  assert.equal(parseQuery("photosynthesis").isQuestion, false);
+  assert.equal(parseQuery("of mice").isQuestion, false);
+  assert.equal(parseQuery("binary search tree").isQuestion, false);
+  // A quoted phrase asks for those exact words, so it is never treated as a question.
+  assert.equal(parseQuery('"to be or not to be"').isQuestion, false);
+});
