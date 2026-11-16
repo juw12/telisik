@@ -5,6 +5,8 @@
     python tools/extension_real_input.py --browser chromium    Chromium that Playwright ships
     python tools/extension_real_input.py --browser firefox     Firefox (--firefox-binary PATH if it is not found)
     python tools/extension_real_input.py --shots DIR           also save pictures of the test window
+    python tools/extension_real_input.py --live                the real Telisik site and its real sources answer
+    python tools/extension_real_input.py --live --proxy URL    the same, when this network needs a proxy
 
 tools/extension_e2e.py calls the extension's code directly. This one presses the keys and moves the
 mouse of the whole computer for about half a minute (about a minute in Firefox), so it covers what that one cannot: Ctrl+T,
@@ -19,11 +21,18 @@ Safety rules it keeps:
     checks fail. It never fights you for the window.
   * The address-bar query is only confirmed with Enter after the browser shows that the text goes
     to Telisik. Otherwise Escape is pressed, so no query can fall through to a search engine.
-  * Hermetic: the browser gets a proxy that does not exist. Nothing reaches the network.
+  * Hermetic by default: the browser gets a proxy that does not exist. Nothing reaches the network.
+  * With --live the browser gets a gate on this computer instead. The gate lets through the Telisik
+    site and the sources named in the connect-src list of index.html, and refuses every other host,
+    so no query can reach Google, Bing or any other search engine. What it refused is printed.
   * The mouse pointer is put back where it was, and the window that was in front is asked back.
 
-Firefox: this test cannot answer the Telisik site from the folder there, so the tabs show Firefox's
-"proxy refused" page and only the address each tab was sent to is checked, not the page behind it.
+Firefox: without --live this test cannot answer the Telisik site from the folder there, so the tabs
+show Firefox's "proxy refused" page and only the address each tab was sent to is checked. With --live
+the page behind each address is read as well.
+
+--live asks the public sources five small questions per run. GitHub answers ten searches a minute
+without an account, so leave a minute between runs.
 
 Exit code 1 when a check fails, 4 when the computer was never idle.
 """
@@ -33,7 +42,10 @@ import ctypes
 import http.server
 import json
 import os
+import re
+import select
 import socket
+import socketserver
 import subprocess
 import sys
 import tempfile
@@ -489,6 +501,153 @@ def start_test_page():
 
 
 # ---------------------------------------------------------------------------------------------
+# --live: a gate that lets the Telisik site and its sources through and nothing else
+# ---------------------------------------------------------------------------------------------
+
+SEARCH_ENGINES = ("google.", "bing.", "duckduckgo.", "yahoo.")
+RESULTS_JS = "document.querySelectorAll('#results .result').length"
+LIVE_RESULT_QUERIES = (ADDRESS_BAR_QUERY, SELECTED_TEXT)  # the other test queries are not real questions
+
+
+def site_hosts():
+    """Hosts the Telisik page may talk to: its own, plus the connect-src list of index.html."""
+    page = (ROOT / "index.html").read_text(encoding="utf-8")
+    policy = re.search(r"connect-src([^;\"]*)", page)
+    hosts = [urlparse(HOME).hostname]
+    for entry in policy.group(1).split() if policy else []:
+        if entry.startswith("https://"):
+            hosts.append(entry[len("https://"):].strip("/"))
+    return hosts
+
+
+def host_is_listed(host, listed):
+    host = (host or "").lower()
+    for entry in listed:
+        if entry.startswith("*."):
+            if host.endswith(entry[1:]):
+                return True
+        elif host == entry:
+            return True
+    return False
+
+
+class Gate:
+    """A proxy on this computer. It passes HTTPS to the listed hosts and answers 403 to everything else."""
+
+    def __init__(self, upstream=None):
+        self.listed = site_hosts()
+        self.upstream = None
+        if upstream:
+            parsed = urlparse(upstream if "//" in upstream else "http://" + upstream)
+            self.upstream = (parsed.hostname, parsed.port or 80)
+        self.passed = {}
+        self.refused = {}
+        self.failed = {}
+        self.lock = threading.Lock()
+        gate = self
+
+        class Handler(socketserver.StreamRequestHandler):
+            def handle(self):
+                gate.serve(self)
+
+        class Server(socketserver.ThreadingTCPServer):
+            daemon_threads = True
+            allow_reuse_address = False
+
+        self.server = Server(("127.0.0.1", 0), Handler)
+        self.port = self.server.server_address[1]
+        threading.Thread(target=self.server.serve_forever, daemon=True).start()
+
+    def count(self, table, host):
+        with self.lock:
+            table[host] = table.get(host, 0) + 1
+
+    def reach(self, host, port):
+        """A connection to host:port, through the upstream proxy when there is one."""
+        if not self.upstream:
+            return socket.create_connection((host, port), timeout=20)
+        outward = socket.create_connection(self.upstream, timeout=20)
+        outward.sendall(f"CONNECT {host}:{port} HTTP/1.1\r\nHost: {host}:{port}\r\n\r\n".encode("ascii"))
+        answer = b""
+        while b"\r\n\r\n" not in answer and len(answer) < 16384:
+            piece = outward.recv(4096)
+            if not piece:
+                break
+            answer += piece
+        status = answer.split(b"\r\n", 1)[0].split(b" ")
+        if len(status) < 2 or status[1] != b"200":
+            outward.close()
+            raise OSError("the upstream proxy answered " + answer.split(b"\r\n", 1)[0].decode("latin-1", "replace")[:80])
+        return outward
+
+    def serve(self, handler):
+        try:
+            first = handler.rfile.readline(8192).decode("latin-1").strip()
+            while handler.rfile.readline(8192) not in (b"\r\n", b"\n", b""):
+                pass
+            parts = first.split(" ")
+            if len(parts) < 2:
+                return
+            method, target = parts[0].upper(), parts[1]
+            if method == "CONNECT":
+                host, _, port = target.rpartition(":")
+                port = int(port or 443)
+            else:
+                parsed = urlparse(target)
+                host, port = parsed.hostname or "", parsed.port or 80
+            host = host.strip("[]").lower()
+            if method != "CONNECT" or port != 443 or not host_is_listed(host, self.listed):
+                self.count(self.refused, host)
+                handler.wfile.write(b"HTTP/1.1 403 Forbidden\r\nContent-Length: 0\r\nConnection: close\r\n\r\n")
+                return
+            try:
+                outward = self.reach(host, port)
+            except OSError as error:
+                self.count(self.failed, f"{host}: {str(error)[:80]}")
+                handler.wfile.write(b"HTTP/1.1 502 Bad Gateway\r\nContent-Length: 0\r\nConnection: close\r\n\r\n")
+                return
+            self.count(self.passed, host)
+            handler.wfile.write(b"HTTP/1.1 200 Connection established\r\n\r\n")
+            handler.wfile.flush()
+            inward = handler.connection
+            outward.settimeout(None)
+            try:
+                while True:
+                    ready, _, _ = select.select([inward, outward], [], [], 120)
+                    if not ready:
+                        break
+                    for side in ready:
+                        data = side.recv(65536)
+                        if not data:
+                            return
+                        (outward if side is inward else inward).sendall(data)
+            finally:
+                outward.close()
+        except (OSError, ValueError):
+            return
+
+    def report(self, checks):
+        """Put what passed and what was refused into the printed facts."""
+        with self.lock:
+            passed, refused, failed = dict(self.passed), dict(self.refused), dict(self.failed)
+        RESULT["live"] = True
+        RESULT["gate_let_through"] = sorted(passed)
+        RESULT["gate_refused"] = sorted(refused)
+        RESULT["gate_could_not_reach"] = sorted(failed)
+        checks.note(f"the gate let through: {sorted(passed)}")
+        if refused:
+            checks.note(f"the gate refused what the browser itself asked for: {sorted(refused)}")
+        if failed:
+            checks.note(f"the gate could not reach: {sorted(failed)}")
+        engines = [host for host in passed if any(name in host for name in SEARCH_ENGINES)]
+        checks.check("nothing got through the gate to Google, Bing, DuckDuckGo or Yahoo", not engines, engines)
+
+    def close(self):
+        self.server.shutdown()
+        self.server.server_close()
+
+
+# ---------------------------------------------------------------------------------------------
 # Chrome, Edge and Chromium
 # ---------------------------------------------------------------------------------------------
 
@@ -500,6 +659,7 @@ RECT_JS = """
 }
 """
 BOX_VALUE_JS = "document.querySelector('#q') ? document.querySelector('#q').value : 'no #q'"
+BUBBLE_HAS_KEYBOARD_JS = "document.hasFocus() && !!document.activeElement && document.activeElement.id === 'q'"
 
 
 def run_chromium_family(args, checks, desk):
@@ -511,6 +671,9 @@ def run_chromium_family(args, checks, desk):
     server, test_page_url = start_test_page()
     automation = Automation()
     refused_urls = []
+    asked_urls = []
+    gate = Gate(args.proxy) if args.live else None
+    patience = 2.5 if args.live else 1.0
 
     def answer(route):
         url = route.request.url
@@ -531,7 +694,7 @@ def run_chromium_family(args, checks, desk):
     try:
         with sync_playwright() as playwright:
             switches = [
-                f"--proxy-server=http://127.0.0.1:{shared.DEAD_PROXY_PORT}",
+                f"--proxy-server=http://127.0.0.1:{gate.port if gate else shared.DEAD_PROXY_PORT}",
                 "--window-position=60,40",
                 "--window-size=1180,820",
                 "--lang=en-US",
@@ -555,7 +718,11 @@ def run_chromium_family(args, checks, desk):
                 )
             context.set_default_timeout(8000)
             print(f"browser: {label} {context.browser.version}", flush=True)
-            context.route(lambda url: url.startswith("http"), answer)
+            if gate:
+                # Live: nothing is answered from the folder. The pages' requests are only written down.
+                context.on("request", lambda request: asked_urls.append(request.url))
+            else:
+                context.route(lambda url: url.startswith("http"), answer)
             session = context.browser.new_browser_cdp_session()
             first = context.pages[0] if context.pages else context.new_page()
 
@@ -596,13 +763,73 @@ def run_chromium_family(args, checks, desk):
                     return "no page with that address"
                 try:
                     started = time.time()
-                    wait_for(lambda: page.evaluate(BOX_VALUE_JS) == query, 20)
+                    wait_for(lambda: page.evaluate(BOX_VALUE_JS) == query, 20 * patience)
                     took = time.time() - started
                     if took > 4:
                         checks.note(f"that page needed {took:.0f} s in this test before its box showed the query")
                     return page.evaluate(BOX_VALUE_JS)
                 except Exception as error:
                     return f"{type(error).__name__}: {str(error)[:120]}"
+
+            def live_results(address, query):
+                """Live only: the real page behind that address lists results from the real sources."""
+                if not gate or query not in LIVE_RESULT_QUERIES:
+                    return
+                page = site_page(address)
+                count, started = 0, time.time()
+                try:
+                    if page:
+                        wait_for(lambda: page.evaluate(RESULTS_JS) >= 1, 40)
+                        count = page.evaluate(RESULTS_JS)
+                except Exception as error:
+                    checks.note(f"reading the live page failed: {type(error).__name__}: {str(error)[:120]}")
+                RESULT.setdefault("live_results", {})[query] = {"results": count, "seconds": round(time.time() - started, 1)}
+                checks.check(f"the live Telisik page lists results for \u201c{query}\u201d", count >= 1, f"{count} results")
+
+            def settle_tab(address, query):
+                """Let the Telisik tab that just opened finish loading, so its loading cannot disturb the next step."""
+                page = wait_for(lambda: site_page(address), 5)
+                if not page:
+                    return
+                try:
+                    page.wait_for_load_state("load", timeout=20000)
+                    wait_for(lambda: page.evaluate(BOX_VALUE_JS) == query, 20)
+                except Exception as error:
+                    checks.note(f"waiting for the tab of \u201c{query}\u201d: {type(error).__name__}: {str(error)[:120]}")
+
+            def bubble_page():
+                for page in context.pages:
+                    if page.url.endswith("/popup.html"):
+                        return page
+                return None
+
+            def bubble_reads(script):
+                """Ask the bubble's own page something. None when the browser does not let the test see the bubble."""
+                page = bubble_page()
+                if not page:
+                    return None
+                try:
+                    return page.evaluate(script)
+                except Exception:
+                    return None
+
+            def search_in_bubble(query, before):
+                """Real typing and Enter in the open bubble. Waits for the bubble's box to hold the keyboard first."""
+                has_keyboard = wait_for(lambda: bubble_reads(BUBBLE_HAS_KEYBOARD_JS), 5)
+                if has_keyboard is None:
+                    first.wait_for_timeout(1000)
+                elif not has_keyboard:
+                    checks.note(f"the bubble's box did not hold the keyboard within 5 s, before typing \u201c{query}\u201d")
+                desk.type_text(query)
+                typed = bubble_reads(BOX_VALUE_JS)
+                if typed is not None and typed != query:
+                    checks.note(f"after the first typing the bubble's box held {typed!r}, not {query!r}; typed once more")
+                    RESULT.setdefault("bubble_typed_twice", []).append(query)
+                    wait_for(lambda: bubble_reads(BUBBLE_HAS_KEYBOARD_JS), 5)
+                    desk.chord("ctrl", "a")
+                    desk.type_text(query)
+                desk.chord("enter")
+                return wait_for(lambda: opened_since(before, search_url(query)), 8 * patience)
 
             extension_id = ""
             if args.browser != "chromium":
@@ -624,7 +851,8 @@ def run_chromium_family(args, checks, desk):
             extension_id = extension_id or background.url.split("/")[2]
             origin = f"chrome-extension://{extension_id}"
 
-            first.goto(test_page_url)
+            # A fresh Edge profile is busy for a while when the network answers; the page itself is local.
+            first.goto(test_page_url, wait_until="domcontentloaded", timeout=int(8000 * patience * 2))
             processes = session.send("SystemInfo.getProcessInfo")["processInfo"]
             desk.pid = next(process["id"] for process in processes if process["type"] == "browser")
             mains = [handle for handle in top_windows(desk.pid) if window_class(handle).startswith("Chrome_WidgetWin") and window_title(handle)]
@@ -683,7 +911,26 @@ def run_chromium_family(args, checks, desk):
                 desk.chord("ctrl", "t")
                 wait_for(lambda: len(tabs()) > len(before), 8)
                 fresh = wait_for(lambda: [page for page in context.pages if page not in known and page.url == new_tab_address], 6)
-                return (fresh[0] if fresh else None), new_addresses(before)
+                if fresh:
+                    return fresh[0], new_addresses(before)
+                # The browser can go on naming the tab by its own new-tab address although the extension's page
+                # is the one on the screen (seen once with Chrome 157 on the live site). The keys are not pressed
+                # again; the page that opened is asked for its own address instead, and the detour is written down.
+                reported = []
+                for page in [page for page in context.pages if page not in known]:
+                    try:
+                        own_address = page.evaluate("location.href")
+                    except Exception as error:
+                        own_address = f"{type(error).__name__}: {str(error)[:80]}"
+                    reported.append({"the browser names it": page.url, "the page says": own_address})
+                    if own_address == new_tab_address:
+                        checks.note(
+                            f"the browser named the new tab {page.url!r}; the page in it, asked directly, "
+                            f"is the extension's new tab page ({own_address})"
+                        )
+                        RESULT.setdefault("new_tab_named_differently", []).append(page.url)
+                        return page, new_addresses(before)
+                return None, {"tabs": new_addresses(before), "pages": reported}
 
             new_page, seen = press_ctrl_t()
             checks.check("real Ctrl+T opens the extension's new tab page", new_page is not None, seen)
@@ -740,7 +987,7 @@ def run_chromium_family(args, checks, desk):
                 checks.check("a real click in the Telisik box, then typing, puts the text in that box", typed, new_page.evaluate(BOX_VALUE_JS))
                 if typed:
                     desk.chord("enter")
-                    arrived = wait_for(lambda: search_url(NEW_TAB_QUERY) in tabs().values(), 8)
+                    arrived = wait_for(lambda: search_url(NEW_TAB_QUERY) in tabs().values(), 8 * patience)
                     checks.check("real Enter in that box opens Telisik with the query", arrived, sorted(tabs().values()))
                     shown = site_shows(search_url(NEW_TAB_QUERY), NEW_TAB_QUERY)
                     checks.check("the Telisik page behind it shows that query in its search box", shown == NEW_TAB_QUERY, shown)
@@ -779,10 +1026,11 @@ def run_chromium_family(args, checks, desk):
             )
             if in_keyword_mode:
                 desk.chord("enter")
-                arrived = wait_for(lambda: search_url(ADDRESS_BAR_QUERY) in tabs().values(), 8)
+                arrived = wait_for(lambda: search_url(ADDRESS_BAR_QUERY) in tabs().values(), 8 * patience)
                 checks.check("real Enter in the address bar opens Telisik with the query", arrived, sorted(tabs().values()))
                 shown = site_shows(search_url(ADDRESS_BAR_QUERY), ADDRESS_BAR_QUERY)
                 checks.check("the Telisik page behind it shows that query in its search box", shown == ADDRESS_BAR_QUERY, shown)
+                live_results(search_url(ADDRESS_BAR_QUERY), ADDRESS_BAR_QUERY)
                 grab_window(args.shots, f"{args.browser}-real-address-bar-result.png", desk.main_window)
             else:
                 desk.chord("escape")
@@ -810,10 +1058,13 @@ def run_chromium_family(args, checks, desk):
                 before = dict(tabs())
                 entry = next((item for item in entries if item["name"] == MENU_LABEL), entries[0])
                 desk.click(centre(entry["rect"]), "the Telisik menu entry")
-                opened = wait_for(lambda: opened_since(before, search_url(SELECTED_TEXT)), 8)
+                opened = wait_for(lambda: opened_since(before, search_url(SELECTED_TEXT)), 8 * patience)
                 checks.check("a real click on that entry opens Telisik with the selected text", bool(opened), new_addresses(before))
                 shown = site_shows(search_url(SELECTED_TEXT), SELECTED_TEXT)
                 checks.check("the Telisik page behind it shows the selected text in its search box", shown == SELECTED_TEXT, shown)
+                live_results(search_url(SELECTED_TEXT), SELECTED_TEXT)
+                if gate:
+                    grab_window(args.shots, f"{args.browser}-real-menu-result.png", desk.main_window)
             else:
                 desk.chord("escape")
 
@@ -824,13 +1075,11 @@ def run_chromium_family(args, checks, desk):
             checks.check("real Alt+Shift+K opens the Telisik bubble", bool(bubble), "no popup.html appeared")
             if bubble:
                 before = dict(tabs())
-                time.sleep(0.5)
-                desk.type_text(POPUP_QUERY)
-                desk.chord("enter")
-                opened = wait_for(lambda: opened_since(before, search_url(POPUP_QUERY)), 8)
+                opened = search_in_bubble(POPUP_QUERY, before)
                 checks.check("real typing and Enter in the bubble opens Telisik with the query", bool(opened), new_addresses(before))
                 closed = wait_for(lambda: not popup_open(), 4)
                 checks.check("the bubble closes after the search", closed, "popup.html is still open")
+                settle_tab(search_url(POPUP_QUERY), POPUP_QUERY)
             else:
                 desk.chord("escape")
 
@@ -857,22 +1106,30 @@ def run_chromium_family(args, checks, desk):
                 checks.check("a real click on Telisik in the toolbar opens the bubble", bool(bubble), "no popup.html appeared")
                 if bubble:
                     before = dict(tabs())
-                    time.sleep(0.5)
-                    desk.type_text(TOOLBAR_QUERY)
-                    desk.chord("enter")
-                    opened = wait_for(lambda: opened_since(before, search_url(TOOLBAR_QUERY)), 8)
+                    opened = search_in_bubble(TOOLBAR_QUERY, before)
                     checks.check("typing and Enter in that bubble opens Telisik with the query", bool(opened), new_addresses(before))
             else:
                 desk.chord("escape")
 
-            hosts = sorted(set(urlparse(url).hostname or "" for url in refused_urls))
+            web_urls = [url for url in asked_urls if url.startswith("http") and urlparse(url).hostname != "127.0.0.1"]
+            hosts = sorted(set(urlparse(url).hostname or "" for url in (web_urls if gate else refused_urls)))
             RESULT["hosts_the_pages_asked_for"] = hosts
-            engines = [host for host in hosts if any(name in host for name in ("google.", "bing.", "duckduckgo.", "yahoo."))]
+            engines = [host for host in hosts if any(name in host for name in SEARCH_ENGINES)]
             checks.check("no page in the test asked Google, Bing, DuckDuckGo or Yahoo for anything", not engines, engines)
+            if gate:
+                unlisted = [host for host in hosts if not host_is_listed(host, gate.listed)]
+                checks.check(
+                    "every host the pages asked for is the Telisik site or on its own list of sources",
+                    bool(hosts) and not unlisted,
+                    unlisted or "the pages asked for nothing",
+                )
+                gate.report(checks)
             grab_window(args.shots, f"{args.browser}-real-end.png", desk.main_window)
             context.close()
     finally:
         server.shutdown()
+        if gate:
+            gate.close()
         shared.stop_marked_processes(marker)
         shared.remove_folder(profile)
 
@@ -988,6 +1245,11 @@ return {
 };
 """
 
+FIREFOX_SITE_JS = """
+const box = document.querySelector('#q');
+return { href: location.href, value: box ? box.value : null, results: document.querySelectorAll('#results .result').length };
+"""
+
 FIREFOX_BOX_JS = """
 const box = document.querySelector('#q');
 if (!box) {
@@ -1009,6 +1271,9 @@ def run_firefox(args, checks, desk):
     build = tempfile.mkdtemp(prefix="telisik-fx-build-")
     folder = pack_extension.build(build)
     server, test_page_url = start_test_page()
+    gate = Gate(args.proxy) if args.live else None
+    patience = 2.5 if args.live else 1.0
+    proxy_port = gate.port if gate else shared.DEAD_PROXY_PORT
     with socket.socket() as probe:
         probe.bind(("127.0.0.1", 0))
         port = probe.getsockname()[1]
@@ -1016,10 +1281,11 @@ def run_firefox(args, checks, desk):
         "marionette.port": port,
         "network.proxy.type": 1,
         "network.proxy.http": "127.0.0.1",
-        "network.proxy.http_port": shared.DEAD_PROXY_PORT,
+        "network.proxy.http_port": proxy_port,
         "network.proxy.ssl": "127.0.0.1",
-        "network.proxy.ssl_port": shared.DEAD_PROXY_PORT,
-        # Only the test page on this computer may be reached; everything else meets the dead proxy.
+        "network.proxy.ssl_port": proxy_port,
+        # Only the test page on this computer may be reached; everything else meets the dead proxy
+        # (or, with --live, the gate that passes the Telisik site and its sources only).
         "network.proxy.no_proxies_on": "127.0.0.1",
         "browser.shell.checkDefaultBrowser": False,
         "datareporting.policy.dataSubmissionEnabled": False,
@@ -1030,7 +1296,7 @@ def run_firefox(args, checks, desk):
         "browser.startup.homepage": "about:blank",
         "browser.tabs.warnOnClose": False,
         "browser.warnOnQuit": False,
-        # Nothing can leave anyway (dead proxy); this also keeps the address bar from trying.
+        # Nothing can leave anyway (dead proxy, or the gate); this also keeps the address bar from trying.
         "browser.search.suggest.enabled": False,
         "browser.urlbar.suggest.searches": False,
     }
@@ -1042,6 +1308,7 @@ def run_firefox(args, checks, desk):
         [binary, "-marionette", "-no-remote", "-remote-allow-system-access", "-profile", profile],
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
+        env=shared.firefox_environment(),
     )
     try:
         client = shared.Marionette(port)
@@ -1065,10 +1332,11 @@ def run_firefox(args, checks, desk):
             return
         origin = f"moz-extension://{policy['host']}"
         new_tab_address = f"{origin}/newtab.html"
-        checks.note(
-            "Firefox has no way for this test to answer the Telisik site from the folder, so the tabs show "
-            "Firefox's 'proxy refused' page; only the address each tab was sent to is checked here"
-        )
+        if not gate:
+            checks.note(
+                "Firefox has no way for this test to answer the Telisik site from the folder, so the tabs show "
+                "Firefox's 'proxy refused' page; only the address each tab was sent to is checked here"
+            )
 
         placed = client.browser_script(FIREFOX_WINDOW_JS)
         desk.pid = placed["pid"]
@@ -1106,6 +1374,33 @@ def run_firefox(args, checks, desk):
                 return {"error": str(error)[:160]}
             finally:
                 client.send("WebDriver:SwitchToWindow", {"handle": test_handle, "focus": False})
+
+        def site_tab(query):
+            """Live only: what the Telisik tab that holds this query shows."""
+            for handle in handles():
+                if handle == test_handle:
+                    continue
+                seen = other_tab(handle, FIREFOX_SITE_JS)
+                if seen and "error" not in seen and str(seen.get("href", "")).startswith(HOME) and seen.get("value") == query:
+                    return seen
+            return None
+
+        def live_site(query):
+            """Live only: the real page behind the address shows the query and, for a real question, results."""
+            if not gate:
+                return
+            started = time.time()
+            seen = wait_until(lambda: site_tab(query), 50, 0.5)
+            checks.check(
+                f"the live Telisik page behind it shows \u201c{query}\u201d in its search box",
+                bool(seen),
+                "no Telisik tab shows that query",
+            )
+            if not seen or query not in LIVE_RESULT_QUERIES:
+                return
+            listed = wait_until(lambda: (site_tab(query) or {}).get("results", 0), 40, 0.5) or 0
+            RESULT.setdefault("live_results", {})[query] = {"results": listed, "seconds": round(time.time() - started, 1)}
+            checks.check(f"the live Telisik page lists results for \u201c{query}\u201d", listed >= 1, f"{listed} results")
 
         offset = [0.0, 0.0]
 
@@ -1209,8 +1504,9 @@ def run_firefox(args, checks, desk):
             checks.check("a real click in the Telisik box, then typing, puts the text in that box", typed, box_of(new_handle))
             if typed:
                 desk.chord("enter")
-                arrived = wait_until(lambda: selected_url() == search_url(NEW_TAB_QUERY), 10)
+                arrived = wait_until(lambda: selected_url() == search_url(NEW_TAB_QUERY), 10 * patience)
                 checks.check("real Enter in that box sends the tab to Telisik with the query", arrived, state()["urls"])
+                live_site(NEW_TAB_QUERY)
         else:
             checks.check("a real click in the Telisik box, then typing, puts the text in that box", False, "the new tab page has no search box to read")
 
@@ -1241,8 +1537,9 @@ def run_firefox(args, checks, desk):
         )
         if bar:
             desk.chord("enter")
-            arrived = wait_until(lambda: selected_url() == search_url(ADDRESS_BAR_QUERY), 10)
+            arrived = wait_until(lambda: selected_url() == search_url(ADDRESS_BAR_QUERY), 10 * patience)
             checks.check("real Enter in the address bar sends the tab to Telisik with the query", arrived, state()["urls"])
+            live_site(ADDRESS_BAR_QUERY)
             grab_window(args.shots, "firefox-real-address-bar-result.png", desk.main_window)
         else:
             desk.chord("escape")
@@ -1288,13 +1585,16 @@ def run_firefox(args, checks, desk):
         if entry:
             before = state()
             desk.click((entry["at"]["x"], entry["at"]["y"]), "the Telisik menu entry")
-            arrived = wait_until(lambda: search_url(SELECTED_TEXT) in state()["urls"], 10)
+            arrived = wait_until(lambda: search_url(SELECTED_TEXT) in state()["urls"], 10 * patience)
             now = state()
             checks.check(
                 "a real click on that entry opens Telisik with the selected text in a new tab",
                 bool(arrived) and len(now["urls"]) == len(before["urls"]) + 1,
                 now["urls"],
             )
+            live_site(SELECTED_TEXT)
+            if gate:
+                grab_window(args.shots, "firefox-real-menu-result.png", desk.main_window)
         else:
             desk.chord("escape")
 
@@ -1319,7 +1619,7 @@ def run_firefox(args, checks, desk):
             desk.type_text(query)
             grab_window(args.shots, picture, desk.main_window)
             desk.chord("enter")
-            arrived = bool(wait_until(lambda: search_url(query) in state()["urls"], 10))
+            arrived = bool(wait_until(lambda: search_url(query) in state()["urls"], 10 * patience))
             after_click = False
             if not arrived and bubble_open():
                 # Second way, only to learn what a person would have to do: click in the box, then type.
@@ -1328,7 +1628,7 @@ def run_firefox(args, checks, desk):
                     desk.chord("ctrl", "a")
                     desk.type_text(query)
                     desk.chord("enter")
-                    after_click = bool(wait_until(lambda: search_url(query) in state()["urls"], 10))
+                    after_click = bool(wait_until(lambda: search_url(query) in state()["urls"], 10 * patience))
             return arrived, keyboard_in, after_click
 
         settle()
@@ -1394,13 +1694,17 @@ def run_firefox(args, checks, desk):
         final = state()
         hosts = sorted(set(urlparse(url).hostname or "" for url in final["urls"]))
         RESULT["hosts_the_tabs_were_sent_to"] = hosts
-        engines = [host for host in hosts if any(name in host for name in ("google.", "bing.", "duckduckgo.", "yahoo."))]
+        engines = [host for host in hosts if any(name in host for name in SEARCH_ENGINES)]
         checks.check("no tab in the test was sent to Google, Bing, DuckDuckGo or Yahoo", not engines, final["urls"])
+        if gate:
+            gate.report(checks)
         policy = client.browser_script(shared.FIREFOX_POLICY_JS, [shared.GECKO_ID])
         checks.check("after all of that Firefox still reports no warning and no error", policy.get("found") and not policy["warnings"] and not policy["errors"], policy)
         grab_window(args.shots, "firefox-real-end.png", desk.main_window)
     finally:
         server.shutdown()
+        if gate:
+            gate.close()
         for pid in {process.pid, desk.pid}:
             if pid:
                 subprocess.run(["taskkill", "/PID", str(pid), "/T", "/F"], capture_output=True, timeout=40)
@@ -1417,7 +1721,13 @@ def main():
     parser.add_argument("--idle", type=float, default=6.0, help="start only after this many seconds without keyboard or mouse")
     parser.add_argument("--idle-wait", type=float, default=600.0, help="how long to wait for that quiet moment")
     parser.add_argument("--seconds", type=int, default=110, help="give up this long after the quiet moment")
+    parser.add_argument("--live", action="store_true", help="let the real Telisik site and its real sources answer (through a gate that refuses every other host)")
+    parser.add_argument("--proxy", default=None, help="with --live: the proxy this network needs, for example http://proxy:80")
     args = parser.parse_args()
+    if args.proxy and not args.live:
+        parser.error("--proxy only has a meaning together with --live")
+    if args.live and args.seconds == 110:
+        args.seconds = 240  # the real sources need time to answer
     if os.name != "nt":
         print("This check presses real keys through the Windows API; it runs on Windows only.")
         sys.exit(2)
@@ -1426,6 +1736,8 @@ def main():
     except Exception:
         pass
     checks = shared.Checks()
+    if args.live:
+        print("mode: live. The real site and its sources answer; a gate on this computer refuses every other host.", flush=True)
     if not user32.GetForegroundWindow():
         print("FAIL  no window is in front: the screen is locked or there is no desktop. Nothing was sent.")
         sys.exit(1)

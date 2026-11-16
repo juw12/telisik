@@ -84,7 +84,8 @@ def stop_marked_processes(marker):
             "Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -like '*" + marker + "*' } | "
             "ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }"
         )
-        subprocess.run(["powershell", "-NoProfile", "-Command", query], capture_output=True, timeout=40)
+        # Listing every process took over 40 s once on a busy computer (measured), so the limit is generous.
+        subprocess.run(["powershell", "-NoProfile", "-Command", query], capture_output=True, timeout=120)
     else:
         subprocess.run(["pkill", "-f", marker], capture_output=True, timeout=40)
 
@@ -557,6 +558,18 @@ return report;
 """
 
 
+def firefox_environment():
+    """The environment Firefox is started with.
+
+    The tests reach Firefox's own toolbar and address bar through Marionette. The Firefox that Playwright
+    ships allows that with the -remote-allow-system-access switch alone; release Firefox (160 tested) also
+    wants this variable, and without it answers "System access is required".
+    """
+    environment = dict(os.environ)
+    environment["MOZ_REMOTE_ALLOW_SYSTEM_ACCESS"] = "1"
+    return environment
+
+
 def find_firefox(named):
     candidates = [named, os.environ.get("TELISIK_FIREFOX")]
     stores = [os.environ.get("PLAYWRIGHT_BROWSERS_PATH"), str(Path(os.environ.get("LOCALAPPDATA", "")) / "ms-playwright")]
@@ -612,6 +625,7 @@ def run_firefox(args, checks):
         [binary, "-marionette", "-headless", "-no-remote", "-remote-allow-system-access", "-profile", profile],
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
+        env=firefox_environment(),
     )
     try:
         client = Marionette(port)
@@ -637,11 +651,14 @@ def run_firefox(args, checks):
             state = tabs()
             return state["urls"][state["selected"]]
 
-        def settle_on(expected, seconds=20.0):
+        def settle_on(expected, seconds=60.0):
             """Follow the tab in front until it shows the expected address.
 
             Firefox passes through about:blank on the way to a new address, so
             one early reading is not the answer. Returns every address seen, in order.
+            The limit is long because release Firefox 160 stayed on about:blank for 5 to 26 s
+            before it gave up on the proxy that refuses everything (measured; the Firefox that
+            Playwright ships took under 20 s every time). It returns as soon as the address is there.
             """
             seen = []
             deadline = time.time() + seconds

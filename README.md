@@ -241,11 +241,11 @@ account (Chrome's has a one-time fee), and neither has been set up. Until then i
 `python tools/pack_extension.py` also writes `dist/telisik-chrome.zip` and `dist/telisik-firefox.zip`,
 the forms the two stores take. `dist/` is not in git.
 
-What the browser itself adds, measured with real keys and a real mouse in Chrome 157, Edge 157 and
-Playwright's Firefox 150:
+What the browser itself adds, measured with real keys and a real mouse in Chrome 157, Edge 157,
+Playwright's Firefox 150 and the Firefox 160 that Mozilla releases:
 
 - **New tab.** After Ctrl+T the cursor is in the browser's address bar, not in the page's search box,
-  in all three. The browser decides that and the extension does not fight it. Click in the box, or
+  in all four. The browser decides that and the extension does not fight it. Click in the box, or
   type `tk` and a space.
 - **One question, once.** The first new tab asks whether to keep the new page: "Keep it" in Chrome,
   "Keep changes" in Edge, "Keep Changes" in Firefox. The test only ever chose to keep it.
@@ -254,11 +254,71 @@ Playwright's Firefox 150:
 - **Right-click.** Firefox keeps its own "Search Google for ..." entry next to the Telisik one.
 - **Firefox toolbar.** The button is not pinned by default. It sits in the Extensions menu as
   "Search Telisik".
-- **Firefox bubble.** After Alt+Shift+K or a click on the button the bubble opens, but typing did not
-  reach its box until one real click in it, in every Firefox run. Mozilla's bug tracker has reports
-  that appear to describe the same thing (1512917, 1918031); that they are the cause is not confirmed.
-  The bubble says so in Firefox: "In Firefox, click in the box first if typing does nothing." In
-  Chrome and Edge the bubble takes typing right away.
+- **Firefox bubble.** After Alt+Shift+K or a click on the button the bubble opens. In Playwright's
+  Firefox 150 typing did not reach its box until one real click in it, in every run. In release
+  Firefox 160 typing reached the box without a click, in both runs made there. Mozilla's bug tracker
+  has reports that appear to describe the older behaviour (1512917, 1918031); that they are the cause,
+  or that a fix landed between the two versions, is not confirmed. The bubble still says in Firefox:
+  "In Firefox, click in the box first if typing does nothing." In Chrome and Edge the bubble takes
+  typing right away.
+
+### What it asks for, next to the search engines' own add-ons
+
+`tools/compare_permissions.py` downloads the public package of each add-on that a search engine
+publishes under its own name on addons.mozilla.org and reads the `manifest.json` inside. Nothing is
+installed. On 16 November 2026 it looked for 28 engine names and found 18 add-ons from 13
+publishers. No add-on from the engine itself turned up for Google, Yahoo, Perplexity, ChatGPT / OpenAI, You.com, Mojeek, Phind, SearXNG, Mullvad Leta, Presearch, Naver, Baidu.
+The answers are saved in `founder/addon-permissions.json` with the SHA-256 of every package read.
+
+| Add-on | From | Daily users | Browser permissions | Websites it can read or change | What it does |
+| --- | --- | ---: | ---: | --- | --- |
+| **Telisik** (not in the store) | juw12 |  | 1 | none | new tab page, toolbar button, address bar keyword, right click entry |
+| Brave search - Private Search Engine | Brave Software | 16,365 | 0 | none | default search engine |
+| Swisscows | Swisscows AG | 8,966 | 0 | none | default search engine |
+| Seznam Doplněk – Vyhledávač | Seznam.cz, a.s. | 542 | 3 | none | default search engine, toolbar button |
+| Qwant - Search engine | Qwant | 97,677 | 0 | 1 | default search engine, address bar keyword, scripts inside web pages |
+| Ecosia — The search engine that plants trees 🌱 | Ecosia Dev Team | 238,602 | 2 | 1 | default search engine, toolbar button, right click entry, scripts inside web pages |
+| Microsoft Bing Homepage and Search Engine | Microsoft Corporation | 723 | 2 | 1 | default search engine, home page, toolbar button |
+| Startpage | Startpage | 205,028 | 4 | 1 | default search engine, toolbar button, scripts inside web pages |
+| Kagi Search for Firefox | Kagi Inc. | 27,120 | 5 | 1 | default search engine, toolbar button, right click entry |
+| Microsoft Bing Search Engine | Microsoft Corporation | 3,306 | 5 | 1 | default search engine, toolbar button |
+| Lilo - Search engine | Lilo | 43,366 | 0 | 2 | default search engine, address bar keyword, scripts inside web pages |
+| KARMA Search | KARMA Search, Yann | 249 | 2 | 2 | default search engine, new tab page, toolbar button, scripts inside web pages |
+| DuckDuckGo No-AI Search | DuckDuckGo | 42,614 | 4 | 2 | default search engine, scripts inside web pages |
+| Qwant - Search engine & tracker blocker | Qwant | 67,242 | 5 | 2 | default search engine, toolbar button, scripts inside web pages |
+| MetaGer Search | SUMA-EV / MetaGer | 5,932 | 6 | 14 | default search engine, toolbar button, scripts inside web pages |
+| Yandex — Homepage | Yandex | 16,891 | 3 | every site | home page, toolbar button |
+| DuckDuckGo Search & Tracker Protection | DuckDuckGo | 1,101,603 | 8 | every site | default search engine, toolbar button, address bar keyword, right click entry, scripts inside web pages |
+| Yandex.Bar | Yandex | 21,537 | 12 | every site | toolbar button, right click entry, scripts inside web pages |
+| Startpage Privacy Protection | Startpage | 30,827 | 8 | every site | default search engine, toolbar button, scripts inside web pages |
+
+Ordered by what you have to trust: access to every website first, then the number of website
+patterns, then the number of browser permissions.
+
+- Of the 18, 16 ask for more than Telisik, none for the same and 2 for less.
+- The 2 that ask for less are Brave Search and Swisscows, with no permission at all. Each only sets
+  the browser's default search engine. Neither adds a new tab page, a toolbar button, an address-bar
+  keyword or a right-click entry.
+- 15 of the 18 add at least one of those four places. Every one of them asks for more than Telisik.
+- None of the 18 does all four. One, KARMA Search, replaces the new tab page.
+- 15 can read or change at least one website, 4 of them every website, and 11 run scripts inside web
+  pages. Telisik: no website, no script inside a page.
+- None of the 18 bars its own pages from the network with its content security policy. Telisik's does.
+
+That is the one comparison in this file where Telisik comes first against the engines people use:
+among the add-ons that put search somewhere new in the browser, it is the one that asks for least.
+Read it with these limits:
+
+- One store on one day. The Chrome Web Store was not read.
+- A permission is what an add-on may do, not what it does. Several of the larger ones use theirs to
+  block trackers, which Telisik's does not do at all.
+- It says nothing about which engine finds better results. For that see "Measured" above.
+- Telisik's add-on is not in any store, so nobody outside this repository has reviewed it.
+
+```
+python tools/compare_permissions.py --saved    # the table and the counts from the saved data
+python tools/compare_permissions.py            # read the store again
+```
 
 ## Check it
 
@@ -274,6 +334,8 @@ python tools/extension_e2e.py --browser chrome
 python tools/extension_e2e.py --browser edge
 python tools/extension_e2e.py --browser firefox --firefox-binary PATH
 python tools/extension_real_input.py --browser chrome    # real keys and mouse, Windows only; also edge, firefox
+python tools/extension_real_input.py --browser chrome --live   # the same against the live site and real sources
+python tools/compare_permissions.py --saved    # the add-on next to the search engines' own add-ons
 ```
 
 The browser run needs Python with Playwright (`pip install playwright`, `playwright install chromium
@@ -286,8 +348,10 @@ The extension run installs the extension into a fresh browser profile and checks
 itself reports: that it is enabled with no manifest warning, which permissions it holds, that a new tab
 opens its page, that the page loads nothing from outside the extension, and that a search typed there
 arrives on the site. On 16 November 2026 it passed 28 of 28 checks in Playwright's Chromium 148, in
-Chrome 157 and in Edge 157, and 25 of 25 in Playwright's Firefox 150. On a busy computer the first
-tries failed four times on waits that were too short. The waits were lengthened, nothing else.
+Chrome 157 and in Edge 157, and 25 of 25 in Playwright's Firefox 150 and in Firefox 160.0 as Mozilla
+releases it. On a busy computer the first tries failed four times on waits that were too short. The
+waits were lengthened, nothing else. Release Firefox refuses remote control of its own interface
+unless `MOZ_REMOTE_ALLOW_SYSTEM_ACCESS=1` is set, so the run sets it for the test browser only.
 
 That run cannot press keys in the browser's own address bar, open its right-click menu or press
 Alt+Shift+K, so it checks those one step in: the browser has the keyword, the menu entry and the
@@ -298,22 +362,73 @@ Ctrl+T, `tk` typed in the real address bar, the real right-click menu, Alt+Shift
 toolbar button. It takes about half a minute of input in Chrome and Edge and about a minute in
 Firefox. It starts only after 6 seconds without a key or mouse move, uses its own browser window on a
 throwaway profile, checks before every key and click that this window has the keyboard, stops
-sending if you take it back, and puts the pointer and your window back at the end. The test browser
-gets a proxy that does not exist, so nothing reaches the network. On 16 November 2026 the last runs
-gave:
+sending if you take it back, and puts the pointer and your window back at the end. Without `--live`
+the test browser gets a proxy that does not exist, so nothing reaches the network. On 16 November
+2026 the last runs that way gave:
 
 | Browser | Real-input checks passed |
 |---|---|
 | Chrome 157.0.8103.78 | 25 of 25 |
 | Edge 157.0.4341.46 | 25 of 25 |
 | Firefox 150.0.2, the build Playwright ships | 24 of 26 |
+| Firefox 160.0, as Mozilla releases it | 26 of 26 |
 
-The two Firefox misses are the bubble not taking typing before a click (above). The two checks
+The two Firefox 150 misses are the bubble not taking typing before a click (above). The two checks
 "after one real click it works" pass. In Firefox the test cannot answer the site from the folder, so
-it checks the address each search opens, not the page behind it.
+without `--live` it checks the address each search opens, not the page behind it.
 
-Still not tested: the Firefox that Mozilla releases (only Playwright's build was here), the live site
-behind the extension with real input, and an extension installed from a store.
+With `--live` the same keys and clicks end on the real site, https://juw12.github.io/telisik/, which
+then asks the real sources. The test browser is put behind a small gate on this computer that lets
+through only the site and the hosts its content security policy lists, and answers 403 to everything
+else (`--proxy URL` if the gate itself needs one to get out). Each run makes two or three small
+searches. Every run of 16 November 2026 is listed, not only the ones that passed:
+
+| Browser | Last live run | Earlier live runs that day |
+|---|---|---|
+| Chrome 157.0.8103.78 | 29 of 29 | 29 of 29; stopped at 24 of 27; 25 of 27 |
+| Edge 157.0.4341.46 | 27 of 27 | stopped before any input; 28 of 29; 28 of 29 |
+| Firefox 150.0.2, the build Playwright ships | 30 of 32 | none |
+| Firefox 160.0, as Mozilla releases it | 32 of 32 | none |
+
+What went wrong in the runs that did not pass, none of it in the extension:
+
+- **Chrome, stopped at 24 of 27.** Another program's window came to the front after Alt+Shift+K. The
+  test held back its next four inputs and stopped, as it is built to. Nothing was typed elsewhere.
+- **Chrome, 25 of 27.** After Ctrl+T the test read the new tab as `chrome://newtab/` and failed that
+  check and the one that depends on it. A screenshot taken 0.8 seconds later shows the Telisik page
+  in that tab. The read was wrong, why is not known, and it happened once in four runs. The test now
+  asks the page in the tab for its own address before it fails. The run after that change did not
+  need the second read.
+- **Edge, stopped before any input.** The site took longer than the 8 seconds the test allowed. The
+  limit was raised.
+- **Edge, 28 of 29, twice.** Once the test typed before the bubble had the keyboard, so the test
+  now waits for it. Once the results page was still empty after 20 seconds; a screenshot 13 seconds
+  later shows the query and 20 results.
+- **Firefox 150, 30 of 32.** The same two bubble checks as without `--live`.
+- Edge's last run has two checks fewer because Edge did not ask its "Keep changes" question that time.
+
+Eight of those runs kept their log (the first two Edge runs were overwritten), which is 16 live
+searches. 13 of them came back in 0.9 to 1.9 seconds. The other three: one Edge search took 13.2
+seconds, and Firefox 160 took 3.4 and 17.2 seconds. 13 searches listed 20 results, one listed 19,
+and two listed only 6, both for "Krebs cycle steps" (Edge's last run and Firefox 160). Why those
+two came back short was not looked into; the same question listed 19 or 20 in the other six runs.
+All of it went through a company proxy, so these are not speed measurements of Telisik.
+
+The gate also shows what each browser tried to reach by itself while the test ran, all refused:
+Chrome five Google hosts in every run (among them `accounts.google.com` and `www.google.com`), Edge
+four Microsoft hosts in one run and nine in the next (among them `www.bing.com`, `edge.microsoft.com`
+and `graph.microsoft.com`), Firefox 160 `firefox.settings.services.mozilla.com`, Playwright's Firefox
+150 nothing. The gate sees hosts, not who asked, so it cannot say which request came from the
+extension. That the extension's own pages cannot reach the network is checked in the extension run
+above, not here.
+
+Still not tested:
+
+- An extension installed from a store. That needs the owner's developer accounts (above).
+- Mozilla's `web-ext lint`. The network this was built on refuses npm's registry, and it was not
+  fetched another way. Firefox 150 and 160 themselves report no warning and no error for the manifest,
+  which the extension run checks. To run the linter: `npx web-ext lint --source-dir dist/telisik-firefox`.
+- Any computer other than one Windows machine. The real-input test is Windows only.
 
 `tests/hygiene.test.js` holds the page to its own words: no remote scripts or fonts, no inline script,
 a content security policy that lists exactly the source hosts, and ranking code that cannot read the
@@ -337,7 +452,9 @@ money settings.
 | `tools/compare.mjs`, `tests/eval/wiby.json` | The same questions asked of each source alone and of the Wiby index |
 | `extension/` | The browser extension: `manifest.json`, `url.js` (builds the search address), `background.js` (address-bar keyword, right-click entry), `page.js`, `newtab.html`, `popup.html`, `page.css`, `icons/` |
 | `tools/pack_extension.py` | Writes `dist/`: the Chrome zip and the Firefox folder and zip with Firefox's manifest |
-| `tools/extension_e2e.py` | Loads the extension into Chromium, Chrome or Firefox and checks it there |
+| `tools/extension_e2e.py` | Loads the extension into Chromium, Chrome, Edge or Firefox and checks it there |
+| `tools/extension_real_input.py` | Drives the extension with the real keyboard and mouse, closed off from the network or, with `--live`, against the live site behind a gate |
+| `tools/compare_permissions.py`, `founder/addon-permissions.json` | Reads what the search engines' own Firefox add-ons ask for, and the answers of 16 November 2026 |
 | `founder/` | Niche, competitors and money notes |
 
 ## Money

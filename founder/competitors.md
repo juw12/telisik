@@ -61,6 +61,14 @@ and scored once, first ten results, `node tools/compare.mjs --queries=queries3.j
 - Not a competitor at all: Chromium and Firefox. Telisik is a page that runs inside a browser. It
   installs as an app in them and plugs into the address bar and the share sheet; it does not replace
   them.
+- Win, narrow: add-on permissions. Read from the public packages on addons.mozilla.org on
+  16 November 2026, 18 add-ons that 13 search engines publish under their own name. 15 of them put
+  search somewhere new in the browser (new tab page, toolbar button, address-bar keyword or
+  right-click entry) and every one of those asks for more than Telisik's: 1 browser permission, no
+  website, no script inside a page. None does all four places. Brave Search and Swisscows ask for
+  less and only set the default engine. One store, one day; a permission is what an add-on may do,
+  not what it does; Telisik's is in no store. Table and commands in the README;
+  data in `founder/addon-permissions.json`.
 
 ## Verdict
 
