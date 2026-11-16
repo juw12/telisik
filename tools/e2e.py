@@ -18,8 +18,10 @@ import http.server
 import json
 import os
 import re
+import shutil
 import socketserver
 import sys
+import tempfile
 import threading
 import time
 from pathlib import Path
@@ -812,25 +814,45 @@ def functional(results, browser, base, allowed):
                if src != "./" and not (ROOT / src).is_file()]
     results.check("manifest: id, shortcuts and a share target that hands text over as q; every file it names exists",
                   manifest.get("id") and manifest["share_target"]["method"] == "GET"
+                  and manifest["share_target"].get("enctype") == "application/x-www-form-urlencoded"
                   and manifest["share_target"]["params"]["text"] == "q" and not missing,
                   f"missing {missing}")
 
 
-def installable(results, browser, base):
-    """Ask Chromium itself whether the deployed copy can be installed. Needs https, so not the local folder."""
-    context = browser.new_context()
-    page = context.new_page()
-    page.goto(base, wait_until="load")
-    page.evaluate("navigator.serviceWorker.ready.then(() => true)")
-    client = context.new_cdp_session(page)
-    errors = client.send("Page.getInstallabilityErrors").get("installabilityErrors", [])
-    manifest = client.send("Page.getAppManifest")
-    results.check("installable: Chromium reports no installability errors",
-                  not errors and not manifest.get("errors"), json.dumps([errors, manifest.get("errors")]))
-    context.set_offline(True)
-    page.reload(wait_until="load")
-    results.check("installable: the page opens with no connection", page.locator("#q").is_visible(), page.url)
-    context.close()
+WAIT_FOR_WORKER = """() => Promise.race([
+    navigator.serviceWorker.ready.then(() => "ready"),
+    new Promise((resolve) => setTimeout(() => resolve("no worker after 15 s"), 15000)),
+])"""
+
+
+def installable(results, playwright, base, launch_args):
+    """Ask Chromium itself whether the deployed copy can be installed. Needs https, so not the local folder.
+
+    A plain browser.new_context() is an incognito window, and Chromium answers "in-incognito" there
+    whatever the page does. So this check opens a real profile in a throwaway folder instead.
+    """
+    profile = tempfile.mkdtemp(prefix="telisik-install-")
+    try:
+        try:
+            context = playwright.chromium.launch_persistent_context(profile, args=launch_args)
+        except Exception:
+            context = playwright.chromium.launch_persistent_context(profile, channel="chrome", args=launch_args)
+        page = context.new_page()
+        page.set_default_timeout(30000)
+        page.goto(base, wait_until="load")
+        worker = page.evaluate(WAIT_FOR_WORKER)
+        client = context.new_cdp_session(page)
+        errors = client.send("Page.getInstallabilityErrors").get("installabilityErrors", [])
+        manifest = client.send("Page.getAppManifest")
+        results.check("installable: the service worker is active", worker == "ready", worker)
+        results.check("installable: Chromium reports no installability errors",
+                      not errors and not manifest.get("errors"), json.dumps([errors, manifest.get("errors")]))
+        context.set_offline(True)
+        page.reload(wait_until="load")
+        results.check("installable: the page opens with no connection", page.locator("#q").is_visible(), page.url)
+        context.close()
+    finally:
+        shutil.rmtree(profile, ignore_errors=True)
 
 
 def live(results, browser, base, allowed):
@@ -901,7 +923,7 @@ def main():
             session = live(results, browser, base, allowed)
             shot(session, shots, "live-1280")
             if base.startswith("https:") and args.browser == "chromium":
-                installable(results, browser, base)
+                installable(results, playwright, base, launch_args)
 
         total = len(results.rows)
         failed = results.failed

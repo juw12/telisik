@@ -144,3 +144,11 @@ test("the default-search address keeps the query out of the request", () => {
   assert.match(read("opensearch.xml"), /template="https:\/\/juw12\.github\.io\/telisik\/#q=\{searchTerms\}"/);
   assert.ok(read("about.html").includes("https://juw12.github.io/telisik/#q=%s"));
 });
+
+test("the share target states how it hands the text over", () => {
+  // Chromium flags a share target with no enctype as a manifest error, even for GET.
+  const manifest = JSON.parse(read("manifest.webmanifest"));
+  assert.equal(manifest.share_target.method, "GET");
+  assert.equal(manifest.share_target.enctype, "application/x-www-form-urlencoded");
+  assert.equal(manifest.share_target.params.text, "q");
+});
