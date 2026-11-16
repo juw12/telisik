@@ -211,7 +211,7 @@ Then open http://localhost:8080/.
 ## Check it
 
 ```
-node --test tests/                 # 145 unit tests: parser, adapters, ranking, text, promises
+node --test tests/                 # 146 unit tests: parser, adapters, ranking, text, promises
 node tools/eval.mjs --misses       # ranking quality on the saved answers, with every miss listed
 python tools/e2e.py                # real Chromium, API answers from tests/fixtures
 python tools/e2e.py --only functional --browser firefox   # the same behaviour checks in Firefox
@@ -243,7 +243,7 @@ money settings.
 | `js/config.js` | The two optional money links and the optional Stack Apps key |
 | `sw.js` | Offline shell, network first |
 | `design.md` | Why it looks the way it does |
-| `tools/eval.mjs`, `tests/eval/` | The ranking check: two question sets (`queries.json`, `queries2.json`), the saved answers (`pools.json`, `pools2.json`), the tuning search |
+| `tools/eval.mjs`, `tests/eval/` | The ranking check: three question sets (`queries.json`, `queries2.json`, `queries3.json`), the saved answers (`pools.json`, `pools2.json`, `pools3-first.json`, `pools3.json`), the tuning search |
 | `tools/compare.mjs`, `tests/eval/wiby.json` | The same questions asked of each source alone and of the Wiby index |
 | `founder/` | Niche, competitors and money notes |
 
