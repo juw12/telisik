@@ -373,7 +373,7 @@ def run_window(url, folder, report_path):
         settled = 0
         while time.time() < deadline:
             try:
-                page = json.loads(window.evaluate_js(PAGE_SCRIPT) or "{}")
+                page = json.loads(read_page(window, PAGE_SCRIPT) or "{}")
             except Exception as error:
                 page = {"error": str(error)}
             # Wait until a fully loaded Telisik page stays put for a moment.
@@ -407,6 +407,39 @@ def run_window(url, folder, report_path):
     finally:
         control.close()
     return True
+
+
+def read_page(window, script):
+    """The page's answer to `script`.
+
+    A page that forbids eval (Content-Security-Policy: script-src 'self') refuses pywebview's own
+    evaluate_js on a Mac, which wraps the script in eval. There the question is put to WebKit itself,
+    which the page's policy does not bind.
+    """
+    try:
+        return window.evaluate_js(script)
+    except Exception:
+        if sys.platform != "darwin":
+            raise
+    from PyObjCTools import AppHelper
+    from webview.platforms.cocoa import BrowserView
+
+    answer, done = {}, threading.Event()
+
+    def ask():
+        def finished(result, error):
+            answer["value"] = result
+            answer["error"] = None if error is None else str(error)
+            done.set()
+
+        BrowserView.instances[window.uid].webview.evaluateJavaScript_completionHandler_(script, finished)
+
+    AppHelper.callAfter(ask)
+    if not done.wait(20):
+        raise RuntimeError("the page did not answer")
+    if answer["error"]:
+        raise RuntimeError(answer["error"])
+    return answer["value"]
 
 
 def main(argv=None):
