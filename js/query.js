@@ -135,6 +135,29 @@ function upstreamQuery(keptWords) {
   return parts.join(" ").trim();
 }
 
+/**
+ * "o-ring", "x-ray", "t-shirt": the lone letter belongs to the name. Looked for on its own it
+ * matches any page that prints an alphabet, so it is left out of the ranking terms. The sources
+ * still get the word as typed.
+ */
+function compoundLetters(keptWords) {
+  const letters = new Set();
+  for (const word of keptWords) {
+    if (word.startsWith('"') || !word.includes("-")) {
+      continue;
+    }
+    const parts = tokenize(word);
+    if (parts.length > 1) {
+      for (const part of parts) {
+        if (/^[a-z]$/.test(part)) {
+          letters.add(part);
+        }
+      }
+    }
+  }
+  return letters;
+}
+
 export function parseQuery(raw) {
   const input = String(raw ?? "").trim();
   const parsed = {
@@ -199,7 +222,10 @@ export function parseQuery(raw) {
     kept.push(word);
   }
   parsed.text = kept.join(" ");
-  const allTerms = [...new Set(terms(parsed.text))];
+  const letters = compoundLetters(kept);
+  const everyTerm = [...new Set(terms(parsed.text))];
+  const withoutLetters = everyTerm.filter((term) => !letters.has(term));
+  const allTerms = withoutLetters.length ? withoutLetters : everyTerm;
   const topicTerms = allTerms.filter((term) => !FILLER_TERMS.has(term));
   parsed.terms = topicTerms.length ? topicTerms : allTerms;
   parsed.upstream = upstreamQuery(kept) || parsed.text;

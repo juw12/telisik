@@ -4,7 +4,7 @@
 import { BEFORE_AI_DATE, parseQuery } from "./query.js";
 import { SOURCE_BY_ID, planSources } from "./sources.js";
 import { bestPassages, rank } from "./rank.js";
-import { fold } from "./text.js";
+import { terms as toTerms } from "./text.js";
 
 export const TIMEOUT_MS = 8000;
 const CACHE_KEY = "telisik.cache.v1";
@@ -267,6 +267,29 @@ async function recover(adapter, outcome, parsed, opts, env) {
 }
 
 /**
+ * Wikipedia proposes a spelling for almost any rare query ("bolt preload" -> "boat payload").
+ * The proposal is believed only when it replaces at least one typed word, and every word it
+ * replaces is absent from the titles and excerpts of the results.
+ */
+export function isCredibleSuggestion(suggestion, parsed, results) {
+  if (!suggestion) {
+    return false;
+  }
+  const proposed = new Set(toTerms(suggestion));
+  const replaced = toTerms(parsed.upstream).filter((term) => !proposed.has(term));
+  if (!replaced.length) {
+    return false;
+  }
+  const found = new Set();
+  for (const result of results) {
+    for (const term of toTerms(`${result.title} ${result.alias ?? ""} ${result.snippet} ${result.extra ?? ""}`)) {
+      found.add(term);
+    }
+  }
+  return replaced.every((term) => !found.has(term));
+}
+
+/**
  * Run one search.
  * options: { lens, beforeAI, wikiLang, keys, signal, fetch, cache, storage, timeoutMs, now }
  * onUpdate(state) is called whenever a source settles; the returned promise resolves with the
@@ -308,10 +331,12 @@ export async function search(rawQuery, options = {}, onUpdate = () => {}) {
       status[id].count = kept[id] ?? 0;
     }
     const passages = bestPassages(results, parsed, { skipLiving: Boolean(window_.before) });
-    // A spelling suggestion is passed on only when it really differs from what was typed.
-    const typed = fold(parsed.upstream);
-    const suggestion =
-      planned.map((id) => status[id].suggestion).find((value) => value && fold(value) !== typed) ?? null;
+    // A spelling suggestion is passed on only once every source has settled, and only when each
+    // word it replaces was found in no result: a word the sources did find is not a typing mistake.
+    const suggestion = done
+      ? (planned.map((id) => status[id].suggestion).find((value) => isCredibleSuggestion(value, parsed, results)) ??
+        null)
+      : null;
     return {
       parsed,
       window: window_,
