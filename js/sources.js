@@ -371,6 +371,8 @@ const wikipedia = {
       doc.url = page.fullurl ?? `https://en.wikipedia.org/?curid=${page.pageid}`;
       doc.snippet = truncate(String(page.extract ?? "").replace(/\s+/g, " "), 700);
       doc.extra = [page.description ?? "", stripHtml(hit?.snippet ?? "")].join(" ").trim();
+      // The lines of the page where Wikipedia found the words; shown when the introduction has none of them.
+      doc.found = stripHtml(hit?.snippet ?? "");
       if (!doc.snippet) {
         doc.snippet = stripHtml(hit?.snippet ?? "") || (page.description ?? "");
       }

@@ -129,6 +129,49 @@ export function truncate(text, maxLength) {
   return (lastSpace > maxLength * 0.6 ? cut.slice(0, lastSpace) : cut).replace(/[\s,;:]+$/, "") + "…";
 }
 
+/** How many different query terms a text contains (stemmed, like the ranking). */
+export function termHits(text, queryTerms) {
+  const wanted = new Set(queryTerms);
+  const seen = new Set();
+  for (const token of tokenize(text)) {
+    const term = stem(token);
+    if (wanted.has(term)) {
+      seen.add(term);
+    }
+  }
+  return seen.size;
+}
+
+/**
+ * The part of a text to show for a query, at most maxLength characters. The opening is kept
+ * unless a later sentence holds more of the query terms; then the excerpt starts at that
+ * sentence and an ellipsis marks what was skipped. Nothing is reworded.
+ */
+export function excerptAround(text, queryTerms, maxLength) {
+  const clean = String(text ?? "").replace(/\s+/g, " ").trim();
+  const head = truncate(clean, maxLength);
+  if (head === clean || !queryTerms.length) {
+    return head;
+  }
+  let best = head;
+  let bestHits = termHits(head, queryTerms);
+  let offset = 0;
+  for (const sentence of splitSentences(clean)) {
+    const at = clean.indexOf(sentence, offset);
+    offset = at + sentence.length;
+    if (at <= 0) {
+      continue;
+    }
+    const candidate = truncate(clean.slice(at), maxLength);
+    const hits = termHits(candidate, queryTerms);
+    if (hits > bestHits) {
+      best = `… ${candidate}`;
+      bestHits = hits;
+    }
+  }
+  return best;
+}
+
 /**
  * Escaped HTML with the query terms wrapped in <mark>. Matching is done per word on the stemmed
  * form, so "pipes" is marked for the query "pipe".

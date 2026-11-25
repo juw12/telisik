@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { fixture, fixtureFetch, hang, memoryStorage } from "./helpers.js";
-import { CACHE_KEEP_MS, ageWords, createCache, dateWindow, search } from "../js/engine.js";
+import { CACHE_KEEP_MS, ageWords, createCache, dateWindow, isCredibleSuggestion, search } from "../js/engine.js";
 import { parseQuery } from "../js/query.js";
 
 test("all sources answer: every one is reported and results are ranked", async () => {
@@ -271,4 +271,28 @@ test("GitHub's second request adds the well-known repository, and a failed secon
   assert.equal(broken.status.github.state, "ok");
   assert.equal(broken.status.github.partial, "error");
   assert.match(broken.status.github.note, /second request could not be reached; showing its first answer only/);
+});
+
+test("a spelling suggestion that replaces words the results contain is not shown", async () => {
+  const withSuggestion = (suggestion) => async () => {
+    const body = structuredClone(fixture("wikipedia"));
+    body.query.searchinfo = { suggestion };
+    return new Response(JSON.stringify(body), { status: 200 });
+  };
+  // Every typed word is in the results, so "binary" -> "bindery" is Wikipedia guessing, not a typo.
+  const guess = await search("binary search tree", { fetch: fixtureFetch({ wikipedia: withSuggestion("bindery search tree") }) });
+  assert.equal(guess.suggestion, null);
+  assert.equal(guess.status.wikipedia.suggestion, "bindery search tree");
+  // One real typo and one word the results do contain: the proposal is not trusted as a whole.
+  const mixed = await search("binray search tree", { fetch: fixtureFetch({ wikipedia: withSuggestion("binary search free") }) });
+  assert.equal(mixed.suggestion, null);
+});
+
+test("isCredibleSuggestion: only a word found nowhere counts as a typing mistake", () => {
+  const results = [{ title: "Bolted joint", snippet: "Preload is set by the torque applied to the bolt.", extra: "" }];
+  const typed = (text) => parseQuery(text);
+  assert.equal(isCredibleSuggestion("boat payload torque", typed("bolt preload torque"), results), false);
+  assert.equal(isCredibleSuggestion("bolt preload torque", typed("bolt prelaod torque"), results), true);
+  assert.equal(isCredibleSuggestion("o ring", typed("o-ring"), results), false);
+  assert.equal(isCredibleSuggestion(null, typed("bolt"), results), false);
 });

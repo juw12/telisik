@@ -2,6 +2,8 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   decodeEntities,
+  excerptAround,
+  termHits,
   escapeHtml,
   formatCount,
   highlight,
@@ -57,4 +59,23 @@ test("formatCount", () => {
   assert.equal(formatCount(1500), "1.5k");
   assert.equal(formatCount(45200), "45k");
   assert.equal(formatCount(2300000), "2.3M");
+});
+
+test("excerptAround keeps the opening unless a later sentence holds more of the query", () => {
+  const opening = "A regulator reduces gas pressure for a diver. ".repeat(4);
+  const later = "An o-ring seals the first stage and a damaged ring leaks. ";
+  const text = opening + later + "The rest of the page goes on about other parts. ".repeat(3);
+  assert.equal(excerptAround("short text", ["ring"], 80), "short text");
+  assert.ok(excerptAround(text, ["diver"], 120).startsWith("A regulator reduces"));
+  const moved = excerptAround(text, ["ring", "leak"], 120);
+  // The earliest sentence whose window holds both words: one sentence of context, then the match.
+  assert.ok(moved.startsWith("… A regulator reduces gas pressure for a diver. An o-ring seals"), moved);
+  assert.equal(termHits(moved, ["ring", "leak"]), 2);
+  assert.ok(text.includes(moved.slice(2).replace(/…$/, "")), "the excerpt is copied, not reworded");
+  assert.ok(excerptAround(text, [], 120).startsWith("A regulator reduces"));
+});
+
+test("termHits counts different query terms once each, on the stem", () => {
+  assert.equal(termHits("Leaks and a leak; the rate of leaking", ["leak", "rate", "seal"]), 2);
+  assert.equal(termHits("nothing here", ["leak"]), 0);
 });

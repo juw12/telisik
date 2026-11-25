@@ -79,3 +79,13 @@ test("a question or a description is told apart from a name", () => {
   // A quoted phrase asks for those exact words, so it is never treated as a question.
   assert.equal(parseQuery('"to be or not to be"').isQuestion, false);
 });
+
+test("the lone letter of a hyphenated name is not a ranking term of its own", () => {
+  const parsed = parseQuery("o-ring squeeze leak rate");
+  assert.deepEqual(parsed.terms, ["ring", "squeeze", "leak", "rate"]);
+  assert.equal(parsed.upstream, "o-ring squeeze leak rate");
+  assert.deepEqual(parseQuery("x-ray").terms, ["ray"]);
+  // A letter typed as a word of its own stays: "vitamin d" is not "vitamin".
+  assert.deepEqual(parseQuery("vitamin d").terms, ["vitamin", "d"]);
+  assert.deepEqual(parseQuery("a-b").terms, ["b"]);
+});

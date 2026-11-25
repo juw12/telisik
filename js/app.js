@@ -7,7 +7,7 @@ import { KIND_LABELS, LENSES, SE_SITES, SOURCE_BY_ID, describeDate } from "./sou
 import { TUNING, WEIGHTS } from "./rank.js";
 import { ageWords, createCache, search } from "./engine.js";
 import { formatCitation, snapshotUrl } from "./cite.js";
-import { highlight, truncate } from "./text.js";
+import { excerptAround, highlight, termHits, truncate } from "./text.js";
 import { CONFIG, safeHttpsUrl } from "./config.js";
 
 const SETTINGS_KEY = "telisik.settings.v1";
@@ -738,7 +738,12 @@ function resultItem(doc, number, snapshot) {
   if (doc.snippet) {
     const terms = snapshot.parsed.terms;
     const snippetClass = doc.snippetIsMeta ? "snippet is-meta" : "snippet";
-    item.append(el("p", { class: snippetClass, html: highlight(truncate(doc.snippet, 320), terms) }));
+    let shown = excerptAround(doc.snippet, terms, 320);
+    // The introduction says nothing of the query but the source found the words further down the page.
+    if (!doc.snippetIsMeta && doc.found && termHits(shown, terms) === 0 && termHits(doc.found, terms) > 0) {
+      shown = `… ${truncate(doc.found, 320)} …`;
+    }
+    item.append(el("p", { class: snippetClass, html: highlight(shown, terms) }));
   }
   if (doc.extra && doc.kind === "discussion") {
     item.append(el("p", { class: "byline", text: truncate(doc.extra, 140) }));
